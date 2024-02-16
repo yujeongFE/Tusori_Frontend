@@ -5,7 +5,7 @@ import Layout from "../../components/layouts/layout";
 const Index = () => {
   return (
     <Layout>
-      <h4>Layout.tsx파일을 import해서 사용하면 화면에 헤더도 같이 적용됩니다~!</h4>
+      <h4>헤더부분은 Layout.tsx을 import해서 사용하시면 됩니다~</h4>
     </Layout>
   )
 }
