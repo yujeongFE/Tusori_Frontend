@@ -1,16 +1,16 @@
 import React from 'react';
 import styled from 'styled-components';
 import SearchBar from './SearchBar';
-import {Link, useNavigate} from "react-router-dom";
+import {Link} from "react-router-dom";
 
 const HeaderContainer = styled.header`
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
     background: #FEFDFD;
     box-shadow: 0px 4px 2px 0px rgba(0, 0, 0, 0.04);
-    color: white;
-    display: flex;
-    padding: 0 9%; 
-
-}`;
+    padding: 0 9%;
+`;
 
 const StyledLink = styled(Link)`
     color: #676767;
@@ -41,19 +41,28 @@ const LoginLink = styled(Link)`
     font-size: 14px;
     text-decoration: none;
     padding-top: 88px;
-    margin-left: 538px;
+    padding-bottom: 16px;
     position: relative;
 `;
 
-const Header : React.FC = () => {
+const RightSection = styled.div`
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    flex-grow: 1;
+`;
+
+const Header: React.FC = () => {
     return (
         <HeaderContainer>
             <StyledLink to="/">홈</StyledLink>
             <StyledLink to="#">주식사전</StyledLink>
             <StyledLink to="#">업종별시세</StyledLink>
             <StyledLink to="#">마이페이지</StyledLink>
-            <LoginLink to="#">로그인</LoginLink>
-            <SearchBar />
+            <RightSection>
+                <LoginLink to="#">로그인</LoginLink>
+                <SearchBar />
+            </RightSection>
         </HeaderContainer>
     );
 };
