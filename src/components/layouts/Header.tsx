@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import SearchBar from './SearchBar';
+import {Link, useNavigate} from "react-router-dom";
 
 const HeaderContainer = styled.header`
     background: #FEFDFD;
@@ -11,7 +12,7 @@ const HeaderContainer = styled.header`
 
 }`;
 
-const StyledLink = styled.a`
+const StyledLink = styled(Link)`
     color: #676767;
     font-family: 'Pretendard-Medium';
     font-size: 18px;
@@ -35,7 +36,7 @@ const StyledLink = styled.a`
     }
 `;
 
-const LoginLink = styled.a`
+const LoginLink = styled(Link)`
     color: #676767;
     font-size: 14px;
     text-decoration: none;
@@ -47,11 +48,11 @@ const LoginLink = styled.a`
 const Header : React.FC = () => {
     return (
         <HeaderContainer>
-            <StyledLink href="#">홈</StyledLink>
-            <StyledLink href="#">주식사전</StyledLink>
-            <StyledLink href="#">업종별시세</StyledLink>
-            <StyledLink href="#">마이페이지</StyledLink>
-            <LoginLink href="#">로그인</LoginLink>
+            <StyledLink to="/">홈</StyledLink>
+            <StyledLink to="#">주식사전</StyledLink>
+            <StyledLink to="#">업종별시세</StyledLink>
+            <StyledLink to="#">마이페이지</StyledLink>
+            <LoginLink to="#">로그인</LoginLink>
             <SearchBar />
         </HeaderContainer>
     );
