@@ -30,11 +30,12 @@ const SwitchContainer = styled.div`
     display: flex;
 `;
 
-const Mode = styled.div`
+const Mode = styled.div<{ isInvestMode: boolean }>`
     font-size: 12px;
     margin-left: 12px;
     padding-top: 3px;
-
+    font-family: ${props => props.isInvestMode ? 'Pretendard-Bold' : 'Pretendard-Regular'};
+    color: ${props => props.isInvestMode ? '#708FFE' : 'inherit'};
 `;
 
 const switchStyle = {
@@ -113,7 +114,7 @@ const Header: React.FC = () => {
                 <SidebySideContainer>
                     <Logo src={`${process.env.PUBLIC_URL}/assets/logo.svg`} alt="logo" />
                     <SwitchContainer><Switch checked={isInvestMode} onChange={handleModeChange}{...switchStyle}/>
-                    <Mode>투자모드</Mode></SwitchContainer>
+                    <Mode isInvestMode={isInvestMode}>{isInvestMode ? "설명모드" : "투자모드"}</Mode></SwitchContainer>
                 </SidebySideContainer>
                 <SidebySideContainer>
                     <StyledLink to="/">홈</StyledLink>
