@@ -101,10 +101,10 @@ const RightSection = styled.div`
 
 
 const Header: React.FC = () => {
-    const [isPracticeMode, setIsPracticeMode] = useState(false); // 모달
+    const [isInvestMode, setIsInvesteMode] = useState(false);
 
     const handleModeChange = (checked: boolean) => {
-        setIsPracticeMode(checked);
+        setIsInvesteMode(checked);
     };
 
     return (
@@ -112,7 +112,7 @@ const Header: React.FC = () => {
             <LeftSection>
                 <SidebySideContainer>
                     <Logo src={`${process.env.PUBLIC_URL}/assets/logo.svg`} alt="logo" />
-                    <SwitchContainer><Switch checked={isPracticeMode} onChange={handleModeChange}{...switchStyle}/>
+                    <SwitchContainer><Switch checked={isInvestMode} onChange={handleModeChange}{...switchStyle}/>
                     <Mode>투자모드</Mode></SwitchContainer>
                 </SidebySideContainer>
                 <SidebySideContainer>
