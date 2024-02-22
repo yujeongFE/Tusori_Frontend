@@ -1,7 +1,9 @@
-import React from 'react';
+import React, {useState} from 'react';
 import styled from 'styled-components';
 import SearchBar from './SearchBar';
+import Switch from 'react-switch';
 import {Link} from "react-router-dom";
+
 
 const HeaderContainer = styled.header`
     display: flex;
@@ -19,8 +21,35 @@ const LeftSection = styled.div`
 
 const Logo = styled.img`
     width: 154px;
-    padding-top: 21px;
-`
+    margin-top: 21px;
+    margin-right: 28px;
+`;
+
+const SwitchContainer = styled.div`
+    margin-top: 30px;
+    display: flex;
+`;
+
+const Mode = styled.div`
+    font-size: 12px;
+    margin-left: 12px;
+    padding-top: 3px;
+
+`;
+
+const switchStyle = {
+    onHandleColor:"#708FFE", //버튼 부분
+    offHandleColor:"#708FFE",
+    onColor:"#E5EAFD", //트랙 부분
+    offColor:"#E5EAFD",
+    handleDiameter: 20,
+    uncheckedIcon: false,
+    checkedIcon: false,
+    //boxShadow: "0px 1px 5px rgba(0, 0, 0, 0.6)",
+    activeBoxShadow: "0px 0px 1px 5px rgba(0, 0, 0, 0.1)",
+    height: 8,
+    width: 46,
+};
 
 const StyledLink = styled(Link)`
     color: #676767;
@@ -46,7 +75,7 @@ const StyledLink = styled(Link)`
     }
 `;
 
-const LinkContainer = styled.div`
+const SidebySideContainer = styled.div`
     display: flex;
     flex-direction: space-between;
     margin-right: 68px;
@@ -69,17 +98,29 @@ const RightSection = styled.div`
     flex-grow: 1;
 `;
 
+
+
 const Header: React.FC = () => {
+    const [isPracticeMode, setIsPracticeMode] = useState(false); // 모달
+
+    const handleModeChange = (checked: boolean) => {
+        setIsPracticeMode(checked);
+    };
+
     return (
         <HeaderContainer>
             <LeftSection>
-                <Logo src={`${process.env.PUBLIC_URL}/assets/logo.svg`} alt="logo" />
-                <LinkContainer>
+                <SidebySideContainer>
+                    <Logo src={`${process.env.PUBLIC_URL}/assets/logo.svg`} alt="logo" />
+                    <SwitchContainer><Switch checked={isPracticeMode} onChange={handleModeChange}{...switchStyle}/>
+                    <Mode>투자모드</Mode></SwitchContainer>
+                </SidebySideContainer>
+                <SidebySideContainer>
                     <StyledLink to="/">홈</StyledLink>
                     <StyledLink to="#">주식사전</StyledLink>
                     <StyledLink to="#">업종별시세</StyledLink>
                     <StyledLink to="#">마이페이지</StyledLink>
-                </LinkContainer>
+                </SidebySideContainer>
             </LeftSection>
             <RightSection>
                 <LoginLink to="#">로그인</LoginLink>
