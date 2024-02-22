@@ -34,7 +34,7 @@ const Mode = styled.div<{ isInvestMode: boolean }>`
     font-size: 12px;
     margin-left: 12px;
     padding-top: 3px;
-    font-family: ${props => props.isInvestMode ? 'Pretendard-Bold' : 'Pretendard-Regular'};
+    font-family: ${props => props.isInvestMode ? 'Pretendard-Bold' : 'inherit'};
     color: ${props => props.isInvestMode ? '#708FFE' : 'inherit'};
 `;
 
