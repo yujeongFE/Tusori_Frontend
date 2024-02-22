@@ -12,13 +12,23 @@ const HeaderContainer = styled.header`
     padding: 0 9%;
 `;
 
+const LeftSection = styled.div`
+    display: flex;
+    flex-direction: column;
+`;
+
+const Logo = styled.img`
+    width: 154px;
+    padding-top: 21px;
+`
+
 const StyledLink = styled(Link)`
     color: #676767;
     font-family: 'Pretendard-Medium';
     font-size: 18px;
     text-decoration: none;
     padding-bottom: 16px;
-    padding-top: 85px;
+    padding-top: 29px;
     margin-right: 68px;
     position: relative;
 
@@ -34,6 +44,13 @@ const StyledLink = styled(Link)`
             left: 0;
         }
     }
+`;
+
+const LinkContainer = styled.div`
+    display: flex;
+    flex-direction: space-between;
+    margin-right: 68px;
+
 `;
 
 const LoginLink = styled(Link)`
@@ -55,10 +72,15 @@ const RightSection = styled.div`
 const Header: React.FC = () => {
     return (
         <HeaderContainer>
-            <StyledLink to="/">홈</StyledLink>
-            <StyledLink to="#">주식사전</StyledLink>
-            <StyledLink to="#">업종별시세</StyledLink>
-            <StyledLink to="#">마이페이지</StyledLink>
+            <LeftSection>
+                <Logo src={`${process.env.PUBLIC_URL}/assets/logo.svg`} alt="logo" />
+                <LinkContainer>
+                    <StyledLink to="/">홈</StyledLink>
+                    <StyledLink to="#">주식사전</StyledLink>
+                    <StyledLink to="#">업종별시세</StyledLink>
+                    <StyledLink to="#">마이페이지</StyledLink>
+                </LinkContainer>
+            </LeftSection>
             <RightSection>
                 <LoginLink to="#">로그인</LoginLink>
                 <SearchBar />
