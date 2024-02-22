@@ -124,7 +124,7 @@ const Header: React.FC = () => {
                 </SidebySideContainer>
             </LeftSection>
             <RightSection>
-                <LoginLink to="#">로그인</LoginLink>
+                <LoginLink to="/login">로그인</LoginLink>
                 <SearchBar />
             </RightSection>
         </HeaderContainer>
