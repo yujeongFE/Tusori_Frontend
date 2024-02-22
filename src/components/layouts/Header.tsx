@@ -21,8 +21,35 @@ const LeftSection = styled.div`
 
 const Logo = styled.img`
     width: 154px;
-    padding-top: 21px;
-`
+    margin-top: 21px;
+    margin-right: 28px;
+`;
+
+const SwitchContainer = styled.div`
+    margin-top: 30px;
+    display: flex;
+`;
+
+const Mode = styled.div`
+    font-size: 12px;
+    margin-left: 12px;
+    padding-top: 3px;
+
+`;
+
+const switchStyle = {
+    onHandleColor:"#708FFE", //버튼 부분
+    offHandleColor:"#708FFE",
+    onColor:"#E5EAFD", //트랙 부분
+    offColor:"#E5EAFD",
+    handleDiameter: 20,
+    uncheckedIcon: false,
+    checkedIcon: false,
+    //boxShadow: "0px 1px 5px rgba(0, 0, 0, 0.6)",
+    activeBoxShadow: "0px 0px 1px 5px rgba(0, 0, 0, 0.1)",
+    height: 8,
+    width: 46,
+};
 
 const StyledLink = styled(Link)`
     color: #676767;
@@ -71,22 +98,10 @@ const RightSection = styled.div`
     flex-grow: 1;
 `;
 
-const switchStyle = {
-    onHandleColor:"#708FFE", //버튼 부분
-    offHandleColor:"#708FFE",
-    onColor:"#E5EAFD", //트랙 부분
-    offColor:"#E5EAFD",
-    handleDiameter: 20,
-    uncheckedIcon: false,
-    checkedIcon: false,
-    boxShadow: "0px 1px 5px rgba(0, 0, 0, 0.6)",
-    activeBoxShadow: "0px 0px 1px 10px rgba(0, 0, 0, 0.2)",
-    height: 15,
-    width: 38,
-};
+
 
 const Header: React.FC = () => {
-    const [isPracticeMode, setIsPracticeMode] = useState(false);
+    const [isPracticeMode, setIsPracticeMode] = useState(false); // 모달
 
     const handleModeChange = (checked: boolean) => {
         setIsPracticeMode(checked);
@@ -97,8 +112,8 @@ const Header: React.FC = () => {
             <LeftSection>
                 <SidebySideContainer>
                     <Logo src={`${process.env.PUBLIC_URL}/assets/logo.svg`} alt="logo" />
-                    <Switch checked={isPracticeMode} onChange={handleModeChange}
-                    {...switchStyle}/>
+                    <SwitchContainer><Switch checked={isPracticeMode} onChange={handleModeChange}{...switchStyle}/>
+                    <Mode>투자모드</Mode></SwitchContainer>
                 </SidebySideContainer>
                 <SidebySideContainer>
                     <StyledLink to="/">홈</StyledLink>
