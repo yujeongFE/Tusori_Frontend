@@ -1,7 +1,9 @@
-import React from 'react';
+import React, {useState} from 'react';
 import styled from 'styled-components';
 import SearchBar from './SearchBar';
+import Switch from 'react-switch';
 import {Link} from "react-router-dom";
+
 
 const HeaderContainer = styled.header`
     display: flex;
@@ -46,7 +48,7 @@ const StyledLink = styled(Link)`
     }
 `;
 
-const LinkContainer = styled.div`
+const SidebySideContainer = styled.div`
     display: flex;
     flex-direction: space-between;
     margin-right: 68px;
@@ -69,17 +71,41 @@ const RightSection = styled.div`
     flex-grow: 1;
 `;
 
+const switchStyle = {
+    onHandleColor:"#708FFE", //버튼 부분
+    offHandleColor:"#708FFE",
+    onColor:"#E5EAFD", //트랙 부분
+    offColor:"#E5EAFD",
+    handleDiameter: 20,
+    uncheckedIcon: false,
+    checkedIcon: false,
+    boxShadow: "0px 1px 5px rgba(0, 0, 0, 0.6)",
+    activeBoxShadow: "0px 0px 1px 10px rgba(0, 0, 0, 0.2)",
+    height: 15,
+    width: 38,
+};
+
 const Header: React.FC = () => {
+    const [isPracticeMode, setIsPracticeMode] = useState(false);
+
+    const handleModeChange = (checked: boolean) => {
+        setIsPracticeMode(checked);
+    };
+
     return (
         <HeaderContainer>
             <LeftSection>
-                <Logo src={`${process.env.PUBLIC_URL}/assets/logo.svg`} alt="logo" />
-                <LinkContainer>
+                <SidebySideContainer>
+                    <Logo src={`${process.env.PUBLIC_URL}/assets/logo.svg`} alt="logo" />
+                    <Switch checked={isPracticeMode} onChange={handleModeChange}
+                    {...switchStyle}/>
+                </SidebySideContainer>
+                <SidebySideContainer>
                     <StyledLink to="/">홈</StyledLink>
                     <StyledLink to="#">주식사전</StyledLink>
                     <StyledLink to="#">업종별시세</StyledLink>
                     <StyledLink to="#">마이페이지</StyledLink>
-                </LinkContainer>
+                </SidebySideContainer>
             </LeftSection>
             <RightSection>
                 <LoginLink to="#">로그인</LoginLink>
