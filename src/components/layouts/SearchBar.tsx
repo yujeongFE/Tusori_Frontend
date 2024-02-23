@@ -36,6 +36,7 @@ const SearchButton = styled.button`
     border: none;
     padding: 12px;
     cursor: pointer;
+
 `;
 
 
