@@ -18,9 +18,15 @@
   src: url('./fonts/Pretendard-Medium.ttf') format(truetype);
 }
 
+@font-face{
+  font-family: 'Roboto-Regular';
+  src: url('./fonts/Roboto-Regular.ttf') format(truetype);
+
+}
+
 body {
   margin: 0;
-  font-family: 'Pretendard-Regular', 'Pretendard-Light', 'Pretendard-Bold', 'Pretendard-Medium', -apple-system, BlinkMacSystemFont;
+  font-family: 'Pretendard-Regular', 'Pretendard-Light', 'Pretendard-Bold', 'Pretendard-Medium', 'Roboto-Regular', -apple-system, BlinkMacSystemFont;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
