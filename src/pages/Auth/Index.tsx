@@ -12,12 +12,8 @@ const Index = () => {
                 <KakaoBtn>카카오 로그인/회원가입</KakaoBtn>
                 <CautionText>회원가입 시 모의주식의 <b>서비스 이용 약관</b>과 <b>개인정보 보호정책</b>에 동의하게 됩니다.</CautionText>
             </Center>
-            
         </Layout>
     )
 }
-
-  
-  export default Index;
-  
-  /* caution text bold */
+ 
+export default Index;

@@ -7,12 +7,16 @@ const LayoutContainer = styled.div`
     padding: 0 9%;
 `;
 
-const Layout = (props: {children:React.ReactNode}) => {
+interface LayoutProps {
+    children: React.ReactNode;
+}
+
+const Layout = ({ children } : LayoutProps) => {
     return(
     <>
         <Header />
         <LayoutContainer>
-            {props.children}
+            {children}
         </LayoutContainer>
     </>
     );
