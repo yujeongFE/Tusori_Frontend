@@ -1,9 +1,8 @@
-import React, {useState} from 'react';
+import React, { useState} from 'react';
 import styled from 'styled-components';
 import SearchBar from './SearchBar';
 import Switch from 'react-switch';
 import {Link} from "react-router-dom";
-
 
 const HeaderContainer = styled.header`
     display: flex;
@@ -30,7 +29,11 @@ const SwitchContainer = styled.div`
     display: flex;
 `;
 
-const Mode = styled.div<{ isInvestMode: boolean }>`
+interface ModeProps { 
+    isInvestMode: boolean;
+}
+
+const Mode = styled.div<ModeProps>`
     font-size: 12px;
     margin-left: 12px;
     padding-top: 3px;
@@ -99,10 +102,8 @@ const RightSection = styled.div`
     flex-grow: 1;
 `;
 
-
-
-const Header: React.FC = () => {
-    const [isInvestMode, setIsInvesteMode] = useState(false);
+const Header = () => {
+    const [isInvestMode, setIsInvesteMode] = useState<boolean>(false);
 
     const handleModeChange = (checked: boolean) => {
         setIsInvesteMode(checked);
