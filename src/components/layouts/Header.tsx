@@ -11,6 +11,7 @@ const HeaderContainer = styled.header`
     background: #FEFDFD;
     box-shadow: 0px 4px 2px 0px rgba(0, 0, 0, 0.04);
     padding: 0 9%;
+    margin-bottom: 5px;
 `;
 
 const LeftSection = styled.div`
@@ -119,7 +120,7 @@ const Header = () => {
                 </SidebySideContainer>
                 <SidebySideContainer>
                     <StyledLink to="/">홈</StyledLink>
-                    <StyledLink to="#">주식사전</StyledLink>
+                    <StyledLink to="/dict/process">주식사전</StyledLink>
                     <StyledLink to="#">업종별시세</StyledLink>
                     <StyledLink to="#">마이페이지</StyledLink>
                 </SidebySideContainer>
