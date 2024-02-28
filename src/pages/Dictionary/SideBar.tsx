@@ -20,20 +20,21 @@ const StyledNav = styled.nav`
 `;
 
 const StyledNavLink = styled(NavLink)`
-  font-weight: normal;
-  color: black;
-  text-decoration: none;
-  padding: 10px;
-  display: flex;
-  align-items: center;
+    color: #2A2A2A;
+    text-decoration: none;
+    font-size: 18px;
+    display: flex;
+    align-items: center;
+    padding: 24px 13px 24px 14px;
+    border-bottom: 1px solid #E3E3E3;
 
-  img {
-    margin-left: auto;
-  }
+    img {
+        margin-left: auto;
+    }
 
-  &.active {
-    font-weight: bold;
-  }
+    &.active {
+        font-family: Pretendard-Bold;
+    }
 `;
 
 const SideBar: React.FC = () => {
