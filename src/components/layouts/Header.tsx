@@ -1,8 +1,9 @@
 import React, { useState} from 'react';
-import styled from 'styled-components';
+import styled, {css} from 'styled-components';
 import SearchBar from './SearchBar';
 import Switch from 'react-switch';
-import {Link} from "react-router-dom";
+import {NavLink, Link} from "react-router-dom";
+
 
 const HeaderContainer = styled.header`
     display: flex;
@@ -55,7 +56,21 @@ const switchStyle = {
     width: 46,
 };
 
-const StyledLink = styled(Link)`
+const activeLinkStyle = css`
+    color: #708FFE;
+    font-weight: bold;
+    &:after {
+        content: '';
+        position: absolute;
+        width: 100%;
+        height: 2.5px;
+        background-color: #708FFE;
+        bottom: 0; 
+        left: 0;
+      }
+`;
+
+const StyledNavLink = styled(NavLink)`
     color: #676767;
     font-family: 'Pretendard-Medium';
     font-size: 18px;
@@ -66,16 +81,11 @@ const StyledLink = styled(Link)`
     position: relative;
 
     &:hover {
-        color: #708FFE;
-        &:after {
-            content: '';
-            position: absolute;
-            width: 100%;
-            height: 2.5px;
-            background-color: #708FFE;
-            bottom: 0; 
-            left: 0;
-        }
+        ${activeLinkStyle}
+    }
+
+    &.active {
+        ${activeLinkStyle}
     }
 `;
 
@@ -118,10 +128,10 @@ const Header = () => {
                     <Mode isInvestMode={isInvestMode}>{isInvestMode ? "설명모드" : "투자모드"}</Mode></SwitchContainer>
                 </SidebySideContainer>
                 <SidebySideContainer>
-                    <StyledLink to="/">홈</StyledLink>
-                    <StyledLink to="/dict/process">주식사전</StyledLink>
-                    <StyledLink to="#">업종별시세</StyledLink>
-                    <StyledLink to="#">마이페이지</StyledLink>
+                    <StyledNavLink to="/">홈</StyledNavLink>
+                    <StyledNavLink to="/dict/process">주식사전</StyledNavLink>
+                    <StyledNavLink to="/...">업종별시세</StyledNavLink>
+                    <StyledNavLink to="/mypage">마이페이지</StyledNavLink>
                 </SidebySideContainer>
             </LeftSection>
             <RightSection>
