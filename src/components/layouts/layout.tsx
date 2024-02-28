@@ -4,7 +4,7 @@ import Header from "./Header";
 
 const LayoutContainer = styled.div`
     background: #FEFDFD;
-    padding: 0 9%;
+    padding: 0 13.5vw;
 `;
 
 interface LayoutProps {
