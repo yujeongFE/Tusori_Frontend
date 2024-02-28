@@ -1,9 +1,8 @@
 import styled from "styled-components";
+import { NavLink } from "react-router-dom";
 
 export const Side = styled.div`
     width: 20%;
-    height: 100%;
-    background: #F4F4F4;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -11,11 +10,29 @@ export const Side = styled.div`
 `;
 
 export const Menu = styled.div`
-    margin-top: 20px;
     display: flex;
     flex-direction: column;
     align-items: center;
+    
 `
 
-export const activeLinkStyle = (isActive: boolean) => 
-isActive ? { textDecoration: "none", color: "black" } : { textDecoration: "none", color: "gray" };
+export const Title = styled.div`
+    width: 214px;
+    text-align: center;
+    color: '#2A2A2A';
+    font-size: 28px;
+    font-family: 'Pretendard-Bold';
+    margin-top: 61px;
+    padding-bottom: 30px;
+    border-bottom: 2px solid #E3E3E3;
+`;
+
+export const StyledNavLink = styled(NavLink)`
+    display: block;
+    width: 214px;
+    padding: 24px 0;
+    font-size: 18px;
+    text-decoration: none;
+    color: #2A2A2A;
+    border-bottom: 1px solid #E3E3E3;
+`;

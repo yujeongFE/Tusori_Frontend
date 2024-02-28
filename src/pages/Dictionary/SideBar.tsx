@@ -1,7 +1,7 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
 import Layout from "../../components/layouts/layout";
-import { Side, Menu, activeLinkStyle } from "./Style";
+import { Title, Side, Menu, StyledNavLink } from "./Style";
 
 interface Menu {
     name: string;
@@ -16,15 +16,12 @@ const SideBar : React.FC = () => {
     return (
         <Layout>
             <Side>
+                <Title>주식사전</Title>
                 <Menu>
                 {menus.map((menu, index) => (
-                    <NavLink
-                        style={({ isActive }) => activeLinkStyle(isActive)}
-                        to={menu.path}
-                        key={index}
-                    >
+                    <StyledNavLink to={menu.path} key={index}>
                         {menu.name}
-                    </NavLink>
+                    </StyledNavLink>
                 ))}
                 </Menu>
             </Side>
