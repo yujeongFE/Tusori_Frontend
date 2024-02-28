@@ -1,5 +1,4 @@
 import React from "react";
-import Layout from "../../components/layouts/layout";
 import { LoginText, Center, Text, KakaoBtn, CautionText } from "./Style";
 
 const Index = () => {

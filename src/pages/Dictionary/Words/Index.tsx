@@ -1,6 +1,5 @@
 import React from "react";
 import  SideBar from "../../../components/SideBar";
-import styled from "styled-components";
 import { SidebarContainer, Container, Content, Title } from "../../Dictionary/Style";
 
 const Index = () => {
