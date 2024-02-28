@@ -49,7 +49,7 @@ const SideBar: React.FC = () => {
         주식 투자 과정<img src={`${process.env.PUBLIC_URL}/assets/right-arrow.svg`} alt="arrow" />
       </StyledNavLink>
       <StyledNavLink
-        to="#"
+        to="/dict/words"
         className={({ isActive }: { isActive: boolean }) => (isActive ? 'active' : '')}
       >
         주식 용어 설명 <img src={`${process.env.PUBLIC_URL}/assets/right-arrow.svg`} alt="arrow" />

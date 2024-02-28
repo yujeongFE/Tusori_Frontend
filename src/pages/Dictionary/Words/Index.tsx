@@ -5,7 +5,7 @@ const Index = () => {
     return (
         <>
         <SideBar />
-        <h1>Process</h1>
+        <h1>용어 설명</h1>
         </>
     )
 }
