@@ -1,13 +1,19 @@
 import React from "react";
 import  SideBar from "../../../components/SideBar";
+import styled from "styled-components";
+import { SidebarContainer, Container, Content, Title } from "../../Dictionary/Style";
 
 const Index = () => {
     return (
-        <>
-        <SideBar />
-        <h1>용어 설명</h1>
-        </>
-    )
+        <Container>
+            <SidebarContainer>
+                <SideBar />
+            </SidebarContainer>
+            <Content>
+                <Title>주식 용어 설명</Title>
+            </Content>
+        </Container>
+      );
 }
  
 export default Index;
