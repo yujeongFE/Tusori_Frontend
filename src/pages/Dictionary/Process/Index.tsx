@@ -49,7 +49,7 @@ const Index: React.FC = () => {
           </ButtonContainer>
 
           <ButtonContainer>
-            <Button onClick={handleClickButton} selected={stepKey === "four"} name="four">
+            <Button onClick={handleClickButton} selected={stepKey === "four"} name="four" style={{ marginRight: "0px" }}>
               <Span>04</Span>
               <br />
               동일 업종 비교하기

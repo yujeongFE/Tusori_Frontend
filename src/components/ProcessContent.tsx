@@ -1,4 +1,5 @@
 import React from "react";
+import styled from "styled-components";
 
 interface ContentItem {
   step: string;
@@ -55,8 +56,8 @@ const ProcessContent: React.FC<ContentProps> = ({ stepKey }) => {
     <div>
       {stepData.map((data, index) => (
         <div key={index}>
-          <h3>{data.step}</h3>
-          <p>{data.content}</p>
+          <StepText>{data.step}</StepText>
+          <ContentText>{data.content}</ContentText>
         </div>
       ))}
     </div>
@@ -64,3 +65,15 @@ const ProcessContent: React.FC<ContentProps> = ({ stepKey }) => {
 };
 
 export default ProcessContent;
+
+const StepText = styled.div`
+  font-size: 28px;
+  font-family: Pretendard-Medium;
+  margin: 68px 0 21px 10px;
+
+`;
+
+const ContentText = styled.div`
+  font-size: 20px;
+  margin: 0 0 122px 0;
+`;
