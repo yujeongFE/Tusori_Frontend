@@ -37,6 +37,19 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+button {
+  font-family:
+    "Pretendard-Regular",
+    "Pretendard-Light",
+    "Pretendard-Bold",
+    "Pretendard-Medium",
+    "Roboto-Regular",
+    -apple-system,
+    BlinkMacSystemFont;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New", monospace;
 }
