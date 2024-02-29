@@ -9,6 +9,8 @@ const MarketInfoBox = styled.div`
   flex-direction: column;
   width: 13.5vw;
   height: 15.6vh;
+  min-width: 140px;
+  min-height: 170px;
   flex-shrink: 0;
   padding-bottom: 10px;
   border-radius: 8px 8px 0px 0px;
@@ -25,6 +27,7 @@ const MarketInfoBox = styled.div`
     line-height: normal;
     margin-top: 9.5px;
     margin-left: 1vw;
+    margin-bottom: 3.4vh;
   }
 
   @media (max-width: 767px) {
@@ -32,9 +35,8 @@ const MarketInfoBox = styled.div`
   }
 `;
 
-// 현재 수치 값 
+// 현재 수치 값
 const CurrentIndex = styled.div`
-  margin-top: 5vh;
   color: var(--Main-Font, #2a2a2a);
   text-align: center;
   font-family: Pretendard;
@@ -44,7 +46,7 @@ const CurrentIndex = styled.div`
   line-height: normal;
 `;
 
-// 변경된 수치 값 
+// 변경된 수치 값
 const ChangeIndex = styled.div`
   color: #f00;
   font-family: Pretendard;
@@ -52,16 +54,16 @@ const ChangeIndex = styled.div`
   font-style: normal;
   font-weight: 500;
   line-height: normal;
-  margin-left: 1.5vw;
+  text-align: center;
   margin-top: 9.5px;
 `;
 
-// 변경된 퍼센트 값 
+// 변경된 퍼센트 값
 const ChangePercent = styled.span`
   margin-left: 1.5vw;
 `;
 
-// 상하 변경 방향을 나타내는 화살표 및 변경된 수치 값 컴포넌트 
+// 상하 변경 방향을 나타내는 화살표 및 변경된 수치 값 컴포넌트
 const Arrow: React.FC<{ value: string; percent: string }> = ({ value, percent }) => {
   const isPositive = parseFloat(value) >= 0;
   const arrowImage = isPositive ? rising : downward;
@@ -83,7 +85,7 @@ interface MarketInfoProps {
   style?: React.CSSProperties;
 }
 
-// 상자에 담긴 모든 정보들을 표시하는 컴포넌트 
+// 상자에 담긴 모든 정보들을 표시하는 컴포넌트
 const MarketInfo: React.FunctionComponent<MarketInfoProps> = ({ title, index, change, percent, style }) => {
   return (
     <MarketInfoBox style={style}>
@@ -96,7 +98,7 @@ const MarketInfo: React.FunctionComponent<MarketInfoProps> = ({ title, index, ch
   );
 };
 
-// 최종적인 박스 UI를 나타내는 컴포넌트 
+// 최종적인 박스 UI를 나타내는 컴포넌트
 const MarketInfoBoxContainer: React.FC = () => {
   const titles = ["코스피", "코스닥", "코스피200", "코스피150", "KRX300"];
   const boxes = titles.map((title, index) => (
@@ -106,11 +108,11 @@ const MarketInfoBoxContainer: React.FC = () => {
       index={data.indices[index]}
       change={data.change[index]}
       percent={data.percent[index]}
-      style={{ marginLeft: index === 0 ? "0vw" : "1.5vw" }}
+      style={{ marginLeft: index === 0 ? "0vw" : "1.3vw" }}
     />
   ));
 
-  return <div style={{ display: "flex", marginTop: "36px" }}>{boxes}</div>;
+  return <div style={{ display: "flex", marginTop: "36px", width: "73vw" }}>{boxes}</div>;
 };
 
 export default MarketInfoBoxContainer;
