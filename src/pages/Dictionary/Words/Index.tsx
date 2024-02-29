@@ -2,7 +2,7 @@ import React from "react";
 import SideBar from "../../../components/SideBar";
 import { SidebarContainer, Container, Content, Title } from "../../Dictionary/Style";
 
-const Index = () => {
+const Index: React.FC = () => {
   return (
     <Container>
       <SidebarContainer>
