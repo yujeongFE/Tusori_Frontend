@@ -121,7 +121,9 @@ const Header = () => {
     <HeaderContainer>
       <LeftSection>
         <SidebySideContainer>
-          <Logo src={`${process.env.PUBLIC_URL}/assets/logo.svg`} alt="logo" />
+          <Link to="/">
+            <Logo src={`${process.env.PUBLIC_URL}/assets/logo.svg`} alt="logo" />
+          </Link>
           <SwitchContainer>
             <Switch checked={isInvestMode} onChange={handleModeChange} {...switchStyle} />
             <Mode isInvestMode={isInvestMode}>{isInvestMode ? "설명모드" : "투자모드"}</Mode>
