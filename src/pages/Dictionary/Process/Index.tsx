@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import SideBar from "../../../components/SideBar";
 //import styled from "styled-components";
 import ProcessContent from "../../../components/ProcessContent";
-import { SidebarContainer, Container, Content, Title } from "../../Dictionary/Style";
+import { SidebarContainer, Container, Content, Title } from "../Style";
 import { Button, ButtonsContainer, ButtonContainer, Span, Img } from "./Style";
 
 const Index: React.FC = () => {
