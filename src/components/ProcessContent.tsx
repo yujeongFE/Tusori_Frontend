@@ -70,7 +70,6 @@ const StepText = styled.div`
   font-size: 28px;
   font-family: Pretendard-Medium;
   margin: 68px 0 21px 10px;
-
 `;
 
 const ContentText = styled.div`
