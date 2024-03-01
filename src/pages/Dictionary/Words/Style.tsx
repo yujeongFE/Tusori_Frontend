@@ -28,7 +28,6 @@ export const Input = styled.input`
   width: 80%;
   border: none;
   font-size: 18px;
-  color: #b0b0b0;
   &::placeholder {
     color: #b0b0b0;
   }
