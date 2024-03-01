@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 
+//배경(파란부분)
 const UserInfoContainer = styled.div`
   display: flex;
   justify-content: center;
@@ -9,6 +10,7 @@ const UserInfoContainer = styled.div`
   background-color: #eff2ff;
 `;
 
+//프로필박스 전체
 const UserInfoBox = styled.div`
   display: flex;
   justify-content: space-between;
@@ -20,6 +22,8 @@ const UserInfoBox = styled.div`
   background: #fff;
   box-shadow: 0px 2px 8px 0px rgba(0, 0, 0, 0.08);
 `;
+
+//왼쪽 부분(사진, 이름, 메일) 컨테이너
 const ProfileContainer = styled.div`
   height: 100%;
   display: flex;
@@ -54,6 +58,35 @@ const UserEmail = styled.div`
   font-size: 20px;
 `;
 
+//오른쪽 부분(내 자산정보) 컨테이너
+const MyAssetContainer = styled.div`
+  height: 100%;
+  width: 60%;
+  display: flex;
+  flex-direction: column;
+  margin-right: 63px;
+`;
+
+const AssetText = styled.div`
+  font-size: 20px;
+  font-family: Pretendard-Light;
+  font-weight: 800;
+  padding: 24px 0 0 0;
+`;
+
+const Line = styled.div`
+  width: 100%;
+  height: 1px;
+  background-color: #e3e3e3;
+  margin-top: 20px;
+`;
+
+//가로배치용 컴포넌트
+const RowContainer = styled.div`
+  display: flex;
+  //justify-content: space-between;
+`;
+
 const Profile: React.FC = () => {
   return (
     <>
@@ -61,14 +94,22 @@ const Profile: React.FC = () => {
         <UserInfoBox>
           <ProfileContainer>
             <ProfileImg src={`${process.env.PUBLIC_URL}/assets/Tiger.webp`} alt="profile" />
-            <div style={{ display: "flex" }}>
+            <RowContainer>
               <UserName>이름</UserName>
               <EditBtn>
                 <img src={`${process.env.PUBLIC_URL}/assets/editBtn.svg`} alt="edit" />
               </EditBtn>
-            </div>
+            </RowContainer>
             <UserEmail>email@gmail.com</UserEmail>
           </ProfileContainer>
+          <MyAssetContainer>
+            <AssetText style={{ paddingTop: "29px", fontFamily: "Pretendard-Medium" }}>내 자산 정보</AssetText>
+            <Line />
+            <AssetText>총 자산</AssetText>
+            <AssetText>가용 자산</AssetText>
+            <AssetText>보유 주식 총액</AssetText>
+            <AssetText>보유 종목 수</AssetText>
+          </MyAssetContainer>
         </UserInfoBox>
       </UserInfoContainer>
     </>
@@ -76,3 +117,7 @@ const Profile: React.FC = () => {
 };
 
 export default Profile;
+
+// 추가해야할 UI
+// 1. 초기화 버튼
+// 2. 내 자산 정보 부분 숫자 표시
