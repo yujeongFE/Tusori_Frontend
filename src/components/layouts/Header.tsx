@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import styled, { css } from "styled-components";
 import SearchBar from "./SearchBar";
 import Switch from "react-switch";
-import { NavLink, Link } from "react-router-dom";
+import { NavLink, Link, useLocation } from "react-router-dom";
 
 const HeaderContainer = styled.header`
   display: flex;
@@ -112,16 +112,22 @@ const RightSection = styled.div`
 
 const Header = () => {
   const [isInvestMode, setIsInvesteMode] = useState<boolean>(false);
-
   const handleModeChange = (checked: boolean) => {
     setIsInvesteMode(checked);
+  };
+
+  const location = useLocation();
+  const checkActive = (path: string) => {
+    return ["/dict/process", "/dict/words"].includes(path);
   };
 
   return (
     <HeaderContainer>
       <LeftSection>
         <SidebySideContainer>
-          <Logo src={`${process.env.PUBLIC_URL}/assets/logo.svg`} alt="logo" />
+          <Link to="/">
+            <Logo src={`${process.env.PUBLIC_URL}/assets/logo.svg`} alt="logo" />
+          </Link>
           <SwitchContainer>
             <Switch checked={isInvestMode} onChange={handleModeChange} {...switchStyle} />
             <Mode isInvestMode={isInvestMode}>{isInvestMode ? "설명모드" : "투자모드"}</Mode>
@@ -129,7 +135,9 @@ const Header = () => {
         </SidebySideContainer>
         <SidebySideContainer>
           <StyledNavLink to="/">홈</StyledNavLink>
-          <StyledNavLink to="/dict/process">주식사전</StyledNavLink>
+          <StyledNavLink to="/dict/process" className={checkActive(location.pathname) ? "active" : ""}>
+            주식사전
+          </StyledNavLink>
           <StyledNavLink to="/...">업종별시세</StyledNavLink>
           <StyledNavLink to="/mypage">마이페이지</StyledNavLink>
         </SidebySideContainer>
