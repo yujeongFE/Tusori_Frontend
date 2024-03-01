@@ -1,13 +1,10 @@
 import React from "react";
-import { MyInfoContainer, MyInfoBox} from "./Style";
+import Profile from "../../components/Profile";
 
 const Index: React.FC = () => {
   return (
     <>
-      <MyInfoContainer>
-        <MyInfoBox>
-        </MyInfoBox>
-      </MyInfoContainer>
+      <Profile />
     </>
   );
 };
