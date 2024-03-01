@@ -1,7 +1,7 @@
 import React from "react";
 import { LoginText, Center, Text, KakaoBtn, CautionText } from "./Style";
 
-const Index = () => {
+const Index: React.FC = () => {
   return (
     <>
       <LoginText>로그인</LoginText>
