@@ -6,12 +6,18 @@ type TableProps = {
   data: any[][];
 };
 
+type CellProps = {
+  isFirstColumn: boolean;
+};
+
 const MyPageTable = ({ headers, data }: TableProps) => (
   <TableContainer>
     <thead>
       <tr>
         {headers.map((header, index) => (
-          <Th key={index}>{header}</Th>
+          <Th key={index} isFirstColumn={index === 0}>
+            {header}
+          </Th>
         ))}
       </tr>
     </thead>
@@ -20,7 +26,9 @@ const MyPageTable = ({ headers, data }: TableProps) => (
       {data.map((row, rowIndex) => (
         <tr key={rowIndex}>
           {row.map((cell, cellIndex) => (
-            <Td key={cellIndex}>{cell}</Td>
+            <Td key={cellIndex} isFirstColumn={cellIndex === 0}>
+              {cell}
+            </Td>
           ))}
         </tr>
       ))}
@@ -29,21 +37,24 @@ const MyPageTable = ({ headers, data }: TableProps) => (
 );
 
 const TableContainer = styled.table`
-  width: 80%;
+  width: 82%;
   height: 304px;
   border-radius: 8px;
   border: 1px solid #e3e3e3;
   margin-bottom: 70px;
 `;
 
-const Th = styled.th`
-  padding: 15px 0 20px 2vw;
-  text-align: left;
+const Th = styled.th<CellProps>`
+  padding: 15px 20px 15px 10px;
   border-bottom: 1px solid #e3e3e3;
+  font-size: 18px;
+  text-align: ${({ isFirstColumn }) => (isFirstColumn ? "left" : "right")};
 `;
 
-const Td = styled.td`
-  padding: 5px 0 0 2vw;
+const Td = styled.td<CellProps>`
+  padding: 5px 20px 0 10px;
+  font-size: 18px;
+  text-align: ${({ isFirstColumn }) => (isFirstColumn ? "left" : "right")};
 `;
 
 export default MyPageTable;
