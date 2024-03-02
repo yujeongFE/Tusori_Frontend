@@ -20,7 +20,7 @@ const LeftSection = styled.div`
 
 const Logo = styled.img`
   width: 128px;
-  margin: 23.95px 54px 0 0;
+  margin: 23.95px 3vw 0 0;
 `;
 
 const SwitchContainer = styled.div`
