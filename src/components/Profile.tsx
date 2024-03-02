@@ -71,7 +71,17 @@ const AssetText = styled.div`
   font-size: 20px;
   font-family: Pretendard-Light;
   font-weight: 800;
-  padding: 24px 0 0 0;
+  padding: 24px 0 0 15px;
+`;
+
+const ResetBtn = styled.button`
+  border: none;
+  font-size: 15px;
+  color: #b0b0b0;
+  background-color: transparent;
+  cursor: pointer;
+  margin: 33px 8px 0 0;
+  text-decoration: underline;
 `;
 
 const Line = styled.div`
@@ -79,6 +89,11 @@ const Line = styled.div`
   height: 1px;
   background-color: #e3e3e3;
   margin-top: 20px;
+`;
+
+const AmountText = styled.div`
+  margin: 24px 15px 0 0;
+  font-size: 20px;
 `;
 
 //가로배치용 컴포넌트
@@ -102,13 +117,29 @@ const Profile: React.FC = () => {
             </RowContainer>
             <UserEmail>email@gmail.com</UserEmail>
           </ProfileContainer>
+
           <MyAssetContainer>
-            <AssetText style={{ paddingTop: "29px", fontFamily: "Pretendard-Medium" }}>내 자산 정보</AssetText>
+            <RowContainer style={{ justifyContent: " space-between" }}>
+              <AssetText style={{ paddingTop: "29px", fontFamily: "Pretendard-Medium" }}>내 자산 정보</AssetText>
+              <ResetBtn>초기화</ResetBtn>
+            </RowContainer>
             <Line />
-            <AssetText>총 자산</AssetText>
-            <AssetText>가용 자산</AssetText>
-            <AssetText>보유 주식 총액</AssetText>
-            <AssetText>보유 종목 수</AssetText>
+            <RowContainer style={{ justifyContent: " space-between" }}>
+              <AssetText>총 자산</AssetText>
+              <AmountText>0</AmountText>
+            </RowContainer>
+            <RowContainer style={{ justifyContent: " space-between" }}>
+              <AssetText>가용 자산</AssetText>
+              <AmountText>0</AmountText>
+            </RowContainer>
+            <RowContainer style={{ justifyContent: " space-between" }}>
+              <AssetText>보유 주식 총액</AssetText>
+              <AmountText>0</AmountText>
+            </RowContainer>
+            <RowContainer style={{ justifyContent: " space-between" }}>
+              <AssetText>보유 종목 수</AssetText>
+              <AmountText>0</AmountText>
+            </RowContainer>
           </MyAssetContainer>
         </UserInfoBox>
       </UserInfoContainer>
@@ -118,6 +149,3 @@ const Profile: React.FC = () => {
 
 export default Profile;
 
-// 추가해야할 UI
-// 1. 초기화 버튼
-// 2. 내 자산 정보 부분 숫자 표시
