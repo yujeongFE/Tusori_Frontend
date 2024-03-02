@@ -8,6 +8,7 @@ const UserInfoContainer = styled.div`
   width: 100%;
   height: 281px;
   background-color: #eff2ff;
+  margin-bottom: 160px;
 `;
 
 //프로필박스 전체
@@ -148,4 +149,3 @@ const Profile: React.FC = () => {
 };
 
 export default Profile;
-
