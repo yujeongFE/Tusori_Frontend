@@ -74,7 +74,7 @@ const StyledNavLink = styled(NavLink)`
   font-size: 18px;
   text-decoration: none;
   padding-bottom: 16px;
-  margin: 25.95px 68px 0 0;
+  margin: 25.95px 4vw 0 0;
   position: relative;
 
   &:hover {
