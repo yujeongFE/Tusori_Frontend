@@ -1,6 +1,6 @@
 import React from "react";
 import Profile from "../../components/Profile";
-import MypageContainer from "components/MypageContainer";
+import MypageContainer from "components/MypageTable";
 import { Container, Text } from "./Style";
 
 const Index: React.FC = () => {

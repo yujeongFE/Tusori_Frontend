@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 
-const BoxContainer = styled.div`
+const TableContainer = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
@@ -15,7 +15,7 @@ const BoxContainer = styled.div`
 const MypageContainer: React.FC = () => {
   return (
     <>
-      <BoxContainer> </BoxContainer>
+      <TableContainer> </TableContainer>
     </>
   );
 };
