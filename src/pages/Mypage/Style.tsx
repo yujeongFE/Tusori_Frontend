@@ -13,5 +13,5 @@ export const Text = styled.div`
   color: #2a2a2a;
   margin: 0 0 20px 0;
   text-align: left;
-  width: 82%;
+  width: 80%;
 `;
