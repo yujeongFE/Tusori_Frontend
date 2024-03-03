@@ -37,7 +37,7 @@ const MyPageTable = ({ headers, data }: TableProps) => (
 );
 
 const TableContainer = styled.table`
-  width: 82%;
+  width: 80%;
   height: 304px;
   border-radius: 8px;
   border: 1px solid #e3e3e3;
@@ -45,14 +45,14 @@ const TableContainer = styled.table`
 `;
 
 const Th = styled.th<CellProps>`
-  padding: 15px 20px 15px 10px;
+  padding: 15px 20px;
   border-bottom: 1px solid #e3e3e3;
   font-size: 18px;
   text-align: ${({ isFirstColumn }) => (isFirstColumn ? "left" : "right")};
 `;
 
 const Td = styled.td<CellProps>`
-  padding: 5px 20px 0 10px;
+  padding: 0 20px;
   font-size: 18px;
   text-align: ${({ isFirstColumn }) => (isFirstColumn ? "left" : "right")};
 `;
