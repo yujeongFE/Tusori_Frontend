@@ -17,13 +17,12 @@ export const Text = styled.div`
 `;
 export const LogsBtnContainer = styled.div`
   display: flex;
-  text-align: left;
+  width: 80%;
   align-items: center;
   margin-bottom: 20px;
 `;
 
 export const LogsBtn = styled.button<{ active: boolean }>`
-  flex: 1;
   cursor: pointer;
   border: none;
   background-color: transparent;
