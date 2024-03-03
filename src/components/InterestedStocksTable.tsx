@@ -15,7 +15,7 @@ const MyPageTable = ({ headers, data }: TableProps) => (
     <thead>
       <tr>
         {headers.map((header, index) => (
-          <Th key={index} isFirstColumn={index === 1}>
+          <Th key={index} isFirstColumn={index === 0}>
             {header}
           </Th>
         ))}
@@ -26,8 +26,15 @@ const MyPageTable = ({ headers, data }: TableProps) => (
       {data.map((row, rowIndex) => (
         <tr key={rowIndex}>
           {row.map((cell, cellIndex) => (
-            <Td key={cellIndex} isFirstColumn={cellIndex === 1}>
-              {cellIndex === 0 && cell.includes("/assets/") ? <img src={cell} alt="Icon" style={{ width: "20px", height: "20px" }} /> : cell}
+            <Td key={cellIndex} isFirstColumn={cellIndex === 0}>
+              {cellIndex === 0 ? (
+                <div style={{ display: "flex", alignItems: "center" }}>
+                  <img src={process.env.PUBLIC_URL + "/assets/star.svg"} alt="Star" style={{ width: "20px", height: "20px", marginRight: "5px" }} />
+                  {cell}
+                </div>
+              ) : (
+                cell
+              )}
             </Td>
           ))}
         </tr>
@@ -45,14 +52,14 @@ const TableContainer = styled.table`
 `;
 
 const Th = styled.th<CellProps>`
-  padding: 15px 20px 15px 0;
+  padding: 15px 20px 15px 30px;
   border-bottom: 1px solid #e3e3e3;
   font-size: 18px;
   text-align: ${({ isFirstColumn }) => (isFirstColumn ? "left" : "right")};
 `;
 
 const Td = styled.td<CellProps>`
-  padding: 5px 20px 0 0;
+  padding: 5px 20px 0 10px;
   font-size: 18px;
   text-align: ${({ isFirstColumn }) => (isFirstColumn ? "left" : "right")};
 `;
