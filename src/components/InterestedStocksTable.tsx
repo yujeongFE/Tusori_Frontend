@@ -12,7 +12,7 @@ type CellProps = {
   isNegative?: boolean;
 };
 
-const MyPageTable = ({ headers, data }: TableProps) => (
+const InterestedStocksTable = ({ headers, data }: TableProps) => (
   <TableContainer>
     <thead>
       <tr>
@@ -57,7 +57,7 @@ const TableContainer = styled.table`
 `;
 
 const Th = styled.th<CellProps>`
-  padding: 15px 20px;
+  padding: 15px 20px 15px 40px;
   border-bottom: 1px solid #e3e3e3;
   font-size: 18px;
   text-align: ${({ isFirstColumn }) => (isFirstColumn ? "left" : "right")};
@@ -81,9 +81,8 @@ const FirstColumnContent = styled.div`
 `;
 
 const StarIcon = styled.img`
-  width: 20px;
-  height: 20px;
-  margin-right: 5px;
+  margin-right: 10px;
+  margin-left: -10px;
 `;
 
-export default MyPageTable;
+export default InterestedStocksTable;
