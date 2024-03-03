@@ -8,6 +8,7 @@ type TableProps = {
 
 type CellProps = {
   isFirstColumn: boolean;
+  cellValue: any;
 };
 
 const MyPageTable = ({ headers, data }: TableProps) => (
@@ -15,7 +16,7 @@ const MyPageTable = ({ headers, data }: TableProps) => (
     <thead>
       <tr>
         {headers.map((header, index) => (
-          <Th key={index} isFirstColumn={index === 0}>
+          <Th key={index} isFirstColumn={index === 0} cellValue={header}>
             {header}
           </Th>
         ))}
@@ -26,7 +27,7 @@ const MyPageTable = ({ headers, data }: TableProps) => (
       {data.map((row, rowIndex) => (
         <tr key={rowIndex}>
           {row.map((cell, cellIndex) => (
-            <Td key={cellIndex} isFirstColumn={cellIndex === 0}>
+            <Td key={cellIndex} isFirstColumn={cellIndex === 0} cellValue={cell}>
               {cell}
             </Td>
           ))}
@@ -55,6 +56,8 @@ const Td = styled.td<CellProps>`
   padding: 0 20px;
   font-size: 18px;
   text-align: ${({ isFirstColumn }) => (isFirstColumn ? "left" : "right")};
+  color: ${({ cellValue }) =>
+    typeof cellValue === "string" && cellValue.startsWith("+") ? "#F00" : typeof cellValue === "string" && cellValue.startsWith("-") ? "#0075FF" : "inherit"};
 `;
 
 export default MyPageTable;
