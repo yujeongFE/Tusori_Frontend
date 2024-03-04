@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 const Scrollbar = styled.div`
-  max-height: 304px;
+  max-height: 270px;
   overflow-y: auto;
 
   &::-webkit-scrollbar {
