@@ -1,5 +1,6 @@
 import React from "react";
 import styled, { css } from "styled-components";
+import ScrollBar from "./ScrollBar";
 
 interface TableProps {
   headers: string[];
@@ -26,11 +27,6 @@ const StyledTable = styled.table`
   table-layout: fixed;
 `;
 
-const TableBodyScroll = styled.div`
-  max-height: 304px;
-  overflow-y: auto;
-`;
-
 const StyledThead = styled.thead``;
 
 const alignStyle = css<{ isFirst: boolean }>`
@@ -38,8 +34,8 @@ const alignStyle = css<{ isFirst: boolean }>`
 `;
 
 const StyledTh = styled.th<{ isFirst: boolean }>`
-  padding: 20px 35px;
-  padding-right: ${({ isFirst }) => (isFirst ? "60px" : "30px")};
+  padding: 20px 30px;
+  padding-right: ${({ isFirst }) => (isFirst ? "60px" : "20px")};
   position: sticky;
   top: 0;
   background-color: inherit;
@@ -68,6 +64,15 @@ const StyledTd = styled.td<{ isFirst: boolean; cellData: string | number }>`
   ${({ cellData }) => colorStyle(cellData)}
 `;
 
+const FirstColumnContent = styled.div`
+  display: flex;
+  align-items: center;
+`;
+
+const StarIcon = styled.img`
+  margin: 0 5px 0 -5px;
+`;
+
 const InterestedStocksTable: React.FC<TableProps> = ({ headers, data }: TableProps) => {
   return (
     <TableContainer>
@@ -84,7 +89,7 @@ const InterestedStocksTable: React.FC<TableProps> = ({ headers, data }: TablePro
           </StyledThead>
         </StyledTable>
       </TableHeader>
-      <TableBodyScroll>
+      <ScrollBar>
         <StyledTable>
           <tbody>
             {data.map((rowData, rowIndex) => (
@@ -92,10 +97,10 @@ const InterestedStocksTable: React.FC<TableProps> = ({ headers, data }: TablePro
                 {rowData.map((cellData, cellIndex) => (
                   <StyledTd key={cellIndex} isFirst={cellIndex === 0} cellData={cellData}>
                     {cellIndex === 0 ? (
-                      <>
-                        <img src={`${process.env.PUBLIC_URL}/assets/star.svg`} alt="Star" style={{ marginRight: "1px", verticalAlign: "middle" }} />
-                        <span>{cellData}</span>
-                      </>
+                      <FirstColumnContent>
+                        <StarIcon src={`${process.env.PUBLIC_URL}/assets/star.svg`} alt="Star" />
+                        {cellData}
+                      </FirstColumnContent>
                     ) : (
                       cellData
                     )}
@@ -105,7 +110,7 @@ const InterestedStocksTable: React.FC<TableProps> = ({ headers, data }: TablePro
             ))}
           </tbody>
         </StyledTable>
-      </TableBodyScroll>
+      </ScrollBar>
     </TableContainer>
   );
 };

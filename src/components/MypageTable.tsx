@@ -1,5 +1,6 @@
 import React from "react";
 import styled, { css } from "styled-components";
+import ScrollBar from "./ScrollBar";
 
 interface TableProps {
   headers: string[];
@@ -84,7 +85,7 @@ const MypageTable: React.FC<TableProps> = ({ headers, data }: TableProps) => {
           </StyledThead>
         </StyledTable>
       </TableHeader>
-      <TableBodyScroll>
+      <ScrollBar>
         <StyledTable>
           <tbody>
             {data.map((rowData, rowIndex) => (
@@ -98,7 +99,7 @@ const MypageTable: React.FC<TableProps> = ({ headers, data }: TableProps) => {
             ))}
           </tbody>
         </StyledTable>
-      </TableBodyScroll>
+      </ScrollBar>
     </TableContainer>
   );
 };
