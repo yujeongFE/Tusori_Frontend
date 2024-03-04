@@ -27,11 +27,6 @@ const StyledTable = styled.table`
   table-layout: fixed;
 `;
 
-const TableBodyScroll = styled.div`
-  max-height: 304px;
-  overflow-y: auto;
-`;
-
 const StyledThead = styled.thead``;
 
 const alignStyle = css<{ isFirst: boolean }>`
