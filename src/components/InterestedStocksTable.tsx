@@ -1,88 +1,113 @@
 import React from "react";
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 
-type TableProps = {
+interface TableProps {
   headers: string[];
-  data: any[][];
-};
+  data: (string | number)[][];
+}
 
-type CellProps = {
-  isFirstColumn: boolean;
-  isPositive?: boolean;
-  isNegative?: boolean;
-};
-
-const InterestedStocksTable = ({ headers, data }: TableProps) => (
-  <TableContainer>
-    <thead>
-      <tr>
-        {headers.map((header, index) => (
-          <Th key={index} isFirstColumn={index === 0}>
-            {header}
-          </Th>
-        ))}
-      </tr>
-    </thead>
-    <tbody>
-      {data.map((row, rowIndex) => (
-        <tr key={rowIndex}>
-          {row.map((cell, cellIndex) => (
-            <Td
-              key={cellIndex}
-              isFirstColumn={cellIndex === 0}
-              isPositive={typeof cell === "string" && (cell.startsWith("+") || cell.startsWith("▲"))}
-              isNegative={typeof cell === "string" && (cell.startsWith("-") || cell.startsWith("▼"))}
-            >
-              {cellIndex === 0 ? (
-                <FirstColumnContent>
-                  <StarIcon src={`${process.env.PUBLIC_URL}/assets/star.svg`} alt="Star" />
-                  {cell}
-                </FirstColumnContent>
-              ) : (
-                cell
-              )}
-            </Td>
-          ))}
-        </tr>
-      ))}
-    </tbody>
-  </TableContainer>
-);
-
-const TableContainer = styled.table`
-  width: 80%;
-  margin-bottom: 70px;
+const TableContainer = styled.div`
+  width: 83%;
+  margin: auto;
   border: 1px solid #e3e3e3;
   border-radius: 8px;
+  margin-bottom: 70px;
+  font-size: 17px;
 `;
 
-const Th = styled.th<CellProps>`
-  padding: 15px 20px 15px 40px;
+const TableHeader = styled.div`
+  width: 100%;
   border-bottom: 1px solid #e3e3e3;
-  font-size: 18px;
-  text-align: ${({ isFirstColumn }) => (isFirstColumn ? "left" : "right")};
 `;
 
-const Td = styled.td<CellProps>`
-  padding: 10px 20px;
-  font-size: 18px;
-  text-align: ${({ isFirstColumn }) => (isFirstColumn ? "left" : "right")};
-  color: ${({ isFirstColumn, children }) =>
-    !isFirstColumn && typeof children === "string" && (children.startsWith("+") || children.startsWith("▲"))
-      ? "#F00"
-      : !isFirstColumn && typeof children === "string" && (children.startsWith("-") || children.startsWith("▼"))
-        ? "#0075FF"
-        : "inherit"};
+const StyledTable = styled.table`
+  width: 100%;
+  border-collapse: collapse;
+  table-layout: fixed;
 `;
 
-const FirstColumnContent = styled.div`
-  display: flex;
-  align-items: center;
+const TableBodyScroll = styled.div`
+  max-height: 304px;
+  overflow-y: auto;
 `;
 
-const StarIcon = styled.img`
-  margin-right: 10px;
-  margin-left: -10px;
+const StyledThead = styled.thead``;
+
+const alignStyle = css<{ isFirst: boolean }>`
+  text-align: ${({ isFirst }) => (isFirst ? "left" : "right")};
 `;
+
+const StyledTh = styled.th<{ isFirst: boolean }>`
+  padding: 20px 35px;
+  padding-right: ${({ isFirst }) => (isFirst ? "60px" : "30px")};
+  position: sticky;
+  top: 0;
+  background-color: inherit;
+  word-wrap: break-word;
+  white-space: nowrap;
+  ${alignStyle}
+`;
+
+const colorStyle = (data: string | number) => {
+  if (typeof data === "string") {
+    if (data.startsWith("+") || data.startsWith("▲")) {
+      return "color: #FF0000;";
+    } else if (data.startsWith("-") || data.startsWith("▼")) {
+      return "color: #0075FF;";
+    }
+  }
+  return "";
+};
+
+const StyledTd = styled.td<{ isFirst: boolean; cellData: string | number }>`
+  padding: 20px 10px;
+  padding-right: ${({ isFirst }) => (isFirst ? "60px" : "10px")};
+  word-wrap: break-word;
+  white-space: nowrap;
+  ${alignStyle}
+  ${({ cellData }) => colorStyle(cellData)}
+`;
+
+const InterestedStocksTable: React.FC<TableProps> = ({ headers, data }: TableProps) => {
+  return (
+    <TableContainer>
+      <TableHeader>
+        <StyledTable>
+          <StyledThead>
+            <tr>
+              {headers.map((header, index) => (
+                <StyledTh key={index} isFirst={index === 0}>
+                  {header}
+                </StyledTh>
+              ))}
+            </tr>
+          </StyledThead>
+        </StyledTable>
+      </TableHeader>
+      <TableBodyScroll>
+        <StyledTable>
+          <tbody>
+            {data.map((rowData, rowIndex) => (
+              <tr key={rowIndex}>
+                {rowData.map((cellData, cellIndex) => (
+                  <StyledTd key={cellIndex} isFirst={cellIndex === 0} cellData={cellData}>
+                    {cellIndex === 0 ? (
+                      <>
+                        <img src={`${process.env.PUBLIC_URL}/assets/star.svg`} alt="Star" style={{ marginRight: "1px", verticalAlign: "middle" }} />
+                        <span>{cellData}</span>
+                      </>
+                    ) : (
+                      cellData
+                    )}
+                  </StyledTd>
+                ))}
+              </tr>
+            ))}
+          </tbody>
+        </StyledTable>
+      </TableBodyScroll>
+    </TableContainer>
+  );
+};
 
 export default InterestedStocksTable;
