@@ -19,9 +19,8 @@ const LeftSection = styled.div`
 `;
 
 const Logo = styled.img`
-  width: 154px;
-  margin-top: 21px;
-  margin-right: 28px;
+  width: 128px;
+  margin: 23.95px 3vw 0 0;
 `;
 
 const SwitchContainer = styled.div`
@@ -51,7 +50,7 @@ const switchStyle = {
   checkedIcon: false,
   //boxShadow: "0px 1px 5px rgba(0, 0, 0, 0.6)",
   activeBoxShadow: "0px 0px 1px 5px rgba(0, 0, 0, 0.1)",
-  height: 8,
+  height: 7,
   width: 46,
 };
 
@@ -62,7 +61,7 @@ const activeLinkStyle = css`
     content: "";
     position: absolute;
     width: 100%;
-    height: 2.5px;
+    height: 3px;
     background-color: #708ffe;
     bottom: 0;
     left: 0;
@@ -75,8 +74,7 @@ const StyledNavLink = styled(NavLink)`
   font-size: 18px;
   text-decoration: none;
   padding-bottom: 16px;
-  padding-top: 29px;
-  margin-right: 68px;
+  margin: 25.95px 4vw 0 0;
   position: relative;
 
   &:hover {
