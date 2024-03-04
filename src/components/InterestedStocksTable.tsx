@@ -33,17 +33,6 @@ const alignStyle = css<{ isFirst: boolean }>`
   text-align: ${({ isFirst }) => (isFirst ? "left" : "right")};
 `;
 
-const StyledTh = styled.th<{ isFirst: boolean }>`
-  padding: 20px 30px;
-  padding-right: ${({ isFirst }) => (isFirst ? "60px" : "20px")};
-  position: sticky;
-  top: 0;
-  background-color: inherit;
-  word-wrap: break-word;
-  white-space: nowrap;
-  ${alignStyle}
-`;
-
 const colorStyle = (data: string | number) => {
   if (typeof data === "string") {
     if (data.startsWith("+") || data.startsWith("▲")) {
@@ -55,13 +44,24 @@ const colorStyle = (data: string | number) => {
   return "";
 };
 
+const StyledTh = styled.th<{ isFirst: boolean }>`
+  padding: 20px 25px;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  word-wrap: break-word;
+  white-space: nowrap;
+  width: ${({ isFirst }) => (isFirst ? "15%" : "calc(85% / (headers.length - 1))")}; // headers.length는 헤더의 총 열 수를 나타냅니다.
+  ${alignStyle}
+`;
+
 const StyledTd = styled.td<{ isFirst: boolean; cellData: string | number }>`
-  padding: 20px 10px;
-  padding-right: ${({ isFirst }) => (isFirst ? "60px" : "10px")};
+  padding: 20px 15px;
   word-wrap: break-word;
   white-space: nowrap;
   ${alignStyle}
   ${({ cellData }) => colorStyle(cellData)}
+  width: ${({ isFirst }) => (isFirst ? "15%" : "calc(85% / (headers.length - 1))")}; // headers.length는 헤더의 총 열 수를 나타냅니다.
 `;
 
 const FirstColumnContent = styled.div`
