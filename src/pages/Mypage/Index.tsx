@@ -4,7 +4,7 @@ import MypageTable from "components/MypageTable";
 import InterestedStocksTable from "components/InterestedStocksTable";
 import { Container, Text, LogsBtnContainer, LogsBtn, Bar } from "./Style";
 
-const MystocksHeaders = ["종목명", "현재가", "전일비", "등락률", "보유수량", "보유기간", "수익금", "수익률"];
+const MystocksHeaders = ["종목명", "매입가", "현재가", "평단가", "보유수량", "보유일", "평가손익금", "평가손익률"];
 const InterestedHeaders = ["종목명", "현재가", "전일비", "등락률", "시가", "고가", "저가", "거래량", "시가총액"];
 const BuyingLogsHeaders = ["종목명", "매수일자", "체결일자", "주문단가", "체결단가", "주문수량", "수익금", "수익률"];
 const SellingLogsHeaders = ["종목명", "매도일자", "체결일자", "주문단가", "체결단가", "주문수량", "수익금", "수익률"];
