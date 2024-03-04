@@ -43,23 +43,23 @@ const colorStyle = (data: string | number) => {
 };
 
 const StyledTh = styled.th<{ isFirst: boolean }>`
-  padding: 20px 30px;
+  padding: 20px 25px;
   position: sticky;
   top: 0;
   z-index: 10;
   word-wrap: break-word;
   white-space: nowrap;
-  width: ${({ isFirst }) => (isFirst ? "13.5%" : "calc(86.5% / (headers.length - 1))")}; // headers.length는 헤더의 총 열 수를 나타냅니다.
+  width: ${({ isFirst }) => (isFirst ? "14%" : "calc(86% / (headers.length - 1))")}; // headers.length는 헤더의 총 열 수를 나타냅니다.
   ${alignStyle}
 `;
 
 const StyledTd = styled.td<{ isFirst: boolean; cellData: string | number }>`
-  padding: 20px 30px;
+  padding: 15px 25px;
   word-wrap: break-word;
   white-space: nowrap;
   ${alignStyle}
   ${({ cellData }) => colorStyle(cellData)}
-  width: ${({ isFirst }) => (isFirst ? "13.5%" : "calc(86.5% / (headers.length - 1))")}; // headers.length는 헤더의 총 열 수를 나타냅니다.
+  width: ${({ isFirst }) => (isFirst ? "14%" : "calc(86% / (headers.length - 1))")}; // headers.length는 헤더의 총 열 수를 나타냅니다.
 `;
 
 const MypageTable: React.FC<TableProps> = ({ headers, data }: TableProps) => {

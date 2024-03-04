@@ -56,7 +56,7 @@ const StyledTh = styled.th<{ isFirst: boolean }>`
 `;
 
 const StyledTd = styled.td<{ isFirst: boolean; cellData: string | number }>`
-  padding: 20px 15px;
+  padding: 15px 25px;
   word-wrap: break-word;
   white-space: nowrap;
   ${alignStyle}
