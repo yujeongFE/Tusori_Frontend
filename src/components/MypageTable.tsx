@@ -78,11 +78,13 @@ const MypageTable: React.FC<TableProps> = ({ headers, data }: TableProps) => {
           </thead>
         </StyledTable>
       </TableHeader>
-      <ScrollBar>
-        <StyledTable>
-          <tbody>
+
+      <StyledTable>
+        <tbody>
+          <ScrollBar>
             {data.map((rowData, rowIndex) => (
               <tr key={rowIndex}>
+                
                 {rowData.map((cellData, cellIndex) => (
                   <StyledTd key={cellIndex} isFirst={cellIndex === 0} cellData={cellData}>
                     {cellData}
@@ -90,9 +92,9 @@ const MypageTable: React.FC<TableProps> = ({ headers, data }: TableProps) => {
                 ))}
               </tr>
             ))}
-          </tbody>
-        </StyledTable>
-      </ScrollBar>
+          </ScrollBar>
+        </tbody>
+      </StyledTable>
     </TableContainer>
   );
 };
