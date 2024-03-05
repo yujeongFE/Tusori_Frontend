@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import styled, { css } from "styled-components";
 import SearchBar from "./SearchBar";
 import Switch from "react-switch";
+import DictionarySideBar from "components/DictionarySideBar";
 import { NavLink, Link, useLocation } from "react-router-dom";
 
 const HeaderContainer = styled.header`
@@ -112,11 +113,22 @@ const Header = () => {
   const [isInvestMode, setIsInvesteMode] = useState<boolean>(false);
   const handleModeChange = (checked: boolean) => {
     setIsInvesteMode(checked);
+    if (checked) {
+      setIsOpen(true);
+    }
   };
 
   const location = useLocation();
   const checkActive = (path: string) => {
     return ["/dict/process", "/dict/words"].includes(path);
+  };
+
+  //주식용어설명 사이드바
+  const [isOpen, setIsOpen] = useState(false);
+  const toggleSide = () => {
+    if (isInvestMode) {
+      setIsOpen(true);
+    }
   };
 
   return (
@@ -129,6 +141,7 @@ const Header = () => {
           <SwitchContainer>
             <Switch checked={isInvestMode} onChange={handleModeChange} {...switchStyle} />
             <Mode isInvestMode={isInvestMode}>{isInvestMode ? "설명모드" : "투자모드"}</Mode>
+            <DictionarySideBar isOpen={isOpen} setIsOpen={setIsOpen} />
           </SwitchContainer>
         </SidebySideContainer>
         <SidebySideContainer>
