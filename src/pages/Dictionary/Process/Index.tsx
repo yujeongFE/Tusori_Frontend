@@ -1,8 +1,8 @@
 import React, { useState } from "react";
-import SideBar from "../../../components/SideBar";
+import SideMenu from "../../../components/SideMenu";
 //import styled from "styled-components";
 import ProcessContent from "../../../components/ProcessContent";
-import { SidebarContainer, Container, Content, Title } from "../Style";
+import { SideMenuContainer, Container, Content, Title } from "../Style";
 import { Button, ButtonsContainer, ButtonContainer, Span, Img } from "./Style";
 
 const Index: React.FC = () => {
@@ -15,9 +15,9 @@ const Index: React.FC = () => {
 
   return (
     <Container>
-      <SidebarContainer>
-        <SideBar />
-      </SidebarContainer>
+      <SideMenuContainer>
+        <SideMenu />
+      </SideMenuContainer>
       <Content>
         <Title>주식 투자 과정</Title>
         <ButtonsContainer>
@@ -46,7 +46,7 @@ const Index: React.FC = () => {
           </ButtonContainer>
 
           <ButtonContainer>
-            <Button onClick={handleClickButton} selected={stepKey === "four"} name="four" style={{ marginRight: "0px" }}>
+            <Button onClick={handleClickButton} selected={stepKey === "four"} name="four" >
               <Span>04</Span>
               <br /> 동일 업종 비교하기
             </Button>

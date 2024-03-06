@@ -18,7 +18,7 @@ export const ButtonContainer = styled.div`
 `;
 
 export const Button = styled.button<{ selected: boolean }>`
-  width: 220px;
+  width: 190px;
   height: 100px;
   font-family: Pretendard-Medium;
   border: none;

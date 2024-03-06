@@ -6,13 +6,13 @@ import DictionarySideBar from "components/DictionarySideBar";
 import { NavLink, Link, useLocation } from "react-router-dom";
 
 const HeaderContainer = styled.header`
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background: #FEFDFD;
-    box-shadow: 0px 4px 2px 0px rgba(0, 0, 0, 0.04);
-    padding: 0 13.5vw;
-    margin-bottom: 5px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #fefdfd;
+  box-shadow: 0px 4px 2px 0px rgba(0, 0, 0, 0.04);
+  padding: 0 13.5vw;
+  margin-bottom: 5px;
 `;
 
 const LeftSection = styled.div`

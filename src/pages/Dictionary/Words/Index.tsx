@@ -1,14 +1,14 @@
 import React from "react";
-import SideBar from "../../../components/SideBar";
-import { SidebarContainer, Container, Content, Title } from "../Style";
+import SideMenu from "../../../components/SideMenu";
+import { SideMenuContainer, Container, Content, Title } from "../Style";
 import { SearchBoxContainer, SearchBox, Input, SearchButton } from "./Style";
 
 const Index: React.FC = () => {
   return (
     <Container>
-      <SidebarContainer>
-        <SideBar />
-      </SidebarContainer>
+      <SideMenuContainer>
+        <SideMenu />
+      </SideMenuContainer>
       <Content>
         <Title>주식 용어 설명</Title>
         <SearchBoxContainer>

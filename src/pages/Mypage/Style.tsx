@@ -13,11 +13,11 @@ export const Text = styled.div`
   color: #2a2a2a;
   margin-bottom: 20px;
   text-align: left;
-  width: 82%;
+  width: 75%;
 `;
 export const LogsBtnContainer = styled.div`
   display: flex;
-  width: 82%;
+  width: 75%;
   align-items: center;
   margin-bottom: 20px;
 `;
