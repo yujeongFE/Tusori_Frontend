@@ -6,9 +6,10 @@ const SideBarWrap = styled.div`
   border-radius: 16px 0px 0px 16px;
   border-left: 1px solid #bccafb;
   background: #fff;
-  height: 100%;
+  height: 85%;
+  width: 13.5%;
   right: -55%;
-  top: 0;
+  top: 130px;
   position: fixed;
   transition: 0.5s ease;
   &.open {
