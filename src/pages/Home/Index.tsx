@@ -10,6 +10,7 @@ const Index = () => {
       <FlexBox>
         <MarketInfoBoxContainer />
         <Banner />
+        <StockInfoBox title={"실시간 거래량 TOP5"} category={["코스피", "코스닥"]} />
       </FlexBox>
     </>
   );
