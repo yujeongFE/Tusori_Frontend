@@ -1,27 +1,36 @@
 @font-face {
-  font-family: 'Pretendard-Light';
-  src: url('./fonts/Pretendard-Light.ttf') format('truetype');
+  font-family: "Pretendard-Light";
+  src: url("./fonts/Pretendard-Light.ttf") format("truetype");
 }
 
 @font-face {
-  font-family: 'Pretendard-Regular';
-  src: url('./fonts/Pretendard-Regular.ttf') format(truetype);
+  font-family: "Pretendard-Regular";
+  src: url("./fonts/Pretendard-Regular.ttf") format(truetype);
 }
 
 @font-face {
-  font-family: 'Pretendard-Bold';
-  src: url('./fonts/Pretendard-Bold.ttf') format(truetype);
+  font-family: "Pretendard-Bold";
+  src: url("./fonts/Pretendard-Bold.ttf") format(truetype);
 }
 
 @font-face {
-  font-family: 'Pretendard-Medium';
-  src: url('./fonts/Pretendard-Medium.ttf') format(truetype);
+  font-family: "Pretendard-Medium";
+  src: url("./fonts/Pretendard-Medium.ttf") format(truetype);
 }
 
-@font-face{
-  font-family: 'Roboto-Regular';
-  src: url('./fonts/Roboto-Regular.ttf') format(truetype);
+@font-face {
+  font-family: "Roboto-Regular";
+  src: url("./fonts/Roboto-Regular.ttf") format(truetype);
+}
 
+@font-face {
+  font-family: "ONE-Mobile-Bold";
+  src: url("./fonts/ONE-Mobile-Bold.ttf") format(truetype);
+}
+
+@font-face {
+  font-family: "ONE-Mobile-Bold";
+  src: url("./fonts/ONE-Mobile-Bold.ttf") format(truetype);
 }
 
 @font-face {
@@ -36,6 +45,40 @@
 
 body {
   margin: 0;
+  font-family:
+    "Pretendard-Regular",
+    "Pretendard-Light",
+    "Pretendard-Bold",
+    "Pretendard-Medium",
+    "Roboto-Regular",
+    -apple-system,
+    BlinkMacSystemFont;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+button {
+  font-family:
+    "Pretendard-Regular",
+    "Pretendard-Light",
+    "Pretendard-Bold",
+    "Pretendard-Medium",
+    "Roboto-Regular",
+    -apple-system,
+    BlinkMacSystemFont;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+input {
+  font-family:
+    "Pretendard-Regular",
+    "Pretendard-Light",
+    "Pretendard-Bold",
+    "Pretendard-Medium",
+    "Roboto-Regular",
+    -apple-system,
+    BlinkMacSystemFont;
   font-family:
     "Pretendard-Regular",
     "Pretendard-Light",
@@ -64,6 +107,5 @@ input {
 }
 
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New", monospace;
 }
