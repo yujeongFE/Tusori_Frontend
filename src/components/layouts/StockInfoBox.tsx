@@ -1,6 +1,10 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 
+// image
+import downward from "../../assets/downward_arrow.svg";
+import rise from "../../assets/rising_arrow.svg";
+
 interface StockInfoBoxProps {
   title?: string;
   category?: string[];
@@ -115,11 +119,54 @@ const TableCell = styled.td<{ color?: string }>`
   color: ${({ color }) => color || "#000"};
 `;
 
+const TableCellName = styled(TableCell)`
+  text-overflow: ellipsis; // 텍스트가 넘칠 경우 ...으로 표시
+`;
+
 const ScrollableTable = styled.div`
   overflow-y: auto;
   max-height: calc(35.7vh);
   height: calc(35.7vh);
 `;
+
+// 값에 따라 셀의 색상을 계산하는 함수
+const calculateCellColor = (value: string) => {
+  return parseFloat(value) < 0 ? "#0075FF" : "#F00";
+};
+
+// 테이블 셀을 렌더링 하는 함수
+const renderTableCell = (
+  value: string,
+  type: "rank" | "name" | "currentPrice" | "priceChange" | "percentageChange" | "volume",
+  style: React.CSSProperties = {},
+) => {
+  const cellColor = calculateCellColor(value);
+
+  switch (type) {
+    case "priceChange":
+      return (
+        <TableCell>
+          {parseFloat(value) < 0 ? (
+            <div style={{ display: "flex", alignItems: "center" }}>
+              <img src={downward} alt="downward_arrow" style={{ width: "16px", height: "16px", margin: "0px" }} />
+              <span style={{ marginRight: "0.2vw", color: cellColor }}>{value}</span>
+            </div>
+          ) : (
+            <div style={{ display: "flex", alignItems: "center" }}>
+              <img src={rise} alt="rising_arrow" style={{ width: "16px", height: "16px", margin: "0px" }} />
+              <span style={{ marginRight: "0.2vw", color: cellColor }}>{value}</span>
+            </div>
+          )}
+        </TableCell>
+      );
+
+    case "percentageChange":
+      return <TableCell style={{ color: cellColor }}>{value}</TableCell>;
+
+    default:
+      return <TableCell style={{ ...style }}>{value}</TableCell>;
+  }
+};
 
 const StockInfoBox: React.FC<StockInfoBoxProps> = ({ title, category = [] }) => {
   const [selectedButton, setSelectedButton] = useState(0);
