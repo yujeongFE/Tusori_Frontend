@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import firstSampleData from "../../json/RealTimeStockData.json";
+import secondSampleData from "../../json/MyStockData.json";
 
 // Image
 import downward from "../../assets/downward_arrow.svg";
@@ -9,6 +10,17 @@ import rise from "../../assets/rising_arrow.svg";
 interface StockInfoBoxProps {
   title?: string;
   category?: string[];
+}
+
+// 데이터 형식 선언
+interface StockData {
+  rank?: string;
+  pick?: string;
+  name: string;
+  currentPrice: string;
+  priceChange: string;
+  percentageChange: string;
+  volume: string;
 }
 
 // CSS 변수 정의
@@ -137,17 +149,17 @@ const calculateCellColor = (value: string) => {
 
 // 테이블 셀을 렌더링 하는 함수
 const renderTableCell = (
-  value: string,
-  type: "rank" | "name" | "currentPrice" | "priceChange" | "percentageChange" | "volume",
+  value: string | undefined,
+  type: "rank" | "pick" | "name" | "currentPrice" | "priceChange" | "percentageChange" | "volume",
   style: React.CSSProperties = {},
 ) => {
-  const cellColor = calculateCellColor(value);
+  const cellColor = value && calculateCellColor(value);
 
   switch (type) {
     case "priceChange":
       return (
         <TableCell>
-          {parseFloat(value) < 0 ? (
+          {value && parseFloat(value) < 0 ? (
             <div style={{ display: "flex", alignItems: "center" }}>
               <img src={downward} alt="downward_arrow" style={{ width: "16px", height: "16px", margin: "0px" }} />
               <span style={{ marginRight: "0.2vw", color: cellColor }}>{value}</span>
@@ -172,18 +184,14 @@ const renderTableCell = (
 // category 값이 전달되지 않을 경우 테이블 위 버튼 생성 X
 const StockInfoBox: React.FC<StockInfoBoxProps> = ({ title, category = [] }) => {
   const [selectedButton, setSelectedButton] = useState(0);
+  const isMyStockTable = title === "MY 보유 주식";
 
   const handleButtonClick = (index: number) => {
     setSelectedButton(index);
   };
 
   // 테이블에 따라 렌더링 되는 데이터를 달리함
-  const data =
-    title === "MY 보유 주식"
-      ? [
-          // 더미데이터 추가 필요
-        ]
-      : firstSampleData;
+  const data: StockData[] = title === "MY 보유 주식" ? secondSampleData : firstSampleData;
 
   return (
     <Container>
@@ -218,7 +226,8 @@ const StockInfoBox: React.FC<StockInfoBoxProps> = ({ title, category = [] }) => 
           <TableBody>
             {data.map((data, index) => (
               <TableRow key={index} style={{ marginBottom: "1.85vh" }}>
-                {renderTableCell(data.rank, "rank", { flex: "0.5" })}
+                {data.rank && renderTableCell(data.rank, "rank", { flex: "0.5" })}
+                {data.pick && renderTableCell(data.pick, "pick", { flex: "0.5" })}
                 {renderTableCell(data.name, "name", { flex: "1.5" })}
                 {renderTableCell(data.currentPrice, "currentPrice")}
                 {renderTableCell(data.priceChange, "priceChange")}

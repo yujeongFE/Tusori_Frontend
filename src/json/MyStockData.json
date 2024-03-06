@@ -1,0 +1,98 @@
+[
+  {
+    "pick": "false",
+    "name": "KODEX 200선물...",
+    "currentPrice": "2,555",
+    "priceChange": "-75",
+    "percentageChange": "-2.85",
+    "volume": "144,846,760"
+  },
+  {
+    "pick": "true",
+    "name": "대한해운",
+    "currentPrice": "74,700",
+    "priceChange": "+3,000",
+    "percentageChange": "+4.18%",
+    "volume": "144,846,760"
+  },
+  {
+    "pick": "false",
+    "name": "삼성전자",
+    "currentPrice": "2,555",
+    "priceChange": "-75",
+    "percentageChange": "-2.85",
+    "volume": "4,364,129"
+  },
+  {
+    "pick": "true",
+    "name": "LG 헬로비전",
+    "currentPrice": "2,555",
+    "priceChange": "+25",
+    "percentageChange": "-2.85",
+    "volume": "144,846,760"
+  },
+  {
+    "pick": "false",
+    "name": "KTcs",
+    "currentPrice": "2,555",
+    "priceChange": "-75",
+    "percentageChange": "-2.85",
+    "volume": "144,846,760"
+  },
+  {
+    "pick": "false",
+    "name": "대한해운",
+    "currentPrice": "2,555",
+    "priceChange": "+25",
+    "percentageChange": "-2.85",
+    "volume": "144,846,760"
+  },
+  {
+    "pick": "false",
+    "name": "삼성전자",
+    "currentPrice": "2,555",
+    "priceChange": "-75",
+    "percentageChange": "-2.85",
+    "volume": "144,846,760"
+  },
+  {
+    "pick": "false",
+    "name": "대한해운",
+    "currentPrice": "2,555",
+    "priceChange": "+25",
+    "percentageChange": "-2.85",
+    "volume": "144,846,760"
+  },
+  {
+    "pick": "false",
+    "name": "삼성전자",
+    "currentPrice": "2,555",
+    "priceChange": "-75",
+    "percentageChange": "-2.85",
+    "volume": "144,846,760"
+  },
+  {
+    "pick": "false",
+    "name": "대한해운",
+    "currentPrice": "2,555",
+    "priceChange": "+25",
+    "percentageChange": "-2.85",
+    "volume": "144,846,760"
+  },
+  {
+    "pick": "false",
+    "name": "삼성전자",
+    "currentPrice": "2,555",
+    "priceChange": "-75",
+    "percentageChange": "-2.85",
+    "volume": "144,846,760"
+  },
+  {
+    "pick": "false",
+    "name": "대한해운",
+    "currentPrice": "2,555",
+    "priceChange": "+25",
+    "percentageChange": "-2.85",
+    "volume": "144,846,760"
+  }
+]
