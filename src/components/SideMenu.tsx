@@ -3,11 +3,10 @@ import styled from "styled-components";
 import { NavLink } from "react-router-dom";
 
 const Title = styled.div`
-  width: 214px;
+  width: 195px;
   font-size: 28px;
   font-family: Pretendard-Bold;
-  padding-top: 61px;
-  padding-bottom: 30px;
+  padding: 61px 0 30px 0;
   border-bottom: 2px solid #e3e3e3;
   text-align: center;
 `;
@@ -15,7 +14,7 @@ const Title = styled.div`
 const StyledNav = styled.nav`
   display: flex;
   flex-direction: column;
-  width: 214px;
+  width: 195px;
 `;
 
 const StyledNavLink = styled(NavLink)`
@@ -36,7 +35,7 @@ const StyledNavLink = styled(NavLink)`
   }
 `;
 
-const SideBar: React.FC = () => {
+const SideMenu: React.FC = () => {
   return (
     <>
       <Title>주식사전</Title>
@@ -53,4 +52,4 @@ const SideBar: React.FC = () => {
   );
 };
 
-export default SideBar;
+export default SideMenu;

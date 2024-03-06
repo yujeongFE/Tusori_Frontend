@@ -2,18 +2,18 @@ import styled from "styled-components";
 
 export const Container = styled.div`
   display: flex;
-  padding: 0 9vw;
+  padding: 0 13vw;
 `;
 
-export const SidebarContainer = styled.div`
+export const SideMenuContainer = styled.div`
   display: flex;
   flex-direction: column;
-  width: 214px;
+  width: 200px;
 `;
 
 export const Content = styled.div`
   flex-grow: 1;
-  padding-left: 52px;
+  padding-left: 35px;
 `;
 
 export const Title = styled.div`
