@@ -8,7 +8,7 @@ interface TableProps {
 }
 
 const TableContainer = styled.div`
-  width: 83%;
+  width: 75%;
   margin: auto;
   border: 1px solid #e3e3e3;
   border-radius: 8px;
@@ -27,6 +27,8 @@ const StyledTable = styled.table`
   table-layout: fixed;
 `;
 
+const StyledThead = styled.thead``;
+
 const alignStyle = css<{ isFirst: boolean }>`
   text-align: ${({ isFirst }) => (isFirst ? "left" : "right")};
 `;
@@ -43,13 +45,13 @@ const colorStyle = (data: string | number) => {
 };
 
 const StyledTh = styled.th<{ isFirst: boolean }>`
+  overflow-x: hidden;
   padding: 20px 25px;
   position: sticky;
   top: 0;
-  z-index: 10;
   word-wrap: break-word;
   white-space: nowrap;
-  width: ${({ isFirst }) => (isFirst ? "14%" : "calc(86% / (headers.length - 1))")}; // headers.length는 헤더의 총 열 수를 나타냅니다.
+  width: ${({ isFirst }) => (isFirst ? "15%" : "calc(85% / (headers.length - 1))")};
   ${alignStyle}
 `;
 
@@ -59,7 +61,7 @@ const StyledTd = styled.td<{ isFirst: boolean; cellData: string | number }>`
   white-space: nowrap;
   ${alignStyle}
   ${({ cellData }) => colorStyle(cellData)}
-  width: ${({ isFirst }) => (isFirst ? "14%" : "calc(86% / (headers.length - 1))")}; // headers.length는 헤더의 총 열 수를 나타냅니다.
+  width: ${({ isFirst }) => (isFirst ? "15%" : "calc(85% / (headers.length - 1))")};
 `;
 
 const MypageTable: React.FC<TableProps> = ({ headers, data }: TableProps) => {
@@ -67,7 +69,7 @@ const MypageTable: React.FC<TableProps> = ({ headers, data }: TableProps) => {
     <TableContainer>
       <TableHeader>
         <StyledTable>
-          <thead>
+          <StyledThead>
             <tr>
               {headers.map((header, index) => (
                 <StyledTh key={index} isFirst={index === 0}>
@@ -75,16 +77,14 @@ const MypageTable: React.FC<TableProps> = ({ headers, data }: TableProps) => {
                 </StyledTh>
               ))}
             </tr>
-          </thead>
+          </StyledThead>
         </StyledTable>
       </TableHeader>
-
-      <StyledTable>
-        <tbody>
-          <ScrollBar>
+      <ScrollBar>
+        <StyledTable>
+          <tbody>
             {data.map((rowData, rowIndex) => (
               <tr key={rowIndex}>
-                
                 {rowData.map((cellData, cellIndex) => (
                   <StyledTd key={cellIndex} isFirst={cellIndex === 0} cellData={cellData}>
                     {cellData}
@@ -92,9 +92,9 @@ const MypageTable: React.FC<TableProps> = ({ headers, data }: TableProps) => {
                 ))}
               </tr>
             ))}
-          </ScrollBar>
-        </tbody>
-      </StyledTable>
+          </tbody>
+        </StyledTable>
+      </ScrollBar>
     </TableContainer>
   );
 };
