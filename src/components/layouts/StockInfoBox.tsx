@@ -169,12 +169,21 @@ const renderTableCell = (
   }
 };
 
+// category 값이 전달되지 않을 경우 테이블 위 버튼 생성 X
 const StockInfoBox: React.FC<StockInfoBoxProps> = ({ title, category = [] }) => {
   const [selectedButton, setSelectedButton] = useState(0);
 
   const handleButtonClick = (index: number) => {
     setSelectedButton(index);
   };
+
+  // 테이블에 따라 렌더링 되는 데이터를 달리함
+  const data =
+    title === "MY 보유 주식"
+      ? [
+          // 더미데이터 추가 필요
+        ]
+      : firstSampleData;
 
   return (
     <Container>
@@ -207,7 +216,7 @@ const StockInfoBox: React.FC<StockInfoBoxProps> = ({ title, category = [] }) => 
           </TableHeader>
           <HorizontalLine />
           <TableBody>
-            {firstSampleData.map((data, index) => (
+            {data.map((data, index) => (
               <TableRow key={index} style={{ marginBottom: "1.85vh" }}>
                 {renderTableCell(data.rank, "rank", { flex: "0.5" })}
                 {renderTableCell(data.name, "name", { flex: "1.5" })}
