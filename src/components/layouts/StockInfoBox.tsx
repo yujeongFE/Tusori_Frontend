@@ -6,6 +6,7 @@ import secondSampleData from "../../json/MyStockData.json";
 // Image
 import downward from "../../assets/downward_arrow.svg";
 import rise from "../../assets/rising_arrow.svg";
+import nonSelect from "../../assets/gray_star.png";
 
 interface StockInfoBoxProps {
   title?: string;
@@ -156,6 +157,12 @@ const renderTableCell = (
   const cellColor = value && calculateCellColor(value);
 
   switch (type) {
+    case "pick":
+      return value == "true" ? (
+        <img src={`${process.env.PUBLIC_URL}/assets/star.svg`} style={{ margin: "0px", marginRight: "0.5vw" }} alt="select_star" />
+      ) : (
+        <img src={nonSelect} style={{ margin: "0px", marginRight: "0.5vw" }} alt="nonSelect_star" />
+      );
     case "priceChange":
       return (
         <TableCell>
@@ -214,7 +221,9 @@ const StockInfoBox: React.FC<StockInfoBoxProps> = ({ title, category = [] }) => 
         <Table>
           <TableHeader>
             <TableRow>
-              <TableCell style={{ flex: "0.5" }}>순위</TableCell>
+              <TableCell style={{ flex: "0.5" }}>
+                {isMyStockTable ? <img src={nonSelect} alt="star" style={{ width: "24px", height: "24px", margin: "0px" }} /> : "순위"}
+              </TableCell>
               <TableCell style={{ flex: "1.5" }}>종목명</TableCell>
               <TableCell>현재가</TableCell>
               <TableCell>전일비</TableCell>
