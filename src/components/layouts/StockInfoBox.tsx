@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import styled from "styled-components";
+import firstSampleData from "../../json/RealTimeStockData.json";
 
-// image
+// Image
 import downward from "../../assets/downward_arrow.svg";
 import rise from "../../assets/rising_arrow.svg";
 
@@ -205,7 +206,18 @@ const StockInfoBox: React.FC<StockInfoBoxProps> = ({ title, category = [] }) => 
             </TableRow>
           </TableHeader>
           <HorizontalLine />
-          <TableBody>{/* 더미 데이터를 넣을 부분 */}</TableBody>
+          <TableBody>
+            {firstSampleData.map((data, index) => (
+              <TableRow key={index} style={{ marginBottom: "1.85vh" }}>
+                {renderTableCell(data.rank, "rank", { flex: "0.5" })}
+                {renderTableCell(data.name, "name", { flex: "1.5" })}
+                {renderTableCell(data.currentPrice, "currentPrice")}
+                {renderTableCell(data.priceChange, "priceChange")}
+                {renderTableCell(data.percentageChange, "percentageChange")}
+                {renderTableCell(data.volume, "volume")}
+              </TableRow>
+            ))}
+          </TableBody>
         </Table>
       </ScrollableTable>
     </Container>
