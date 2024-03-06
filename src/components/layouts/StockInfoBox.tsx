@@ -141,6 +141,7 @@ const ScrollableTable = styled.div`
   overflow-y: auto;
   max-height: calc(35.7vh);
   height: calc(35.7vh);
+  min-height: 300px;
 `;
 
 // 값에 따라 셀의 색상을 계산하는 함수
