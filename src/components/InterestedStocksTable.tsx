@@ -8,7 +8,7 @@ interface TableProps {
 }
 
 const TableContainer = styled.div`
-  width: 83%;
+  width: 75%;
   margin: auto;
   border: 1px solid #e3e3e3;
   border-radius: 8px;
@@ -45,23 +45,24 @@ const colorStyle = (data: string | number) => {
 };
 
 const StyledTh = styled.th<{ isFirst: boolean }>`
-  padding: 20px 25px;
+  overflow-x: hidden;
   position: sticky;
   top: 0;
-  z-index: 10;
   word-wrap: break-word;
   white-space: nowrap;
-  width: ${({ isFirst }) => (isFirst ? "15%" : "calc(85% / (headers.length - 1))")}; // headers.length는 헤더의 총 열 수를 나타냅니다.
+  width: ${({ isFirst }) => (isFirst ? "13%" : "calc(85% / (headers.length - 1))")};
+  padding: ${({ isFirst }) => (isFirst ? "20px 0 20px 20px" : "20px 25px")};
   ${alignStyle}
 `;
 
 const StyledTd = styled.td<{ isFirst: boolean; cellData: string | number }>`
-  padding: 15px 25px;
+  padding: ${({ isFirst }) => (isFirst ? "15px 0 15px 20px" : "15px 25px 15px 0")};
   word-wrap: break-word;
   white-space: nowrap;
+  //border: 1px solid #e3e3e3;
   ${alignStyle}
   ${({ cellData }) => colorStyle(cellData)}
-  width: ${({ isFirst }) => (isFirst ? "15%" : "calc(85% / (headers.length - 1))")}; // headers.length는 헤더의 총 열 수를 나타냅니다.
+  width: ${({ isFirst }) => (isFirst ? "13%" : "calc(85% / (headers.length - 1))")};
 `;
 
 const FirstColumnContent = styled.div`
