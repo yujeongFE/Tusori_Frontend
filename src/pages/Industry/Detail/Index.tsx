@@ -1,6 +1,6 @@
 import React from "react";
 import { useState } from "react";
-import { FlexBox } from "./Style";
+import { FlexBox, TableContainer } from "./Style";
 import StockInfoTable from "components/StockInfoTable";
 import StockData from "../../../json/IndustryStockData.json";
 import IndustrySidebar from "components/IndustrySideBar";
@@ -18,7 +18,9 @@ const Index = () => {
   return (
     <FlexBox>
       <IndustrySidebar onItemSelected={handleItemSelected} />
-      <StockInfoTable titles={titles} dataKeys={dataKeys} data={StockData} />
+      <TableContainer>
+        <StockInfoTable titles={titles} dataKeys={dataKeys} data={StockData} />
+      </TableContainer>
     </FlexBox>
   );
 };
