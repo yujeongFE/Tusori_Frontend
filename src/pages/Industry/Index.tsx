@@ -1,8 +1,13 @@
 import React from "react";
 import { FlexBox } from "./Style";
+import IndustrySectorBox from "components/IndustrySectorBox";
 
 const Index = () => {
-  return <FlexBox>업종별 시세 페이지</FlexBox>;
+  return (
+    <FlexBox>
+      <IndustrySectorBox></IndustrySectorBox>
+    </FlexBox>
+  );
 };
 
 export default Index;
