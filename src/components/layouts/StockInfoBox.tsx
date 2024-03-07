@@ -143,7 +143,7 @@ const ScrollableTable = styled.div`
   overflow-y: auto;
   max-height: calc(35.7vh);
   height: calc(35.7vh);
-  min-height: 300px;
+  min-height: 275px;
 `;
 
 const LoginCotainer = styled.div`
