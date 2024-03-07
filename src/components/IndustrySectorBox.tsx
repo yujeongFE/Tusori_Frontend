@@ -39,12 +39,54 @@ const StyledContainer = styled.div`
 `;
 
 const IndustrySectorBox: React.FC = () => {
+  const industryTitles = [
+    "음식료품",
+    "섬유, 의복",
+    "종이, 목재",
+    "화학",
+    "의약품",
+    "비금속광물",
+    "철강 및 금속",
+    "기계",
+    "전기, 전자",
+    "의료정밀",
+    "운수장비",
+    "유통업",
+    "전기가스업",
+    "건설업",
+    "통신업",
+    "금융업",
+    "서비스업",
+  ];
+
+  const percentageChange = [
+    "+0.44%",
+    "+0.44%",
+    "+0.44%",
+    "+0.44%",
+    "+0.44%",
+    "+0.44%",
+    "+0.44%",
+    "+0.44%",
+    "+0.44%",
+    "+0.44%",
+    "+0.44%",
+    "+0.44%",
+    "+0.44%",
+    "+0.44%",
+    "+0.44%",
+    "+0.44%",
+    "+0.44%",
+  ];
+
   return (
     <GridContainer>
-      <StyledContainer>
-        <div className="title">업종명</div>
-        <div className="percentageChange">업종별 주가 변동율</div>
-      </StyledContainer>
+      {industryTitles.map((title, index) => (
+        <StyledContainer key={index}>
+          <div className="title">{title}</div>
+          <div className="percentageChange">{percentageChange[index]}</div>
+        </StyledContainer>
+      ))}
     </GridContainer>
   );
 };
