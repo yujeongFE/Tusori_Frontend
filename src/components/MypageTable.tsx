@@ -51,6 +51,7 @@ const StyledTh = styled.th<{ isFirst: boolean }>`
   top: 0;
   word-wrap: break-word;
   white-space: nowrap;
+  overflow: hidden;
   width: ${({ isFirst }) => (isFirst ? "15%" : "calc(85% / (headers.length - 1))")};
   ${alignStyle}
 `;
@@ -59,6 +60,7 @@ const StyledTd = styled.td<{ isFirst: boolean; cellData: string | number }>`
   padding: 15px 25px;
   word-wrap: break-word;
   white-space: nowrap;
+  overflow: hidden;
   ${alignStyle}
   ${({ cellData }) => colorStyle(cellData)}
   width: ${({ isFirst }) => (isFirst ? "15%" : "calc(85% / (headers.length - 1))")};
