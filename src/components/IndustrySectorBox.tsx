@@ -93,7 +93,7 @@ const GridContainer = styled.div`
   display: grid;
   grid-template-columns: repeat(5, 1fr);
   gap: 2.3vw 3vh;
-  margin-top: 14.5vh;
+  margin-top: 6.5vh;
 `;
 
 const StyledContainer = styled.div`
@@ -107,6 +107,8 @@ const StyledContainer = styled.div`
   box-shadow: 0px 2px 0px 0px rgba(0, 0, 0, 0.04);
   width: 12.3vw;
   height: 8.5vh;
+  min-height: 62px;
+  min-width: 90px;
 
   .title {
     color: #222;
