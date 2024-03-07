@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import { useNavigate, useNavigation } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import firstSampleData from "../../json/RealTimeStockData.json";
 import secondSampleData from "../../json/MyStockData.json";
 
@@ -53,6 +53,10 @@ const Container = styled.div`
     line-height: normal;
     margin-left: 2.2vw;
     margin-top: 3.33vh;
+    cursor: pointer;
+    &:hover {
+      color: #708ffe; // 마우스 호버 상태일 때 글자 색상 변경
+    }
   }
 
   img {
@@ -233,6 +237,10 @@ const StockInfoBox: React.FC<StockInfoBoxProps> = ({ title, category = [], login
   const [selectedButton, setSelectedButton] = useState(0);
   const isMyStockTable = title === "MY 보유 주식";
 
+  const handleTitleClick = () => {
+    navigate("/mypage");
+  };
+
   const handleButtonClick = (index: number) => {
     setSelectedButton(index);
   };
@@ -248,7 +256,7 @@ const StockInfoBox: React.FC<StockInfoBoxProps> = ({ title, category = [], login
     <Container>
       <BoxContainer selectedButton={selectedButton}>
         {title && (
-          <div className="title">
+          <div className="title" onClick={() => handleTitleClick()}>
             {title}
             {" >"}
           </div>
