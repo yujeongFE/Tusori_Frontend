@@ -127,7 +127,8 @@ const StyledContainer = styled.div`
 `;
 
 const IndustrySectorBox: React.FC = () => {
-  const industryTitles = [
+  const [isActive, setIsActive] = useState("KOSPI");
+  const KOSPI_industryTitles = [
     "음식료품",
     "섬유, 의복",
     "종이, 목재",
@@ -147,7 +148,9 @@ const IndustrySectorBox: React.FC = () => {
     "서비스업",
   ];
 
-  const percentageChange = [
+  const KOSDAQ_industryTitles = ["제조", "건설", "유통", "운송", "금융", "오락•문화", "통신방송서비스", "IT S/W & SVC", "IT H/W"];
+
+  const KOSPI_percentageChange = [
     "+0.44%",
     "+0.44%",
     "+0.44%",
@@ -167,9 +170,13 @@ const IndustrySectorBox: React.FC = () => {
     "+0.44%",
   ];
 
+  const KOSDAQ_percentageChange = ["+0.44%", "+0.44%", "+0.44%", "+0.44%", "+0.44%", "+0.44%", "+0.44%", "+0.44%", "+0.44%"];
   const handleButtonClick = (type: "KOSPI" | "KOSDAQ") => {
-    console.log("Button clicked with type:", type);
+    setIsActive(type);
   };
+
+  const data = isActive === "KOSPI" ? KOSPI_industryTitles : KOSDAQ_industryTitles;
+  const percentageChange = isActive === "KOSPI" ? KOSPI_percentageChange : KOSDAQ_percentageChange;
 
   return (
     <>
@@ -177,7 +184,7 @@ const IndustrySectorBox: React.FC = () => {
         <StockButton onClick={handleButtonClick} />
       </StockButtonsWrapper>
       <GridContainer>
-        {industryTitles.map((title, index) => (
+        {data.map((title, index) => (
           <StyledContainer key={index}>
             <div className="title">{title}</div>
             <div className="percentageChange">{percentageChange[index]}</div>
