@@ -6,10 +6,11 @@ const Index: React.FC = () => {
     <>
       <LoginText>로그인</LoginText>
       <Center>
-        <img src={`${process.env.PUBLIC_URL}/assets/Tiger.webp`} alt="login" style={{ width: "130px", marginTop: "83px" }} />
+        <img src={`${process.env.PUBLIC_URL}/assets/character.png`} alt="login" style={{ width: "238px", margin: "38.62px 0" }} />
         <Text>
-          '모의주식'으로 주식의
-          <br /> 기본 과정을 알아가 볼까요?
+          투설이와 함께 주식의
+          <br />
+          기본 과정을 알아가 볼까요?
         </Text>
         <KakaoBtn>카카오 로그인/회원가입</KakaoBtn>
         <CautionText>
