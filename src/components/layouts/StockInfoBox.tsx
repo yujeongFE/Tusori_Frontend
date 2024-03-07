@@ -11,6 +11,7 @@ import nonSelect from "../../assets/gray_star.png";
 interface StockInfoBoxProps {
   title?: string;
   category?: string[];
+  login?: boolean;
 }
 
 // 데이터 형식 선언
@@ -144,6 +145,42 @@ const ScrollableTable = styled.div`
   min-height: 300px;
 `;
 
+const LoginCotainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 20vh;
+`;
+
+const LoginMessage = styled.span`
+  font-family: "Pretendard";
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  color: #000;
+  text-align: center;
+  margin-bottom: 6vh;
+`;
+
+const LoginButton = styled.div`
+  display: inline-flex;
+  padding: 8px 24px;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  border-radius: 40px;
+  background: #708ffe;
+
+  color: #fff;
+  font-family: Pretendard;
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+`;
+
 // 값에 따라 셀의 색상을 계산하는 함수
 const calculateCellColor = (value: string) => {
   return parseFloat(value) < 0 ? "#0075FF" : "#F00";
@@ -190,12 +227,16 @@ const renderTableCell = (
 };
 
 // category 값이 전달되지 않을 경우 테이블 위 버튼 생성 X
-const StockInfoBox: React.FC<StockInfoBoxProps> = ({ title, category = [] }) => {
+const StockInfoBox: React.FC<StockInfoBoxProps> = ({ title, category = [], login }) => {
   const [selectedButton, setSelectedButton] = useState(0);
   const isMyStockTable = title === "MY 보유 주식";
 
   const handleButtonClick = (index: number) => {
     setSelectedButton(index);
+  };
+
+  const handleLoginButton = () => {
+    // 로그인 페이지 이동 
   };
 
   // 테이블에 따라 렌더링 되는 데이터를 달리함
@@ -218,36 +259,43 @@ const StockInfoBox: React.FC<StockInfoBoxProps> = ({ title, category = [] }) => 
           ))}
         </ButtonContainer>
       </BoxContainer>
-      <ScrollableTable>
-        <Table>
-          <TableHeader>
-            <TableRow>
-              <TableCell style={{ flex: "0.5" }}>
-                {isMyStockTable ? <img src={nonSelect} alt="star" style={{ width: "24px", height: "24px", margin: "0px" }} /> : "순위"}
-              </TableCell>
-              <TableCell style={{ flex: "1.5" }}>종목명</TableCell>
-              <TableCell>현재가</TableCell>
-              <TableCell>전일비</TableCell>
-              <TableCell>등락률</TableCell>
-              <TableCell>거래량</TableCell>
-            </TableRow>
-          </TableHeader>
-          <HorizontalLine />
-          <TableBody>
-            {data.map((data, index) => (
-              <TableRow key={index} style={{ marginBottom: "1.85vh" }}>
-                {data.rank && renderTableCell(data.rank, "rank", { flex: "0.5" })}
-                {data.pick && renderTableCell(data.pick, "pick", { flex: "0.5" })}
-                {renderTableCell(data.name, "name", { flex: "1.5" })}
-                {renderTableCell(data.currentPrice, "currentPrice")}
-                {renderTableCell(data.priceChange, "priceChange")}
-                {renderTableCell(data.percentageChange, "percentageChange")}
-                {renderTableCell(data.volume, "volume")}
+      {!login && isMyStockTable ? (
+        <LoginCotainer>
+          <LoginMessage> 아직 보유한 주식이 없어요! </LoginMessage>
+          <LoginButton onClick={() => handleLoginButton()}>로그인 하러가기</LoginButton>
+        </LoginCotainer>
+      ) : (
+        <ScrollableTable>
+          <Table>
+            <TableHeader>
+              <TableRow>
+                <TableCell style={{ flex: "0.5" }}>
+                  {isMyStockTable ? <img src={nonSelect} alt="star" style={{ width: "24px", height: "24px", margin: "0px" }} /> : "순위"}
+                </TableCell>
+                <TableCell style={{ flex: "1.5" }}>종목명</TableCell>
+                <TableCell>현재가</TableCell>
+                <TableCell>전일비</TableCell>
+                <TableCell>등락률</TableCell>
+                <TableCell>거래량</TableCell>
               </TableRow>
-            ))}
-          </TableBody>
-        </Table>
-      </ScrollableTable>
+            </TableHeader>
+            <HorizontalLine />
+            <TableBody>
+              {data.map((data, index) => (
+                <TableRow key={index} style={{ marginBottom: "1.85vh" }}>
+                  {data.rank && renderTableCell(data.rank, "rank", { flex: "0.5" })}
+                  {data.pick && renderTableCell(data.pick, "pick", { flex: "0.5" })}
+                  {renderTableCell(data.name, "name", { flex: "1.5" })}
+                  {renderTableCell(data.currentPrice, "currentPrice")}
+                  {renderTableCell(data.priceChange, "priceChange")}
+                  {renderTableCell(data.percentageChange, "percentageChange")}
+                  {renderTableCell(data.volume, "volume")}
+                </TableRow>
+              ))}
+            </TableBody>
+          </Table>
+        </ScrollableTable>
+      )}
     </Container>
   );
 };
