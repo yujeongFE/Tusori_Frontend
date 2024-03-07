@@ -1,5 +1,93 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
+
+const StockButtonsWrapper = styled.div`
+  display: flex;
+  margin-top: 5vh;
+`;
+
+const StockButtonContainer = styled.div`
+  width: 10.3vw
+  height: 3.05vh;
+  flex-shrink: 0;
+  cursor: pointer;
+`;
+
+const StockButtonSvgWrapper = styled.div`
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+
+const StockButton: React.FC<{ onClick: (type: "KOSPI" | "KOSDAQ") => void }> = ({ onClick }) => {
+  const [isActive, setIsActive] = useState("KOSPI");
+
+  const handleClick = (type: "KOSPI" | "KOSDAQ") => {
+    const newType = type === "KOSPI" ? "KOSPI" : "KOSDAQ";
+    console.log(newType);
+    setIsActive(newType);
+    onClick(newType);
+  };
+
+  return (
+    <StockButtonContainer>
+      <StockButtonSvgWrapper>
+        <svg xmlns="http://www.w3.org/2000/svg" width="198" height="33" viewBox="0 0 198 33" fill="none">
+          {isActive === "KOSPI" ? (
+            <>
+              <g onClick={() => handleClick("KOSPI")}>
+                <path
+                  d="M98.5 32.5L10 32.5C4.7533 32.5 0.5 28.2467 0.500001 23L0.500002 9.99999C0.500002 4.75329 4.7533 0.499992 10 0.499992L98.5 0.5L98.5 32.5Z"
+                  fill="white"
+                  stroke="#708FFE"
+                />
+                <text x="25%" y="50%" textAnchor="middle" dominantBaseline="middle" fill="#222" fontFamily="Pretendard" fontSize="16" fontWeight="500">
+                  코스피
+                </text>
+              </g>
+              <g onClick={() => handleClick("KOSDAQ")}>
+                <path
+                  d="M99.5 32.5L188 32.5C193.247 32.5 197.5 28.2467 197.5 23L197.5 10C197.5 4.7533 193.247 0.500001 188 0.5L99.5 0.499992L99.5 32.5Z"
+                  fill="white"
+                  stroke="#CCCCCC"
+                />
+                <text x="75%" y="50%" textAnchor="middle" dominantBaseline="middle" fill="#222" fontFamily="Pretendard" fontSize="16" fontWeight="500">
+                  코스닥
+                </text>
+              </g>
+            </>
+          ) : (
+            <>
+              <g onClick={() => handleClick("KOSPI")}>
+                <path
+                  d="M98.5 32.5L10 32.5C4.7533 32.5 0.5 28.2467 0.500001 23L0.500002 9.99999C0.500002 4.75329 4.7533 0.499992 10 0.499992L98.5 0.5L98.5 32.5Z"
+                  fill="white"
+                  stroke="#CCCCCC"
+                />
+                <text x="25%" y="50%" textAnchor="middle" dominantBaseline="middle" fill="#222" fontFamily="Pretendard" fontSize="16" fontWeight="500">
+                  코스피
+                </text>
+              </g>
+              <g onClick={() => handleClick("KOSDAQ")}>
+                <path
+                  d="M99.5 32.5L188 32.5C193.247 32.5 197.5 28.2467 197.5 23L197.5 10C197.5 4.7533 193.247 0.500001 188 0.5L99.5 0.499992L99.5 32.5Z"
+                  fill="white"
+                  stroke="#708FFE"
+                />
+                <text x="75%" y="50%" textAnchor="middle" dominantBaseline="middle" fill="#222" fontFamily="Pretendard" fontSize="16" fontWeight="500">
+                  코스닥
+                </text>
+              </g>
+            </>
+          )}
+        </svg>
+      </StockButtonSvgWrapper>
+    </StockButtonContainer>
+  );
+};
 
 const GridContainer = styled.div`
   display: grid;
@@ -79,15 +167,24 @@ const IndustrySectorBox: React.FC = () => {
     "+0.44%",
   ];
 
+  const handleButtonClick = (type: "KOSPI" | "KOSDAQ") => {
+    console.log("Button clicked with type:", type);
+  };
+
   return (
-    <GridContainer>
-      {industryTitles.map((title, index) => (
-        <StyledContainer key={index}>
-          <div className="title">{title}</div>
-          <div className="percentageChange">{percentageChange[index]}</div>
-        </StyledContainer>
-      ))}
-    </GridContainer>
+    <>
+      <StockButtonsWrapper>
+        <StockButton onClick={handleButtonClick} />
+      </StockButtonsWrapper>
+      <GridContainer>
+        {industryTitles.map((title, index) => (
+          <StyledContainer key={index}>
+            <div className="title">{title}</div>
+            <div className="percentageChange">{percentageChange[index]}</div>
+          </StyledContainer>
+        ))}
+      </GridContainer>
+    </>
   );
 };
 
