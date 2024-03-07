@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import styled from "styled-components";
+import { useNavigate, useNavigation } from "react-router-dom";
 import firstSampleData from "../../json/RealTimeStockData.json";
 import secondSampleData from "../../json/MyStockData.json";
 
@@ -228,6 +229,7 @@ const renderTableCell = (
 
 // category 값이 전달되지 않을 경우 테이블 위 버튼 생성 X
 const StockInfoBox: React.FC<StockInfoBoxProps> = ({ title, category = [], login }) => {
+  const navigate = useNavigate();
   const [selectedButton, setSelectedButton] = useState(0);
   const isMyStockTable = title === "MY 보유 주식";
 
@@ -236,7 +238,7 @@ const StockInfoBox: React.FC<StockInfoBoxProps> = ({ title, category = [], login
   };
 
   const handleLoginButton = () => {
-    // 로그인 페이지 이동 
+    navigate("/login");
   };
 
   // 테이블에 따라 렌더링 되는 데이터를 달리함
