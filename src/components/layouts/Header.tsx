@@ -150,7 +150,7 @@ const Header = () => {
           <StyledNavLink to="/dict/process" className={checkActive(location.pathname) ? "active" : ""}>
             주식사전
           </StyledNavLink>
-          <StyledNavLink to="/...">업종별시세</StyledNavLink>
+          <StyledNavLink to="/industry">업종별시세</StyledNavLink>
           <StyledNavLink to="/mypage">마이페이지</StyledNavLink>
         </SidebySideContainer>
       </LeftSection>
