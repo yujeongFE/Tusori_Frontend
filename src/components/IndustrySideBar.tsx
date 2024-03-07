@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 
 const SidebarContainer = styled.div`
@@ -46,7 +46,28 @@ const Divider = styled.div`
   position: absolute;
 `;
 
-const IndustrySidebar: React.FC = () => {
+const StyledIndicator = styled.div<{ selected: boolean }>`
+  color: ${({ selected }) => (selected ? "#2A2A2A" : "#aeaeae")};
+
+  font-family: Pretendard;
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+`;
+
+interface IndustrySidebarProps {
+  onItemSelected: (selectedItem: string | null) => void;
+}
+
+const IndustrySidebar: React.FC<IndustrySidebarProps> = ({ onItemSelected }) => {
+  const [selectedItem, setSelectedItem] = useState<string | null>(null);
+
+  const handleItemClick = (item: string) => {
+    setSelectedItem(item);
+    onItemSelected(item); // 선택된 카테고리를 전달하기 위한 콜백 함수 작성
+  };
+
   return (
     <SidebarContainer>
       <MopDivider />
@@ -71,9 +92,9 @@ const IndustrySidebar: React.FC = () => {
       ].map((item, index) => (
         <SidebarItem key={index}>
           <Divider />
-          <SidebarLink>
-            <text>{item}</text>
-            <text>{">"}</text>
+          <SidebarLink onClick={() => handleItemClick(item)}>
+            <StyledIndicator selected={selectedItem === item}>{item}</StyledIndicator>
+            <StyledIndicator selected={selectedItem === item}>{">"}</StyledIndicator>
           </SidebarLink>
         </SidebarItem>
       ))}
