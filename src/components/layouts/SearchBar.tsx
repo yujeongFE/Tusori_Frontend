@@ -12,6 +12,10 @@ const SearchBarContainer = styled.div`
   margin-left: 22px;
   border-radius: 30px;
   border: 2px solid #e5eafd;
+
+  @media (max-width: 1132px) {
+    width: 80%;
+  } 
 `;
 
 const Input = styled.input`
@@ -28,6 +32,10 @@ const Input = styled.input`
     outline: none;
     border: none;
   }
+
+  @media (max-width: 1132px) {
+    width: 70%;
+  } 
 `;
 
 const SearchButton = styled.button`
@@ -36,6 +44,8 @@ const SearchButton = styled.button`
   border: none;
   padding: 12px;
   cursor: pointer;
+
+
 `;
 
 const SearchBar = () => {
