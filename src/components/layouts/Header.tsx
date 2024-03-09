@@ -17,10 +17,6 @@ const HeaderContainer = styled.header`
 
   @media (max-width: 768px) {
     justify-content: center;
-    background-image: url("${process.env.PUBLIC_URL}/assets/only_nameLogo.png");
-    background-repeat: no-repeat;
-    background-position: center;
-    background-size: 63px;
     height: 64px;
   }
 `;
@@ -28,6 +24,24 @@ const HeaderContainer = styled.header`
 const LeftSection = styled.div`
   display: flex;
   flex-direction: column;
+  @media (max-width: 768px) {
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+    flex: 1;
+  }
+`;
+
+const LogoName = styled.img`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  display: none;
+
+  @media (max-width: 768px) {
+    display: flex;
+    width: 63px;
+  }
 `;
 
 const Logo = styled.img`
@@ -80,6 +94,9 @@ const SidebySideContainer = styled.div`
   display: flex;
   flex-direction: space-between;
   margin-right: 68px;
+  @media (max-width: 768px) {
+    margin-right: 0;
+  }
 `;
 
 const LoginLink = styled(Link)`
@@ -106,6 +123,9 @@ const RightSection = styled.div`
   align-items: center;
   justify-content: flex-end;
   flex-grow: 1;
+
+  @media (max-width: 768px) {
+    flex:1;
 `;
 
 const Header = () => {
@@ -135,6 +155,9 @@ const Header = () => {
         </SidebySideContainer>
         <HeaderMenu />
       </LeftSection>
+      <Link to="/">
+        <LogoName src={`${process.env.PUBLIC_URL}/assets/only_nameLogo.png`} alt="logo_name" />
+      </Link>
       <RightSection>
         <LoginLink to="/login">로그인</LoginLink>
         <SearchBar />
