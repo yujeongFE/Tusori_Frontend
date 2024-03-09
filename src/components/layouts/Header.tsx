@@ -1,9 +1,10 @@
 import React, { useState } from "react";
-import styled, { css } from "styled-components";
+import styled from "styled-components";
 import SearchBar from "./SearchBar";
 import Switch from "react-switch";
 import DictionarySideBar from "components/DictionarySideBar";
-import { NavLink, Link, useLocation } from "react-router-dom";
+import HeaderMenu from "./HeaderMenu";
+import { Link } from "react-router-dom";
 
 const HeaderContainer = styled.header`
   display: flex;
@@ -56,38 +57,6 @@ const switchStyle = {
   width: 46,
 };
 
-const activeLinkStyle = css`
-  color: #708ffe;
-  font-weight: bold;
-  &:after {
-    content: "";
-    position: absolute;
-    width: 100%;
-    height: 3px;
-    background-color: #708ffe;
-    bottom: 0;
-    left: 0;
-  }
-`;
-
-const StyledNavLink = styled(NavLink)`
-  color: #676767;
-  font-family: "Pretendard-Medium";
-  font-size: 18px;
-  text-decoration: none;
-  padding-bottom: 16px;
-  margin: 25.95px 4vw 0 0;
-  position: relative;
-
-  &:hover {
-    ${activeLinkStyle}
-  }
-
-  &.active {
-    ${activeLinkStyle}
-  }
-`;
-
 const SidebySideContainer = styled.div`
   display: flex;
   flex-direction: space-between;
@@ -119,18 +88,8 @@ const Header = () => {
     }
   };
 
-  const location = useLocation();
-  const checkActive = (path: string) => {
-    return ["/dict/process", "/dict/words"].includes(path);
-  };
-
   //주식용어설명 사이드바
   const [isOpen, setIsOpen] = useState(false);
-  const toggleSide = () => {
-    if (isInvestMode) {
-      setIsOpen(true);
-    }
-  };
 
   return (
     <HeaderContainer>
@@ -145,14 +104,7 @@ const Header = () => {
             <DictionarySideBar isOpen={isOpen} setIsOpen={setIsOpen} />
           </SwitchContainer>
         </SidebySideContainer>
-        <SidebySideContainer>
-          <StyledNavLink to="/">홈</StyledNavLink>
-          <StyledNavLink to="/dict/process" className={checkActive(location.pathname) ? "active" : ""}>
-            주식사전
-          </StyledNavLink>
-          <StyledNavLink to="/industry">업종별시세</StyledNavLink>
-          <StyledNavLink to="/mypage">마이페이지</StyledNavLink>
-        </SidebySideContainer>
+        <HeaderMenu />
       </LeftSection>
       <RightSection>
         <LoginLink to="/login">로그인</LoginLink>
