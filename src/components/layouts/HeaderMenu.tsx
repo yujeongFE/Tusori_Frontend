@@ -36,14 +36,9 @@ const StyledNavLink = styled(NavLink)<StyledNavLinkProps>`
   margin: 25.95px 4vw 0 0;
   position: relative;
 
-  &:hover {
-    color: #708ffe; // activeLinkStyle 예시
-    font-weight: bold;
-  }
-
+  &:hover,
   &.active {
-    color: #708ffe; // activeLinkStyle 예시
-    font-weight: bold;
+    ${activeLinkStyle}
   }
 
   @media (max-width: 768px) {
@@ -52,7 +47,6 @@ const StyledNavLink = styled(NavLink)<StyledNavLinkProps>`
     color: #2a2a2a;
   }
 
-  // hideOnDesktop prop이 true일 때만 적용되는 스타일
   ${({ hideOnDesktop }) =>
     hideOnDesktop &&
     css`
@@ -68,9 +62,9 @@ const SidebySideContainer = styled.div<{ isOpen: boolean }>`
   width: 304px;
   position: fixed;
   height: 100%;
+  background-color: #fefdfd;
   left: ${({ isOpen }) => (isOpen ? "0" : "-304px")};
   top: 0;
-  background-color: #f8f9fa;
   overflow-x: hidden;
   transition: 0.5s;
   z-index: 1;
