@@ -14,6 +14,15 @@ const HeaderContainer = styled.header`
   box-shadow: 0px 4px 2px 0px rgba(0, 0, 0, 0.04);
   padding: 0 13.5vw;
   margin-bottom: 5px;
+
+  @media (max-width: 768px) {
+    justify-content: center;
+    background-image: url("${process.env.PUBLIC_URL}/assets/only_nameLogo.png");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 63px;
+    height: 64px;
+  }
 `;
 
 const LeftSection = styled.div`
@@ -24,11 +33,17 @@ const LeftSection = styled.div`
 const Logo = styled.img`
   width: 128px;
   margin: 23.95px 3vw 0 0;
+  @media (max-width: 768px) {
+    display: none;
+  }
 `;
 
 const SwitchContainer = styled.div`
   margin-top: 30px;
   display: flex;
+  @media (max-width: 768px) {
+    margin-top: 0;
+  }
 `;
 
 interface ModeProps {
@@ -41,6 +56,10 @@ const Mode = styled.div<ModeProps>`
   padding-top: 3px;
   font-family: ${(props) => (props.isInvestMode ? "Pretendard-Bold" : "inherit")};
   color: ${(props) => (props.isInvestMode ? "#708FFE" : "inherit")};
+
+  @media (max-width: 768px) {
+    display: none;
+  }
 `;
 
 const switchStyle = {
@@ -70,6 +89,16 @@ const LoginLink = styled(Link)`
   padding-top: 88px;
   padding-bottom: 16px;
   position: relative;
+
+  @media (max-width: 768px) {
+    background-image: url("${process.env.PUBLIC_URL}/assets/login_person.svg"); // 로그인 이미지 경로
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: center;
+    text-indent: -9999px;
+    width: 24px;
+    padding-top: 0;
+  }
 `;
 
 const RightSection = styled.div`

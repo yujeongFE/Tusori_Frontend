@@ -50,7 +50,7 @@ const StyledNavLink = styled(NavLink)<StyledNavLinkProps>`
   ${({ hideOnDesktop }) =>
     hideOnDesktop &&
     css`
-      @media (min-width: 768px) {
+      @media (min-width: 768.1px) {
         display: none;
       }
     `}
@@ -69,7 +69,7 @@ const SidebySideContainer = styled.div<{ isOpen: boolean }>`
   transition: 0.5s;
   z-index: 1;
 
-  @media (min-width: 768px) {
+  @media (min-width: 768.1px) {
     flex-direction: row;
     position: static;
     width: auto;
@@ -89,8 +89,8 @@ const SidebySideContainer = styled.div<{ isOpen: boolean }>`
 const SidebarToggleButton = styled.button`
   display: block;
   position: fixed;
-  top: 15px;
-  left: 15px;
+  top: 23px;
+  left: 18px;
   z-index: 2;
   background: url("${process.env.PUBLIC_URL}/assets/menu_icon.svg") no-repeat center center;
   background-size: contain;
@@ -98,8 +98,11 @@ const SidebarToggleButton = styled.button`
   cursor: pointer;
   padding: 12px;
 
-  @media (min-width: 768px) {
+  @media (min-width: 768.1px) {
     display: none;
+  }
+  @media (max-width: 320px) {
+    left: 10px;
   }
 `;
 
@@ -114,7 +117,7 @@ const SidebarCloseButton = styled.button`
   cursor: pointer;
   padding: 12px;
 
-  @media (min-width: 768px) {
+  @media (min-width: 768.1px) {
     display: none;
   }
 `;
@@ -128,7 +131,7 @@ const LoginContainer = styled.div`
   padding: 16px 0 16px 0;
   width: 85%;
 
-  @media (min-width: 768px) {
+  @media (min-width: 768.1px) {
     display: none;
   }
 `;
@@ -139,7 +142,7 @@ const Category = styled.div`
   font-size: 12px;
   width: 100%;
   border-bottom: 0.5px solid #ccc;
-  @media (min-width: 768px) {
+  @media (min-width: 768.1px) {
     display: none;
   }
 `;
