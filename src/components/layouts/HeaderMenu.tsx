@@ -23,7 +23,11 @@ const activeLinkStyle = css`
   }
 `;
 
-const StyledNavLink = styled(NavLink)`
+interface StyledNavLinkProps {
+  hideOnDesktop?: boolean;
+}
+
+const StyledNavLink = styled(NavLink)<StyledNavLinkProps>`
   color: #676767;
   font-family: "Pretendard-Medium";
   font-size: 18px;
@@ -33,12 +37,29 @@ const StyledNavLink = styled(NavLink)`
   position: relative;
 
   &:hover {
-    ${activeLinkStyle}
+    color: #708ffe; // activeLinkStyle 예시
+    font-weight: bold;
   }
 
   &.active {
-    ${activeLinkStyle}
+    color: #708ffe; // activeLinkStyle 예시
+    font-weight: bold;
   }
+
+  @media (max-width: 768px) {
+    font-size: 14px;
+    padding-left: 7.5%;
+    color: #2a2a2a;
+  }
+
+  // hideOnDesktop prop이 true일 때만 적용되는 스타일
+  ${({ hideOnDesktop }) =>
+    hideOnDesktop &&
+    css`
+      @media (min-width: 768px) {
+        display: none;
+      }
+    `}
 `;
 
 const SidebySideContainer = styled.div<{ isOpen: boolean }>`
@@ -59,7 +80,6 @@ const SidebySideContainer = styled.div<{ isOpen: boolean }>`
     position: static;
     width: auto;
     height: auto;
-    background-color: transparent;
   }
 
   @media (max-width: 400px) {
@@ -119,6 +139,17 @@ const LoginContainer = styled.div`
   }
 `;
 
+const Category = styled.div`
+  padding: 32px 0 12px 7.5%;
+  color: #676767;
+  font-size: 12px;
+  width: 100%;
+  border-bottom: 0.5px solid #ccc;
+  @media (min-width: 768px) {
+    display: none;
+  }
+`;
+
 const HeaderMenu: React.FC = () => {
   const location = useLocation();
   const [isSidebarOpen, setSidebarOpen] = useState<boolean>(false);
@@ -143,11 +174,22 @@ const HeaderMenu: React.FC = () => {
             로그인을 해주세요
           </LoginContainer>
         )}
+        {isSidebarOpen && <Category>카테고리</Category>}
 
         <StyledNavLink to="/">홈</StyledNavLink>
         <StyledNavLink to="/dict/process" className={checkActive(location.pathname) ? "active" : ""}>
           주식사전
         </StyledNavLink>
+        {isSidebarOpen && (
+          <StyledNavLink to="/dict/process" hideOnDesktop={true} style={{ color: "#2a2a2a", fontSize: "12px", padding: "0 0 5px 8%", marginTop: "0px" }}>
+            • 주식 투자 과정
+          </StyledNavLink>
+        )}
+        {isSidebarOpen && (
+          <StyledNavLink to="/dict/words" hideOnDesktop={true} style={{ color: "#2a2a2a", fontSize: "12px", padding: "0 0 5px 8%", marginTop: "10px" }}>
+            • 주식 용어 설명
+          </StyledNavLink>
+        )}
         <StyledNavLink to="/industry">업종별시세</StyledNavLink>
         <StyledNavLink to="/mypage">마이페이지</StyledNavLink>
       </SidebySideContainer>
