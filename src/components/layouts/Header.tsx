@@ -1,9 +1,10 @@
 import React, { useState } from "react";
-import styled, { css } from "styled-components";
+import styled from "styled-components";
 import SearchBar from "./SearchBar";
 import Switch from "react-switch";
 import DictionarySideBar from "components/DictionarySideBar";
-import { NavLink, Link, useLocation } from "react-router-dom";
+import HeaderMenu from "./HeaderMenu";
+import { Link } from "react-router-dom";
 
 const HeaderContainer = styled.header`
   display: flex;
@@ -13,21 +14,50 @@ const HeaderContainer = styled.header`
   box-shadow: 0px 4px 2px 0px rgba(0, 0, 0, 0.04);
   padding: 0 13.5vw;
   margin-bottom: 5px;
+
+  @media (max-width: 768px) {
+    justify-content: center;
+    height: 65px;
+  }
 `;
 
 const LeftSection = styled.div`
   display: flex;
   flex-direction: column;
+  @media (max-width: 768px) {
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+    flex: 1;
+  }
+`;
+
+const LogoName = styled.img`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  display: none;
+
+  @media (max-width: 768px) {
+    display: flex;
+    width: 63px;
+  }
 `;
 
 const Logo = styled.img`
   width: 128px;
   margin: 23.95px 3vw 0 0;
+  @media (max-width: 768px) {
+    display: none;
+  }
 `;
 
 const SwitchContainer = styled.div`
   margin-top: 30px;
   display: flex;
+  @media (max-width: 768px) {
+    margin-top: 0;
+  }
 `;
 
 interface ModeProps {
@@ -40,6 +70,10 @@ const Mode = styled.div<ModeProps>`
   padding-top: 3px;
   font-family: ${(props) => (props.isInvestMode ? "Pretendard-Bold" : "inherit")};
   color: ${(props) => (props.isInvestMode ? "#708FFE" : "inherit")};
+
+  @media (max-width: 768px) {
+    display: none;
+  }
 `;
 
 const switchStyle = {
@@ -56,42 +90,13 @@ const switchStyle = {
   width: 46,
 };
 
-const activeLinkStyle = css`
-  color: #708ffe;
-  font-weight: bold;
-  &:after {
-    content: "";
-    position: absolute;
-    width: 100%;
-    height: 3px;
-    background-color: #708ffe;
-    bottom: 0;
-    left: 0;
-  }
-`;
-
-const StyledNavLink = styled(NavLink)`
-  color: #676767;
-  font-family: "Pretendard-Medium";
-  font-size: 18px;
-  text-decoration: none;
-  padding-bottom: 16px;
-  margin: 25.95px 4vw 0 0;
-  position: relative;
-
-  &:hover {
-    ${activeLinkStyle}
-  }
-
-  &.active {
-    ${activeLinkStyle}
-  }
-`;
-
 const SidebySideContainer = styled.div`
   display: flex;
   flex-direction: space-between;
   margin-right: 68px;
+  @media (max-width: 768px) {
+    margin-right: 0;
+  }
 `;
 
 const LoginLink = styled(Link)`
@@ -101,6 +106,16 @@ const LoginLink = styled(Link)`
   padding-top: 88px;
   padding-bottom: 16px;
   position: relative;
+
+  @media (max-width: 768px) {
+    background-image: url("${process.env.PUBLIC_URL}/assets/login_person.svg"); // 로그인 이미지 경로
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: center;
+    text-indent: -9999px;
+    width: 24px;
+    padding-top: 0;
+  }
 `;
 
 const RightSection = styled.div`
@@ -108,6 +123,9 @@ const RightSection = styled.div`
   align-items: center;
   justify-content: flex-end;
   flex-grow: 1;
+
+  @media (max-width: 768px) {
+    flex:1;
 `;
 
 const Header = () => {
@@ -119,18 +137,8 @@ const Header = () => {
     }
   };
 
-  const location = useLocation();
-  const checkActive = (path: string) => {
-    return ["/dict/process", "/dict/words"].includes(path);
-  };
-
   //주식용어설명 사이드바
   const [isOpen, setIsOpen] = useState(false);
-  const toggleSide = () => {
-    if (isInvestMode) {
-      setIsOpen(true);
-    }
-  };
 
   return (
     <HeaderContainer>
@@ -145,15 +153,11 @@ const Header = () => {
             <DictionarySideBar isOpen={isOpen} setIsOpen={setIsOpen} />
           </SwitchContainer>
         </SidebySideContainer>
-        <SidebySideContainer>
-          <StyledNavLink to="/">홈</StyledNavLink>
-          <StyledNavLink to="/dict/process" className={checkActive(location.pathname) ? "active" : ""}>
-            주식사전
-          </StyledNavLink>
-          <StyledNavLink to="/industry">업종별시세</StyledNavLink>
-          <StyledNavLink to="/mypage">마이페이지</StyledNavLink>
-        </SidebySideContainer>
+        <HeaderMenu />
       </LeftSection>
+      <Link to="/">
+        <LogoName src={`${process.env.PUBLIC_URL}/assets/only_nameLogo.png`} alt="logo_name" />
+      </Link>
       <RightSection>
         <LoginLink to="/login">로그인</LoginLink>
         <SearchBar />
