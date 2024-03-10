@@ -26,11 +26,21 @@ export const KakaoBtn = styled.button`
   height: 53px;
   border-radius: 12px;
   background: #fee500;
+  // 배경 왼쪽 부분에 이미지 삽입
+  background-image: url(${process.env.PUBLIC_URL}/assets/kakao-logo.png);
+  background-repeat: no-repeat;
+  background-position: 32px 50%;
+  background-size: 23px;
   margin-top: 40px;
   border: none;
   font-size: 18px;
   font-family: Roboto-Regular;
   cursor: pointer;
+
+  @media (max-width: 500px) {
+    width: 95%;
+    background-position: 13px 50%;
+  }
 `;
 
 export const CautionText = styled.div`
@@ -38,4 +48,10 @@ export const CautionText = styled.div`
   font-size: 14px;
   font-weight: 400;
   margin-top: 32px;
+  @media (max-width: 768px) {
+    font-size: 12px;
+  }
+  @media (max-width: 380px) {
+    font-size: 11px;
+  }
 `;
