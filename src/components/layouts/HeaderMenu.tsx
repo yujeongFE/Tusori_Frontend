@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import styled, { css } from "styled-components";
 import { NavLink, useLocation } from "react-router-dom";
 
@@ -15,7 +15,6 @@ const activeLinkStyle = css`
     left: 0;
   }
 
-  // 768px 이하일때 after 없애기
   @media (max-width: 768px) {
     &:after {
       content: none;
@@ -150,6 +149,7 @@ const Category = styled.div`
 const HeaderMenu: React.FC = () => {
   const location = useLocation();
   const [isSidebarOpen, setSidebarOpen] = useState<boolean>(false);
+  const sidebarRef = useRef<HTMLDivElement>(null);
 
   const toggleSidebar = (): void => {
     setSidebarOpen(!isSidebarOpen);
@@ -159,10 +159,26 @@ const HeaderMenu: React.FC = () => {
     return ["/dict/process", "/dict/words"].includes(path);
   };
 
+  useEffect(() => {
+    const handleOutsideClick = (event: MouseEvent): void => {
+      if (isSidebarOpen && sidebarRef.current && !sidebarRef.current.contains(event.target as Node)) {
+        setSidebarOpen(false);
+      }
+    };
+
+    if (isSidebarOpen) {
+      document.addEventListener("mousedown", handleOutsideClick);
+    }
+
+    return () => {
+      document.removeEventListener("mousedown", handleOutsideClick);
+    };
+  }, [isSidebarOpen]);
+
   return (
     <>
       {!isSidebarOpen && <SidebarToggleButton onClick={toggleSidebar} />}
-      <SidebySideContainer isOpen={isSidebarOpen}>
+      <SidebySideContainer isOpen={isSidebarOpen} ref={sidebarRef}>
         {isSidebarOpen && <SidebarCloseButton onClick={toggleSidebar} />}
         {isSidebarOpen && (
           // 사이드바에만 보이는 부분
