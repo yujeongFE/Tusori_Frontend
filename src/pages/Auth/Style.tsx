@@ -14,19 +14,31 @@ export const Center = styled.div`
   flex-direction: column;
 `;
 
+export const Img = styled.img`
+  width: 238px;
+  margin: 38.62px 0;
+  @media (max-width: 500px) {
+    width: 161px;
+    margin: 31px 0;
+  }
+`;
+
 export const Text = styled.div`
   text-align: center;
   font-family: Pretendard-Medium;
   font-size: 22px;
   margin-top: 19px;
+  @media (max-width: 768px) {
+    font-size: 20px;
+  }
 `;
 
 export const KakaoBtn = styled.button`
   width: 483px;
   height: 53px;
   border-radius: 12px;
+  color: #2a2a2a;
   background: #fee500;
-  // 배경 왼쪽 부분에 이미지 삽입
   background-image: url(${process.env.PUBLIC_URL}/assets/kakao-logo.png);
   background-repeat: no-repeat;
   background-position: 32px 50%;
@@ -37,9 +49,18 @@ export const KakaoBtn = styled.button`
   font-family: Roboto-Regular;
   cursor: pointer;
 
+  @media (max-width: 768px) {
+    width: 350px;
+  }
   @media (max-width: 500px) {
-    width: 95%;
-    background-position: 13px 50%;
+    width: 67%;
+    font-size: 13px;
+    height: 40px;
+    background-position: 10px 50%;
+    background-size: 19px;
+  }
+  @media (max-width: 300px) {
+    font-size: 12px;
   }
 `;
 
@@ -50,8 +71,7 @@ export const CautionText = styled.div`
   margin-top: 32px;
   @media (max-width: 768px) {
     font-size: 12px;
-  }
-  @media (max-width: 380px) {
-    font-size: 11px;
+    width: 215px;
+    text-align: center;
   }
 `;

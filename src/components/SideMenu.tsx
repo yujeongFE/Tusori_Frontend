@@ -19,8 +19,6 @@ const StyledNav = styled.nav`
   display: flex;
   flex-direction: column;
   width: 195px;
-  @media (max-width: 768px) {
-  }
 `;
 
 const StyledNavLink = styled(NavLink)`
