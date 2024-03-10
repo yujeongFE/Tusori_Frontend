@@ -88,7 +88,7 @@ const SidebySideContainer = styled.div<{ isOpen: boolean }>`
 const SidebarToggleButton = styled.button`
   display: block;
   position: fixed;
-  top: 23px;
+  top: 22px;
   left: 18px;
   z-index: 2;
   background: url("${process.env.PUBLIC_URL}/assets/menu_icon.svg") no-repeat center center;
