@@ -4,7 +4,7 @@ import ScrollBar from "./ScrollBar";
 
 interface TableProps {
   headers: string[];
-  data: (string | number)[][];
+  data: (string | number | JSX.Element)[][];
 }
 
 const TableContainer = styled.div`
@@ -14,6 +14,7 @@ const TableContainer = styled.div`
   border-radius: 8px;
   margin-bottom: 70px;
   font-size: 17px;
+  overflow-x: auto;
 `;
 
 const TableHeader = styled.div`
@@ -29,8 +30,8 @@ const StyledTable = styled.table`
 
 const StyledThead = styled.thead``;
 
-const alignStyle = css<{ isFirst: boolean }>`
-  text-align: ${({ isFirst }) => (isFirst ? "left" : "right")};
+const alignStyle = css<{ isSecond?: boolean }>`
+  text-align: ${({ isSecond }) => (isSecond ? "left" : "right")};
 `;
 
 const colorStyle = (data: string | number) => {
@@ -44,38 +45,27 @@ const colorStyle = (data: string | number) => {
   return "";
 };
 
-const StyledTh = styled.th<{ isFirst: boolean }>`
-  overflow-x: hidden;
+const StyledTh = styled.th<{ isFirst: boolean; isSecond?: boolean }>`
+  padding: 20px 25px 20px 5px;
   position: sticky;
-  top: 0;
+  max-width: 100%;
   word-wrap: break-word;
-  white-space: nowrap;
-  width: ${({ isFirst }) => (isFirst ? "13%" : "calc(85% / (headers.length - 1))")};
-  padding: ${({ isFirst }) => (isFirst ? "20px 0 20px 20px" : "20px 25px")};
-  ${alignStyle}
-`;
-
-const StyledTd = styled.td<{ isFirst: boolean; cellData: string | number }>`
-  overflow-x: hidden;
-  padding: ${({ isFirst }) => (isFirst ? "15px 0 15px 20px" : "15px 25px 15px 0")};
-  word-wrap: break-word;
-  white-space: nowrap;
   //border: 1px solid #e3e3e3;
+  width: ${({ isFirst, isSecond }) => (isFirst ? "1.5%" : isSecond ? "30%" : "25%")};
   ${alignStyle}
-  ${({ cellData }) => colorStyle(cellData)}
-  width: ${({ isFirst }) => (isFirst ? "13%" : "calc(85% / (headers.length - 1))")};
 `;
 
-const FirstColumnContent = styled.div`
-  display: flex;
-  align-items: center;
+const StyledTd = styled.td<{ isFirst: boolean; isSecond?: boolean; cellData: string | number | JSX.Element }>`
+  padding: 15px 25px 15px 5px;
+  max-width: 100%;
+  //border: 1px solid #e3e3e3;
+  word-wrap: break-word;
+  width: ${({ isFirst, isSecond }) => (isFirst ? "1.5%" : isSecond ? "30%" : "25%")};
+  ${alignStyle}
+  ${({ cellData }) => (typeof cellData === "string" || typeof cellData === "number" ? colorStyle(cellData) : "")}
 `;
 
-const StarIcon = styled.img`
-  margin: 0 5px 0 -5px;
-`;
-
-const InterestedStocksTable: React.FC<TableProps> = ({ headers, data }: TableProps) => {
+const MypageTable: React.FC<TableProps> = ({ headers, data }: TableProps) => {
   return (
     <TableContainer>
       <TableHeader>
@@ -83,7 +73,7 @@ const InterestedStocksTable: React.FC<TableProps> = ({ headers, data }: TablePro
           <StyledThead>
             <tr>
               {headers.map((header, index) => (
-                <StyledTh key={index} isFirst={index === 0}>
+                <StyledTh key={index} isFirst={index === 0} isSecond={index === 1}>
                   {header}
                 </StyledTh>
               ))}
@@ -97,15 +87,8 @@ const InterestedStocksTable: React.FC<TableProps> = ({ headers, data }: TablePro
             {data.map((rowData, rowIndex) => (
               <tr key={rowIndex}>
                 {rowData.map((cellData, cellIndex) => (
-                  <StyledTd key={cellIndex} isFirst={cellIndex === 0} cellData={cellData}>
-                    {cellIndex === 0 ? (
-                      <FirstColumnContent>
-                        <StarIcon src={`${process.env.PUBLIC_URL}/assets/star.svg`} alt="Star" />
-                        {cellData}
-                      </FirstColumnContent>
-                    ) : (
-                      cellData
-                    )}
+                  <StyledTd key={cellIndex} isFirst={cellIndex === 0} isSecond={cellIndex === 1} cellData={cellData}>
+                    {cellIndex === 0 ? <img src={`${process.env.PUBLIC_URL}/assets/star.svg`} alt="Cell Image" /> : cellData}
                   </StyledTd>
                 ))}
               </tr>
@@ -117,4 +100,4 @@ const InterestedStocksTable: React.FC<TableProps> = ({ headers, data }: TablePro
   );
 };
 
-export default InterestedStocksTable;
+export default MypageTable;

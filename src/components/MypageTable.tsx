@@ -14,6 +14,7 @@ const TableContainer = styled.div`
   border-radius: 8px;
   margin-bottom: 70px;
   font-size: 17px;
+  overflow-x: auto;
 `;
 
 const TableHeader = styled.div`
@@ -45,25 +46,23 @@ const colorStyle = (data: string | number) => {
 };
 
 const StyledTh = styled.th<{ isFirst: boolean }>`
-  overflow-x: hidden;
   padding: 20px 25px;
   position: sticky;
-  top: 0;
+  max-width: 100%;
   word-wrap: break-word;
-  white-space: nowrap;
-  overflow: hidden;
-  width: ${({ isFirst }) => (isFirst ? "15%" : "calc(85% / (headers.length - 1))")};
+  //border: 1px solid #e3e3e3;
+  width: 20%;
   ${alignStyle}
 `;
 
 const StyledTd = styled.td<{ isFirst: boolean; cellData: string | number }>`
   padding: 15px 25px;
+  max-width: 100%;
+  //border: 1px solid #e3e3e3;
   word-wrap: break-word;
-  white-space: nowrap;
-  overflow: hidden;
+  width: 20%;
   ${alignStyle}
   ${({ cellData }) => colorStyle(cellData)}
-  width: ${({ isFirst }) => (isFirst ? "15%" : "calc(85% / (headers.length - 1))")};
 `;
 
 const MypageTable: React.FC<TableProps> = ({ headers, data }: TableProps) => {

@@ -13,7 +13,7 @@ export const SideMenuContainer = styled.div`
 
 export const Content = styled.div`
   flex-grow: 1;
-  padding-left: 35px;
+  padding-left: 2vw;
 `;
 
 export const Title = styled.div`

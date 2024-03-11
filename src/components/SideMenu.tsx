@@ -9,6 +9,10 @@ const Title = styled.div`
   padding: 61px 0 30px 0;
   border-bottom: 2px solid #e3e3e3;
   text-align: center;
+
+  @media (max-width: 768px) {
+    font-size: 24px;
+  }
 `;
 
 const StyledNav = styled.nav`
@@ -32,6 +36,10 @@ const StyledNavLink = styled(NavLink)`
 
   &.active {
     font-family: Pretendard-Bold;
+  }
+
+  @media (max-width: 768px) {
+    font-size: 16px;
   }
 `;
 
