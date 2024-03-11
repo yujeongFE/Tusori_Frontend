@@ -51,7 +51,7 @@ const StyledTh = styled.th<{ isFirst: boolean; isSecond?: boolean }>`
   max-width: 100%;
   word-wrap: break-word;
   //border: 1px solid #e3e3e3;
-  width: ${({ isFirst, isSecond }) => (isFirst ? "1%" : isSecond ? "30%" : "20%")};
+  width: ${({ isFirst, isSecond }) => (isFirst ? "1.5%" : isSecond ? "30%" : "25%")};
   ${alignStyle}
 `;
 
@@ -60,7 +60,7 @@ const StyledTd = styled.td<{ isFirst: boolean; isSecond?: boolean; cellData: str
   max-width: 100%;
   //border: 1px solid #e3e3e3;
   word-wrap: break-word;
-  width: ${({ isFirst, isSecond }) => (isFirst ? "1%" : isSecond ? "30%" : "20%")};
+  width: ${({ isFirst, isSecond }) => (isFirst ? "1.5%" : isSecond ? "30%" : "25%")};
   ${alignStyle}
   ${({ cellData }) => (typeof cellData === "string" || typeof cellData === "number" ? colorStyle(cellData) : "")}
 `;

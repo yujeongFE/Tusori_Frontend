@@ -1,4 +1,5 @@
 import React from "react";
+import ScrollBar from "./ScrollBar";
 import styled from "styled-components";
 
 //배경(파란부분)
@@ -29,7 +30,7 @@ const ProfileContainer = styled.div`
   height: 100%;
   display: flex;
   flex-direction: column;
-  margin-left: 63px;
+  margin-left: 4vw;
 `;
 
 const ProfileImg = styled.img`
@@ -65,7 +66,7 @@ const MyAssetContainer = styled.div`
   width: 60%;
   display: flex;
   flex-direction: column;
-  margin-right: 63px;
+  margin-right: 4vw;
 `;
 
 const AssetText = styled.div`
@@ -125,22 +126,25 @@ const Profile: React.FC = () => {
               <ResetBtn>초기화</ResetBtn>
             </RowContainer>
             <Line />
-            <RowContainer style={{ justifyContent: " space-between" }}>
-              <AssetText>총 자산</AssetText>
-              <AmountText>0</AmountText>
-            </RowContainer>
-            <RowContainer style={{ justifyContent: " space-between" }}>
-              <AssetText>가용 자산</AssetText>
-              <AmountText>0</AmountText>
-            </RowContainer>
-            <RowContainer style={{ justifyContent: " space-between" }}>
-              <AssetText>보유 주식 총액</AssetText>
-              <AmountText>0</AmountText>
-            </RowContainer>
-            <RowContainer style={{ justifyContent: " space-between" }}>
-              <AssetText>보유 종목 수</AssetText>
-              <AmountText>0</AmountText>
-            </RowContainer>
+
+            <ScrollBar>
+              <RowContainer style={{ justifyContent: " space-between" }}>
+                <AssetText>총 자산</AssetText>
+                <AmountText>0</AmountText>
+              </RowContainer>
+              <RowContainer style={{ justifyContent: " space-between" }}>
+                <AssetText>가용 자산</AssetText>
+                <AmountText>0</AmountText>
+              </RowContainer>
+              <RowContainer style={{ justifyContent: " space-between" }}>
+                <AssetText>보유 주식 총액</AssetText>
+                <AmountText>0</AmountText>
+              </RowContainer>
+              <RowContainer style={{ justifyContent: " space-between" }}>
+                <AssetText>보유 종목 수</AssetText>
+                <AmountText>0</AmountText>
+              </RowContainer>
+            </ScrollBar>
           </MyAssetContainer>
         </UserInfoBox>
       </UserInfoContainer>
