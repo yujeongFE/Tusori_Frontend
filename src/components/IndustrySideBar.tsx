@@ -4,7 +4,7 @@ import styled from "styled-components";
 const SidebarContainer = styled.div`
   width: 13vw;
   min-width: 100px;
-  margin-top: 10.5vh;
+  margin-top: 4.5vh;
 `;
 
 const SidebarItem = styled.div`
