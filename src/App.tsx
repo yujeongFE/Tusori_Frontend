@@ -8,6 +8,7 @@ import Words from "./pages/Dictionary/Words/Index";
 import Mypage from "./pages/Mypage/Index";
 import Industry from "./pages/Industry/Index";
 import Details from "./pages/Industry/Detail/Index";
+import StockPrice from "./pages/Industry/StockPrice/Index";
 
 const App: React.FC = () => {
   return (
@@ -20,6 +21,7 @@ const App: React.FC = () => {
         <Route path="/mypage" element={<Mypage />} />
         <Route path="/industry" element={<Industry />} />
         <Route path="/industry/details" element={<Details />} />
+        <Route path="/industry/:name" element={<StockPrice />} />
       </Routes>
     </Layout>
   );
