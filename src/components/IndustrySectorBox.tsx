@@ -7,7 +7,7 @@ const StockButtonsWrapper = styled.div`
 `;
 
 const StockButtonContainer = styled.div`
-  width: 10.3vw
+  width: 10.3vw;
   height: 3.05vh;
   flex-shrink: 0;
   cursor: pointer;
@@ -26,63 +26,36 @@ const StockButton: React.FC<{ onClick: (type: "KOSPI" | "KOSDAQ") => void }> = (
   const [isActive, setIsActive] = useState("KOSPI");
 
   const handleClick = (type: "KOSPI" | "KOSDAQ") => {
-    const newType = type === "KOSPI" ? "KOSPI" : "KOSDAQ";
-    console.log(newType);
-    setIsActive(newType);
-    onClick(newType);
+    setIsActive(type);
+    onClick(type);
   };
+
+  const isKOSPIActive = isActive === "KOSPI";
 
   return (
     <StockButtonContainer>
       <StockButtonSvgWrapper>
         <svg xmlns="http://www.w3.org/2000/svg" width="198" height="33" viewBox="0 0 198 33" fill="none">
-          {isActive === "KOSPI" ? (
-            <>
-              <g onClick={() => handleClick("KOSPI")}>
-                <path
-                  d="M98.5 32.5L10 32.5C4.7533 32.5 0.5 28.2467 0.500001 23L0.500002 9.99999C0.500002 4.75329 4.7533 0.499992 10 0.499992L98.5 0.5L98.5 32.5Z"
-                  fill="white"
-                  stroke="#708FFE"
-                />
-                <text x="25%" y="50%" textAnchor="middle" dominantBaseline="middle" fill="#222" fontFamily="Pretendard" fontSize="16" fontWeight="500">
-                  코스피
-                </text>
-              </g>
-              <g onClick={() => handleClick("KOSDAQ")}>
-                <path
-                  d="M99.5 32.5L188 32.5C193.247 32.5 197.5 28.2467 197.5 23L197.5 10C197.5 4.7533 193.247 0.500001 188 0.5L99.5 0.499992L99.5 32.5Z"
-                  fill="white"
-                  stroke="#CCCCCC"
-                />
-                <text x="75%" y="50%" textAnchor="middle" dominantBaseline="middle" fill="#222" fontFamily="Pretendard" fontSize="16" fontWeight="500">
-                  코스닥
-                </text>
-              </g>
-            </>
-          ) : (
-            <>
-              <g onClick={() => handleClick("KOSPI")}>
-                <path
-                  d="M98.5 32.5L10 32.5C4.7533 32.5 0.5 28.2467 0.500001 23L0.500002 9.99999C0.500002 4.75329 4.7533 0.499992 10 0.499992L98.5 0.5L98.5 32.5Z"
-                  fill="white"
-                  stroke="#CCCCCC"
-                />
-                <text x="25%" y="50%" textAnchor="middle" dominantBaseline="middle" fill="#222" fontFamily="Pretendard" fontSize="16" fontWeight="500">
-                  코스피
-                </text>
-              </g>
-              <g onClick={() => handleClick("KOSDAQ")}>
-                <path
-                  d="M99.5 32.5L188 32.5C193.247 32.5 197.5 28.2467 197.5 23L197.5 10C197.5 4.7533 193.247 0.500001 188 0.5L99.5 0.499992L99.5 32.5Z"
-                  fill="white"
-                  stroke="#708FFE"
-                />
-                <text x="75%" y="50%" textAnchor="middle" dominantBaseline="middle" fill="#222" fontFamily="Pretendard" fontSize="16" fontWeight="500">
-                  코스닥
-                </text>
-              </g>
-            </>
-          )}
+          <g onClick={() => handleClick("KOSPI")}>
+            <path
+              d="M98.5 32.5L10 32.5C4.7533 32.5 0.5 28.2467 0.500001 23L0.500002 9.99999C0.500002 4.75329 4.7533 0.499992 10 0.499992L98.5 0.5L98.5 32.5Z"
+              fill="white"
+              stroke={isKOSPIActive ? "#708FFE" : "#CCCCCC"}
+            />
+            <text x="25%" y="50%" textAnchor="middle" dominantBaseline="middle" fill="#222" fontFamily="Pretendard" fontSize="16" fontWeight="500">
+              {isKOSPIActive ? "코스피" : "코스피"}
+            </text>
+          </g>
+          <g onClick={() => handleClick("KOSDAQ")}>
+            <path
+              d="M99.5 32.5L188 32.5C193.247 32.5 197.5 28.2467 197.5 23L197.5 10C197.5 4.7533 193.247 0.500001 188 0.5L99.5 0.499992L99.5 32.5Z"
+              fill="white"
+              stroke={isKOSPIActive ? "#CCCCCC" : "#708FFE"}
+            />
+            <text x="75%" y="50%" textAnchor="middle" dominantBaseline="middle" fill="#222" fontFamily="Pretendard" fontSize="16" fontWeight="500">
+              {isKOSPIActive ? "코스닥" : "코스닥"}
+            </text>
+          </g>
         </svg>
       </StockButtonSvgWrapper>
     </StockButtonContainer>
@@ -130,6 +103,7 @@ const StyledContainer = styled.div`
 
 const IndustrySectorBox: React.FC = () => {
   const [isActive, setIsActive] = useState("KOSPI");
+
   const KOSPI_industryTitles = [
     "음식료품",
     "섬유, 의복",
