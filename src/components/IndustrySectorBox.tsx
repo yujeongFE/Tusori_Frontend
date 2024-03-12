@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import styled from "styled-components";
+import { useNavigate } from "react-router-dom";
 
 const StockButtonsWrapper = styled.div`
   display: flex;
@@ -102,7 +103,12 @@ const StyledContainer = styled.div`
 `;
 
 const IndustrySectorBox: React.FC = () => {
+  const navigate = useNavigate();
   const [isActive, setIsActive] = useState("KOSPI");
+
+  const handleBoxClick = (title: string) => {
+    navigate("details", { state: { value: title } });
+  }; // props로 클릭한 업종명을 전달함
 
   const KOSPI_industryTitles = [
     "음식료품",
@@ -161,7 +167,7 @@ const IndustrySectorBox: React.FC = () => {
       </StockButtonsWrapper>
       <GridContainer>
         {data.map((title, index) => (
-          <StyledContainer key={index}>
+          <StyledContainer key={index} onClick={() => handleBoxClick(title)}>
             <div className="title">{title}</div>
             <div className="percentageChange">{percentageChange[index]}</div>
           </StyledContainer>
