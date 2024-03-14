@@ -85,11 +85,12 @@ const SidebySideContainer = styled.div<{ isOpen: boolean }>`
   }
 `;
 
+// 모바일버전 햄버거 버튼
 const SidebarToggleButton = styled.button`
   display: block;
   position: fixed;
   top: 22px;
-  left: 18px;
+  left: 3vw;
   z-index: 2;
   background: url("${process.env.PUBLIC_URL}/assets/menu_icon.svg") no-repeat center center;
   background-size: contain;
@@ -100,8 +101,14 @@ const SidebarToggleButton = styled.button`
   @media (min-width: 768.1px) {
     display: none;
   }
-  @media (max-width: 320px) {
-    left: 10px;
+  @media (max-width: 505px) {
+    left: 2.5vw;
+  }
+  @media (max-width: 450px) {
+    left: 2vw;
+  }
+  @media (max-width: 300px) {
+    left: 1vw;
   }
 `;
 
