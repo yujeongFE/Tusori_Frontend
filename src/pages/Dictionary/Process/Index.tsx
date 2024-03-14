@@ -1,5 +1,6 @@
 import React, { useState } from "react";
-import SideMenu from "../../../components/SideMenu";
+import SideMenu from "components/SideMenu";
+import DictMenu from "components/DictMenu";
 //import styled from "styled-components";
 import ProcessContent from "../../../components/ProcessContent";
 import { SideMenuContainer, Container, Content, Title } from "../Style";
@@ -19,6 +20,7 @@ const Index: React.FC = () => {
         <SideMenu />
       </SideMenuContainer>
       <Content>
+        <DictMenu />
         <Title>주식 투자 과정</Title>
         <ButtonsContainer>
           <ButtonContainer>

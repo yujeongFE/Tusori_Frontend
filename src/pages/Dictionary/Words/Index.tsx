@@ -1,5 +1,6 @@
 import React from "react";
-import SideMenu from "../../../components/SideMenu";
+import SideMenu from "components/SideMenu";
+import DictMenu from "components/DictMenu";
 import { SideMenuContainer, Container, Content, Title } from "../Style";
 import { SearchBoxContainer, SearchBox, Input, SearchButton } from "./Style";
 
@@ -10,6 +11,7 @@ const Index: React.FC = () => {
         <SideMenu />
       </SideMenuContainer>
       <Content>
+        <DictMenu />
         <Title>주식 용어 설명</Title>
         <SearchBoxContainer>
           <SearchBox>
