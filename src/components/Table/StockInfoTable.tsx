@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
-import rise from "../assets/rising_arrow.svg";
-import downward from "../assets/downward_arrow.svg";
+import rise from "../../assets/rising_arrow.svg";
+import downward from "../../assets/downward_arrow.svg";
 
 const TableContainer = styled.div`
   width: 1067px;

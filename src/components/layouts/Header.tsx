@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import SearchBar from "./SearchBar";
 import Switch from "react-switch";
-import DictionarySideBar from "components/DictionarySideBar";
+import DictionarySideBar from "components/SideBar/DictionarySideBar";
 import HeaderMenu from "./HeaderMenu";
 import { Link } from "react-router-dom";
 

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import Profile from "components/Profile";
-import MypageTable from "components/MypageTable";
-import InterestedStocksTable from "components/InterestedStocksTable";
+import MypageTable from "components/Table/MypageTable";
+import InterestedStocksTable from "components/Table/InterestedStocksTable";
 import { Container, Text, LogsBtnContainer, LogsBtn, Bar } from "./Style";
 
 const MystocksHeaders = ["종목명", "매입가", "현재가", "평단가", "보유수량", "보유일", "평가손익금", "평가손익률"];
