@@ -2,24 +2,25 @@ import React from "react";
 import styled from "styled-components";
 
 const Container = styled.div`
-  width: 33vw;
+  width: 38vw;
+  height: 60vh;
   display: grid;
   grid-template-columns: repeat(2, auto);
   grid-template-rows: repeat(3, auto);
-  gap: 1.6vw;
+  gap: 1.6vh;
   margin-top: 6.2vh;
 `;
 
 const Box = styled.div`
   width: 15.7vw;
-  height: 13vh;
+  height: 14vh;
   border-radius: 12px;
   background: #fff;
   box-shadow: 0px 2px 8px 0px rgba(0, 0, 0, 0.08);
   display: flex;
   flex-direction: column;
   justify-content: center;
-  padding: 1.14vw;
+  padding: 0 1.14vw;
 `;
 
 const Title = styled.span`
