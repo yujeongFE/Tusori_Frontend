@@ -5,27 +5,27 @@ import { NavLink } from "react-router-dom";
 const StyledNav = styled.nav`
   display: flex;
   flex-direction: row;
-  width: 195px;
+  width: 100%;
   @media (min-width: 601px) {
     display: none;
   }
 `;
 
 const StyledNavLink = styled(NavLink)`
-  color: #2a2a2a;
+  display: flex;
+  justify-content: center;
+  color: #2c2c2c;
   text-decoration: none;
+  width: 100%;
   font-size: 18px;
   display: flex;
   align-items: center;
-  padding: 24px 13px 24px 14px;
-  border-bottom: 1px solid #e3e3e3;
-
-  img {
-    margin-left: auto;
-  }
+  padding: 10px;
+  border-bottom: 1px solid #b0b0b0;
 
   &.active {
     font-family: Pretendard-Bold;
+    border-bottom: 1.5px solid #2c2c2c;
   }
 
   @media (max-width: 768px) {
@@ -39,10 +39,9 @@ const DictMenu: React.FC = () => {
       <StyledNav>
         <StyledNavLink to="/dict/process" className={({ isActive }: { isActive: boolean }) => (isActive ? "active" : "")}>
           주식 투자 과정
-          <img src={`${process.env.PUBLIC_URL}/assets/right-arrow.svg`} alt="arrow" />
         </StyledNavLink>
         <StyledNavLink to="/dict/words" className={({ isActive }: { isActive: boolean }) => (isActive ? "active" : "")}>
-          주식 용어 설명 <img src={`${process.env.PUBLIC_URL}/assets/right-arrow.svg`} alt="arrow" />
+          주식 용어 설명
         </StyledNavLink>
       </StyledNav>
     </>
