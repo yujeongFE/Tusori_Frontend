@@ -1,10 +1,10 @@
 import React from "react";
 import styled, { css } from "styled-components";
-import ScrollBar from "./ScrollBar";
+import ScrollBar from "../ScrollBar";
 
 interface TableProps {
   headers: string[];
-  data: (string | number | JSX.Element)[][];
+  data: (string | number)[][];
 }
 
 const TableContainer = styled.div`
@@ -30,39 +30,39 @@ const StyledTable = styled.table`
 
 const StyledThead = styled.thead``;
 
-const alignStyle = css<{ isSecond?: boolean }>`
-  text-align: ${({ isSecond }) => (isSecond ? "left" : "right")};
+const alignStyle = css<{ isFirst: boolean }>`
+  text-align: ${({ isFirst }) => (isFirst ? "left" : "right")};
 `;
 
 const colorStyle = (data: string | number) => {
   if (typeof data === "string") {
-    if (data.startsWith("+") || data.startsWith("▲")) {
+    if (data.startsWith("+")) {
       return "color: #FF0000;";
-    } else if (data.startsWith("-") || data.startsWith("▼")) {
+    } else if (data.startsWith("-")) {
       return "color: #0075FF;";
     }
   }
   return "";
 };
 
-const StyledTh = styled.th<{ isFirst: boolean; isSecond?: boolean }>`
-  padding: 20px 25px 20px 5px;
+const StyledTh = styled.th<{ isFirst: boolean }>`
+  padding: 20px 25px;
   position: sticky;
   max-width: 100%;
   word-wrap: break-word;
   //border: 1px solid #e3e3e3;
-  width: ${({ isFirst, isSecond }) => (isFirst ? "1.5%" : isSecond ? "30%" : "25%")};
+  width: 20%;
   ${alignStyle}
 `;
 
-const StyledTd = styled.td<{ isFirst: boolean; isSecond?: boolean; cellData: string | number | JSX.Element }>`
-  padding: 15px 25px 15px 5px;
+const StyledTd = styled.td<{ isFirst: boolean; cellData: string | number }>`
+  padding: 15px 25px;
   max-width: 100%;
   //border: 1px solid #e3e3e3;
   word-wrap: break-word;
-  width: ${({ isFirst, isSecond }) => (isFirst ? "1.5%" : isSecond ? "30%" : "25%")};
+  width: 20%;
   ${alignStyle}
-  ${({ cellData }) => (typeof cellData === "string" || typeof cellData === "number" ? colorStyle(cellData) : "")}
+  ${({ cellData }) => colorStyle(cellData)}
 `;
 
 const MypageTable: React.FC<TableProps> = ({ headers, data }: TableProps) => {
@@ -73,7 +73,7 @@ const MypageTable: React.FC<TableProps> = ({ headers, data }: TableProps) => {
           <StyledThead>
             <tr>
               {headers.map((header, index) => (
-                <StyledTh key={index} isFirst={index === 0} isSecond={index === 1}>
+                <StyledTh key={index} isFirst={index === 0}>
                   {header}
                 </StyledTh>
               ))}
@@ -87,8 +87,8 @@ const MypageTable: React.FC<TableProps> = ({ headers, data }: TableProps) => {
             {data.map((rowData, rowIndex) => (
               <tr key={rowIndex}>
                 {rowData.map((cellData, cellIndex) => (
-                  <StyledTd key={cellIndex} isFirst={cellIndex === 0} isSecond={cellIndex === 1} cellData={cellData}>
-                    {cellIndex === 0 ? <img src={`${process.env.PUBLIC_URL}/assets/star.svg`} alt="Cell Image" /> : cellData}
+                  <StyledTd key={cellIndex} isFirst={cellIndex === 0} cellData={cellData}>
+                    {cellData}
                   </StyledTd>
                 ))}
               </tr>

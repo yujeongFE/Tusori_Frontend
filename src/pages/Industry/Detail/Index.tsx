@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import { useLocation } from "react-router-dom";
 import { Message, VerticalContainer, TableContainer, FlexBox } from "./Style";
-import StockInfoTable from "components/StockInfoTable";
+import StockInfoTable from "components/Table/StockInfoTable";
 import StockData from "../../../json/IndustryStockData.json";
-import IndustrySidebar from "components/IndustrySideBar";
+import IndustrySidebar from "components/SideBar/IndustrySideBar";
 
 const Index = () => {
   const { state } = useLocation();
