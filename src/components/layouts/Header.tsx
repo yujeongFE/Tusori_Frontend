@@ -18,6 +18,7 @@ const HeaderContainer = styled.header`
   @media (max-width: 768px) {
     justify-content: center;
     height: 65px;
+    padding: 0 3vw;
     box-shadow: 0px 2px 6px 0px rgba(0, 0, 0, 0.04);
   }
 `;
@@ -58,6 +59,14 @@ const SwitchContainer = styled.div`
   display: flex;
   @media (max-width: 768px) {
     margin-top: 0;
+    padding-left: 5vw;
+  }
+  @media (max-width: 410px) {
+    padding-left: 6vw;
+  }
+  @media (max-width: 350px) {
+    padding-left: 7vw;
+  
   }
 `;
 
