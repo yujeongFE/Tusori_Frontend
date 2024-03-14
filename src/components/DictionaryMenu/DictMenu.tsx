@@ -6,7 +6,7 @@ const StyledNav = styled.nav`
   display: flex;
   flex-direction: row;
   width: 100%;
-  @media (min-width: 601px) {
+  @media (min-width: 768px) {
     display: none;
   }
 `;
