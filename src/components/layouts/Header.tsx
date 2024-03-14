@@ -18,6 +18,7 @@ const HeaderContainer = styled.header`
   @media (max-width: 768px) {
     justify-content: center;
     height: 65px;
+    box-shadow: 0px 2px 6px 0px rgba(0, 0, 0, 0.04);
   }
 `;
 
