@@ -1,3 +1,4 @@
+import { Fragment } from "react";
 import React from "react";
 import styled from "styled-components";
 
@@ -64,10 +65,10 @@ const ProcessContent: React.FC<ContentProps> = ({ stepKey }) => {
           <StepText>{data.step}</StepText>
           <ContentText>
             {data.content.split("\n").map((line, index) => (
-              <React.Fragment key={index}>
+              <Fragment key={index}>
                 {line}
                 <br />
-              </React.Fragment>
+              </Fragment>
             ))}
           </ContentText>
         </div>
@@ -81,10 +82,10 @@ export default ProcessContent;
 const StepText = styled.div`
   font-size: 28px;
   font-family: Pretendard-Medium;
-  margin: 68px 0 21px 10px;
+  margin: 50px 0 21px 10px;
 `;
 
 const ContentText = styled.div`
   font-size: 20px;
-  margin: 0 0 122px 0;
+  margin: 0 0 100px 0;
 `;
