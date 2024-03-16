@@ -16,7 +16,7 @@ const StockInfoContainer = styled.div`
 
 const Title = styled.h2`
   color: #000;
-  font-family: Pretendard;
+  font-family: Pretendard-Regular;
   font-size: 18px;
   font-style: normal;
   font-weight: 400;
@@ -35,7 +35,7 @@ const LogoContainer = styled.div`
 const Logo = styled.img`
   width: 10.8vw;
   height: 6.4vh;
-  font-family: Pretendard;
+  font-family: Pretendard-Regular;
   font-size: 18px;
   font-style: normal;
   font-weight: 400;
@@ -45,7 +45,7 @@ const Logo = styled.img`
 
 const Description = styled.span`
   color: #000;
-  font-family: Pretendard;
+  font-family: Pretendard-Light;
   font-size: 16px;
   font-style: normal;
   font-weight: 300;

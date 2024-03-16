@@ -9,7 +9,7 @@ export const Message = styled.div`
   color: #5076ff;
   padding-left: 13.5vw;
   padding-top: 5.27vh;
-  font-family: Pretendard;
+  font-family: Pretendard-Medium;
   font-size: 18px;
   font-style: normal;
   font-weight: 600;

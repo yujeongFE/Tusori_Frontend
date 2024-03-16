@@ -20,7 +20,7 @@ const MarketInfoBox = styled.div`
   /* Title Style */
   .title {
     color: #fff;
-    font-family: Pretendard;
+    font-family: Pretendard-Medium;
     font-size: 18px;
     font-style: normal;
     font-weight: 600;
@@ -39,17 +39,16 @@ const MarketInfoBox = styled.div`
 const CurrentIndex = styled.div`
   color: var(--Main-Font, #2a2a2a);
   text-align: center;
-  font-family: Pretendard;
+  font-family: Pretendard-Bold;
   font-size: 36px;
   font-style: normal;
-  font-weight: 700;
   line-height: normal;
 `;
 
 // 변경된 수치 값
 const ChangeIndex = styled.div`
   color: #f00;
-  font-family: Pretendard;
+  font-family: Pretendard-Medium;
   font-size: 20px;
   font-style: normal;
   font-weight: 500;
