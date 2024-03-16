@@ -47,7 +47,7 @@ const Container = styled.div`
 
   .title {
     color: var(--Main-Font, #2a2a2a);
-    font-family: Pretendard;
+    font-family: Pretendard-Medium;
     font-size: 20px;
     font-weight: 600;
     line-height: normal;
@@ -93,7 +93,7 @@ const Button = styled.button<{ selected: boolean }>`
   gap: 10px;
   border: none;
   color: #fff;
-  font-family: Pretendard;
+  font-family: Pretendard-Medium;
   font-size: 16px;
   font-weight: 500;
   line-height: normal;
@@ -130,7 +130,7 @@ const TableRow = styled.tr`
 
 const TableCell = styled.td<{ color?: string }>`
   flex: 1;
-  font-family: Pretendard;
+  font-family: Pretendard-Regular;
   font-size: 16px;
   font-weight: 400;
   line-height: normal;
@@ -159,7 +159,7 @@ const LoginCotainer = styled.div`
 `;
 
 const LoginMessage = styled.span`
-  font-family: "Pretendard";
+  font-family: "Pretendard-Regular";
   font-size: 20px;
   font-style: normal;
   font-weight: 400;
@@ -179,7 +179,7 @@ const LoginButton = styled.div`
   background: #708ffe;
 
   color: #fff;
-  font-family: Pretendard;
+  font-family: Pretendard-Medium;
   font-size: 18px;
   font-style: normal;
   font-weight: 500;

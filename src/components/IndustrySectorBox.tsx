@@ -43,7 +43,7 @@ const StockButton: React.FC<{ onClick: (type: "KOSPI" | "KOSDAQ") => void }> = (
               fill="white"
               stroke={isKOSPIActive ? "#708FFE" : "#CCCCCC"}
             />
-            <text x="25%" y="50%" textAnchor="middle" dominantBaseline="middle" fill="#222" fontFamily="Pretendard" fontSize="16" fontWeight="500">
+            <text x="25%" y="50%" textAnchor="middle" dominantBaseline="middle" fill="#222" fontFamily="Pretendard-Medium" fontSize="16" fontWeight="500">
               {isKOSPIActive ? "코스피" : "코스피"}
             </text>
           </g>
@@ -53,7 +53,7 @@ const StockButton: React.FC<{ onClick: (type: "KOSPI" | "KOSDAQ") => void }> = (
               fill="white"
               stroke={isKOSPIActive ? "#CCCCCC" : "#708FFE"}
             />
-            <text x="75%" y="50%" textAnchor="middle" dominantBaseline="middle" fill="#222" fontFamily="Pretendard" fontSize="16" fontWeight="500">
+            <text x="75%" y="50%" textAnchor="middle" dominantBaseline="middle" fill="#222" fontFamily="Pretendard-Medium" fontSize="16" fontWeight="500">
               {isKOSPIActive ? "코스닥" : "코스닥"}
             </text>
           </g>
@@ -86,7 +86,7 @@ const StyledContainer = styled.div`
 
   .title {
     color: #222;
-    font-family: Pretendard;
+    font-family: Pretendard-Medium;
     font-size: 18px;
     font-weight: 500;
     line-height: normal;
@@ -95,7 +95,7 @@ const StyledContainer = styled.div`
 
   .percentageChange {
     color: #f74848;
-    font-family: Pretendard;
+    font-family: Pretendard-Regular;
     font-size: 16px;
     font-weight: 400;
     line-height: normal;

@@ -30,7 +30,7 @@ const PriceInfo = styled.div`
 
 const KOSPI = styled.span`
   color: #000;
-  font-family: Pretendard;
+  font-family: Pretendard-Medium;
   font-size: 12px;
   font-weight: 500;
   margin-bottom: 0.1vw;
@@ -38,7 +38,7 @@ const KOSPI = styled.span`
 
 const Title = styled.span`
   color: #000;
-  font-family: Pretendard;
+  font-family: Pretendard-Regular;
   font-size: 18px;
   font-weight: 400;
   margin-bottom: 0.8vh;
@@ -46,7 +46,7 @@ const Title = styled.span`
 
 const CurrentPrice = styled.span`
   color: #f40006;
-  font-family: Pretendard;
+  font-family: Pretendard-Bold;
   font-size: 24px;
   font-weight: 700;
   margin-bottom: 0.2vh;
@@ -60,7 +60,7 @@ const ChangeInfo = styled.span`
 const PriceChange = styled.span`
   align-items: center;
   color: #f5141a;
-  font-family: Pretendard;
+  font-family: Pretendard-Regular;
   font-size: 14px;
   font-weight: 400;
 `;
@@ -69,7 +69,7 @@ const DetailPriceInfo = styled.div`
   display: flex;
   flex-direction: row;
   color: #7a7a7a;
-  font-family: Pretendard;
+  font-family: Pretendard-Medium;
   font-size: 14px;
   font-weight: 600;
   margin-top: 1.6vh;

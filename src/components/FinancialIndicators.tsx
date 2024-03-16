@@ -25,7 +25,7 @@ const Box = styled.div`
 
 const Title = styled.span`
   color: #575757;
-  font-family: Pretendard;
+  font-family: Pretendard-Regular;
   font-size: 16px;
   font-style: normal;
   font-weight: 400;
@@ -36,7 +36,7 @@ const Title = styled.span`
 
 const Subtitle = styled.span`
   color: #000;
-  font-family: Pretendard;
+  font-family: Pretendard-Regular;
   font-size: 18px;
   font-style: normal;
   font-weight: 400;

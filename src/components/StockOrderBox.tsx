@@ -7,7 +7,7 @@ const commonButtonStyles = css`
   border: 1px solid;
   box-shadow: 0px 2px 8px 0px rgba(0, 0, 0, 0.05);
   text-align: center;
-  font-family: Pretendard;
+  font-family: Pretendard-Regular;
   font-size: 18px;
   font-style: normal;
   line-height: normal;
@@ -69,7 +69,7 @@ const InputContainer = styled.div`
 `;
 
 const InputLabel = styled.div`
-  font-family: Pretendard;
+  font-family: Pretendard-Regular;
   font-size: 16px;
   font-weight: 400;
   margin-right: 5px;
@@ -84,7 +84,7 @@ const InputField = styled.input`
   border: 1px solid #eee;
   background: #fafafa;
   padding: 0 10px;
-  font-family: Pretendard;
+  font-family: Pretendard-Regular;
   font-size: 16px;
   font-weight: 400;
   line-height: normal;
@@ -119,10 +119,9 @@ const ConfirmButton = styled.div`
   box-shadow: 0px 2px 8px 0px rgba(0, 0, 0, 0.05);
   color: #fff;
   text-align: center;
-  font-family: Pretendard;
+  font-family: Pretendard-Bold;
   font-size: 24px;
   font-style: normal;
-  font-weight: 700;
   line-height: normal;
   display: flex;
   align-items: center;

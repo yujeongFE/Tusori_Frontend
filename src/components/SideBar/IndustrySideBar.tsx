@@ -49,7 +49,7 @@ const Divider = styled.div`
 const StyledIndicator = styled.div<{ selected: boolean }>`
   color: ${({ selected }) => (selected ? "#2A2A2A" : "#aeaeae")};
 
-  font-family: Pretendard;
+  font-family: Pretendard-Medium;
   font-size: 18px;
   font-style: normal;
   font-weight: 600;
