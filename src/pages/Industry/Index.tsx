@@ -1,6 +1,6 @@
 import React from "react";
 import { FlexBox } from "./Style";
-import IndustrySectorBox from "components/IndustrySectorBox";
+import IndustrySectorBox from "components/Box/IndustrySectorBox";
 
 const Index = () => {
   return (

@@ -1,9 +1,9 @@
 import React from "react";
 import styled from "styled-components";
-import StockPriceButton from "components/StockPriceBox";
+import StockPriceButton from "components/Box/StockPriceBox";
 import CompanyInfo from "components/layouts/CompanyInfo";
 import FinancialIndicators from "components/FinancialIndicators";
-import StockOrderBox from "components/StockOrderBox";
+import StockOrderBox from "components/Box/StockOrderBox";
 import { FlexBox } from "../Style";
 
 const RowFlexBox = styled.div`

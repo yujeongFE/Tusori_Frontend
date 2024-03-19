@@ -1,9 +1,9 @@
 import React from "react";
 import styled from "styled-components";
 
-import rise from "../assets/rising_arrow.svg";
-import star from "../assets/yellow_star.png";
-import graph from "../assets/CandleGraph.png";
+import rise from "../../assets/rising_arrow.svg";
+import star from "../../assets/yellow_star.png";
+import graph from "../../assets/CandleGraph.png";
 
 const BoxContainer = styled.div`
   width: 45vw;
