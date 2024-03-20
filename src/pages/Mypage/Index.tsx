@@ -1,7 +1,8 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Profile from "components/Profile";
 import MypageTable from "components/Table/MypageTable";
 import InterestedStocksTable from "components/Table/InterestedStocksTable";
+import { useWords } from "components/SideBar/DictionarySideBar/WordsContext";
 import { Container, Text, LogsBtnContainer, LogsBtn, Bar } from "./Style";
 
 const MystocksHeaders = ["종목명", "매입가", "현재가", "평단가", "보유수량", "보유일", "평가손익금", "평가손익률"];
@@ -45,6 +46,34 @@ const SellingLogsData = [
 
 const Index: React.FC = () => {
   const [activeTable, setActiveTable] = useState<"BuyingLogs" | "SellingLogs">("BuyingLogs");
+  const { setWords } = useWords();
+
+  useEffect(() => {
+    setWords([
+      { word: "총 자산", description: "현재 가지고 있는 모든 자산의 총합" },
+      { word: "가용 자산", description: "언제든지 사용할 수 있는 자산" },
+      { word: "보유 주식 총액", description: "현재 가지고 있는 주식의 총액" },
+      { word: "보유 종목 수", description: "현재 가지고 있는 종목의 개수" },
+      { word: "매입가", description: "해당 종목을 체결한 가격" },
+      { word: "현재가", description: "해당 종목이 가장 최근에 체결된 거래 가격" },
+      { word: "평단가", description: "평균단가의 줄임말. 주식 하나당 매입 가격" },
+      { word: "보유수량", description: "가지고 있는 해당 주식의 개수" },
+      { word: "보유일", description: "해당 주식을 보유하고 있는 기간" },
+      { word: "평가 손익금", description: "매입금액을 기준으로 현재까지의 손익" },
+      { word: "평가 손익률", description: "비율로 나타낸 평가손익금" },
+      { word: "전일비", description: "전일 대비 현재 시세의 변동 폭" },
+      { word: "등락률", description: "전일비를 퍼센트(%)로 나타낸 수치" },
+      { word: "시가", description: "시작가의 줄임말, 주식시장이 열린 후 처음 거래된 가격" },
+      { word: "고가", description: "하루 동안의 주가 중에서 가장 높은 주가" },
+      { word: "거래량", description: "조회 시점 기준 거래되고 있는 매수/매도 수량" },
+      { word: "시가 총액", description: "기업의 주식 가치를 보여주는 지표. 현재 주식시장의 규모가 얼마나 되는지 판단할 수 있음" },
+      { word: "주문 단가", description: "최대한 지불할 의사가 있는 가격" },
+      { word: "체결 단가", description: "최대한 지불할 의사가 있는 가격" },
+      { word: "주문 수량", description: "주문을 한 수량" },
+      { word: "수익금", description: "이익으로 얻은 돈" },
+      { word: "수익률", description: "수익에 대한 비율" },
+    ]);
+  }, [setWords]);
 
   return (
     <Container>

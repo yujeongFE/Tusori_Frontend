@@ -2,9 +2,10 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import SearchBar from "./SearchBar";
 import Switch from "react-switch";
-import DictionarySideBar from "components/SideBar/DictionarySideBar";
+import DictionarySideBar from "components/SideBar/DictionarySideBar/DictionarySideBar";
 import HeaderMenu from "./HeaderMenu";
 import { Link } from "react-router-dom";
+import { useWords } from "../SideBar/DictionarySideBar/WordsContext";
 
 const HeaderContainer = styled.header`
   display: flex;
@@ -66,7 +67,6 @@ const SwitchContainer = styled.div`
   }
   @media (max-width: 350px) {
     padding-left: 7vw;
-  
   }
 `;
 
@@ -139,16 +139,25 @@ const RightSection = styled.div`
 `;
 
 const Header = () => {
+  const { words } = useWords();
   const [isInvestMode, setIsInvesteMode] = useState<boolean>(false);
+  const [isOpen, setIsOpen] = useState(false);
+
   const handleModeChange = (checked: boolean) => {
     setIsInvesteMode(checked);
+    setIsOpen(checked);
+    /*
     if (checked) {
-      setIsOpen(true);
-    }
+      setIsOpen(checked);
+    } else{
+      setIsOpen(false);
+    } */
   };
 
-  //주식용어설명 사이드바
-  const [isOpen, setIsOpen] = useState(false);
+  const handleCloseSideBar = () => {
+    setIsInvesteMode(false);
+    setIsOpen(false);
+  };
 
   return (
     <HeaderContainer>
@@ -160,7 +169,7 @@ const Header = () => {
           <SwitchContainer>
             <Switch checked={isInvestMode} onChange={handleModeChange} {...switchStyle} />
             <Mode isInvestMode={isInvestMode}>{isInvestMode ? "설명모드" : "투자모드"}</Mode>
-            <DictionarySideBar isOpen={isOpen} setIsOpen={setIsOpen} />
+            <DictionarySideBar isOpen={isOpen} setIsOpen={setIsOpen} onClose={handleCloseSideBar} />
           </SwitchContainer>
         </SidebySideContainer>
         <HeaderMenu />

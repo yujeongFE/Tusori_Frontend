@@ -1,18 +1,35 @@
-import React, { useState } from "react";
-import SideMenu from "components/DictionaryMenu/SideMenu";
-import DictMenu from "components/DictionaryMenu/DictMenu";
+import React, { useState, useEffect } from "react";
+import SideMenu from "components/Dictionary/DictionaryMenu/SideMenu";
+import DictMenu from "components/Dictionary/DictionaryMenu/DictMenu";
+import { useWords } from "components/SideBar/DictionarySideBar/WordsContext";
 //import styled from "styled-components";
-import ProcessContent from "../../../components/ProcessContent";
+import ProcessContent from "../../../components/Dictionary/ProcessContent";
 import { SideMenuContainer, Container, Content, ContentPadding, Title } from "../Style";
 import { Button, ButtonsContainer, ButtonContainer, Span, Img } from "./Style";
 
 const Index: React.FC = () => {
   const [stepKey, setStepKey] = useState<string>();
+  const { setWords } = useWords();
 
   const handleClickButton = (e: React.MouseEvent<HTMLButtonElement>) => {
     const { name } = e.currentTarget;
     setStepKey(name);
   };
+
+  const [isInvestMode, setIsInvesteMode] = useState<boolean>(false);
+  const handleModeChange = (checked: boolean) => {
+    setIsInvesteMode(checked);
+    if (checked) {
+      setIsOpen(true);
+    }
+  };
+
+  //주식용어설명 사이드바
+  const [isOpen, setIsOpen] = useState(false);
+
+  useEffect(() => {
+    setWords([{ word: "", description: "" }]);
+  }, [setWords]);
 
   return (
     <Container>
@@ -21,6 +38,7 @@ const Index: React.FC = () => {
       </SideMenuContainer>
       <Content>
         <DictMenu />
+
         <ContentPadding>
           <Title>주식 투자 과정</Title>
           <ButtonsContainer>

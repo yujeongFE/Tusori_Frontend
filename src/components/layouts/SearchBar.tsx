@@ -1,5 +1,6 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
+import { useNavigate } from "react-router-dom";
 
 const SearchBarContainer = styled.div`
   display: flex;
@@ -23,7 +24,7 @@ const SearchBarContainer = styled.div`
 
 const ToggleButton = styled.button`
   display: none;
-  
+
   @media (max-width: 768px) {
     display: block;
     background: rgba(255, 255, 255, 0.8);
@@ -60,14 +61,33 @@ const SearchButton = styled.button`
 `;
 
 const SearchBar: React.FC = () => {
+  const [searchTerm, setSearchTerm] = useState<string>("");
+  const navigate = useNavigate();
+
+  const handleSearch = (): void => {
+    navigate(`/industry/${searchTerm}`);
+  };
+
+  const handleKeyPress = (e: React.KeyboardEvent<HTMLInputElement>): void => {
+    if (e.key === "Enter") {
+      handleSearch();
+    }
+  };
+
   return (
     <>
       <ToggleButton>
         <img src={`${process.env.PUBLIC_URL}/assets/header_search.svg`} alt="search" />
       </ToggleButton>
       <SearchBarContainer>
-        <Input type="text" placeholder="종목 검색하기" />
-        <SearchButton type="submit"></SearchButton>
+        <Input
+          type="text"
+          placeholder="종목 검색하기"
+          value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)} // 입력값 변경 시 상태 업데이트
+          onKeyPress={handleKeyPress} // Enter 키 입력 처리
+        />
+        <SearchButton type="button" onClick={handleSearch}></SearchButton> {/* 검색 버튼 클릭 이벤트 처리 */}
       </SearchBarContainer>
     </>
   );
