@@ -141,17 +141,23 @@ const RightSection = styled.div`
 const Header = () => {
   const { words } = useWords();
   const [isInvestMode, setIsInvesteMode] = useState<boolean>(false);
+  const [isOpen, setIsOpen] = useState(false);
+
   const handleModeChange = (checked: boolean) => {
     setIsInvesteMode(checked);
+    setIsOpen(checked);
+    /*
     if (checked) {
-      setIsOpen(true);
+      setIsOpen(checked);
     } else{
       setIsOpen(false);
-    }
+    } */
   };
 
-  //주식용어설명 사이드바
-  const [isOpen, setIsOpen] = useState(false);
+  const handleCloseSideBar = () => {
+    setIsInvesteMode(false);
+    setIsOpen(false);
+  };
 
   return (
     <HeaderContainer>
@@ -163,7 +169,7 @@ const Header = () => {
           <SwitchContainer>
             <Switch checked={isInvestMode} onChange={handleModeChange} {...switchStyle} />
             <Mode isInvestMode={isInvestMode}>{isInvestMode ? "설명모드" : "투자모드"}</Mode>
-            <DictionarySideBar isOpen={isOpen} setIsOpen={setIsOpen} />
+            <DictionarySideBar isOpen={isOpen} setIsOpen={setIsOpen} onClose={handleCloseSideBar} />
           </SwitchContainer>
         </SidebySideContainer>
         <HeaderMenu />

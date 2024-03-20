@@ -8,7 +8,7 @@ const SideBarWrap = styled.div<{ isOpen: boolean }>`
   border-left: 1px solid #bccafb;
   background: #fff;
   height: 87%;
-  width: 23%;
+  width: 20%;
   right: ${({ isOpen }) => (isOpen ? "0" : "-55%")};
   top: 130px;
   position: fixed;
@@ -71,9 +71,10 @@ const Scrollbar = styled.div`
 interface DictionarySideBarProps {
   isOpen: boolean;
   setIsOpen: (isOpen: boolean) => void;
+  onClose: () => void;
 }
 
-const DictionarySideBar: React.FC<DictionarySideBarProps> = ({ isOpen, setIsOpen }) => {
+const DictionarySideBar: React.FC<DictionarySideBarProps> = ({ isOpen, setIsOpen, onClose }) => {
   const { words } = useWords();
   const outside = useRef<HTMLDivElement>(null);
 
@@ -81,7 +82,12 @@ const DictionarySideBar: React.FC<DictionarySideBarProps> = ({ isOpen, setIsOpen
     <SideBarWrap ref={outside} isOpen={isOpen}>
       <Top>
         <Title>이 단어, 무슨 뜻이지?</Title>
-        <CloseBtn onClick={() => setIsOpen(false)}>
+        <CloseBtn
+          onClick={() => {
+            onClose();
+            setIsOpen(false);
+          }}
+        >
           <img src={`${process.env.PUBLIC_URL}/assets/closeBtn.svg`} alt="close" />
         </CloseBtn>
       </Top>
