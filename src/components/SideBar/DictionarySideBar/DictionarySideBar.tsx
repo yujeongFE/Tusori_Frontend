@@ -7,7 +7,7 @@ const SideBarWrap = styled.div<{ isOpen: boolean }>`
   border-radius: 16px 0px 0px 16px;
   border-left: 1px solid #bccafb;
   background: #fff;
-  height: 90%;
+  height: 87%;
   width: 23%;
   right: ${({ isOpen }) => (isOpen ? "0" : "-55%")};
   top: 130px;
