@@ -77,19 +77,6 @@ const DictionarySideBar: React.FC<DictionarySideBarProps> = ({ isOpen, setIsOpen
   const { words } = useWords();
   const outside = useRef<HTMLDivElement>(null);
 
-  useEffect(() => {
-    const handlerOutside = (e: MouseEvent) => {
-      if (outside.current && !outside.current.contains(e.target as Node)) {
-        setIsOpen(false);
-      }
-    };
-
-    document.addEventListener("mousedown", handlerOutside);
-    return () => {
-      document.removeEventListener("mousedown", handlerOutside);
-    };
-  }, [setIsOpen]);
-
   return (
     <SideBarWrap ref={outside} isOpen={isOpen}>
       <Top>

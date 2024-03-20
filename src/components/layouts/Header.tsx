@@ -145,6 +145,8 @@ const Header = () => {
     setIsInvesteMode(checked);
     if (checked) {
       setIsOpen(true);
+    } else{
+      setIsOpen(false);
     }
   };
 
