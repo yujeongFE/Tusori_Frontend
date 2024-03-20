@@ -8,11 +8,18 @@ const SideBarWrap = styled.div<{ isOpen: boolean }>`
   border-left: 1px solid #bccafb;
   background: #fff;
   height: 87%;
-  width: 20%;
+  width: 17%;
   right: ${({ isOpen }) => (isOpen ? "0" : "-55%")};
   top: 130px;
   position: fixed;
   transition: 0.5s ease;
+
+  @media (max-width: 908px) {
+    top: 160px;
+  }
+  @media (max-width: 768px) {
+    top: 70px;
+  }
 `;
 
 const Words = styled.div`
@@ -20,6 +27,7 @@ const Words = styled.div`
   border-bottom: 1px solid #e2e2e2;
   justify-content: center;
   color: #a1a1a1;
+  font-size: 14px;
 `;
 
 const Top = styled.div`
