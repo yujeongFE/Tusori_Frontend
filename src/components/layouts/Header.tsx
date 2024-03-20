@@ -2,9 +2,10 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import SearchBar from "./SearchBar";
 import Switch from "react-switch";
-import DictionarySideBar from "components/SideBar/DictionarySideBar";
+import DictionarySideBar from "components/SideBar/DictionarySideBar/DictionarySideBar";
 import HeaderMenu from "./HeaderMenu";
 import { Link } from "react-router-dom";
+import { useWords } from "../SideBar/DictionarySideBar/WordsContext";
 
 const HeaderContainer = styled.header`
   display: flex;
@@ -66,7 +67,6 @@ const SwitchContainer = styled.div`
   }
   @media (max-width: 350px) {
     padding-left: 7vw;
-  
   }
 `;
 
@@ -139,6 +139,7 @@ const RightSection = styled.div`
 `;
 
 const Header = () => {
+  const { words } = useWords();
   const [isInvestMode, setIsInvesteMode] = useState<boolean>(false);
   const handleModeChange = (checked: boolean) => {
     setIsInvesteMode(checked);

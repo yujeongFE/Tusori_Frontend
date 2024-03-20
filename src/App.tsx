@@ -9,21 +9,24 @@ import Mypage from "./pages/Mypage/Index";
 import Industry from "./pages/Industry/Index";
 import Details from "./pages/Industry/Detail/Index";
 import StockPrice from "./pages/Industry/StockPrice/Index";
+import { WordsProvider } from "components/SideBar/DictionarySideBar/WordsContext";
 
 const App: React.FC = () => {
   return (
-    <Layout>
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/dict/process" element={<Process />} />
-        <Route path="/dict/words" element={<Words />} />
-        <Route path="/mypage" element={<Mypage />} />
-        <Route path="/industry" element={<Industry />} />
-        <Route path="/industry/details" element={<Details />} />
-        <Route path="/industry/:name" element={<StockPrice />} />
-      </Routes>
-    </Layout>
+    <WordsProvider>
+      <Layout>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/dict/process" element={<Process />} />
+          <Route path="/dict/words" element={<Words />} />
+          <Route path="/mypage" element={<Mypage />} />
+          <Route path="/industry" element={<Industry />} />
+          <Route path="/industry/details" element={<Details />} />
+          <Route path="/industry/:name" element={<StockPrice />} />
+        </Routes>
+      </Layout>
+    </WordsProvider>
   );
 };
 
