@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
-import SideMenu from "components/DictionaryMenu/SideMenu";
-import DictMenu from "components/DictionaryMenu/DictMenu";
+import SideMenu from "components/Dictionary/DictionaryMenu/SideMenu";
+import DictMenu from "components/Dictionary/DictionaryMenu/DictMenu";
 import { useWords } from "components/SideBar/DictionarySideBar/WordsContext";
 //import styled from "styled-components";
-import ProcessContent from "../../../components/ProcessContent";
+import ProcessContent from "../../../components/Dictionary/ProcessContent";
 import { SideMenuContainer, Container, Content, ContentPadding, Title } from "../Style";
 import { Button, ButtonsContainer, ButtonContainer, Span, Img } from "./Style";
 

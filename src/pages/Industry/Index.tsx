@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { FlexBox } from "./Style";
-import IndustrySectorBox from "components/IndustrySectorBox";
+import IndustrySectorBox from "components/Box/IndustrySectorBox";
 import { useWords } from "components/SideBar/DictionarySideBar/WordsContext";
 
 const Index = () => {

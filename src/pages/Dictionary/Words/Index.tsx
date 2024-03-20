@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
-import SideMenu from "components/DictionaryMenu/SideMenu";
-import DictMenu from "components/DictionaryMenu/DictMenu";
+import SideMenu from "components/Dictionary/DictionaryMenu/SideMenu";
+import DictMenu from "components/Dictionary/DictionaryMenu/DictMenu";
 import { useWords } from "components/SideBar/DictionarySideBar/WordsContext";
 import { SideMenuContainer, Container, Content, ContentPadding, Title } from "../Style";
 import { SearchBoxContainer, SearchBox, Input, SearchButton } from "./Style";
