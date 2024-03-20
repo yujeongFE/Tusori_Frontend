@@ -20,6 +20,7 @@ const Index: React.FC = () => {
               <SearchButton type="submit"></SearchButton>
             </SearchBox>
           </SearchBoxContainer>
+          
         </ContentPadding>
       </Content>
     </Container>

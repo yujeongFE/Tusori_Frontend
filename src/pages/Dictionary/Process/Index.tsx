@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import SideMenu from "components/DictionaryMenu/SideMenu";
 import DictMenu from "components/DictionaryMenu/DictMenu";
+import DictionarySideBar from "components/SideBar/DictionarySideBar/DictionarySideBar";
 //import styled from "styled-components";
 import ProcessContent from "../../../components/ProcessContent";
 import { SideMenuContainer, Container, Content, ContentPadding, Title } from "../Style";
@@ -14,6 +15,17 @@ const Index: React.FC = () => {
     setStepKey(name);
   };
 
+  const [isInvestMode, setIsInvesteMode] = useState<boolean>(false);
+  const handleModeChange = (checked: boolean) => {
+    setIsInvesteMode(checked);
+    if (checked) {
+      setIsOpen(true);
+    }
+  };
+
+  //주식용어설명 사이드바
+  const [isOpen, setIsOpen] = useState(false);
+
   return (
     <Container>
       <SideMenuContainer>
@@ -21,6 +33,7 @@ const Index: React.FC = () => {
       </SideMenuContainer>
       <Content>
         <DictMenu />
+
         <ContentPadding>
           <Title>주식 투자 과정</Title>
           <ButtonsContainer>
