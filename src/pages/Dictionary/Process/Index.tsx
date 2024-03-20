@@ -1,7 +1,7 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import SideMenu from "components/DictionaryMenu/SideMenu";
 import DictMenu from "components/DictionaryMenu/DictMenu";
-import DictionarySideBar from "components/SideBar/DictionarySideBar/DictionarySideBar";
+import { useWords } from "components/SideBar/DictionarySideBar/WordsContext";
 //import styled from "styled-components";
 import ProcessContent from "../../../components/ProcessContent";
 import { SideMenuContainer, Container, Content, ContentPadding, Title } from "../Style";
@@ -9,6 +9,7 @@ import { Button, ButtonsContainer, ButtonContainer, Span, Img } from "./Style";
 
 const Index: React.FC = () => {
   const [stepKey, setStepKey] = useState<string>();
+  const { setWords } = useWords();
 
   const handleClickButton = (e: React.MouseEvent<HTMLButtonElement>) => {
     const { name } = e.currentTarget;
@@ -25,6 +26,10 @@ const Index: React.FC = () => {
 
   //주식용어설명 사이드바
   const [isOpen, setIsOpen] = useState(false);
+
+  useEffect(() => {
+    setWords([{ word: "", description: "" }]);
+  }, [setWords]);
 
   return (
     <Container>
