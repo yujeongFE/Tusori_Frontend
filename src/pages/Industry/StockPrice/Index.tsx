@@ -59,6 +59,9 @@ const Index = () => {
         <FinancialIndicators />
         <StockOrderBox />
       </RowFlexBox>
+      <Table>
+        <IndustryComparisonTable height={"85vh"} />
+      </Table>
     </FlexBox>
   );
 };
