@@ -84,9 +84,15 @@ const StepText = styled.div`
   font-size: 28px;
   font-family: Pretendard-Medium;
   margin: 50px 0 21px 10px;
+  @media (max-width: 768px) {
+    font-size: 16px;
+  }
 `;
 
 const ContentText = styled.div`
   font-size: 20px;
   margin: 0 0 100px 0;
+  @media (max-width: 768px) {
+    font-size: 12px;
+  }
 `;

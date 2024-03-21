@@ -20,6 +20,9 @@ export const ButtonContainer = styled.div`
   flex-direction: row;
   align-items: center;
   margin: 0 16px 24px 0;
+  @media (max-width: 768px) {
+    margin: 0 0 16px 0;
+  }
 `;
 
 export const Br = styled.br`
@@ -43,17 +46,49 @@ export const Button = styled.button<{ selected: boolean }>`
   line-height: 150%;
   flex-shrink: 0;
   margin-right: 16px;
+  @media (max-width: 964px) {
+    width: 17vw;
+    height: 80px;
+    font-size: 16px;
+  }
+  @media (max-width: 829px) {
+    width: 16vw;
+    height: 80px;
+    font-size: 15px;
+  }
+  @media (max-width: 787px) {
+    width: 15vw;
+    height: 80px;
+    font-size: 15px;
+  }
   @media (max-width: 768px) {
-    width: 160px;
+    width: 35vw;
+    height: 45px;
+    font-size: 15px;
+    text-align: left;
+    padding-left: 2vw;
+  }
+  @media (max-width: 532px) {
+    width: 30vw;
     height: 38px;
     font-size: 12px;
+  }
+  @media (max-width: 400px) {
+    font-size: 10px;
+    padding-left: 1vw;
   }
 `;
 
 export const Span = styled.span`
   font-size: 18px;
   @media (max-width: 768px) {
+    font-size: 15px;
+  }
+  @media (max-width: 500px) {
     font-size: 12px;
+  }
+  @media (max-width: 400px) {
+    font-size: 10px;
   }
 `;
 
