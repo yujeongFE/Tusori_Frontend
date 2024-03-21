@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import { useNavigate } from "react-router-dom";
 import arrow from "../../assets/seemore_arrow.svg";
 import rise from "../../assets/rising_arrow.svg";
 import downward from "../../assets/downward_arrow.svg";
@@ -104,6 +105,12 @@ const More = styled.span`
   margin-top: 5px;
 `;
 const IndustryComparisonTable: React.FC<{ height: string }> = ({ height }) => {
+  const navigate = useNavigate();
+
+  const handlClick = () => {
+    navigate("/mypage");
+  };
+
   return (
     <Container>
       <BoxContainer height={height}>
@@ -151,7 +158,7 @@ const IndustryComparisonTable: React.FC<{ height: string }> = ({ height }) => {
               </tbody>
             </StyledTable>
           </TableContainer>
-          <div style={{ display: "flex", flexDirection: "column", alignItems: "center", marginRight: "5vw" }}>
+          <div onClick={handlClick} style={{ display: "flex", flexDirection: "column", alignItems: "center", marginRight: "5vw" }}>
             <Arrow src={arrow} alt={"더보기"} />
             <More>더보기</More>
           </div>
