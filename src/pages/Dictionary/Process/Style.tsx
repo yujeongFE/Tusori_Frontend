@@ -80,7 +80,6 @@ export const Button = styled.button<{ selected: boolean }>`
     font-size: 10px;
     padding-left: 1vw;
   }
-  
 `;
 
 export const Span = styled.span`
