@@ -6,7 +6,8 @@ const StyledNav = styled.nav`
   display: flex;
   flex-direction: row;
   width: 100%;
-  @media (min-width: 768px) {
+  box-shadow: 0px 2px 6px 0px rgba(0, 0, 0, 0.04);
+  @media (min-width: 768.1px) {
     display: none;
   }
 `;
