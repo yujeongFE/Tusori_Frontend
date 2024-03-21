@@ -7,6 +7,9 @@ export const SearchBoxContainer = styled.div`
   width: 100%;
   height: 97px;
   background-color: #efefef;
+  @media (max-width: 768px) {
+    margin-top: 24px;
+  }
 `;
 
 export const SearchBox = styled.div`
@@ -21,6 +24,7 @@ export const SearchBox = styled.div`
   border-radius: 8px;
   border: 1px solid #000;
   box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.12);
+  
 `;
 
 export const Input = styled.input`
