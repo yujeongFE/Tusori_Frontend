@@ -1,12 +1,14 @@
 import React from "react";
 import styled from "styled-components";
 import arrow from "../../assets/seemore_arrow.svg";
+import rise from "../../assets/rising_arrow.svg";
+import downward from "../../assets/downward_arrow.svg";
 
 const titles = ["종목명", "삼성전자", "SK하이닉스", "한미반도체", "SK스퀘어"];
 const data = [
   ["현재가", "1,500,000", "1,500,000", "1,500,000", "1,500,000"],
   ["전일비", "400", "400", "400", "400"],
-  ["등락률", "0.54%", "0.54%", "0.54%", "0.54%"],
+  ["등락률", "-0.54%", "0.54%", "0.54%", "0.54%"],
   ["시가총액", "75,100", "75,100", "75,100", "75,100"],
   ["거래량", "75,100", "75,100", "75,100", "75,100"],
   ["외인보증 비율", "75,100", "75,100", "75,100", "75,100"],
@@ -32,7 +34,7 @@ const BoxContainer = styled.div<{ height: string }>`
   box-shadow: 0px 2px 8px 0px rgba(0, 0, 0, 0.1);
   height: ${({ height }) => height};
   z-index: 1;
-  overflow-y: auto; /* 세로 스크롤 활성화 */
+  overflow-y: auto;
 `;
 
 const Title = styled.h2`
@@ -53,7 +55,7 @@ const TableContainer = styled.div`
   z-index: 0;
   margin-top: 2.5vh;
   margin-left: 2.6vw;
-  flex-grow: 1; /* 추가 */
+  flex-grow: 1;
 `;
 
 const StyledTable = styled.table`
@@ -70,7 +72,7 @@ const StyledTh = styled.th<{ isTitleCell: boolean }>`
   box-shadow: 0px 2px 0px 0px rgba(0, 0, 0, 0.05);
 `;
 
-const StyledTd = styled.td`
+const StyledTd = styled.td<{ value: string }>`
   padding: 8px;
   width: 25%;
   height: 5.37vh;
@@ -122,7 +124,27 @@ const IndustryComparisonTable: React.FC<{ height: string }> = ({ height }) => {
                 {data.map((row, rowIndex) => (
                   <tr key={rowIndex}>
                     {row.map((cell, cellIndex) => (
-                      <StyledTd key={cellIndex}>{cell}</StyledTd>
+                      <StyledTd
+                        key={cellIndex}
+                        value={cell}
+                        style={{
+                          color:
+                            rowIndex === 2
+                              ? rowIndex === 2 && cellIndex > 0
+                                ? parseFloat(cell) > 0
+                                  ? "#F00"
+                                  : "#0075FF"
+                                : ""
+                              : rowIndex === 1 && cellIndex > 0
+                                ? parseInt(cell) > 0
+                                  ? "#F00"
+                                  : "#0075FF"
+                                : "",
+                        }}
+                      >
+                        {rowIndex === 1 && cellIndex !== 0 ? cellIndex > 0 ? <img src={rise} /> : <img src={downward} /> : ""}
+                        {cell}
+                      </StyledTd>
                     ))}
                   </tr>
                 ))}
