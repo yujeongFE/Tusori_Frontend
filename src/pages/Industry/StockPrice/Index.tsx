@@ -4,8 +4,9 @@ import StockPriceButton from "components/Box/StockPriceBox";
 import CompanyInfo from "components/layouts/CompanyInfo";
 import FinancialIndicators from "components/FinancialIndicators";
 import StockOrderBox from "components/Box/StockOrderBox";
+import IndustryComparisonTable from "components/Table/IndusryComparisonTable";
 import { useWords } from "components/SideBar/DictionarySideBar/WordsContext";
-import { FlexBox } from "../Style";
+import { FlexBox, Table } from "./Style";
 
 const RowFlexBox = styled.div`
   display: flex;
