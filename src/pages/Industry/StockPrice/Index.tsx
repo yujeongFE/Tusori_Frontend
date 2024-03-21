@@ -4,15 +4,10 @@ import StockPriceButton from "components/Box/StockPriceBox";
 import CompanyInfo from "components/layouts/CompanyInfo";
 import FinancialIndicators from "components/FinancialIndicators";
 import StockOrderBox from "components/Box/StockOrderBox";
-import { FlexBox } from "../Style";
+import IndustryComparisonTable from "components/Table/IndusryComparisonTable";
+import { FlexBox, RowFlexBox, Table } from "./Style";
 
-const RowFlexBox = styled.div`
-  display: flex;
-  flex-direction: row;
-  gap: 1.35vw;
-`;
-
-const Index = () => {
+const Index: React.FC = () => {
   return (
     <FlexBox>
       <RowFlexBox>
@@ -23,6 +18,9 @@ const Index = () => {
         <FinancialIndicators />
         <StockOrderBox />
       </RowFlexBox>
+      <Table>
+        <IndustryComparisonTable height={"85vh"} />
+      </Table>
     </FlexBox>
   );
 };
