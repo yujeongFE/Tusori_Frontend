@@ -2,18 +2,18 @@ import React from "react";
 import styled from "styled-components";
 import arrow from "../../assets/seemore_arrow.svg";
 
-const titles = ["종목명"];
+const titles = ["종목명", "삼성전자", "SK하이닉스", "한미반도체", "SK스퀘어"];
 const data = [
-  ["현재가"],
-  ["전일비"],
-  ["등락률"],
-  ["시가총액"],
-  ["거래량"],
-  ["외인보증 비율"],
-  ["종가"],
-  ["ROE"],
-  ["PBR"],
-  ["PER"],
+  ["현재가", "1,500,000", "1,500,000", "1,500,000", "1,500,000"],
+  ["전일비", "400", "400", "400", "400"],
+  ["등락률", "0.54%", "0.54%", "0.54%", "0.54%"],
+  ["시가총액", "75,100", "75,100", "75,100", "75,100"],
+  ["거래량", "75,100", "75,100", "75,100", "75,100"],
+  ["외인보증 비율", "75,100", "75,100", "75,100", "75,100"],
+  ["종가", "75,100", "75,100", "75,100", "75,100"],
+  ["ROE", "75,100", "75,100", "75,100", "75,100"],
+  ["PBR", "75,100", "75,100", "75,100", "75,100"],
+  ["PER", "75,100", "75,100", "75,100", "75,100"],
 ];
 
 const Container = styled.div`
@@ -86,8 +86,8 @@ const RowFlexBox = styled.div`
   align-items: center;
   justify-content: space-between;
   gap: 2vw;
-  overflow-x: auto; 
-  padding-bottom: 20px; 
+  overflow-x: auto;
+  padding-bottom: 20px;
 `;
 
 const Arrow = styled.img`
