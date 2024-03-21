@@ -31,4 +31,9 @@ export const Title = styled.div`
   font-size: 24px;
   padding: 64px 0px 30px 0px;
   font-family: Pretendard-Medium;
+
+  @media (max-width: 768px) {
+    display: none;
+  }
+
 `;

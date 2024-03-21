@@ -7,6 +7,11 @@ export const ButtonsContainer = styled.div`
   padding: 40px 0 16px 0;
   display: flex;
   flex-wrap: wrap;
+
+  @media (max-width: 768px) {
+    margin-top: 24px;
+    border-top: none;
+  }
 `;
 
 //버튼 + 화살표
@@ -15,6 +20,12 @@ export const ButtonContainer = styled.div`
   flex-direction: row;
   align-items: center;
   margin: 0 16px 24px 0;
+`;
+
+export const Br = styled.br`
+  @media (max-width: 768px) {
+    display: none;
+  }
 `;
 
 export const Button = styled.button<{ selected: boolean }>`
@@ -32,12 +43,23 @@ export const Button = styled.button<{ selected: boolean }>`
   line-height: 150%;
   flex-shrink: 0;
   margin-right: 16px;
+  @media (max-width: 768px) {
+    width: 160px;
+    height: 38px;
+    font-size: 12px;
+  }
 `;
 
 export const Span = styled.span`
   font-size: 18px;
+  @media (max-width: 768px) {
+    font-size: 12px;
+  }
 `;
 
 export const Img = styled.img`
   width: 28px;
+  @media (max-width: 768px) {
+    display: none;
+  }
 `;
