@@ -65,7 +65,7 @@ export const Button = styled.button<{ selected: boolean }>`
     font-size: 15px;
   }
   @media (max-width: 768px) {
-    width: 35vw;
+    width: 34vw;
     height: 45px;
     font-size: 15px;
     text-align: left;
