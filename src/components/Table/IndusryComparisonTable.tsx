@@ -71,6 +71,7 @@ const StyledTh = styled.th<{ isTitleCell: boolean }>`
   border-top: 2px solid #ebebeb;
   border-bottom: 2px solid #ebebeb;
   box-shadow: 0px 2px 0px 0px rgba(0, 0, 0, 0.05);
+  background: #fafafa;
 `;
 
 const StyledTd = styled.td<{ value: string }>`
@@ -81,6 +82,7 @@ const StyledTd = styled.td<{ value: string }>`
   border-bottom: 2px solid #ebebeb;
   background: #fff;
   box-shadow: 0px 2px 0px 0px rgba(0, 0, 0, 0.05);
+  text-align: center;
 `;
 
 const RowFlexBox = styled.div`
