@@ -14,6 +14,9 @@ export const Text = styled.div`
   margin-bottom: 20px;
   text-align: left;
   width: 75%;
+  @media (max-width: 768px) {
+    margin-top: 44px;
+  }
 `;
 export const LogsBtnContainer = styled.div`
   display: flex;
