@@ -4,6 +4,7 @@ import MypageTable from "components/Table/MypageTable";
 import InterestedStocksTable from "components/Table/InterestedStocksTable";
 import { useWords } from "components/SideBar/DictionarySideBar/WordsContext";
 import { Container, Text, LogsBtnContainer, LogsBtn, Bar } from "./Style";
+import MobliePageName from "components/layouts/MobliePageName";
 
 const MystocksHeaders = ["종목명", "매입가", "현재가", "평단가", "보유수량", "보유일", "평가손익금", "평가손익률"];
 const InterestedHeaders = ["", "종목명", "현재가", "전일비", "등락률", "시가", "고가", "저가", "거래량", "시가총액"];
@@ -77,6 +78,7 @@ const Index: React.FC = () => {
 
   return (
     <Container>
+      <MobliePageName pageTitle="마이페이지" />
       <Profile />
       <Text>MY 보유주식</Text>
       <MypageTable headers={MystocksHeaders} data={MyStocksData} />
