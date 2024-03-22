@@ -1,5 +1,4 @@
 import React from "react";
-import ScrollBar from "../ScrollBar";
 import styled from "styled-components";
 
 //배경(파란부분)
@@ -33,6 +32,9 @@ const UserInfoBox = styled.div`
     height: 370px;
     margin-top: 60px;
   }
+  @media (max-width: 500px) {
+    height: 302px;
+  }
 `;
 
 //왼쪽 부분(사진, 이름, 메일) 컨테이너
@@ -45,8 +47,7 @@ const ProfileContainer = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
-    margin: -70px 0 0 0;
-
+    margin-left: 0;
   }
 `;
 
@@ -58,6 +59,7 @@ const ProfileImg = styled.img`
   @media (max-width: 768px) {
     width: 114px;
     height: 114px;
+    margin: -45px 0 18px 0;
   }
 `;
 
@@ -80,6 +82,14 @@ const EditBtn = styled.button`
   background-color: transparent;
   padding: 8px 0 0 8px;
   cursor: pointer;
+  @media (max-width: 768px) {
+    padding: 3px 0 0 8px;
+  }
+  @media (max-width: 500px) {
+    height: 20px;
+    width: 20px;
+    padding: 0px 0 0 1vw;
+  }
 `;
 
 const UserEmail = styled.div`
@@ -102,7 +112,7 @@ const MyAssetContainer = styled.div`
   margin-right: 4vw;
   @media (max-width: 768px) {
     width: 100%;
-    margin: 0;  
+    margin: 0;
   }
 `;
 
@@ -113,7 +123,12 @@ const AssetText = styled.div`
   padding: 24px 0 0 15px;
   @media (max-width: 768px) {
     font-size: 18px;
-    padding: 10px 0 0 15px;
+    padding: 5px 0 5px 15px;
+    font-weight: 400;
+  }
+  @media (max-width: 500px) {
+    font-size: 12px;
+    font-weight: 400;
   }
 `;
 
@@ -125,6 +140,9 @@ const ResetBtn = styled.button`
   cursor: pointer;
   margin: 33px 8px 0 0;
   text-decoration: underline;
+  @media (max-width: 500px) {
+    font-size: 12px;
+  }
 `;
 
 const Line = styled.div`
@@ -132,6 +150,9 @@ const Line = styled.div`
   height: 1px;
   background-color: #e3e3e3;
   margin-top: 20px;
+  @media (max-width: 768px) {
+    margin-top: 10px;
+  }
 `;
 
 const AmountText = styled.div`
@@ -139,7 +160,11 @@ const AmountText = styled.div`
   font-size: 20px;
   @media (max-width: 768px) {
     font-size: 18px;
-    margin: 10px 15px 0 0;
+    margin: 5px 15px 5px 0;
+  }
+  @media (max-width: 500px) {
+    font-size: 12px;
+    font-weight: 400;
   }
 `;
 
