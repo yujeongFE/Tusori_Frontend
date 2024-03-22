@@ -1,5 +1,5 @@
 import React from "react";
-import ScrollBar from "./ScrollBar";
+import ScrollBar from "../ScrollBar";
 import styled from "styled-components";
 
 //배경(파란부분)
@@ -23,6 +23,16 @@ const UserInfoBox = styled.div`
   border-radius: 8px;
   background: #fff;
   box-shadow: 0px 2px 8px 0px rgba(0, 0, 0, 0.08);
+
+  @media (max-width: 768px) {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 65%;
+    height: 370px;
+    margin-top: 60px;
+  }
 `;
 
 //왼쪽 부분(사진, 이름, 메일) 컨테이너
@@ -31,6 +41,13 @@ const ProfileContainer = styled.div`
   display: flex;
   flex-direction: column;
   margin-left: 4vw;
+  @media (max-width: 768px) {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: -70px 0 0 0;
+
+  }
 `;
 
 const ProfileImg = styled.img`
@@ -38,12 +55,22 @@ const ProfileImg = styled.img`
   height: 136px;
   border-radius: 50%;
   margin: 31px 0 18px 0;
+  @media (max-width: 768px) {
+    width: 114px;
+    height: 114px;
+  }
 `;
 
 const UserName = styled.div`
   font-size: 32px;
   font-family: Pretendard-Bold;
   margin-bottom: 10px;
+  @media (max-width: 768px) {
+    font-size: 25px;
+  }
+  @media (max-width: 500px) {
+    font-size: 20px;
+  }
 `;
 
 const EditBtn = styled.button`
@@ -58,6 +85,12 @@ const EditBtn = styled.button`
 const UserEmail = styled.div`
   color: #3a3a3a;
   font-size: 20px;
+  @media (max-width: 768px) {
+    font-size: 18px;
+  }
+  @media (max-width: 500px) {
+    font-size: 16px;
+  }
 `;
 
 //오른쪽 부분(내 자산정보) 컨테이너
@@ -67,6 +100,10 @@ const MyAssetContainer = styled.div`
   display: flex;
   flex-direction: column;
   margin-right: 4vw;
+  @media (max-width: 768px) {
+    width: 100%;
+    margin: 0;  
+  }
 `;
 
 const AssetText = styled.div`
@@ -74,6 +111,10 @@ const AssetText = styled.div`
   font-family: Pretendard-Light;
   font-weight: 800;
   padding: 24px 0 0 15px;
+  @media (max-width: 768px) {
+    font-size: 18px;
+    padding: 10px 0 0 15px;
+  }
 `;
 
 const ResetBtn = styled.button`
@@ -96,15 +137,22 @@ const Line = styled.div`
 const AmountText = styled.div`
   margin: 24px 15px 0 0;
   font-size: 20px;
+  @media (max-width: 768px) {
+    font-size: 18px;
+    margin: 10px 15px 0 0;
+  }
 `;
 
 //가로배치용 컴포넌트
 const RowContainer = styled.div`
   display: flex;
   //justify-content: space-between;
+  @media (max-width: 768px) {
+    justify-content: center;
+  }
 `;
 
-const Profile: React.FC = () => {
+const ProfileBox: React.FC = () => {
   return (
     <>
       <UserInfoContainer>
@@ -127,24 +175,22 @@ const Profile: React.FC = () => {
             </RowContainer>
             <Line />
 
-            <ScrollBar>
-              <RowContainer style={{ justifyContent: " space-between" }}>
-                <AssetText>총 자산</AssetText>
-                <AmountText>0</AmountText>
-              </RowContainer>
-              <RowContainer style={{ justifyContent: " space-between" }}>
-                <AssetText>가용 자산</AssetText>
-                <AmountText>0</AmountText>
-              </RowContainer>
-              <RowContainer style={{ justifyContent: " space-between" }}>
-                <AssetText>보유 주식 총액</AssetText>
-                <AmountText>0</AmountText>
-              </RowContainer>
-              <RowContainer style={{ justifyContent: " space-between" }}>
-                <AssetText>보유 종목 수</AssetText>
-                <AmountText>0</AmountText>
-              </RowContainer>
-            </ScrollBar>
+            <RowContainer style={{ justifyContent: " space-between" }}>
+              <AssetText>총 자산</AssetText>
+              <AmountText>0</AmountText>
+            </RowContainer>
+            <RowContainer style={{ justifyContent: " space-between" }}>
+              <AssetText>가용 자산</AssetText>
+              <AmountText>0</AmountText>
+            </RowContainer>
+            <RowContainer style={{ justifyContent: " space-between" }}>
+              <AssetText>보유 주식 총액</AssetText>
+              <AmountText>0</AmountText>
+            </RowContainer>
+            <RowContainer style={{ justifyContent: " space-between" }}>
+              <AssetText>보유 종목 수</AssetText>
+              <AmountText>0</AmountText>
+            </RowContainer>
           </MyAssetContainer>
         </UserInfoBox>
       </UserInfoContainer>
@@ -152,4 +198,4 @@ const Profile: React.FC = () => {
   );
 };
 
-export default Profile;
+export default ProfileBox;
