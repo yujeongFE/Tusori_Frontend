@@ -47,7 +47,7 @@ const Index: React.FC = () => {
                 <Span>01</Span>
                 <Br /> 계좌 개설하기
               </Button>
-              <Img src={`${process.env.PUBLIC_URL}/assets/right-arrow.svg`} alt="arrow" />
+              <Img src={`${process.env.PUBLIC_URL}/assets/Dictionary/right-arrow.svg`} alt="arrow" />
             </ButtonContainer>
 
             <ButtonContainer>
@@ -55,7 +55,7 @@ const Index: React.FC = () => {
                 <Span>02</Span>
                 <Br /> 원하는 종목 찾기
               </Button>
-              <Img src={`${process.env.PUBLIC_URL}/assets/right-arrow.svg`} alt="arrow" />
+              <Img src={`${process.env.PUBLIC_URL}/assets/Dictionary/right-arrow.svg`} alt="arrow" />
             </ButtonContainer>
 
             <ButtonContainer>
@@ -63,7 +63,7 @@ const Index: React.FC = () => {
                 <Span>03</Span>
                 <Br /> 분석하기
               </Button>
-              <Img src={`${process.env.PUBLIC_URL}/assets/right-arrow.svg`} alt="arrow" />
+              <Img src={`${process.env.PUBLIC_URL}/assets/Dictionary/right-arrow.svg`} alt="arrow" />
             </ButtonContainer>
 
             <ButtonContainer>
@@ -71,7 +71,7 @@ const Index: React.FC = () => {
                 <Span>04</Span>
                 <Br /> 동일 업종 비교하기
               </Button>
-              <Img src={`${process.env.PUBLIC_URL}/assets/right-arrow.svg`} alt="arrow" />
+              <Img src={`${process.env.PUBLIC_URL}/assets/Dictionary/right-arrow.svg`} alt="arrow" />
             </ButtonContainer>
 
             <ButtonContainer>
@@ -79,7 +79,7 @@ const Index: React.FC = () => {
                 <Span>05</Span>
                 <Br /> 매수하기
               </Button>
-              <Img src={`${process.env.PUBLIC_URL}/assets/right-arrow.svg`} alt="arrow" />
+              <Img src={`${process.env.PUBLIC_URL}/assets/Dictionary/right-arrow.svg`} alt="arrow" />
             </ButtonContainer>
 
             <ButtonContainer>
@@ -87,7 +87,7 @@ const Index: React.FC = () => {
                 <Span>06</Span>
                 <Br /> 동향 및 뉴스 분석하기
               </Button>
-              <Img src={`${process.env.PUBLIC_URL}/assets/right-arrow.svg`} alt="arrow" />
+              <Img src={`${process.env.PUBLIC_URL}/assets/Dictionary/right-arrow.svg`} alt="arrow" />
             </ButtonContainer>
 
             <ButtonContainer>

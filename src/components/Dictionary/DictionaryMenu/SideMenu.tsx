@@ -42,10 +42,10 @@ const SideMenu: React.FC = () => {
       <StyledNav>
         <StyledNavLink to="/dict/process" className={({ isActive }: { isActive: boolean }) => (isActive ? "active" : "")}>
           주식 투자 과정
-          <img src={`${process.env.PUBLIC_URL}/assets/right-arrow.svg`} alt="arrow" />
+          <img src={`${process.env.PUBLIC_URL}/assets/Dictionary/right-arrow.svg`} alt="arrow" />
         </StyledNavLink>
         <StyledNavLink to="/dict/words" className={({ isActive }: { isActive: boolean }) => (isActive ? "active" : "")}>
-          주식 용어 설명 <img src={`${process.env.PUBLIC_URL}/assets/right-arrow.svg`} alt="arrow" />
+          주식 용어 설명 <img src={`${process.env.PUBLIC_URL}/assets/Dictionary/right-arrow.svg`} alt="arrow" />
         </StyledNavLink>
       </StyledNav>
     </>

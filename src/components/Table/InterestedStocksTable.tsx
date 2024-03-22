@@ -88,7 +88,7 @@ const MypageTable: React.FC<TableProps> = ({ headers, data }: TableProps) => {
               <tr key={rowIndex}>
                 {rowData.map((cellData, cellIndex) => (
                   <StyledTd key={cellIndex} isFirst={cellIndex === 0} isSecond={cellIndex === 1} cellData={cellData}>
-                    {cellIndex === 0 ? <img src={`${process.env.PUBLIC_URL}/assets/star.svg`} alt="Cell Image" /> : cellData}
+                    {cellIndex === 0 ? <img src={`${process.env.PUBLIC_URL}/assets/Mypage/star.svg`} alt="Cell Image" /> : cellData}
                   </StyledTd>
                 ))}
               </tr>

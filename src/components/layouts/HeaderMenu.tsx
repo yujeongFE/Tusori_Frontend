@@ -92,7 +92,7 @@ const SidebarToggleButton = styled.button`
   top: 22px;
   left: 3vw;
   z-index: 2;
-  background: url("${process.env.PUBLIC_URL}/assets/menu_icon.svg") no-repeat center center;
+  background: url("${process.env.PUBLIC_URL}/assets/Header/menu_icon.svg") no-repeat center center;
   background-size: contain;
   border: none;
   cursor: pointer;
@@ -117,7 +117,7 @@ const SidebarCloseButton = styled.button`
   position: absolute;
   top: 15px;
   right: 15px;
-  background: url("${process.env.PUBLIC_URL}/assets/close_icon.svg") no-repeat center center;
+  background: url("${process.env.PUBLIC_URL}/assets/Header/close_icon.svg") no-repeat center center;
   background-size: contain;
   border: none;
   cursor: pointer;
@@ -190,7 +190,7 @@ const HeaderMenu: React.FC = () => {
         {isSidebarOpen && (
           // 사이드바에만 보이는 부분
           <LoginContainer>
-            <img src={`${process.env.PUBLIC_URL}/assets/before_login.svg`} alt="login" style={{ width: "24px", margin: "0 16px 0 12px" }} />
+            <img src={`${process.env.PUBLIC_URL}/assets/Header/before_login.svg`} alt="login" style={{ width: "24px", margin: "0 16px 0 12px" }} />
             로그인을 해주세요
           </LoginContainer>
         )}
