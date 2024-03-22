@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import Profile from "components/Profile";
+import Profile from "components/Box/ProfileBox";
 import MypageTable from "components/Table/MypageTable";
 import InterestedStocksTable from "components/Table/InterestedStocksTable";
 import { useWords } from "components/SideBar/DictionarySideBar/WordsContext";
