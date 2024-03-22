@@ -72,13 +72,18 @@ export const Button = styled.button<{ selected: boolean }>`
     padding-left: 2vw;
   }
   @media (max-width: 532px) {
-    width: 30vw;
+    width: 33vw;
     height: 38px;
     font-size: 12px;
   }
   @media (max-width: 400px) {
     font-size: 10px;
     padding-left: 1vw;
+  }
+  @media (max-width: 320px) {
+    width: 31vw;
+    height: 35px;
+    font-size: 9px;
   }
 `;
 
@@ -87,7 +92,7 @@ export const Span = styled.span`
   @media (max-width: 768px) {
     font-size: 15px;
   }
-  @media (max-width: 500px) {
+  @media (max-width: 532px) {
     font-size: 12px;
   }
   @media (max-width: 400px) {
