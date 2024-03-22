@@ -41,14 +41,17 @@ const Top = styled.div`
 `;
 
 const Title = styled.div`
+  display: flex;
   color: #fff;
   font-size: 18px;
   font-family: Pretendard-Bold;
   margin-left: 10px;
+  align-items: center;
 `;
 
 const Img = styled.img`
-width: 32px;
+  width: 32px;
+  margin-right: 10px;
 `;
 
 const CloseBtn = styled.button`
