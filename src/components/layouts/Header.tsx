@@ -118,7 +118,7 @@ const LoginLink = styled(Link)`
   position: relative;
 
   @media (max-width: 768px) {
-    background-image: url("${process.env.PUBLIC_URL}/assets/login_person.svg"); // 로그인 이미지 경로
+    background-image: url("${process.env.PUBLIC_URL}/assets/Header/login_person.svg"); // 로그인 이미지 경로
     background-repeat: no-repeat;
     background-size: contain;
     background-position: center;
@@ -164,7 +164,7 @@ const Header = () => {
       <LeftSection>
         <SidebySideContainer>
           <Link to="/">
-            <Logo src={`${process.env.PUBLIC_URL}/assets/logo.svg`} alt="logo" />
+            <Logo src={`${process.env.PUBLIC_URL}/assets/Header/logo.svg`} alt="logo" />
           </Link>
           <SwitchContainer>
             <Switch checked={isInvestMode} onChange={handleModeChange} {...switchStyle} />
@@ -175,7 +175,7 @@ const Header = () => {
         <HeaderMenu />
       </LeftSection>
       <Link to="/">
-        <LogoName src={`${process.env.PUBLIC_URL}/assets/only_nameLogo.png`} alt="logo_name" />
+        <LogoName src={`${process.env.PUBLIC_URL}/assets/Header/only_nameLogo.png`} alt="logo_name" />
       </Link>
       <RightSection>
         <LoginLink to="/login">로그인</LoginLink>

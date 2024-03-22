@@ -39,7 +39,7 @@ export const KakaoBtn = styled.button`
   border-radius: 12px;
   color: #2a2a2a;
   background: #fee500;
-  background-image: url(${process.env.PUBLIC_URL}/assets/kakao-logo.png);
+  background-image: url(${process.env.PUBLIC_URL}/assets/auth/kakao-logo.png);
   background-repeat: no-repeat;
   background-position: 32px 50%;
   background-size: 23px;

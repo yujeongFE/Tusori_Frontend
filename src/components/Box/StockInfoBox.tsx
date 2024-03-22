@@ -202,7 +202,7 @@ const renderTableCell = (
   switch (type) {
     case "pick":
       return value == "true" ? (
-        <img src={`${process.env.PUBLIC_URL}/assets/star.svg`} style={{ margin: "0px", marginRight: "0.5vw" }} alt="select_star" />
+        <img src={`${process.env.PUBLIC_URL}/assets/Mypage/star.svg`} style={{ margin: "0px", marginRight: "0.5vw" }} alt="select_star" />
       ) : (
         <img src={nonSelect} style={{ margin: "0px", marginRight: "0.5vw" }} alt="nonSelect_star" />
       );

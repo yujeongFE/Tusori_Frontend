@@ -51,7 +51,7 @@ const Input = styled.input`
 `;
 
 const SearchButton = styled.button`
-  background: rgba(255, 255, 255, 0.8) url("${process.env.PUBLIC_URL}/assets/search_icon.png") no-repeat center center;
+  background: rgba(255, 255, 255, 0.8) url("${process.env.PUBLIC_URL}/assets/Header/search_icon.png") no-repeat center center;
   background-size: cover;
   border: none;
   padding: 12px;
@@ -77,7 +77,7 @@ const SearchBar: React.FC = () => {
   return (
     <>
       <ToggleButton>
-        <img src={`${process.env.PUBLIC_URL}/assets/header_search.svg`} alt="search" />
+        <img src={`${process.env.PUBLIC_URL}/assets/Header/header_search.svg`} alt="search" />
       </ToggleButton>
       <SearchBarContainer>
         <Input

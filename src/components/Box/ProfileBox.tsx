@@ -193,7 +193,7 @@ const ProfileBox: React.FC = () => {
             <RowContainer>
               <UserName>이름</UserName>
               <EditBtn>
-                <img src={`${process.env.PUBLIC_URL}/assets/editBtn.svg`} alt="edit" />
+                <img src={`${process.env.PUBLIC_URL}/assets/Mypage/editBtn.svg`} alt="edit" />
               </EditBtn>
             </RowContainer>
             <UserEmail>email@gmail.com</UserEmail>

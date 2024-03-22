@@ -24,7 +24,6 @@ export const SearchBox = styled.div`
   border-radius: 8px;
   border: 1px solid #000;
   box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.12);
-  
 `;
 
 export const Input = styled.input`
@@ -42,7 +41,7 @@ export const Input = styled.input`
 `;
 
 export const SearchButton = styled.button`
-  background: url("${process.env.PUBLIC_URL}/assets/search_icon_black.svg") no-repeat center center;
+  background: url("${process.env.PUBLIC_URL}/assets/Dictionary/search_icon_black.svg") no-repeat center center;
   background-size: cover;
   border: none;
   padding: 12px;

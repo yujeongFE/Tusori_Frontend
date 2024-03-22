@@ -6,7 +6,7 @@ const Index: React.FC = () => {
     <>
       <LoginText>로그인</LoginText>
       <Center>
-        <Img src={`${process.env.PUBLIC_URL}/assets/character.png`} alt="login" />
+        <Img src={`${process.env.PUBLIC_URL}/assets/auth/character.png`} alt="login" />
         <Text>
           투설이와 함께 주식의
           <br />

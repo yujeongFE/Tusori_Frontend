@@ -47,6 +47,10 @@ const Title = styled.div`
   margin-left: 10px;
 `;
 
+const Img = styled.img`
+width: 32px;
+`;
+
 const CloseBtn = styled.button`
   cursor: pointer;
   border: none;
@@ -89,14 +93,16 @@ const DictionarySideBar: React.FC<DictionarySideBarProps> = ({ isOpen, setIsOpen
   return (
     <SideBarWrap ref={outside} isOpen={isOpen}>
       <Top>
-        <Title>이 단어, 무슨 뜻이지?</Title>
+        <Title>
+          <Img src={`${process.env.PUBLIC_URL}/assets/Dictionary/eyes.png`} alt="dictionary" />이 단어, 무슨 뜻이지?
+        </Title>
         <CloseBtn
           onClick={() => {
             onClose();
             setIsOpen(false);
           }}
         >
-          <img src={`${process.env.PUBLIC_URL}/assets/closeBtn.svg`} alt="close" />
+          <img src={`${process.env.PUBLIC_URL}/assets/Dictionary/closeBtn.svg`} alt="close" />
         </CloseBtn>
       </Top>
       <Scrollbar>
