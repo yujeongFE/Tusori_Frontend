@@ -123,12 +123,13 @@ const AssetText = styled.div`
   padding: 24px 0 0 15px;
   @media (max-width: 768px) {
     font-size: 18px;
-    padding: 5px 0 5px 15px;
+    padding: 5px 0 5px 4vw;
     font-weight: 400;
   }
   @media (max-width: 500px) {
     font-size: 12px;
     font-weight: 400;
+    padding: 5px 0 5px 3vw;
   }
 `;
 
@@ -140,7 +141,11 @@ const ResetBtn = styled.button`
   cursor: pointer;
   margin: 33px 8px 0 0;
   text-decoration: underline;
+  @media (max-width: 768px) {
+    margin: 25px 3vw 0 0;
+  }
   @media (max-width: 500px) {
+    margin: 25px 2vw 0 0;
     font-size: 12px;
   }
 `;
@@ -160,11 +165,12 @@ const AmountText = styled.div`
   font-size: 20px;
   @media (max-width: 768px) {
     font-size: 18px;
-    margin: 5px 15px 5px 0;
+    margin: 5px 4vw 5px 0;
   }
   @media (max-width: 500px) {
     font-size: 12px;
     font-weight: 400;
+    margin: 5px 3vw 5px 0;
   }
 `;
 
