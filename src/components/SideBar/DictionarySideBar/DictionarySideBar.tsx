@@ -1,4 +1,4 @@
-import React, { useRef, useEffect } from "react";
+import React, { useRef } from "react";
 import styled from "styled-components";
 import { useWords } from "./WordsContext";
 
@@ -8,7 +8,7 @@ const SideBarWrap = styled.div<{ isOpen: boolean }>`
   border-left: 1px solid #bccafb;
   background: #fff;
   height: 87%;
-  width: 17%;
+  width: 20%;
   right: ${({ isOpen }) => (isOpen ? "0" : "-55%")};
   top: 130px;
   position: fixed;
@@ -23,11 +23,37 @@ const SideBarWrap = styled.div<{ isOpen: boolean }>`
 `;
 
 const Words = styled.div`
+  display: flex;
+  justify-content: left;
+  align-items: center;
   padding: 30px 8px;
   border-bottom: 1px solid #e2e2e2;
-  justify-content: center;
   color: #a1a1a1;
   font-size: 14px;
+`;
+
+const WordAndDescription = styled.div`
+  display: flex;
+  flex-direction: column;
+`;
+
+const Description = styled.span`
+  flex-grow: 1;
+`;
+
+const Num = styled.div`
+  color: #708ffe;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: Pretendard-Bold;
+  font-size: 17px;
+  border-radius: 50%;
+  background-color: #f0f4ff;
+  width: 30px;
+  height: 30px;
+  margin-right: 10px;
+  flex-shrink: 0;
 `;
 
 const Top = styled.div`
@@ -111,7 +137,11 @@ const DictionarySideBar: React.FC<DictionarySideBarProps> = ({ isOpen, setIsOpen
       <Scrollbar>
         {words.map((item, index) => (
           <Words key={index}>
-            <strong>{item.word}</strong>: {item.description}
+            <Num>{index + 1}</Num>
+            <WordAndDescription>
+              <strong>{item.word} :</strong>
+              <Description>{item.description}</Description>
+            </WordAndDescription>
           </Words>
         ))}
       </Scrollbar>
