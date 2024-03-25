@@ -1,5 +1,6 @@
 import React from "react";
 import { LoginText, Center, Img, Text, KakaoBtn, CautionText } from "./Style";
+import { KAKAO_AUTH_URL } from "api/auth/kakaoLogin";
 
 const Index: React.FC = () => {
   return (
@@ -12,7 +13,9 @@ const Index: React.FC = () => {
           <br />
           기본 과정을 알아가 볼까요?
         </Text>
-        <KakaoBtn>카카오로 로그인/회원가입</KakaoBtn>
+        <a href={KAKAO_AUTH_URL}>
+          <KakaoBtn>카카오로 로그인/회원가입</KakaoBtn>
+        </a>
         <CautionText>
           회원가입 시 모의주식의 <b>서비스 이용 약관</b>과 <b>개인정보 보호정책</b>에 동의하게 됩니다.
         </CautionText>
