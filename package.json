@@ -2,7 +2,7 @@
   "name": "tusori_frontend",
   "version": "0.1.0",
   "private": true,
-  "proxy": "https://openapi.naver.com",
+  "proxy": "http://15.164.142.161",
   "dependencies": {
     "@testing-library/jest-dom": "^5.17.0",
     "@testing-library/react": "^13.4.0",

@@ -9,6 +9,7 @@ import Mypage from "./pages/Mypage/Index";
 import Industry from "./pages/Industry/Index";
 import Details from "./pages/Industry/Detail/Index";
 import StockPrice from "./pages/Industry/StockPrice/Index";
+import LoginRedirectHandler from "api/auth/LoginRedirectHandler";
 import { WordsProvider } from "components/SideBar/DictionarySideBar/WordsContext";
 
 const App: React.FC = () => {
@@ -18,6 +19,7 @@ const App: React.FC = () => {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/login" element={<Login />} />
+          <Route path="/oauth2/kakao" element={<LoginRedirectHandler />} />
           <Route path="/dict/process" element={<Process />} />
           <Route path="/dict/words" element={<Words />} />
           <Route path="/mypage" element={<Mypage />} />
