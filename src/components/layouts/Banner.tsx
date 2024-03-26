@@ -1,19 +1,16 @@
 import React from "react";
 import styled from "styled-components";
-import character from "../../assets/sample_character.png";
-import secondCharacter from "../../assets/sample_character2.png";
 
 const BannerStyle = styled.div`
   display: flex;
   align-items: center;
-  width: 73vw;
-  height: 10.6vh;
-  min-width: 750px;
-  min-height: 115px;
+  width: 28.4vw;
+  height: 16.5vh;
+  min-height: 180px;
   flex-shrink: 0;
   border-radius: 8px;
   background: #eff3ff;
-  margin-top: 3.8vh;
+  margin-top: 36px;
 `;
 
 const BannerText = styled.div`
@@ -24,28 +21,27 @@ const BannerText = styled.div`
   font-style: normal;
   font-weight: 400;
   line-height: normal;
-  white-space: pre-line; /* 줄 바꿈 적용을 위해 추가 */
+  white-space: pre-line;
+
+  @media screen and (max-width: 920px) {
+    font-size: 18px;
+  }
 `;
 
 const Mascot = styled.div`
-  margin-left: 5.2vw;
-`;
-
-const SecondMascot = styled.div`
-  margin-left: 0.4vw;
+  margin-left: 2vw;
 `;
 
 const Banner = () => {
   return (
     <div>
       <BannerStyle>
-        <BannerText>주식 왕초보님들! {"\n"} 주식 용어와 과정을 함께 알아가 보아요~</BannerText>
+        <BannerText>
+          주식 왕초보님들! {"\n"} 주식 용어와 과정을 {"\n"} 함께 알아가 보아요~
+        </BannerText>
         <Mascot>
-          <img src={character} style={{ width: "4.3vw", height: "9vh" }} />
+          <img src={`${process.env.PUBLIC_URL}/assets/auth/character.png`} style={{ width: "10.4vw", height: "15.7vh" }} />
         </Mascot>
-        <SecondMascot>
-          <img src={secondCharacter} style={{ width: "6vw", height: "10.7vh" }} />
-        </SecondMascot>
       </BannerStyle>
     </div>
   );

@@ -10,3 +10,9 @@ export const TableContainer = styled.div`
   flex-direction: row;
   gap: 1.14vw;
 `;
+
+export const RowFlexBox = styled.div`
+  display: flex;
+  flex-direction: row;
+  gap: 1.25vw;
+`;

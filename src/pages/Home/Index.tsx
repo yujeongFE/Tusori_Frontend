@@ -3,7 +3,7 @@ import MarketInfoBoxContainer from "../../components/Box/MarketInfoBox";
 import Banner from "../../components/layouts/Banner";
 import StockInfoBox from "../../components/Box/StockInfoBox";
 import { useWords } from "../../components/SideBar/DictionarySideBar/WordsContext";
-import { TableContainer, FlexBox } from "./Style";
+import { TableContainer, FlexBox, RowFlexBox } from "./Style";
 
 const Index = () => {
   const { setWords } = useWords();
@@ -14,8 +14,10 @@ const Index = () => {
   return (
     <>
       <FlexBox>
-        <MarketInfoBoxContainer />
-        <Banner />
+        <RowFlexBox>
+          <MarketInfoBoxContainer />
+          <Banner />
+        </RowFlexBox>
         <TableContainer>
           <StockInfoBox title={"실시간 거래량 TOP5"} category={["코스피", "코스닥"]} />
           <StockInfoBox title={"MY 보유 주식"} login={false} />

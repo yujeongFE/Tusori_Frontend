@@ -99,7 +99,7 @@ const MarketInfo: React.FunctionComponent<MarketInfoProps> = ({ title, index, ch
 
 // 최종적인 박스 UI를 나타내는 컴포넌트
 const MarketInfoBoxContainer: React.FC = () => {
-  const titles = ["코스피", "코스닥", "코스피200", "코스피150", "KRX300"];
+  const titles = ["코스피", "코스닥", "환율"];
   const boxes = titles.map((title, index) => (
     <MarketInfo
       key={index}
