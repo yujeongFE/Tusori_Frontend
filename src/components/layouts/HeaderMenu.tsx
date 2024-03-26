@@ -40,6 +40,22 @@ const StyledNavLink = styled(NavLink)<StyledNavLinkProps>`
     ${activeLinkStyle}
   }
 
+  @media (max-width: 1074px) {
+    margin: 25.95px 3vw 0 0;
+  }
+  @media (max-width: 1004px) {
+    font-size: 16px;
+  }
+  @media (max-width: 970px) {
+    font-size: 14px;
+  }
+  @media (max-width: 854px) {
+    margin: 25.95px 2vw 0 0;
+    padding-bottom: 19px;
+  }
+  @media (max-width: 793px) {
+    margin: 25.95px 2vw 0 0;
+  }
   @media (max-width: 768px) {
     font-size: 14px;
     padding-left: 7.5%;

@@ -14,11 +14,13 @@ const SideBarWrap = styled.div<{ isOpen: boolean }>`
   position: fixed;
   transition: 0.5s ease;
 
-  @media (max-width: 908px) {
-    top: 160px;
+  @media (max-width: 970px) {
+    top: 125px;
+    width: 23%;
   }
   @media (max-width: 768px) {
     top: 70px;
+    width: 25%;
   }
 `;
 
