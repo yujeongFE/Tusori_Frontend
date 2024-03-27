@@ -20,6 +20,7 @@ export const ButtonContainer = styled.div`
   flex-direction: row;
   align-items: center;
   margin: 0 16px 24px 0;
+
   @media (max-width: 964px) {
     margin: 0 5px 16px 0;
   }
@@ -40,8 +41,8 @@ export const Button = styled.button<{ selected: boolean }>`
   font-family: Pretendard-Medium;
   border: none;
   border-radius: 8px;
-  background-color: ${({ selected }) => (selected ? "#708FFE" : "#fff")};
-  color: ${({ selected }) => (selected ? "#fff" : "#2A2A2A")};
+  background-color: #fff;
+  color: #2a2a2a;
   font-size: 20px;
   box-shadow: 0px 2px 8px 0px rgba(0, 0, 0, 0.08);
   cursor: pointer;
@@ -49,6 +50,13 @@ export const Button = styled.button<{ selected: boolean }>`
   line-height: 150%;
   flex-shrink: 0;
   margin-right: 16px;
+  &:hover {
+    background-color: #eff2ff;
+  }
+  &:focus {
+    background-color: #708ffe;
+    color: #fff;
+  }
   @media (max-width: 964px) {
     width: 17vw;
     height: 80px;
