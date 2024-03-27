@@ -4,35 +4,33 @@ import data from "../../json/MarketData.json";
 import rising from "../../assets/rising_arrow.svg";
 import downward from "../../assets/downward_arrow.svg";
 
+// 중앙 정렬 스타일을 적용할 컨테이너
 const MarketInfoBox = styled.div`
   display: flex;
   flex-direction: column;
   width: 13.5vw;
-  height: 15.6vh;
-  min-width: 140px;
+  height: 15.7vh;
   min-height: 170px;
   flex-shrink: 0;
-  padding-bottom: 10px;
   border-radius: 8px 8px 0px 0px;
   background: linear-gradient(to bottom, #4c4c4c 38px, #ffffff 38px);
   box-shadow: 0px 2px 8px 0px rgba(0, 0, 0, 0.08);
-
-  /* Title Style */
-  .title {
-    color: #fff;
-    font-family: Pretendard-Medium;
-    font-size: 18px;
-    font-style: normal;
-    font-weight: 600;
-    line-height: normal;
-    margin-top: 9.5px;
-    margin-left: 1vw;
-    margin-bottom: 3.4vh;
-  }
+  overflow: hidden;
 
   @media (max-width: 767px) {
     /* 작은 화면일 때 스타일링 */
   }
+`;
+
+const Title = styled.div`
+  color: #fff;
+  font-family: Pretendard-Medium;
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+  margin-top: 9.5px;
+  margin-left: 1vw;
 `;
 
 // 현재 수치 값
@@ -43,6 +41,10 @@ const CurrentIndex = styled.div`
   font-size: 36px;
   font-style: normal;
   line-height: normal;
+
+  @media (max-width: 1150px) {
+    font-size: 25px;
+  }
 `;
 
 // 변경된 수치 값
@@ -54,7 +56,11 @@ const ChangeIndex = styled.div`
   font-weight: 500;
   line-height: normal;
   text-align: center;
-  margin-top: 9.5px;
+  margin-top: 20px;
+
+  @media (max-width: 1150px) {
+    font-size: 18px;
+  }
 `;
 
 // 변경된 퍼센트 값
@@ -77,7 +83,7 @@ const Arrow: React.FC<{ value: string; percent: string }> = ({ value, percent })
 };
 
 interface MarketInfoProps {
-  title: string;
+  title: string; // title prop 추가
   index: string;
   change: string;
   percent: string;
@@ -88,11 +94,13 @@ interface MarketInfoProps {
 const MarketInfo: React.FunctionComponent<MarketInfoProps> = ({ title, index, change, percent, style }) => {
   return (
     <MarketInfoBox style={style}>
-      <div className="title">{title}</div>
-      <CurrentIndex>{index}</CurrentIndex>
-      <ChangeIndex>
-        <Arrow value={change} percent={percent} />
-      </ChangeIndex>
+      <Title>{title}</Title>
+      <div style={{ margin: "auto" }}>
+        <CurrentIndex>{index}</CurrentIndex>
+        <ChangeIndex>
+          <Arrow value={change} percent={percent} />
+        </ChangeIndex>
+      </div>
     </MarketInfoBox>
   );
 };

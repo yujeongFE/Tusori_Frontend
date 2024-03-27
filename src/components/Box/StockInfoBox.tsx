@@ -36,7 +36,6 @@ const Container = styled.div`
   flex-direction: column;
   width: 35.8vw;
   height: 35.7vh;
-  min-width: 365px;
   min-height: 365px;
   flex-shrink: 0;
   border-radius: ${borderRadius};
@@ -145,9 +144,8 @@ const TableCellName = styled(TableCell)`
 
 const ScrollableTable = styled.div`
   overflow-y: auto;
-  max-height: calc(35.7vh);
-  height: calc(35.7vh);
-  min-height: 275px;
+  height: calc(37.7vh);
+  min-height: 230px;
 `;
 
 const LoginCotainer = styled.div`

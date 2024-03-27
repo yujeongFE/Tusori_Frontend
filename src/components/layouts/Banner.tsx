@@ -5,16 +5,15 @@ import "slick-carousel/slick/slick-theme.css";
 import styled from "styled-components";
 
 const BannerContainer = styled.div`
-  width: 100%;
-  overflow: hidden;
+  width: 29vw;
 `;
 
 const BannerStyle = styled.div`
   display: flex;
   align-items: center;
-  width: 28.4vw;
-  height: 16.5vh;
-  min-height: 180px;
+  width: 29vw;
+  height: 15.8vh;
+  min-height: 170px;
   flex-shrink: 0;
   border-radius: 8px;
   background: #eff3ff;
@@ -30,8 +29,9 @@ const BannerText = styled.div`
   font-weight: 400;
   line-height: normal;
   white-space: pre-line;
+  overflow: auto;
 
-  @media screen and (max-width: 920px) {
+  @media screen and (max-width: 1150px) {
     font-size: 18px;
   }
 `;
