@@ -52,7 +52,11 @@ const Header = () => {
       </Link>
       <RightSection>
         {isLoggedIn ? <Bell src={`${process.env.PUBLIC_URL}/assets/Header/bell.svg`} /> : null}
-        {isLoggedIn ? <UserName>{localStorage.getItem("name")}</UserName> : null}
+        {isLoggedIn ? (
+          <UserName>
+            {(localStorage.getItem("name") || "").length > 4 ? (localStorage.getItem("name") || "").substring(0, 4) + "..." : localStorage.getItem("name")}
+          </UserName>
+        ) : null}
         {isLoggedIn ? <Logout onClick={handleLogout}>로그아웃</Logout> : <LoginLink to="/login">로그인</LoginLink>}
         <SearchBar />
       </RightSection>
@@ -68,13 +72,11 @@ const HeaderContainer = styled.header`
   align-items: center;
   background: #fefdfd;
   box-shadow: 0px 4px 2px 0px rgba(0, 0, 0, 0.04);
-  padding: 0 13.5vw;
+  padding: 0 13vw;
   margin-bottom: 5px;
-
-  @media (max-width: 816px) {
+  @media (max-width: 803px) {
     padding: 0 12vw;
   }
-
   @media (max-width: 768px) {
     justify-content: center;
     height: 65px;
@@ -86,6 +88,21 @@ const HeaderContainer = styled.header`
 const LeftSection = styled.div`
   display: flex;
   flex-direction: column;
+  width: 450px;
+
+  @media (max-width: 1203px) {
+    width: 390px;
+  }
+  @media (max-width: 1069px) {
+    width: 350px;
+  }
+  @media (max-width: 930px) {
+    width: 300px;
+  }
+  @media (max-width: 890px) {
+    width: 290px;
+  }
+
   @media (max-width: 768px) {
     flex-direction: row;
     align-items: center;
@@ -109,31 +126,7 @@ const LogoName = styled.img`
 const Logo = styled.img`
   width: 128px;
   margin: 23.95px 3vw 0 0;
-  @media (max-width: 985px) {
-    margin: 23.95px 2vw 0 0;
-  }
-  @media (max-width: 882px) {
-    width: 120px;
-    margin: 23.95px 1.5vw 0 0;
-  }
-  @media (max-width: 863px) {
-    width: 115px;
-    margin: 23.95px 1.5vw 0 0;
-  }
-  @media (max-width: 842px) {
-    width: 110px;
-    margin: 23.95px 1.5vw 0 0;
-  }
-  @media (max-width: 835px) {
-    width: 110px;
-    margin: 23.95px 1vw 0 0;
-  }
-  @media (max-width: 827px) {
-    margin: 23.95px 0 0 0;
-  }
-  @media (max-width: 783px) {
-    width: 100px;
-  }
+
   @media (max-width: 768px) {
     display: none;
   }
@@ -142,6 +135,9 @@ const Logo = styled.img`
 const SwitchContainer = styled.div`
   margin-top: 30px;
   display: flex;
+  @media (max-width: 829px) {
+    margin-left: 3px;
+  }
   @media (max-width: 768px) {
     margin-top: 0;
     padding-left: 5vw;
@@ -162,18 +158,12 @@ const Mode = styled.div<ModeProps>`
   font-size: 12px;
   margin-left: 10px;
   padding-top: 3px;
+  white-space: nowrap;
   font-family: ${(props) => (props.isInvestMode ? "Pretendard-Bold" : "inherit")};
   color: ${(props) => (props.isInvestMode ? "#708FFE" : "inherit")};
 
   @media (max-width: 853px) {
     margin-left: 5px;
-  }
-  @media (max-width: 845px) {
-    margin-left: 3px;
-    font-size: 10px;
-  }
-  @media (max-width: 828px) {
-    margin-left: 2px;
   }
   @media (max-width: 768px) {
     display: none;
@@ -229,6 +219,10 @@ const Bell = styled.img`
     weight: 15px;
     height: 15px;
   }
+  @media (max-width: 827px) {
+    weight: 13px;
+    height: 13px;
+  }
   @media (max-width: 768px) {
     display: none;
   }
@@ -242,12 +236,15 @@ const Logout = styled.button`
   text-decoration: none;
   margin-top: 88px;
   padding-bottom: 16px;
+  white-space: nowrap;
   position: relative;
 
   @media (max-width: 1004px) {
     font-size: 12px;
   }
-
+  @media (max-width: 827px) {
+    font-size: 10px;
+  }
   @media (max-width: 768px) {
     display: none;
   }
@@ -261,10 +258,14 @@ const UserName = styled.div`
   padding: 1.5px 5px 1.5px 0;
   border-right: 1.5px solid #c3c3c3;
   position: relative;
+  white-space: nowrap;
   @media (max-width: 1004px) {
     font-size: 12px;
     margin: 73px 0 0 0.3vw;
-    padding: 0px 4px 1px 0;
+    padding: 0px 3px 1px 0;
+  }
+  @media (max-width: 827px) {
+    font-size: 10px;
   }
   @media (max-width: 768px) {
     display: none;

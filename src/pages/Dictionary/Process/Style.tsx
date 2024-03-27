@@ -20,6 +20,7 @@ export const ButtonContainer = styled.div`
   flex-direction: row;
   align-items: center;
   margin: 0 16px 24px 0;
+
   @media (max-width: 964px) {
     margin: 0 5px 16px 0;
   }
@@ -49,6 +50,9 @@ export const Button = styled.button<{ selected: boolean }>`
   line-height: 150%;
   flex-shrink: 0;
   margin-right: 16px;
+  &:hover {
+    background-color: #eff2ff;
+  }
   @media (max-width: 964px) {
     width: 17vw;
     height: 80px;
