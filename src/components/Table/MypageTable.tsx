@@ -14,15 +14,13 @@ const TableContainer = styled.div`
   margin-bottom: 70px;
   font-size: 17px;
   overflow-x: auto;
+  overflow-y: auto; /* 스크롤바를 TableContainer에 적용하기 위해 추가 */
 `;
-
 
 const StyledTable = styled.table`
   width: 100%;
   border-collapse: collapse;
-  //table-layout: auto;
 `;
-
 
 const alignStyle = css<{ isFirst: boolean }>`
   text-align: ${({ isFirst }) => (isFirst ? "left" : "right")};
@@ -41,23 +39,21 @@ const colorStyle = (data: string | number) => {
 
 const StyledTd = styled.td<{ isFirst: boolean; cellData: string | number }>`
   padding: 15px 25px;
-  //border: 1px solid #e3e3e3;
   white-space: nowrap;
   word-wrap: break-word;
-  box-sizing: border-box; 
-  width: ${({ isFirst }) => (isFirst ? "20%" : "calc(80% / (COLUMN_COUNT - 1))")}; 
+  box-sizing: border-box;
+  width: ${({ isFirst }) => (isFirst ? "20%" : "calc(80% / (COLUMN_COUNT - 1))")};
   ${alignStyle}
   ${({ cellData }) => colorStyle(cellData)}
 `;
 
 const StickyRow = styled.tr`
   position: sticky;
-  top: 0; 
-  background-color: white; 
-  z-index: 10; 
+  top: 0;
+  background-color: white;
+  z-index: 10;
   font-weight: bold;
-  border-bottom: 2px solid #e3e3e3;
-  overflow: hidden;
+  border-bottom: 1px solid #e3e3e3;
 `;
 
 const MypageTable: React.FC<TableProps> = ({ data }: TableProps) => {

@@ -54,7 +54,7 @@ const StickyRow = styled.tr`
   background-color: white;
   z-index: 10;
   font-weight: bold;
-  border-bottom: 2px solid #e3e3e3;
+  border-bottom: 1px solid #e3e3e3;
   overflow: hidden;
 `;
 
@@ -65,7 +65,7 @@ const MypageTable: React.FC<TableProps> = ({ data }: TableProps) => {
         <StyledTable>
           <tbody>
             {data.map((rowData, rowIndex) =>
-              rowIndex === 0 ? ( // 첫 번째 행인 경우 StickyRow 스타일 적용
+              rowIndex === 0 ? (
                 <StickyRow key={rowIndex}>
                   {rowData.map((cellData, cellIndex) => (
                     <StyledTd key={cellIndex} isFirst={cellIndex === 0} isSecond={cellIndex === 1} cellData={cellData}>
@@ -74,7 +74,6 @@ const MypageTable: React.FC<TableProps> = ({ data }: TableProps) => {
                   ))}
                 </StickyRow>
               ) : (
-                // 그 외의 행들은 일반 tr 태그 사용
                 <tr key={rowIndex}>
                   {rowData.map((cellData, cellIndex) => (
                     <StyledTd key={cellIndex} isFirst={cellIndex === 0} isSecond={cellIndex === 1} cellData={cellData}>
