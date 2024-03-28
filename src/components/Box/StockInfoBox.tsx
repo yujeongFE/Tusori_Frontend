@@ -36,7 +36,6 @@ const Container = styled.div`
   flex-direction: column;
   width: 35.8vw;
   height: 35.7vh;
-  min-width: 365px;
   min-height: 365px;
   flex-shrink: 0;
   border-radius: ${borderRadius};
@@ -57,12 +56,16 @@ const Container = styled.div`
     &:hover {
       color: #708ffe; // 마우스 호버 상태일 때 글자 색상 변경
     }
+
+    @media (max-width: 768px) {
+      font-size: 16px;
+    }
   }
 
-  img {
-    width: 20px;
-    height: 20px;
-    margin-top: 3.36vh;
+  @media (max-width: 768px) {
+    width: 100%;
+    height: 27vh;
+    margin-top: 32px;
   }
 `;
 
@@ -81,16 +84,11 @@ const ButtonContainer = styled.div`
 `;
 
 const Button = styled.button<{ selected: boolean }>`
-  display: flex;
+  display: inline-flex;
   justify-content: center;
-  width: 4.5vw;
-  height: 3vh;
-  min-width: 87px;
-  min-height: 33px;
-  padding: 6px 20px;
-  flex-direction: column;
   align-items: center;
   gap: 10px;
+  padding: 6px 20px;
   border: none;
   color: #fff;
   font-family: Pretendard-Medium;
@@ -99,6 +97,11 @@ const Button = styled.button<{ selected: boolean }>`
   line-height: normal;
   background: ${({ selected }) => (selected ? "#708FFE" : "#D9D9D9")};
   border-radius: 40px;
+
+  @media (max-width: 768px) {
+    font-size: 12px;
+    padding: 6px 12px;
+  }
 `;
 
 const Table = styled.table`
@@ -137,6 +140,12 @@ const TableCell = styled.td<{ color?: string }>`
   width: "auto";
   margin-left: "0";
   color: ${({ color }) => color || "#000"};
+
+  @media (max-width: 768px) {
+    color: #2a2a2a;
+    font-family: Pretendard;
+    font-size: 12px;
+  }
 `;
 
 const TableCellName = styled(TableCell)`
@@ -145,9 +154,8 @@ const TableCellName = styled(TableCell)`
 
 const ScrollableTable = styled.div`
   overflow-y: auto;
-  max-height: calc(35.7vh);
-  height: calc(35.7vh);
-  min-height: 275px;
+  height: calc(37.7vh);
+  min-height: 230px;
 `;
 
 const LoginCotainer = styled.div`
@@ -167,6 +175,10 @@ const LoginMessage = styled.span`
   color: #000;
   text-align: center;
   margin-bottom: 6vh;
+
+  @media (max-width: 768px) {
+    font-size: 12px;
+  }
 `;
 
 const LoginButton = styled.div`
@@ -184,6 +196,31 @@ const LoginButton = styled.div`
   font-style: normal;
   font-weight: 500;
   line-height: normal;
+
+  @media (max-width: 768px) {
+    font-family: Pretendard;
+    font-size: 12px;
+  }
+`;
+
+const Arrow = styled.img`
+  width: 16px;
+  height: 16px;
+
+  @media (max-width: 768px) {
+    width: 11px;
+    height: 11px;
+  }
+`;
+
+const Star = styled.img`
+  width: 20x;
+  height: 20px;
+
+  @media (max-width: 768px) {
+    width: 16px;
+    height: 16px;
+  }
 `;
 
 // 값에 따라 셀의 색상을 계산하는 함수
@@ -202,21 +239,21 @@ const renderTableCell = (
   switch (type) {
     case "pick":
       return value == "true" ? (
-        <img src={`${process.env.PUBLIC_URL}/assets/Mypage/star.svg`} style={{ margin: "0px", marginRight: "0.5vw" }} alt="select_star" />
+        <Star src={`${process.env.PUBLIC_URL}/assets/Mypage/star.svg`} alt="select_star" />
       ) : (
-        <img src={nonSelect} style={{ margin: "0px", marginRight: "0.5vw" }} alt="nonSelect_star" />
+        <Star src={nonSelect} alt="nonSelect_star" />
       );
     case "priceChange":
       return (
         <TableCell>
           {value && parseFloat(value) < 0 ? (
             <div style={{ display: "flex", alignItems: "center" }}>
-              <img src={downward} alt="downward_arrow" style={{ width: "16px", height: "16px", margin: "0px" }} />
+              <Arrow src={downward} alt="downward_arrow" />
               <span style={{ marginRight: "0.2vw", color: cellColor }}>{value}</span>
             </div>
           ) : (
             <div style={{ display: "flex", alignItems: "center" }}>
-              <img src={rise} alt="rising_arrow" style={{ width: "16px", height: "16px", margin: "0px" }} />
+              <Arrow src={rise} alt="rising_arrow" style={{ margin: "0px" }} />
               <span style={{ marginRight: "0.2vw", color: cellColor }}>{value}</span>
             </div>
           )}
@@ -279,9 +316,7 @@ const StockInfoBox: React.FC<StockInfoBoxProps> = ({ title, category = [], login
           <Table>
             <TableHeader>
               <TableRow>
-                <TableCell style={{ flex: "0.5" }}>
-                  {isMyStockTable ? <img src={nonSelect} alt="star" style={{ width: "24px", height: "24px", margin: "0px" }} /> : "순위"}
-                </TableCell>
+                <TableCell style={{ flex: "0.5" }}>{isMyStockTable ? <Star src={nonSelect} alt="star" /> : "순위"}</TableCell>
                 <TableCell style={{ flex: "1.5" }}>종목명</TableCell>
                 <TableCell>현재가</TableCell>
                 <TableCell>전일비</TableCell>
@@ -294,7 +329,7 @@ const StockInfoBox: React.FC<StockInfoBoxProps> = ({ title, category = [], login
               {data.map((data, index) => (
                 <TableRow key={index} style={{ marginBottom: "1.85vh" }}>
                   {data.rank && renderTableCell(data.rank, "rank", { flex: "0.5" })}
-                  {data.pick && renderTableCell(data.pick, "pick", { flex: "0.5" })}
+                  {data.pick && renderTableCell(data.pick, "pick", { flex: "0.7" })}
                   {renderTableCell(data.name, "name", { flex: "1.5" })}
                   {renderTableCell(data.currentPrice, "currentPrice")}
                   {renderTableCell(data.priceChange, "priceChange")}
