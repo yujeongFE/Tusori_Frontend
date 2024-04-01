@@ -5,6 +5,7 @@ import InterestedStocksTable from "components/Table/InterestedStocksTable";
 import { useWords } from "components/SideBar/DictionarySideBar/WordsContext";
 import { Container, Text, LogsBtnContainer, LogsBtn, Bar } from "./Style";
 import MobliePageName from "components/layouts/MobliePageName";
+import { useNavigate } from "react-router-dom";
 
 const MyStocksData = [
   ["종목명", "매입가", "현재가", "평단가", "보유수량", "보유일", "평가손익금", "평가손익률"],
@@ -47,6 +48,17 @@ const SellingLogsData = [
 const Index: React.FC = () => {
   const [activeTable, setActiveTable] = useState<"BuyingLogs" | "SellingLogs">("BuyingLogs");
   const { setWords } = useWords();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const accessToken = localStorage.getItem("accessToken");
+    const name = localStorage.getItem("name");
+
+    if (!accessToken || !name) {
+      alert("로그인이 필요한 서비스입니다.");
+      navigate("/login");
+    }
+  }, []);
 
   useEffect(() => {
     setWords([
