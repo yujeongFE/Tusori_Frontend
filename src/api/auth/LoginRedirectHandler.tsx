@@ -13,6 +13,7 @@ const LoginRedirectHandler: React.FC = () => {
           console.log("data:", response.data.data.nickname);
           localStorage.setItem("accessToken", response.data.data.accessToken);
           localStorage.setItem("name", response.data.data.nickname);
+          localStorage.setItem("id", response.data.data.id);
           window.location.href = "/";
         })
         .catch((error) => {
