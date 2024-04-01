@@ -27,9 +27,15 @@ const Header = () => {
   };
 
   const handleLogout = () => {
-    localStorage.removeItem("accessToken");
-    localStorage.removeItem("name");
-    setIsLoggedIn(false);
+    const confirmLogout = window.confirm("로그아웃하시겠습니까?");
+
+    if (confirmLogout) {
+      localStorage.removeItem("accessToken");
+      localStorage.removeItem("name");
+      localStorage.removeItem("id");
+      setIsLoggedIn(false);
+      window.location.href = "/";
+    }
   };
 
   return (
@@ -238,6 +244,7 @@ const Logout = styled.button`
   padding-bottom: 16px;
   white-space: nowrap;
   position: relative;
+  cursor: pointer;
 
   @media (max-width: 1004px) {
     font-size: 12px;

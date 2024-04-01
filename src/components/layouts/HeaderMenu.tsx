@@ -74,7 +74,7 @@ const SidebySideContainer = styled.div<{ isOpen: boolean }>`
   top: 0;
   overflow-x: hidden;
   transition: 0.5s;
-  z-index: 1;
+  z-index: 30;
 
   @media (min-width: 768.1px) {
     flex-direction: row;
@@ -219,7 +219,9 @@ const HeaderMenu: React.FC = () => {
           </StyledNavLink>
         )}
         <StyledNavLink to="/industry">업종별시세</StyledNavLink>
-        <StyledNavLink to="/mypage" style={{margin:"25.95px 0 0 0"}}>마이페이지</StyledNavLink>
+        <StyledNavLink to="/mypage" style={{ margin: "25.95px 0 0 0" }}>
+          마이페이지
+        </StyledNavLink>
       </SidebySideContainer>
     </>
   );
