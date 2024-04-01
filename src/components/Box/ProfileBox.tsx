@@ -184,6 +184,8 @@ const RowContainer = styled.div`
 `;
 
 const ProfileBox: React.FC = () => {
+  const name = localStorage.getItem("name");
+
   return (
     <>
       <UserInfoContainer>
@@ -191,7 +193,7 @@ const ProfileBox: React.FC = () => {
           <ProfileContainer>
             <ProfileImg src={`${process.env.PUBLIC_URL}/assets/Tiger.webp`} alt="profile" />
             <RowContainer>
-              <UserName>이름</UserName>
+              <UserName>{name}</UserName>
               <EditBtn>
                 <img src={`${process.env.PUBLIC_URL}/assets/Mypage/editBtn.svg`} alt="edit" />
               </EditBtn>
