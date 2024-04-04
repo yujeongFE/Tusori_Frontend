@@ -1,8 +1,5 @@
 import axios from "axios";
 
-// URL 정의
-const apiUrl = "api/fastapi/home/";
-
 export interface StockData {
   Close: number;
   Comp: number;
@@ -33,7 +30,7 @@ export async function fetchHomePageData(): Promise<{
 } | null> {
   try {
     console.log("데이터를 불러오는 중...");
-    const response = await axios.get(apiUrl);
+    const response = await axios.get(`${process.env.REACT_APP_BASE_URL}/fastapi/home`);
 
     // 데이터 형식 단언
     const responseData = response.data as {

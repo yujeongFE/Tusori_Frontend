@@ -5,13 +5,10 @@ interface StockInfo {
   KOSDAQ: string[];
   KONEX: string[];
 }
-
-const apiUrl = "api/fastapi/sic/";
-
 export async function SectorInfo(): Promise<StockInfo | null> {
   try {
     console.log("데이터 받아오는 중...");
-    const response = await axios.get(apiUrl);
+    const response = await axios.get(`${process.env.REACT_APP_BASE_URL}/fastapi/sic`);
     const data: StockInfo = response.data;
     console.log("업종 카테고리 분류 데이터", data);
     return data;

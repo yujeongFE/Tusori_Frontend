@@ -52,9 +52,8 @@ const Index: React.FC = () => {
 
   useEffect(() => {
     const accessToken = localStorage.getItem("accessToken");
-    const name = localStorage.getItem("name");
 
-    if (!accessToken || !name) {
+    if (!accessToken) {
       alert("로그인이 필요한 서비스입니다.");
       navigate("/login");
     }
