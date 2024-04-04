@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
-import data from "../../json/MarketData.json";
 import rising from "../../assets/rising_arrow.svg";
 import downward from "../../assets/downward_arrow.svg";
 import Slider from "react-slick";
@@ -139,8 +138,8 @@ const Arrow: React.FC<{ value: string; percent: string }> = ({ value, percent })
 
   return (
     <ChangeIndex style={{ color: changeColor }}>
-      <ArrowImg src={arrowImage} alt={isPositive ? "Rising" : "Downward"} />
-      {value} <ChangePercent>{percent}</ChangePercent>
+      {value !== "" && <ArrowImg src={arrowImage} alt={isPositive ? "Rising" : "Downward"} />}
+      {value} {percent !== "" && <ChangePercent>{percent}%</ChangePercent>}
     </ChangeIndex>
   );
 };
@@ -167,8 +166,15 @@ const MarketInfo: React.FC<MarketInfoProps> = ({ title, index, change, percent, 
   );
 };
 
-const MarketInfoBoxContainer: React.FC = () => {
+interface MarketData {
+  kospi?: { Close: number; Comp: number; Change: number };
+  kosdaq?: { Close: number; Comp: number; Change: number };
+  usdkrw_data?: { close_price: number; percentage_change: number; price_change: number };
+}
+
+const MarketInfoBoxContainer: React.FC<{ marketData: MarketData }> = ({ marketData }) => {
   const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
+  const [isLoading, setIsLoading] = useState(true); // 데이터 로딩 상태 추가
 
   useEffect(() => {
     const handleResize = () => {
@@ -182,17 +188,61 @@ const MarketInfoBoxContainer: React.FC = () => {
     };
   }, []);
 
-  const titles = ["코스피", "코스닥", "환율"];
-  const boxes = titles.map((title, index) => (
-    <MarketInfo
-      key={index}
-      title={title}
-      index={data.indices[index]}
-      change={data.change[index]}
-      percent={data.percent[index]}
-      style={{ marginRight: "1.3vw" }} // 슬라이드 간 간격을 조절합니다.
-    />
-  ));
+  useEffect(() => {
+    if (marketData.kospi !== undefined && marketData.kosdaq !== undefined && marketData.usdkrw_data !== undefined) {
+      setIsLoading(false);
+    }
+  }, [marketData]);
+
+  const renderMarketBoxes = () => {
+    if (isLoading) {
+      // 데이터 로딩 중일 때 "로딩 중..."을 표시
+      return (
+        <>
+          <MarketInfo title="코스피" index="로딩 중.." change="" percent="" style={{ marginRight: "1.3vw" }} />
+          <MarketInfo title="코스닥" index="로딩 중.." change="" percent="" style={{ marginRight: "1.3vw" }} />
+          <MarketInfo title="코넥스" index="로딩 중.." change="" percent="" style={{ marginRight: "1.3vw" }} />
+        </>
+      );
+    }
+
+    const titles = ["코스피", "코스닥", "환율"];
+    return titles.map((title, index) => {
+      let indexData;
+      let exchangeRate;
+
+      switch (title) {
+        case "코스피":
+          indexData = marketData.kospi;
+          break;
+        case "코스닥":
+          indexData = marketData.kosdaq;
+          break;
+        case "환율":
+          exchangeRate = marketData.usdkrw_data;
+          break;
+        default:
+          throw new Error("Title error");
+      }
+
+      const closeValue = title === "환율" ? exchangeRate?.close_price.toFixed(2) : indexData?.Close.toFixed(2);
+      const changeValue = title === "환율" ? exchangeRate?.price_change.toFixed(2) : indexData?.Comp.toFixed(2);
+      const percentValue = title === "환율" ? exchangeRate?.percentage_change.toFixed(2) : (indexData?.Change ?? 0 * 100).toFixed(2);
+
+      return closeValue && changeValue && percentValue ? (
+        <MarketInfo key={index} title={title} index={closeValue} change={changeValue} percent={percentValue} style={{ marginRight: "1.3vw" }} />
+      ) : null;
+    });
+  };
+
+  const settings = {
+    dots: false,
+    infinite: false,
+    speed: 500,
+    slidesToShow: 2,
+    slidesToScroll: 1,
+    row: 1,
+  };
 
   if (isMobile) {
     const settings = {
@@ -206,13 +256,13 @@ const MarketInfoBoxContainer: React.FC = () => {
 
     return (
       <Container>
-        <Slider {...settings}>{boxes}</Slider>
+        <Slider {...settings}>{renderMarketBoxes()}</Slider>
       </Container>
     );
   } else {
     return (
       <Container>
-        <div style={{ display: "flex", marginTop: "36px" }}>{boxes}</div>
+        <div style={{ display: "flex", marginTop: "36px" }}>{renderMarketBoxes()}</div>
       </Container>
     );
   }

@@ -1,8 +1,6 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
-import firstSampleData from "../../json/RealTimeStockData.json";
-import secondSampleData from "../../json/MyStockData.json";
 
 // Image
 import downward from "../../assets/downward_arrow.svg";
@@ -13,6 +11,11 @@ interface StockInfoBoxProps {
   title?: string;
   category?: string[];
   login?: boolean;
+  stockData?: {
+    top_5_kospi: { Name: string; Close: string; Changes: number; ChangesRatio: number; Volume: number }[];
+    top_5_kosdaq: { Name: string; Close: string; Changes: number; ChangesRatio: number; Volume: number }[];
+    top_5_konex: { Name: string; Close: string; Changes: number; ChangesRatio: number; Volume: number }[];
+  };
 }
 
 // 데이터 형식 선언
@@ -69,7 +72,7 @@ const Container = styled.div`
   }
 `;
 
-const BoxContainer = styled.div<{ selectedButton: number }>`
+const BoxContainer = styled.div<{ selectbutton: number }>`
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -230,15 +233,15 @@ const calculateCellColor = (value: string) => {
 
 // 테이블 셀을 렌더링 하는 함수
 const renderTableCell = (
-  value: string | undefined,
+  value: string | number | undefined,
   type: "rank" | "pick" | "name" | "currentPrice" | "priceChange" | "percentageChange" | "volume",
   style: React.CSSProperties = {},
 ) => {
-  const cellColor = value && calculateCellColor(value);
+  const cellColor = value !== undefined ? calculateCellColor(value.toString()) : undefined;
 
   switch (type) {
     case "pick":
-      return value == "true" ? (
+      return value === "true" ? (
         <Star src={`${process.env.PUBLIC_URL}/assets/Mypage/star.svg`} alt="select_star" />
       ) : (
         <Star src={nonSelect} alt="nonSelect_star" />
@@ -246,7 +249,7 @@ const renderTableCell = (
     case "priceChange":
       return (
         <TableCell>
-          {value && parseFloat(value) < 0 ? (
+          {value !== undefined && parseFloat(value.toString()) < 0 ? (
             <div style={{ display: "flex", alignItems: "center" }}>
               <Arrow src={downward} alt="downward_arrow" />
               <span style={{ marginRight: "0.2vw", color: cellColor }}>{value}</span>
@@ -269,29 +272,54 @@ const renderTableCell = (
 };
 
 // category 값이 전달되지 않을 경우 테이블 위 버튼 생성 X
-const StockInfoBox: React.FC<StockInfoBoxProps> = ({ title, category = [], login }) => {
+const StockInfoBox: React.FC<StockInfoBoxProps> = ({ title, category = [], login, stockData = {} }) => {
   const navigate = useNavigate();
   const [selectedButton, setSelectedButton] = useState(0);
-  const isMyStockTable = title === "MY 보유 주식";
+  const [selectData, setSelectData] = useState<
+    | {
+        Name: string;
+        Close: string;
+        Changes: number;
+        ChangesRatio: number;
+        Volume: number;
+      }[]
+    | null
+  >(null);
 
+  const isMyStockTable = title === "MY 보유 주식";
   const handleTitleClick = () => {
     navigate("/mypage");
   };
 
+  useEffect(() => {
+    setSelectData(stockData.top_5_kospi || null);
+  }, [stockData]);
+
   const handleButtonClick = (index: number) => {
     setSelectedButton(index);
+    switch (category[index]) {
+      case "코스피":
+        setSelectData(stockData.top_5_kospi || null);
+        break;
+      case "코스닥":
+        setSelectData(stockData.top_5_kosdaq || null);
+        break;
+      case "코넥스":
+        setSelectData(stockData.top_5_konex || null);
+        break;
+      default:
+        null;
+        break;
+    }
   };
 
   const handleLoginButton = () => {
     navigate("/login");
   };
 
-  // 테이블에 따라 렌더링 되는 데이터를 달리함
-  const data: StockData[] = title === "MY 보유 주식" ? secondSampleData : firstSampleData;
-
   return (
     <Container>
-      <BoxContainer selectedButton={selectedButton}>
+      <BoxContainer selectbutton={selectedButton}>
         {title && (
           <div className="title" onClick={() => handleTitleClick()}>
             {title}
@@ -326,15 +354,15 @@ const StockInfoBox: React.FC<StockInfoBoxProps> = ({ title, category = [], login
             </TableHeader>
             <HorizontalLine />
             <TableBody>
-              {data.map((data, index) => (
+              {selectData?.map((data, index) => (
                 <TableRow key={index} style={{ marginBottom: "1.85vh" }}>
-                  {data.rank && renderTableCell(data.rank, "rank", { flex: "0.5" })}
-                  {data.pick && renderTableCell(data.pick, "pick", { flex: "0.7" })}
-                  {renderTableCell(data.name, "name", { flex: "1.5" })}
-                  {renderTableCell(data.currentPrice, "currentPrice")}
-                  {renderTableCell(data.priceChange, "priceChange")}
-                  {renderTableCell(data.percentageChange, "percentageChange")}
-                  {renderTableCell(data.volume, "volume")}
+                  {renderTableCell((index + 1).toString(), "rank", { flex: "0.5" })}
+                  {/*{data.pick && renderTableCell(data.pick, "pick", { flex: "0.7" })}*/}
+                  {renderTableCell(data.Name, "name", { flex: "1.5" })}
+                  {renderTableCell(data.Close.toLocaleString(), "currentPrice")}
+                  {renderTableCell(data.Changes, "priceChange")}
+                  {renderTableCell(data.ChangesRatio, "percentageChange")}
+                  {renderTableCell(data.Volume.toLocaleString(), "volume")}
                 </TableRow>
               ))}
             </TableBody>
