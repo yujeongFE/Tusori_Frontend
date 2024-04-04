@@ -4,8 +4,12 @@ import rise from "../../assets/rising_arrow.svg";
 import downward from "../../assets/downward_arrow.svg";
 
 const TableContainer = styled.div`
-  width: 1067px;
-  margin: 20px auto;
+  width: 55.5vw;
+  margin: 0px auto;
+  @media (max-width: 768px) {
+    width: 100%;
+    overflow-x: auto;
+  }
 `;
 
 const Table = styled.table`

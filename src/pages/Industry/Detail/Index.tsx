@@ -32,7 +32,7 @@ const Index = () => {
     <VerticalContainer>
       <Message> {selectedItem ? selectedItem : state.value} 업종에 속한 종목입니다. 관심있는 종목을 눌러 상세정보를 확인해보세요.</Message>
       <FlexBox>
-        <IndustrySidebar onItemSelected={handleItemSelected} />
+        <IndustrySidebar onItemSelected={handleItemSelected} initialItem={selectedItem ? selectedItem : state.value} />
         <TableContainer>
           <StockInfoTable titles={titles} dataKeys={dataKeys} data={StockData} />
         </TableContainer>
