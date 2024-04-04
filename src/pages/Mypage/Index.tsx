@@ -6,6 +6,7 @@ import { useWords } from "components/SideBar/DictionarySideBar/WordsContext";
 import { Container, Text, LogsBtnContainer, LogsBtn, Bar } from "./Style";
 import MobliePageName from "components/layouts/MobliePageName";
 import { useNavigate } from "react-router-dom";
+import { MyPageData } from "../../api/mypage/mypageData";
 
 const MyStocksData = [
   ["종목명", "매입가", "현재가", "평단가", "보유수량", "보유일", "평가손익금", "평가손익률"],
@@ -19,14 +20,6 @@ const MyStocksData = [
   ["대한해운", "2,555", "2,555", "2,555", "30주", "30일", "-846,760", "-2.85%"],
   ["LG헬로비전", "2,555", "2,555", "2,555", "1,500주", "2일", "-846,760", "-2.85%"],
   ["KTcs", "2,555", "2,555", "2,555", "2주", "10일", "-4,846,760", "-2.85%"],
-];
-const InterestedData = [
-  ["", "종목명", "현재가", "전일비", "등락률", "시가", "고가", "저가", "거래량", "시가총액"],
-  ["", "KODEX 200선물인버스2X", "2,555", "▼ 75", "-2.85%", "2,555", "2,555", "2,555", "144,846,760", "2,555"],
-  ["", "삼성전자", "2,555", "▲ 3,000", "+4.18%", "74,700", "74,700", "74,700", "4,364,129", "74,700"],
-  ["", "대한해운", "2,555", "▼ 75", "-2.85%", "2,555", "2,555", "2,555", "144,846,760", "2,555"],
-  ["", "LG헬로비전", "2,555", "▼ 75", "-2.85%", "2,555", "2,555", "2,555", "144,846,760", "2,555"],
-  ["", "KTcs", "2,555", "▼ 75", "-2.85%", "2,555", "2,555", "2,555", "144,846,760", "2,555"],
 ];
 const BuyingLogsData = [
   ["종목명", "매수일자", "체결일자", "주문단가", "체결단가", "주문수량", "수익금", "수익률"],
@@ -47,6 +40,10 @@ const SellingLogsData = [
 
 const Index: React.FC = () => {
   const [activeTable, setActiveTable] = useState<"BuyingLogs" | "SellingLogs">("BuyingLogs");
+  const [InterestedTableData, setInterestedData] = useState([["", "종목명", "현재가", "전일비", "등락률", "시가", "고가", "저가", "거래량", "시가총액"]]);
+  const [MyStocksData, setMyStocksData] = useState([["종목명", "매입가", "현재가", "평단가", "보유수량", "보유일", "평가손익금", "평가손익률"]]);
+  const [BuyingLogsData, setBuyingLogsData] = useState([["종목명", "매수일자", "체결일자", "주문단가", "체결단가", "주문수량", "수익금", "수익률"]]);
+  const [SellingLogsData, setSellingLogsData] = useState([["종목명", "매도일자", "체결일자", "주문단가", "체결단가", "주문수량", "수익금", "수익률"]]);
   const { setWords } = useWords();
   const navigate = useNavigate();
 
@@ -86,6 +83,31 @@ const Index: React.FC = () => {
     ]);
   }, [setWords]);
 
+  //관심주식
+  useEffect(() => {
+    const fetchData = async () => {
+      const result = await MyPageData();
+      if (result) {
+        const newData = result.interest_stocks.map((stock) => [
+          "",
+          stock.Name,
+          stock.Close,
+          stock.Changes > 0 ? `▲ ${stock.Changes}` : `▼ ${-stock.Changes}`,
+          stock.ChangesRatio > 0 ? `+${stock.ChangesRatio}%` : `-${stock.ChangesRatio}%`,
+          stock.Open.toString(),
+          stock.High.toString(),
+          stock.Low.toString(),
+          stock.Volume.toString(),
+          stock.Marcap.toString(),
+        ]);
+
+        setInterestedData((prevData) => [...prevData.slice(0, 1), ...newData]);
+      }
+    };
+
+    fetchData();
+  }, []);
+
   return (
     <Container>
       <MobliePageName pageTitle="마이페이지" />
@@ -93,7 +115,7 @@ const Index: React.FC = () => {
       <Text>MY 보유주식</Text>
       <MypageTable data={MyStocksData} />
       <Text>관심 주식</Text>
-      <InterestedStocksTable data={InterestedData} />
+      <InterestedStocksTable data={InterestedTableData} />
       <LogsBtnContainer>
         <LogsBtn onClick={() => setActiveTable("BuyingLogs")} active={activeTable === "BuyingLogs"}>
           매수 일지
