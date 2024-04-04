@@ -186,12 +186,16 @@ const RowContainer = styled.div`
 
 const ProfileBox: React.FC = () => {
   const [nickname, setNickName] = React.useState<string>("");
+  const [email, setEmail] = React.useState<string>("");
+  const [assets, setAssets] = React.useState<number>(0);
 
   useEffect(() => {
     const fetchData = async () => {
       const result = await MyPageData();
       if (result && result.user_info) {
         setNickName(result.user_info.nickname);
+        setEmail(result.user_info.email);
+        setAssets(result.user_info.assets);
       }
     };
     fetchData();
@@ -209,7 +213,7 @@ const ProfileBox: React.FC = () => {
                 <img src={`${process.env.PUBLIC_URL}/assets/Mypage/editBtn.svg`} alt="edit" />
               </EditBtn>
             </RowContainer>
-            <UserEmail>email@gmail.com</UserEmail>
+            <UserEmail>{email}</UserEmail>
           </ProfileContainer>
 
           <MyAssetContainer>
@@ -221,7 +225,7 @@ const ProfileBox: React.FC = () => {
 
             <RowContainer style={{ justifyContent: " space-between" }}>
               <AssetText>총 자산</AssetText>
-              <AmountText>0</AmountText>
+              <AmountText>{assets}</AmountText>
             </RowContainer>
             <RowContainer style={{ justifyContent: " space-between" }}>
               <AssetText>가용 자산</AssetText>
