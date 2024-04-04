@@ -82,8 +82,11 @@ const StyledContainer = styled.div`
   border: 1px solid #dedede;
   background: #fff;
   box-shadow: 0px 2px 0px 0px rgba(0, 0, 0, 0.04);
-  width: 16vw;
+  width: auto;
   height: 8.5vh;
+  min-height: 92px;
+  padding: 0 1rem;
+  overflow: hidden;
 
   .title {
     color: #222;
@@ -92,6 +95,12 @@ const StyledContainer = styled.div`
     font-weight: 500;
     line-height: normal;
     margin-bottom: 1vh;
+    text-align: center;
+    overflow: auto;
+    /* 스크롤 바 숨기기 */
+    &::-webkit-scrollbar {
+      display: none;
+    }
   }
 
   .percentageChange {
@@ -100,13 +109,22 @@ const StyledContainer = styled.div`
     font-size: 16px;
     font-weight: 400;
     line-height: normal;
+    text-align: center;
   }
 
   @media (max-width: 768px) {
     width: auto;
-    height: 7vh;
+    height: 12vh;
+    min-height: 100px;
+    .title {
+      font-size: 16px;
+    }
+    .percentageChange {
+      font-size: 14px;
+    }
   }
 `;
+
 interface StockInfo {
   KOSPI: string[];
   KOSDAQ: string[];
