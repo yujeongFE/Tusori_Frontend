@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { useWords } from "./WordsContext";
 
 const SideBarWrap = styled.div<{ isOpen: boolean }>`
-  z-index: 5;
+  z-index: 20;
   border-radius: 16px 0px 0px 16px;
   border-left: 1px solid #bccafb;
   background: #fff;
@@ -14,11 +14,13 @@ const SideBarWrap = styled.div<{ isOpen: boolean }>`
   position: fixed;
   transition: 0.5s ease;
 
-  @media (max-width: 908px) {
-    top: 160px;
+  @media (max-width: 970px) {
+    top: 125px;
+    width: 23%;
   }
   @media (max-width: 768px) {
     top: 70px;
+    width: 25%;
   }
 `;
 

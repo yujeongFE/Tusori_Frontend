@@ -75,7 +75,7 @@ const Index: React.FC = () => {
             </ButtonContainer>
 
             <ButtonContainer>
-              <Button onClick={handleClickButton} selected={stepKey === "five"} name="five">
+              <Button selected={stepKey === "five"} name="five">
                 <Span>05</Span>
                 <Br /> 매수하기
               </Button>
@@ -91,7 +91,7 @@ const Index: React.FC = () => {
             </ButtonContainer>
 
             <ButtonContainer>
-              <Button onClick={handleClickButton} selected={stepKey === "seven"} name="seven">
+              <Button selected={stepKey === "seven"} name="seven">
                 <Span>07</Span>
                 <Br /> 매도하기
               </Button>

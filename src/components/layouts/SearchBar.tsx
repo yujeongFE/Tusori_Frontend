@@ -10,12 +10,20 @@ const SearchBarContainer = styled.div`
   flex-shrink: 0;
   margin-top: 79px;
   margin-bottom: 7px;
-  margin-left: 3%;
+  margin-left: 1%;
   border-radius: 30px;
   border: 2px solid #e5eafd;
 
   @media (max-width: 1132px) {
     width: 60%;
+  }
+  @media (max-width: 854px) {
+    width: 55%;
+    height: 30px;
+  }
+  @media (max-width: 816px) {
+    width: 50%;
+
   }
   @media (max-width: 768px) {
     display: none;
@@ -80,14 +88,8 @@ const SearchBar: React.FC = () => {
         <img src={`${process.env.PUBLIC_URL}/assets/Header/header_search.svg`} alt="search" />
       </ToggleButton>
       <SearchBarContainer>
-        <Input
-          type="text"
-          placeholder="종목 검색하기"
-          value={searchTerm}
-          onChange={(e) => setSearchTerm(e.target.value)} // 입력값 변경 시 상태 업데이트
-          onKeyPress={handleKeyPress} // Enter 키 입력 처리
-        />
-        <SearchButton type="button" onClick={handleSearch}></SearchButton> {/* 검색 버튼 클릭 이벤트 처리 */}
+        <Input type="text" placeholder="종목 검색하기" value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)} onKeyPress={handleKeyPress} />
+        <SearchButton type="button" onClick={handleSearch}></SearchButton>
       </SearchBarContainer>
     </>
   );

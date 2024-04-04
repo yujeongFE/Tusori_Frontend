@@ -6,7 +6,8 @@ export const SearchBoxContainer = styled.div`
   justify-content: center;
   width: 100%;
   height: 97px;
-  background-color: #efefef;
+  background-color: #eff2ff;
+  border-radius: 4px;
   @media (max-width: 768px) {
     margin-top: 24px;
   }
@@ -17,13 +18,13 @@ export const SearchBox = styled.div`
   justify-content: space-between;
   align-items: center;
   align-content: center;
-  width: 50%;
+  width: 70%;
   height: 48px;
   background: #ffffff;
   flex-shrink: 0;
-  border-radius: 8px;
-  border: 1px solid #000;
-  box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.12);
+  border-radius: 40px;
+  border: 2px solid var(--Main-Color, #708ffe);
+  box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.18);
 `;
 
 export const Input = styled.input`
@@ -41,7 +42,7 @@ export const Input = styled.input`
 `;
 
 export const SearchButton = styled.button`
-  background: url("${process.env.PUBLIC_URL}/assets/Dictionary/search_icon_black.svg") no-repeat center center;
+  background: url("${process.env.PUBLIC_URL}/assets/Dictionary/search_icon_grey.svg") no-repeat center center;
   background-size: cover;
   border: none;
   padding: 12px;

@@ -1,11 +1,76 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import SearchBar from "./SearchBar";
 import Switch from "react-switch";
 import DictionarySideBar from "components/SideBar/DictionarySideBar/DictionarySideBar";
 import HeaderMenu from "./HeaderMenu";
 import { Link } from "react-router-dom";
-import { useWords } from "../SideBar/DictionarySideBar/WordsContext";
+
+const Header = () => {
+  const [isInvestMode, setIsInvesteMode] = useState<boolean>(false);
+  const [isOpen, setIsOpen] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
+
+  useEffect(() => {
+    const accessToken = localStorage.getItem("accessToken");
+    setIsLoggedIn(!!accessToken);
+  }, []);
+
+  const handleModeChange = (checked: boolean) => {
+    setIsInvesteMode(checked);
+    setIsOpen(checked);
+  };
+
+  const handleCloseSideBar = () => {
+    setIsInvesteMode(false);
+    setIsOpen(false);
+  };
+
+  const handleLogout = () => {
+    const confirmLogout = window.confirm("로그아웃하시겠습니까?");
+
+    if (confirmLogout) {
+      localStorage.removeItem("accessToken");
+      localStorage.removeItem("name");
+      localStorage.removeItem("id");
+      setIsLoggedIn(false);
+      window.location.href = "/";
+    }
+  };
+
+  return (
+    <HeaderContainer>
+      <LeftSection>
+        <SidebySideContainer>
+          <Link to="/">
+            <Logo src={`${process.env.PUBLIC_URL}/assets/Header/logo.svg`} alt="logo" />
+          </Link>
+          <SwitchContainer>
+            <Switch checked={isInvestMode} onChange={handleModeChange} {...switchStyle} />
+            <Mode isInvestMode={isInvestMode}>{isInvestMode ? "설명모드" : "투자모드"}</Mode>
+            <DictionarySideBar isOpen={isOpen} setIsOpen={setIsOpen} onClose={handleCloseSideBar} />
+          </SwitchContainer>
+        </SidebySideContainer>
+        <HeaderMenu />
+      </LeftSection>
+      <Link to="/">
+        <LogoName src={`${process.env.PUBLIC_URL}/assets/Header/only_nameLogo.png`} alt="logo_name" />
+      </Link>
+      <RightSection>
+        {isLoggedIn ? <Bell src={`${process.env.PUBLIC_URL}/assets/Header/bell.svg`} /> : null}
+        {isLoggedIn ? (
+          <UserName>
+            {(localStorage.getItem("name") || "").length > 4 ? (localStorage.getItem("name") || "").substring(0, 4) + "..." : localStorage.getItem("name")}
+          </UserName>
+        ) : null}
+        {isLoggedIn ? <Logout onClick={handleLogout}>로그아웃</Logout> : <LoginLink to="/login">로그인</LoginLink>}
+        <SearchBar />
+      </RightSection>
+    </HeaderContainer>
+  );
+};
+
+export default Header;
 
 const HeaderContainer = styled.header`
   display: flex;
@@ -13,9 +78,11 @@ const HeaderContainer = styled.header`
   align-items: center;
   background: #fefdfd;
   box-shadow: 0px 4px 2px 0px rgba(0, 0, 0, 0.04);
-  padding: 0 13.5vw;
+  padding: 0 13vw;
   margin-bottom: 5px;
-
+  @media (max-width: 803px) {
+    padding: 0 12vw;
+  }
   @media (max-width: 768px) {
     justify-content: center;
     height: 65px;
@@ -27,6 +94,21 @@ const HeaderContainer = styled.header`
 const LeftSection = styled.div`
   display: flex;
   flex-direction: column;
+  width: 450px;
+
+  @media (max-width: 1203px) {
+    width: 390px;
+  }
+  @media (max-width: 1069px) {
+    width: 350px;
+  }
+  @media (max-width: 930px) {
+    width: 300px;
+  }
+  @media (max-width: 890px) {
+    width: 290px;
+  }
+
   @media (max-width: 768px) {
     flex-direction: row;
     align-items: center;
@@ -50,6 +132,7 @@ const LogoName = styled.img`
 const Logo = styled.img`
   width: 128px;
   margin: 23.95px 3vw 0 0;
+
   @media (max-width: 768px) {
     display: none;
   }
@@ -58,6 +141,9 @@ const Logo = styled.img`
 const SwitchContainer = styled.div`
   margin-top: 30px;
   display: flex;
+  @media (max-width: 829px) {
+    margin-left: 3px;
+  }
   @media (max-width: 768px) {
     margin-top: 0;
     padding-left: 5vw;
@@ -76,11 +162,15 @@ interface ModeProps {
 
 const Mode = styled.div<ModeProps>`
   font-size: 12px;
-  margin-left: 12px;
+  margin-left: 10px;
   padding-top: 3px;
+  white-space: nowrap;
   font-family: ${(props) => (props.isInvestMode ? "Pretendard-Bold" : "inherit")};
   color: ${(props) => (props.isInvestMode ? "#708FFE" : "inherit")};
 
+  @media (max-width: 853px) {
+    margin-left: 5px;
+  }
   @media (max-width: 768px) {
     display: none;
   }
@@ -94,7 +184,6 @@ const switchStyle = {
   handleDiameter: 20,
   uncheckedIcon: false,
   checkedIcon: false,
-  //boxShadow: "0px 1px 5px rgba(0, 0, 0, 0.6)",
   activeBoxShadow: "0px 0px 1px 5px rgba(0, 0, 0, 0.1)",
   height: 7,
   width: 46,
@@ -118,13 +207,75 @@ const LoginLink = styled(Link)`
   position: relative;
 
   @media (max-width: 768px) {
-    background-image: url("${process.env.PUBLIC_URL}/assets/Header/login_person.svg"); // 로그인 이미지 경로
+    background-image: url("${process.env.PUBLIC_URL}/assets/Header/login_person.svg");
     background-repeat: no-repeat;
     background-size: contain;
     background-position: center;
     text-indent: -9999px;
     width: 24px;
     padding-top: 0;
+  }
+`;
+
+const Bell = styled.img`
+  margin-top: 73px;
+  padding-right: 5px;
+  border-right: 1.5px solid #c3c3c3;
+  @media (max-width: 1004px) {
+    weight: 15px;
+    height: 15px;
+  }
+  @media (max-width: 827px) {
+    weight: 13px;
+    height: 13px;
+  }
+  @media (max-width: 768px) {
+    display: none;
+  }
+`;
+
+const Logout = styled.button`
+  color: #676767;
+  background-color: #fff;
+  border: none;
+  font-size: 14px;
+  text-decoration: none;
+  margin-top: 88px;
+  padding-bottom: 16px;
+  white-space: nowrap;
+  position: relative;
+  cursor: pointer;
+
+  @media (max-width: 1004px) {
+    font-size: 12px;
+  }
+  @media (max-width: 827px) {
+    font-size: 10px;
+  }
+  @media (max-width: 768px) {
+    display: none;
+  }
+`;
+
+const UserName = styled.div`
+  color: #676767;
+  font-size: 14px;
+  text-decoration: none;
+  margin: 72px 0 0 0.3vw;
+  padding: 1.5px 5px 1.5px 0;
+  border-right: 1.5px solid #c3c3c3;
+  position: relative;
+  white-space: nowrap;
+  @media (max-width: 1004px) {
+    font-size: 12px;
+    margin: 73px 0 0 0.3vw;
+    padding: 0px 3px 1px 0;
+  }
+  @media (max-width: 827px) {
+    font-size: 10px;
+  }
+  @media (max-width: 768px) {
+    display: none;
   }
 `;
 
@@ -137,52 +288,3 @@ const RightSection = styled.div`
   @media (max-width: 768px) {
     flex:1;
 `;
-
-const Header = () => {
-  const { words } = useWords();
-  const [isInvestMode, setIsInvesteMode] = useState<boolean>(false);
-  const [isOpen, setIsOpen] = useState(false);
-
-  const handleModeChange = (checked: boolean) => {
-    setIsInvesteMode(checked);
-    setIsOpen(checked);
-    /*
-    if (checked) {
-      setIsOpen(checked);
-    } else{
-      setIsOpen(false);
-    } */
-  };
-
-  const handleCloseSideBar = () => {
-    setIsInvesteMode(false);
-    setIsOpen(false);
-  };
-
-  return (
-    <HeaderContainer>
-      <LeftSection>
-        <SidebySideContainer>
-          <Link to="/">
-            <Logo src={`${process.env.PUBLIC_URL}/assets/Header/logo.svg`} alt="logo" />
-          </Link>
-          <SwitchContainer>
-            <Switch checked={isInvestMode} onChange={handleModeChange} {...switchStyle} />
-            <Mode isInvestMode={isInvestMode}>{isInvestMode ? "설명모드" : "투자모드"}</Mode>
-            <DictionarySideBar isOpen={isOpen} setIsOpen={setIsOpen} onClose={handleCloseSideBar} />
-          </SwitchContainer>
-        </SidebySideContainer>
-        <HeaderMenu />
-      </LeftSection>
-      <Link to="/">
-        <LogoName src={`${process.env.PUBLIC_URL}/assets/Header/only_nameLogo.png`} alt="logo_name" />
-      </Link>
-      <RightSection>
-        <LoginLink to="/login">로그인</LoginLink>
-        <SearchBar />
-      </RightSection>
-    </HeaderContainer>
-  );
-};
-
-export default Header;

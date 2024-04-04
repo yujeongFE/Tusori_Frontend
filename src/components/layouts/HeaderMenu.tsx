@@ -32,7 +32,7 @@ const StyledNavLink = styled(NavLink)<StyledNavLinkProps>`
   font-size: 18px;
   text-decoration: none;
   padding-bottom: 16px;
-  margin: 25.95px 4vw 0 0;
+  margin: 25.95px 3.5vw 0 0;
   position: relative;
 
   &:hover,
@@ -40,6 +40,14 @@ const StyledNavLink = styled(NavLink)<StyledNavLinkProps>`
     ${activeLinkStyle}
   }
 
+  @media (max-width: 1074px) {
+    font-size: 17px;
+    margin: 25.95px 3vw 0 0;
+  }
+
+  @media (max-width: 1004px) {
+    font-size: 16px;
+  }
   @media (max-width: 768px) {
     font-size: 14px;
     padding-left: 7.5%;
@@ -66,7 +74,7 @@ const SidebySideContainer = styled.div<{ isOpen: boolean }>`
   top: 0;
   overflow-x: hidden;
   transition: 0.5s;
-  z-index: 1;
+  z-index: 30;
 
   @media (min-width: 768.1px) {
     flex-direction: row;
@@ -211,7 +219,9 @@ const HeaderMenu: React.FC = () => {
           </StyledNavLink>
         )}
         <StyledNavLink to="/industry">업종별시세</StyledNavLink>
-        <StyledNavLink to="/mypage">마이페이지</StyledNavLink>
+        <StyledNavLink to="/mypage" style={{ margin: "25.95px 0 0 0" }}>
+          마이페이지
+        </StyledNavLink>
       </SidebySideContainer>
     </>
   );

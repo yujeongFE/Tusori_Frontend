@@ -1,5 +1,6 @@
-import React from "react";
+import React, { useEffect } from "react";
 import styled from "styled-components";
+import { MyPageData } from "../../api/mypage/mypageData";
 
 //배경(파란부분)
 const UserInfoContainer = styled.div`
@@ -184,6 +185,18 @@ const RowContainer = styled.div`
 `;
 
 const ProfileBox: React.FC = () => {
+  const [nickname, setNickName] = React.useState<string>("");
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const result = await MyPageData();
+      if (result && result.user_info) {
+        setNickName(result.user_info.nickname);
+      }
+    };
+    fetchData();
+  }, []);
+
   return (
     <>
       <UserInfoContainer>
@@ -191,7 +204,7 @@ const ProfileBox: React.FC = () => {
           <ProfileContainer>
             <ProfileImg src={`${process.env.PUBLIC_URL}/assets/Tiger.webp`} alt="profile" />
             <RowContainer>
-              <UserName>이름</UserName>
+              <UserName>{nickname}</UserName>
               <EditBtn>
                 <img src={`${process.env.PUBLIC_URL}/assets/Mypage/editBtn.svg`} alt="edit" />
               </EditBtn>
