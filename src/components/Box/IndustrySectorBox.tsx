@@ -5,6 +5,9 @@ import { useNavigate } from "react-router-dom";
 const StockButtonsWrapper = styled.div`
   display: flex;
   margin-top: 5vh;
+  @media (max-width: 768px) {
+    margin-top: 2vh;
+  }
 `;
 
 const StockButtonContainer = styled.button<{ active: boolean }>`
@@ -23,6 +26,15 @@ const StockButtonContainer = styled.button<{ active: boolean }>`
   font-style: normal;
   font-weight: 700;
   line-height: normal;
+
+  @media (max-width: 768px) {
+    width: 14vw;
+    max-width: 60px;
+    min-width: 0px;
+    height: 26px;
+    font-size: 13px;
+    font-weight: 500;
+  }
 `;
 
 const StockButton: React.FC<{ onClick: (type: "KOSPI" | "KOSDAQ" | "KONEX") => void }> = ({ onClick }) => {
@@ -53,6 +65,12 @@ const GridContainer = styled.div`
   grid-template-columns: repeat(4, 1fr);
   gap: 2.3vw 3vh;
   margin-top: 6.5vh;
+
+  @media (max-width: 768px) {
+    margin-top: 1.7vh;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 18px 2.4vw;
+  }
 `;
 
 const StyledContainer = styled.div`
@@ -82,6 +100,11 @@ const StyledContainer = styled.div`
     font-size: 16px;
     font-weight: 400;
     line-height: normal;
+  }
+
+  @media (max-width: 768px) {
+    width: auto;
+    height: 7vh;
   }
 `;
 
