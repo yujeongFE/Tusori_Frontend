@@ -192,7 +192,7 @@ const ProfileBox: React.FC = () => {
   useEffect(() => {
     const fetchData = async () => {
       const result = await MyPageData();
-      if (result && result.user_info) {
+      if (result) {
         setNickName(result.user_info.nickname);
         setEmail(result.user_info.email);
         setAssets(result.user_info.assets);
