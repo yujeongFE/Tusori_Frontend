@@ -7,65 +7,50 @@ const StockButtonsWrapper = styled.div`
   margin-top: 5vh;
 `;
 
-const StockButtonContainer = styled.div`
-  width: 10.3vw;
-  height: 3.05vh;
-  flex-shrink: 0;
+const StockButtonContainer = styled.button<{ active: boolean }>`
+  width: 6vw;
+  min-width: 70px;
+  height: 33px;
+  border-radius: 40px;
+  background: ${(props) => (props.active ? "#708FFE" : "#CCCCCC")};
+  border: none;
+  margin-right: 1.04vw;
   cursor: pointer;
+
+  color: #fff;
+  font-family: Pretendard;
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
 `;
 
-const StockButtonSvgWrapper = styled.div`
-  position: relative;
-  width: 100%;
-  height: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-`;
+const StockButton: React.FC<{ onClick: (type: "KOSPI" | "KOSDAQ" | "KONEX") => void }> = ({ onClick }) => {
+  const [isActive, setIsActive] = useState<"KOSPI" | "KOSDAQ" | "KONEX">("KOSPI");
 
-const StockButton: React.FC<{ onClick: (type: "KOSPI" | "KOSDAQ") => void }> = ({ onClick }) => {
-  const [isActive, setIsActive] = useState("KOSPI");
-
-  const handleClick = (type: "KOSPI" | "KOSDAQ") => {
+  const handleClick = (type: "KOSPI" | "KOSDAQ" | "KONEX") => {
     setIsActive(type);
     onClick(type);
   };
 
-  const isKOSPIActive = isActive === "KOSPI";
-
   return (
-    <StockButtonContainer>
-      <StockButtonSvgWrapper>
-        <svg xmlns="http://www.w3.org/2000/svg" width="198" height="33" viewBox="0 0 198 33" fill="none">
-          <g onClick={() => handleClick("KOSPI")}>
-            <path
-              d="M98.5 32.5L10 32.5C4.7533 32.5 0.5 28.2467 0.500001 23L0.500002 9.99999C0.500002 4.75329 4.7533 0.499992 10 0.499992L98.5 0.5L98.5 32.5Z"
-              fill="white"
-              stroke={isKOSPIActive ? "#708FFE" : "#CCCCCC"}
-            />
-            <text x="25%" y="50%" textAnchor="middle" dominantBaseline="middle" fill="#222" fontFamily="Pretendard-Medium" fontSize="16" fontWeight="500">
-              {isKOSPIActive ? "코스피" : "코스피"}
-            </text>
-          </g>
-          <g onClick={() => handleClick("KOSDAQ")}>
-            <path
-              d="M99.5 32.5L188 32.5C193.247 32.5 197.5 28.2467 197.5 23L197.5 10C197.5 4.7533 193.247 0.500001 188 0.5L99.5 0.499992L99.5 32.5Z"
-              fill="white"
-              stroke={isKOSPIActive ? "#CCCCCC" : "#708FFE"}
-            />
-            <text x="75%" y="50%" textAnchor="middle" dominantBaseline="middle" fill="#222" fontFamily="Pretendard-Medium" fontSize="16" fontWeight="500">
-              {isKOSPIActive ? "코스닥" : "코스닥"}
-            </text>
-          </g>
-        </svg>
-      </StockButtonSvgWrapper>
-    </StockButtonContainer>
+    <StockButtonsWrapper>
+      <StockButtonContainer active={isActive === "KOSPI"} onClick={() => handleClick("KOSPI")}>
+        코스피
+      </StockButtonContainer>
+      <StockButtonContainer active={isActive === "KOSDAQ"} onClick={() => handleClick("KOSDAQ")}>
+        코스닥
+      </StockButtonContainer>
+      <StockButtonContainer active={isActive === "KONEX"} onClick={() => handleClick("KONEX")}>
+        코넥스
+      </StockButtonContainer>
+    </StockButtonsWrapper>
   );
 };
 
 const GridContainer = styled.div`
   display: grid;
-  grid-template-columns: repeat(5, 1fr);
+  grid-template-columns: repeat(4, 1fr);
   gap: 2.3vw 3vh;
   margin-top: 6.5vh;
 `;
@@ -79,15 +64,13 @@ const StyledContainer = styled.div`
   border: 1px solid #dedede;
   background: #fff;
   box-shadow: 0px 2px 0px 0px rgba(0, 0, 0, 0.04);
-  width: 12.3vw;
+  width: 16vw;
   height: 8.5vh;
-  min-height: 62px;
-  min-width: 90px;
 
   .title {
     color: #222;
     font-family: Pretendard-Medium;
-    font-size: 18px;
+    font-size: 19px;
     font-weight: 500;
     line-height: normal;
     margin-bottom: 1vh;
@@ -104,11 +87,11 @@ const StyledContainer = styled.div`
 
 const IndustrySectorBox: React.FC = () => {
   const navigate = useNavigate();
-  const [isActive, setIsActive] = useState("KOSPI");
+  const [isActive, setIsActive] = useState<"KOSPI" | "KOSDAQ" | "KONEX">("KOSPI");
 
   const handleBoxClick = (title: string) => {
     navigate("details", { state: { value: title } });
-  }; // props로 클릭한 업종명을 전달함
+  };
 
   const KOSPI_industryTitles = [
     "음식료품",
@@ -153,7 +136,8 @@ const IndustrySectorBox: React.FC = () => {
   ];
 
   const KOSDAQ_percentageChange = ["+0.44%", "+0.44%", "+0.44%", "+0.44%", "+0.44%", "+0.44%", "+0.44%", "+0.44%", "+0.44%"];
-  const handleButtonClick = (type: "KOSPI" | "KOSDAQ") => {
+
+  const handleButtonClick = (type: "KOSPI" | "KOSDAQ" | "KONEX") => {
     setIsActive(type);
   };
 
@@ -162,9 +146,7 @@ const IndustrySectorBox: React.FC = () => {
 
   return (
     <>
-      <StockButtonsWrapper>
-        <StockButton onClick={handleButtonClick} />
-      </StockButtonsWrapper>
+      <StockButton onClick={handleButtonClick} />
       <GridContainer>
         {data.map((title, index) => (
           <StyledContainer key={index} onClick={() => handleBoxClick(title)}>
