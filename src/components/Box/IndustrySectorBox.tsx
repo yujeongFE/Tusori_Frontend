@@ -107,8 +107,16 @@ const StyledContainer = styled.div`
     height: 7vh;
   }
 `;
+interface StockInfo {
+  KOSPI: string[];
+  KOSDAQ: string[];
+  KONEX: string[];
+}
+interface IndustrySectorBoxProps {
+  sectorInfo: StockInfo | null;
+}
 
-const IndustrySectorBox: React.FC = () => {
+const IndustrySectorBox: React.FC<IndustrySectorBoxProps> = ({ sectorInfo }) => {
   const navigate = useNavigate();
   const [isActive, setIsActive] = useState<"KOSPI" | "KOSDAQ" | "KONEX">("KOSPI");
 
@@ -116,67 +124,26 @@ const IndustrySectorBox: React.FC = () => {
     navigate("details", { state: { value: title } });
   };
 
-  const KOSPI_industryTitles = [
-    "음식료품",
-    "섬유, 의복",
-    "종이, 목재",
-    "화학",
-    "의약품",
-    "비금속광물",
-    "철강 및 금속",
-    "기계",
-    "전기, 전자",
-    "의료정밀",
-    "운수장비",
-    "유통업",
-    "전기가스업",
-    "건설업",
-    "통신업",
-    "금융업",
-    "서비스업",
-  ];
-
-  const KOSDAQ_industryTitles = ["제조", "건설", "유통", "운송", "금융", "오락•문화", "통신방송서비스", "IT S/W & SVC", "IT H/W"];
-
-  const KOSPI_percentageChange = [
-    "+0.44%",
-    "+0.44%",
-    "+0.44%",
-    "+0.44%",
-    "+0.44%",
-    "+0.44%",
-    "+0.44%",
-    "+0.44%",
-    "+0.44%",
-    "+0.44%",
-    "+0.44%",
-    "+0.44%",
-    "+0.44%",
-    "+0.44%",
-    "+0.44%",
-    "+0.44%",
-    "+0.44%",
-  ];
-
-  const KOSDAQ_percentageChange = ["+0.44%", "+0.44%", "+0.44%", "+0.44%", "+0.44%", "+0.44%", "+0.44%", "+0.44%", "+0.44%"];
+  const KOSPI_industryTitles = sectorInfo?.KOSPI || [];
+  const KOSDAQ_industryTitles = sectorInfo?.KOSDAQ || [];
+  const KONEX_industyTitles = sectorInfo?.KONEX || [];
 
   const handleButtonClick = (type: "KOSPI" | "KOSDAQ" | "KONEX") => {
     setIsActive(type);
   };
 
-  const data = isActive === "KOSPI" ? KOSPI_industryTitles : KOSDAQ_industryTitles;
-  const percentageChange = isActive === "KOSPI" ? KOSPI_percentageChange : KOSDAQ_percentageChange;
+  const data = isActive === "KOSPI" ? KOSPI_industryTitles : isActive === "KOSDAQ" ? KOSDAQ_industryTitles : KONEX_industyTitles;
 
   return (
     <>
       <StockButton onClick={handleButtonClick} />
       <GridContainer>
-        {data.map((title, index) => (
-          <StyledContainer key={index} onClick={() => handleBoxClick(title)}>
-            <div className="title">{title}</div>
-            <div className="percentageChange">{percentageChange[index]}</div>
-          </StyledContainer>
-        ))}
+        {data &&
+          data?.map((title, index) => (
+            <StyledContainer key={index} onClick={() => handleBoxClick(title)}>
+              <div className="title">{title}</div>
+            </StyledContainer>
+          ))}
       </GridContainer>
     </>
   );
