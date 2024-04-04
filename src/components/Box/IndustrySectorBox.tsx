@@ -138,19 +138,19 @@ const IndustrySectorBox: React.FC<IndustrySectorBoxProps> = ({ sectorInfo }) => 
   const navigate = useNavigate();
   const [isActive, setIsActive] = useState<"KOSPI" | "KOSDAQ" | "KONEX">("KOSPI");
 
-  const handleBoxClick = (title: string) => {
-    navigate("details", { state: { value: title } });
-  };
-
   const KOSPI_industryTitles = sectorInfo?.KOSPI || [];
   const KOSDAQ_industryTitles = sectorInfo?.KOSDAQ || [];
   const KONEX_industyTitles = sectorInfo?.KONEX || [];
 
+  const data = isActive === "KOSPI" ? KOSPI_industryTitles : isActive === "KOSDAQ" ? KOSDAQ_industryTitles : KONEX_industyTitles;
+
+  const handleBoxClick = (title: string) => {
+    navigate("details", { state: { value: title, data: data } });
+  };
+
   const handleButtonClick = (type: "KOSPI" | "KOSDAQ" | "KONEX") => {
     setIsActive(type);
   };
-
-  const data = isActive === "KOSPI" ? KOSPI_industryTitles : isActive === "KOSDAQ" ? KOSDAQ_industryTitles : KONEX_industyTitles;
 
   return (
     <>

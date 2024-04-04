@@ -97,9 +97,10 @@ const DropdownContainer = styled.div`
 interface IndustrySidebarProps {
   onItemSelected: (selectedItem: string | null) => void;
   initialItem: string | null;
+  data: string[] | null;
 }
 
-const IndustrySidebar: React.FC<IndustrySidebarProps> = ({ onItemSelected, initialItem }) => {
+const IndustrySidebar: React.FC<IndustrySidebarProps> = ({ onItemSelected, initialItem, data }) => {
   const [selectedItem, setSelectedItem] = useState<string | null>(null);
   const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
   const [dropdownVisible, setDropdownVisible] = useState<boolean>(false);
@@ -141,25 +142,7 @@ const IndustrySidebar: React.FC<IndustrySidebarProps> = ({ onItemSelected, initi
         )}
         {isMobile && dropdownVisible && (
           <DropdownContainer>
-            {[
-              "음식료품",
-              "섬유, 의복",
-              "종이, 목재",
-              "화학",
-              "의약품",
-              "비금속광물",
-              "철강 및 금속",
-              "기계",
-              "전기, 전자",
-              "의료정밀",
-              "운수장비",
-              "유통업",
-              "전기가스업",
-              "건설업",
-              "통신업",
-              "금융업",
-              "서비스업",
-            ].map((item, index) => (
+            {data?.map((item, index) => (
               <SidebarItem key={index}>
                 <Divider />
                 <SidebarLink onClick={() => handleItemClick(item)}>
@@ -172,25 +155,7 @@ const IndustrySidebar: React.FC<IndustrySidebarProps> = ({ onItemSelected, initi
         )}
         {!isMobile && (
           <>
-            {[
-              "음식료품",
-              "섬유, 의복",
-              "종이, 목재",
-              "화학",
-              "의약품",
-              "비금속광물",
-              "철강 및 금속",
-              "기계",
-              "전기, 전자",
-              "의료정밀",
-              "운수장비",
-              "유통업",
-              "전기가스업",
-              "건설업",
-              "통신업",
-              "금융업",
-              "서비스업",
-            ].map((item, index) => (
+            {data?.map((item, index) => (
               <SidebarItem key={index}>
                 <Divider />
                 <SidebarLink onClick={() => handleItemClick(item)}>
