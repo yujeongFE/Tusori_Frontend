@@ -5,27 +5,17 @@ import Switch from "react-switch";
 import DictionarySideBar from "components/SideBar/DictionarySideBar/DictionarySideBar";
 import HeaderMenu from "./HeaderMenu";
 import { Link } from "react-router-dom";
-import { MyPageData } from "api/mypage/mypageData";
+import { useMyPageData } from "api/mypage/mypageDataContext";
 
 const Header = () => {
   const [isInvestMode, setIsInvesteMode] = useState<boolean>(false);
   const [isOpen, setIsOpen] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
-  const [nickname, setNickName] = React.useState<string>("");
+  const { user_info } = useMyPageData();
 
   useEffect(() => {
     const accessToken = localStorage.getItem("accessToken");
     setIsLoggedIn(!!accessToken);
-
-    if (isLoggedIn) {
-      const fetchData = async () => {
-        const result = await MyPageData();
-        if (result) {
-          setNickName(result.user_info.nickname);
-        }
-      };
-      fetchData();
-    }
   }, []);
 
   const handleModeChange = (checked: boolean) => {
@@ -50,30 +40,30 @@ const Header = () => {
   };
 
   return (
-    <HeaderContainer>
-      <LeftSection>
-        <SidebySideContainer>
-          <Link to="/">
-            <Logo src={`${process.env.PUBLIC_URL}/assets/Header/logo.svg`} alt="logo" />
-          </Link>
-          <SwitchContainer>
-            <Switch checked={isInvestMode} onChange={handleModeChange} {...switchStyle} />
-            <Mode isInvestMode={isInvestMode}>{isInvestMode ? "설명모드" : "투자모드"}</Mode>
-            <DictionarySideBar isOpen={isOpen} setIsOpen={setIsOpen} onClose={handleCloseSideBar} />
-          </SwitchContainer>
-        </SidebySideContainer>
-        <HeaderMenu />
-      </LeftSection>
-      <Link to="/">
-        <LogoName src={`${process.env.PUBLIC_URL}/assets/Header/only_nameLogo.png`} alt="logo_name" />
-      </Link>
-      <RightSection>
-        {isLoggedIn ? <Bell src={`${process.env.PUBLIC_URL}/assets/Header/bell.svg`} /> : null}
-        {isLoggedIn ? <UserName>{nickname.length > 4 ? `${nickname.substring(0, 4)}...` : nickname}</UserName> : null}
-        {isLoggedIn ? <Logout onClick={handleLogout}>로그아웃</Logout> : <LoginLink to="/login">로그인</LoginLink>}
-        <SearchBar />
-      </RightSection>
-    </HeaderContainer>
+      <HeaderContainer>
+        <LeftSection>
+          <SidebySideContainer>
+            <Link to="/">
+              <Logo src={`${process.env.PUBLIC_URL}/assets/Header/logo.svg`} alt="logo" />
+            </Link>
+            <SwitchContainer>
+              <Switch checked={isInvestMode} onChange={handleModeChange} {...switchStyle} />
+              <Mode isInvestMode={isInvestMode}>{isInvestMode ? "설명모드" : "투자모드"}</Mode>
+              <DictionarySideBar isOpen={isOpen} setIsOpen={setIsOpen} onClose={handleCloseSideBar} />
+            </SwitchContainer>
+          </SidebySideContainer>
+          <HeaderMenu />
+        </LeftSection>
+        <Link to="/">
+          <LogoName src={`${process.env.PUBLIC_URL}/assets/Header/only_nameLogo.png`} alt="logo_name" />
+        </Link>
+        <RightSection>
+          {isLoggedIn ? <Bell src={`${process.env.PUBLIC_URL}/assets/Header/bell.svg`} /> : null}
+          {isLoggedIn ? <UserName>{user_info?.nickname}</UserName> : null}
+          {isLoggedIn ? <Logout onClick={handleLogout}>로그아웃</Logout> : <LoginLink to="/login">로그인</LoginLink>}
+          <SearchBar />
+        </RightSection>
+      </HeaderContainer>
   );
 };
 

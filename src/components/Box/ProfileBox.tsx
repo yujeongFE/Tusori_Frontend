@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import styled from "styled-components";
-import { MyPageData } from "../../api/mypage/mypageData";
+import { MyPageData } from "api/mypage/mypageData";
+import { useMyPageData } from "api/mypage/mypageDataContext";
 
 //배경(파란부분)
 const UserInfoContainer = styled.div`
@@ -188,6 +189,7 @@ const ProfileBox: React.FC = () => {
   const [nickname, setNickName] = React.useState<string>("");
   const [email, setEmail] = React.useState<string>("");
   const [assets, setAssets] = React.useState<number>(0);
+  const { user_info } = useMyPageData();
 
   useEffect(() => {
     const fetchData = async () => {
@@ -202,18 +204,17 @@ const ProfileBox: React.FC = () => {
   }, []);
 
   return (
-    <>
       <UserInfoContainer>
         <UserInfoBox>
           <ProfileContainer>
             <ProfileImg src={`${process.env.PUBLIC_URL}/assets/Tiger.webp`} alt="profile" />
             <RowContainer>
-              <UserName>{nickname}</UserName>
+              <UserName>{user_info?.nickname}</UserName>
               <EditBtn>
                 <img src={`${process.env.PUBLIC_URL}/assets/Mypage/editBtn.svg`} alt="edit" />
               </EditBtn>
             </RowContainer>
-            <UserEmail>{email}</UserEmail>
+            <UserEmail>{user_info?.email}</UserEmail>
           </ProfileContainer>
 
           <MyAssetContainer>
@@ -225,7 +226,7 @@ const ProfileBox: React.FC = () => {
 
             <RowContainer style={{ justifyContent: " space-between" }}>
               <AssetText>총 자산</AssetText>
-              <AmountText>{assets}</AmountText>
+              <AmountText>{user_info?.assets}</AmountText>
             </RowContainer>
             <RowContainer style={{ justifyContent: " space-between" }}>
               <AssetText>가용 자산</AssetText>
@@ -242,7 +243,6 @@ const ProfileBox: React.FC = () => {
           </MyAssetContainer>
         </UserInfoBox>
       </UserInfoContainer>
-    </>
   );
 };
 

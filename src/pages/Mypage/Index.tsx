@@ -6,7 +6,7 @@ import { useWords } from "components/SideBar/DictionarySideBar/WordsContext";
 import { Container, Text, LogsBtnContainer, LogsBtn, Bar } from "./Style";
 import MobliePageName from "components/layouts/MobliePageName";
 import { useNavigate } from "react-router-dom";
-import { MyPageData } from "../../api/mypage/mypageData";
+import { useMyPageData } from "api/mypage/mypageDataContext";
 
 const Index: React.FC = () => {
   const [activeTable, setActiveTable] = useState<"BuyingLogs" | "SellingLogs">("BuyingLogs");
@@ -15,6 +15,7 @@ const Index: React.FC = () => {
   const [BuyingLogsData, setBuyingLogsData] = useState([["종목명", "매수일자", "체결일자", "체결단가", "주문수량", "수익금", "수익률"]]);
   const [SellingLogsData, setSellingLogsData] = useState([["종목명", "매도일자", "체결일자", "체결단가", "주문수량", "수익금", "수익률"]]);
   const { setWords } = useWords();
+  const { interest_stocks, stock_records, save_stocks } = useMyPageData();
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -52,13 +53,11 @@ const Index: React.FC = () => {
     ]);
   }, [setWords]);
 
-  //관심주식
+
   useEffect(() => {
-    const fetchData = async () => {
-      const result = await MyPageData();
-      if (result) {
-        //보유주식
-        const myData = result.save_stocks.map((stock) => [
+    const fetchData = async() => {
+      if(save_stocks && interest_stocks && stock_records){
+        const myData = save_stocks.map((stock) => [
           stock.name,
           stock.purchase.toLocaleString(),
           stock.close.toLocaleString(),
@@ -70,8 +69,7 @@ const Index: React.FC = () => {
         ]);
         setMyStocksData((prevData) => [...prevData.slice(0, 1), ...myData]);
 
-        //관심주식
-        const interestedData = result.interest_stocks.map((stock) => [
+        const interestedData = interest_stocks.map((stock) => [
           "",
           stock.Name,
           stock.Close,
@@ -85,29 +83,32 @@ const Index: React.FC = () => {
         ]);
         setInterestedData((prevData) => [...prevData.slice(0, 1), ...interestedData]);
 
-        //매수매도
-        result.stock_records.forEach((stock) => {
-          const newData = [
-            stock.name,
-            stock.sell_or_buy_date,
-            stock.record_date,
-            stock.contract_price.toLocaleString(),
-            stock.quantity.toLocaleString() + "주",
-            stock.proceeds > 0 ? `+${stock.proceeds}` : `-${stock.proceeds}`,
-            stock.proceeds_rate > 0 ? `+${stock.proceeds_rate.toFixed(2)}%` : `-${stock.proceeds_rate.toFixed(2)}%`,
-          ];
-          if (stock.sell_or_buy === true) {
-            setBuyingLogsData((prevData) => [...prevData, newData]);
-          } else {
-            setSellingLogsData((prevData) => [...prevData, newData]);
-          }
-        });
+        const buyingLogs = stock_records.filter((stock) => stock.sell_or_buy === true).map((stock) => [
+          stock.name,
+          stock.sell_or_buy_date,
+          stock.record_date,
+          stock.contract_price.toLocaleString(),
+          stock.quantity.toLocaleString() + "주",
+          stock.proceeds > 0 ? `+${stock.proceeds}` : `-${stock.proceeds}`,
+          stock.proceeds_rate > 0 ? `+${stock.proceeds_rate.toFixed(2)}%` : `-${stock.proceeds_rate.toFixed(2)}%`,
+        ]);
+        setBuyingLogsData((prevData) => [...prevData.slice(0, 1), ...buyingLogs]);
 
+        const sellingLogs = stock_records.filter((stock) => stock.sell_or_buy === false).map((stock) => [
+          stock.name,
+          stock.sell_or_buy_date,
+          stock.record_date,
+          stock.contract_price.toLocaleString(),
+          stock.quantity.toLocaleString() + "주",
+          stock.proceeds > 0 ? `+${stock.proceeds}` : `-${stock.proceeds}`,
+          stock.proceeds_rate > 0 ? `+${stock.proceeds_rate.toFixed(2)}%` : `-${stock.proceeds_rate.toFixed(2)}%`,
+        ]);
+        setSellingLogsData((prevData) => [...prevData.slice(0, 1), ...sellingLogs]);
       }
-    };
-
+    }
     fetchData();
-  }, []);
+  }
+  , [save_stocks, interest_stocks, stock_records]);
 
   return (
     <Container>
