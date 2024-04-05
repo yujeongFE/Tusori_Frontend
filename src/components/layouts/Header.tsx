@@ -5,15 +5,27 @@ import Switch from "react-switch";
 import DictionarySideBar from "components/SideBar/DictionarySideBar/DictionarySideBar";
 import HeaderMenu from "./HeaderMenu";
 import { Link } from "react-router-dom";
+import { MyPageData } from "api/mypage/mypageData";
 
 const Header = () => {
   const [isInvestMode, setIsInvesteMode] = useState<boolean>(false);
   const [isOpen, setIsOpen] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
+  const [nickname, setNickName] = React.useState<string>("");
 
   useEffect(() => {
     const accessToken = localStorage.getItem("accessToken");
     setIsLoggedIn(!!accessToken);
+
+    if (isLoggedIn) {
+      const fetchData = async () => {
+        const result = await MyPageData();
+        if (result) {
+          setNickName(result.user_info.nickname);
+        }
+      };
+      fetchData();
+    }
   }, []);
 
   const handleModeChange = (checked: boolean) => {
@@ -31,7 +43,6 @@ const Header = () => {
 
     if (confirmLogout) {
       localStorage.removeItem("accessToken");
-      localStorage.removeItem("name");
       localStorage.removeItem("id");
       setIsLoggedIn(false);
       window.location.href = "/";
@@ -58,11 +69,7 @@ const Header = () => {
       </Link>
       <RightSection>
         {isLoggedIn ? <Bell src={`${process.env.PUBLIC_URL}/assets/Header/bell.svg`} /> : null}
-        {isLoggedIn ? (
-          <UserName>
-            {(localStorage.getItem("name") || "").length > 4 ? (localStorage.getItem("name") || "").substring(0, 4) + "..." : localStorage.getItem("name")}
-          </UserName>
-        ) : null}
+        {isLoggedIn ? <UserName>{nickname.length > 4 ? `${nickname.substring(0, 4)}...` : nickname}</UserName> : null}
         {isLoggedIn ? <Logout onClick={handleLogout}>로그아웃</Logout> : <LoginLink to="/login">로그인</LoginLink>}
         <SearchBar />
       </RightSection>

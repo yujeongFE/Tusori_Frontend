@@ -53,7 +53,7 @@ export async function MyPageData(): Promise<{
   try {
     const id = localStorage.getItem("id");
 
-    const response = await axios.get(`${process.env.REACT_APP_BASE_URL}/fastapi/mypage/1`);
+    const response = await axios.get(`${process.env.REACT_APP_BASE_URL}/fastapi/mypage/${id}`);
 
     const responseData = response.data as {
       user_info: UserInfomation;
