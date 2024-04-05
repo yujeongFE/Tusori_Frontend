@@ -16,21 +16,21 @@ import { MyPageDataProvider } from "api/mypage/mypageDataContext";
 const App: React.FC = () => {
   return (
     <MyPageDataProvider>
-    <WordsProvider>
-      <Layout>
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/oauth2/kakao" element={<LoginRedirectHandler />} />
-          <Route path="/dict/process" element={<Process />} />
-          <Route path="/dict/words" element={<Words />} />
-          <Route path="/mypage" element={<Mypage />} />
-          <Route path="/industry" element={<Industry />} />
-          <Route path="/industry/details" element={<Details />} />
-          <Route path="/industry/:name" element={<StockPrice />} />
-        </Routes>
-      </Layout>
-    </WordsProvider>
+      <WordsProvider>
+        <Layout>
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/oauth2/kakao" element={<LoginRedirectHandler />} />
+            <Route path="/dict/process" element={<Process />} />
+            <Route path="/dict/words" element={<Words />} />
+            <Route path="/mypage" element={<Mypage />} />
+            <Route path="/industry" element={<Industry />} />
+            <Route path="/industry/details" element={<Details />} />
+            <Route path="/industry/:name" element={<StockPrice />} />
+          </Routes>
+        </Layout>
+      </WordsProvider>
     </MyPageDataProvider>
   );
 };
