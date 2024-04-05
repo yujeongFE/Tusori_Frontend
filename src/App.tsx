@@ -11,9 +11,11 @@ import Details from "./pages/Industry/Detail/Index";
 import StockPrice from "./pages/Industry/StockPrice/Index";
 import LoginRedirectHandler from "api/auth/LoginRedirectHandler";
 import { WordsProvider } from "components/SideBar/DictionarySideBar/WordsContext";
+import { MyPageDataProvider } from "api/mypage/mypageDataContext";
 
 const App: React.FC = () => {
   return (
+    <MyPageDataProvider>
     <WordsProvider>
       <Layout>
         <Routes>
@@ -29,6 +31,7 @@ const App: React.FC = () => {
         </Routes>
       </Layout>
     </WordsProvider>
+    </MyPageDataProvider>
   );
 };
 
