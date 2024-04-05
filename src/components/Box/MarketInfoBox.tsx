@@ -175,6 +175,14 @@ interface MarketData {
 const MarketInfoBoxContainer: React.FC<{ marketData: MarketData }> = ({ marketData }) => {
   const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
   const [isLoading, setIsLoading] = useState(true); // 데이터 로딩 상태 추가
+  const settings = {
+    dots: false,
+    infinite: false,
+    speed: 500,
+    slidesToShow: 2,
+    slidesToScroll: 1,
+    row: 1,
+  };
 
   useEffect(() => {
     const handleResize = () => {
@@ -196,13 +204,29 @@ const MarketInfoBoxContainer: React.FC<{ marketData: MarketData }> = ({ marketDa
 
   const renderMarketBoxes = () => {
     if (isLoading) {
-      // 데이터 로딩 중일 때 "로딩 중..."을 표시
+      // 데이터 로딩 중일 때
+      const marketInfos = [
+        { title: "코스피", index: "로딩 중..." },
+        { title: "코스닥", index: "로딩 중..." },
+        { title: "코넥스", index: "로딩 중..." },
+      ];
+
       return (
-        <>
-          <MarketInfo title="코스피" index="로딩 중.." change="" percent="" style={{ marginRight: "1.3vw" }} />
-          <MarketInfo title="코스닥" index="로딩 중.." change="" percent="" style={{ marginRight: "1.3vw" }} />
-          <MarketInfo title="코넥스" index="로딩 중.." change="" percent="" style={{ marginRight: "1.3vw" }} />
-        </>
+        <Container>
+          {isMobile ? (
+            <Slider {...settings}>
+              {marketInfos.map((info, index) => (
+                <MarketInfo key={index} title={info.title} index={info.index} change="" percent="" style={{ marginRight: "1.3vw" }} />
+              ))}
+            </Slider>
+          ) : (
+            <div style={{ display: "flex" }}>
+              {marketInfos.map((info, index) => (
+                <MarketInfo key={index} title={info.title} index={info.index} change="" percent="" style={{ marginRight: "1.3vw" }} />
+              ))}
+            </div>
+          )}
+        </Container>
       );
     }
 
@@ -235,15 +259,6 @@ const MarketInfoBoxContainer: React.FC<{ marketData: MarketData }> = ({ marketDa
     });
   };
 
-  const settings = {
-    dots: false,
-    infinite: false,
-    speed: 500,
-    slidesToShow: 2,
-    slidesToScroll: 1,
-    row: 1,
-  };
-
   if (isMobile) {
     const settings = {
       dots: false,
@@ -254,11 +269,7 @@ const MarketInfoBoxContainer: React.FC<{ marketData: MarketData }> = ({ marketDa
       row: 1,
     };
 
-    return (
-      <Container>
-        <Slider {...settings}>{renderMarketBoxes()}</Slider>
-      </Container>
-    );
+    return <>{renderMarketBoxes()}</>;
   } else {
     return (
       <Container>
