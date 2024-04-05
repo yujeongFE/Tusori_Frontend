@@ -9,8 +9,8 @@ import IndustrySidebar from "components/SideBar/IndustrySideBar";
 const Index = () => {
   const { state } = useLocation();
   const { setWords } = useWords();
-  const titles = ["종목명", "현재가", "전일비", "등락률(%)", "거래량", "순매수호가잔량"];
-  const dataKeys = ["name", "currentPrice", "priceChange", "percentChange", "value", "bid"];
+  const titles = ["종목명", "현재가", "전일비", "등락률(%)", "거래량"];
+  const dataKeys = ["name", "currentPrice", "priceChange", "percentChange", "value"];
 
   const [selectedItem, setSelectedItem] = useState<string | null>(null);
 
@@ -32,7 +32,7 @@ const Index = () => {
     <VerticalContainer>
       <Message> {selectedItem ? selectedItem : state.value} 업종에 속한 종목입니다. 관심있는 종목을 눌러 상세정보를 확인해보세요.</Message>
       <FlexBox>
-        <IndustrySidebar onItemSelected={handleItemSelected} />
+        <IndustrySidebar onItemSelected={handleItemSelected} initialItem={selectedItem ? selectedItem : state.value} data={state.data} />
         <TableContainer>
           <StockInfoTable titles={titles} dataKeys={dataKeys} data={StockData} />
         </TableContainer>
