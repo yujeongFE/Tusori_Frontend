@@ -1,8 +1,8 @@
-import React, { useRef } from "react";
+import React, { useRef, useState } from "react";
 import styled from "styled-components";
 import { useWords } from "./WordsContext";
 
-const SideBarWrap = styled.div<{ isOpen: boolean }>`
+const SideBarWrap = styled.div<{ isOpen: boolean; isTop: boolean }>`
   z-index: 20;
   border-radius: 16px 0px 0px 16px;
   border-left: 1px solid #bccafb;
@@ -19,9 +19,18 @@ const SideBarWrap = styled.div<{ isOpen: boolean }>`
     width: 23%;
   }
   @media (max-width: 768px) {
-    top: 70px;
-    width: 25%;
+    right: 0;
+    top: ${({ isOpen, isTop }) => (isOpen ? (isTop ? "70px" : "550px") : "100%")};
+    border-radius: 16px;
+    width: 100%;
+    height: 100%;
   }
+`;
+
+const Div = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 `;
 
 const Words = styled.div`
@@ -56,6 +65,9 @@ const Num = styled.div`
   height: 30px;
   margin-right: 10px;
   flex-shrink: 0;
+  @media (max-width: 768px) {
+    margin-left: 10px;
+  }
 `;
 
 const Top = styled.div`
@@ -66,13 +78,19 @@ const Top = styled.div`
   box-shadow: 0px 2px 8px 0px rgba(0, 0, 0, 0.05);
   display: flex;
   align-items: center;
+  @media (max-width: 768px) {
+    border-radius: 16px 16px 0px 0px;
+    display: flex;
+    justify-content: center;
+    height: 81px;
+  }
 `;
 
 const Title = styled.div`
   display: flex;
   color: #fff;
   font-size: 18px;
-  font-family: Pretendard-Bold;
+  font-family: Pretendard;
   margin-left: 10px;
   align-items: center;
 `;
@@ -80,6 +98,11 @@ const Title = styled.div`
 const Img = styled.img`
   width: 32px;
   margin-right: 10px;
+  @media (max-width: 768px) {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
 `;
 
 const CloseBtn = styled.button`
@@ -88,6 +111,23 @@ const CloseBtn = styled.button`
   text-align: right;
   margin-left: auto;
   background: transparent;
+  @media (max-width: 768px) {
+    display: none;
+  }
+`;
+
+const ToggleBtn = styled.button`
+  width: 60px;
+  height: 4px;
+  flex-shrink: 0;
+  border-radius: 2.5px;
+  margin-bottom: 15px;
+  border: none;
+  background: #fff;
+  cursor: pointer;
+  @media (min-width: 768.1px) {
+    display: none;
+  }
 `;
 
 const Scrollbar = styled.div`
@@ -120,13 +160,21 @@ interface DictionarySideBarProps {
 const DictionarySideBar: React.FC<DictionarySideBarProps> = ({ isOpen, setIsOpen, onClose }) => {
   const { words } = useWords();
   const outside = useRef<HTMLDivElement>(null);
+  const [isTop, setIsTop] = useState(true);
 
   return (
-    <SideBarWrap ref={outside} isOpen={isOpen}>
+    <SideBarWrap ref={outside} isOpen={isOpen} isTop={isTop}>
       <Top>
-        <Title>
-          <Img src={`${process.env.PUBLIC_URL}/assets/Dictionary/eyes.png`} alt="dictionary" />이 단어, 무슨 뜻이지?
-        </Title>
+        <Div>
+          <ToggleBtn
+            onClick={() => {
+              setIsTop((prevState) => !prevState);
+            }}
+          ></ToggleBtn>
+          <Title>
+            <Img src={`${process.env.PUBLIC_URL}/assets/Dictionary/eyes.png`} alt="dictionary" />이 단어, 무슨 뜻이지?
+          </Title>
+        </Div>
         <CloseBtn
           onClick={() => {
             onClose();
