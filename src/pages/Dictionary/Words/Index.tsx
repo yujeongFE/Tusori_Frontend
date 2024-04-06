@@ -26,7 +26,7 @@ const Index: React.FC = () => {
       </SideMenuContainer>
       <Content>
         <DictMenu />
-        <ContentPadding style={{ display: "flex", flexWrap: "wrap" }}>
+        <ContentPadding>
           <Title>
             주식 용어 설명
             {!isParentPath && (
@@ -43,12 +43,12 @@ const Index: React.FC = () => {
             </SearchBox>
           </SearchBoxContainer>
           {isParentPath && (
-            <>
+            <div style={{ display: "flex", flexWrap: "wrap", justifyContent: "center" }}>
               <CategoryBox image={`${process.env.PUBLIC_URL}/assets/Dictionary/words/stock.png`} description="지수" />
               <CategoryBox image={`${process.env.PUBLIC_URL}/assets/Dictionary/words/chart.png`} description="주식 차트 단어" />
               <CategoryBox image={`${process.env.PUBLIC_URL}/assets/Dictionary/words/graph.png`} description="주식 차트 그래프 01" />
               <CategoryBox image={`${process.env.PUBLIC_URL}/assets/Dictionary/words/graph.png`} description="주식 차트 그래프 02" />
-            </>
+            </div>
           )}
           <Outlet />
         </ContentPadding>
