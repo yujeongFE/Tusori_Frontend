@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components";
 
 const Image = styled.img`
-  width: 70%;
+  width: 75%;
   height: 80%;
 `;
 
@@ -27,7 +27,7 @@ const Container = styled.div`
   border: 1px solid #d9d9d9;
   background: #fff;
   box-shadow: 0px 2px 8px 0px rgba(0, 0, 0, 0.08);
-  margin-top: 40px;
+  margin: 20px 0 20px 0;
   margin-right: 1%;
 
   &:hover {
@@ -37,6 +37,22 @@ const Container = styled.div`
     background: #708ffe;
     border-radius: 0px 0px 8px 8px;
     color: #fff;
+  }
+
+  @media (max-width: 1193px) {
+    width: 180px;
+    height: 155px;
+    font-size: 13px;
+  }
+  @media (max-width: 785px) {
+    width: 170px;
+    height: 150px;
+    font-size: 13px;
+  }
+  @media (max-width: 768px) {
+    width: 48.5%;
+    height: 198px;
+    font-size: 13px;
   }
 `;
 
