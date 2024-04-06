@@ -4,6 +4,7 @@ import Home from "./pages/Home/Index";
 import Login from "./pages/Auth/Index";
 import Process from "./pages/Dictionary/Process/Index";
 import Words from "./pages/Dictionary/Words/Index";
+import Description from "./pages/Dictionary/Description/Index";
 import Mypage from "./pages/Mypage/Index";
 import Industry from "./pages/Industry/Index";
 import Details from "./pages/Industry/Detail/Index";
@@ -22,7 +23,9 @@ const App: React.FC = () => {
             <Route path="/login" element={<Login />} />
             <Route path="/oauth2/kakao" element={<LoginRedirectHandler />} />
             <Route path="/dict/process" element={<Process />} />
-            <Route path="/dict/words" element={<Words />} />
+            <Route path="/dict/words" element={<Words />}>
+              <Route path=":category" element={<Description />} />
+            </Route>
             <Route path="/mypage" element={<Mypage />} />
             <Route path="/industry" element={<Industry />} />
             <Route path="/industry/details" element={<Details />} />

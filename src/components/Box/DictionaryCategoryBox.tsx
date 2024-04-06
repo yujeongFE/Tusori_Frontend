@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 
 const Image = styled.img`
@@ -17,7 +18,7 @@ const Title = styled.div`
   border-top: 1px solid #d9d9d9;
 `;
 
-const Container = styled.div`
+const Container = styled(Link)`
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -29,6 +30,8 @@ const Container = styled.div`
   box-shadow: 0px 2px 8px 0px rgba(0, 0, 0, 0.08);
   margin: 20px 0 20px 0;
   margin-right: 1%;
+  color: #000;
+  text-decoration: none;
 
   &:hover {
     cursor: pointer;
@@ -62,8 +65,13 @@ interface DictionaryCategoryBoxProps {
 }
 
 const DictionaryCategoryBox: React.FC<DictionaryCategoryBoxProps> = ({ image, description }) => {
+  // 하위 페이지 이동을 위한 설정
+  const toMovePath = (description: string) => {
+    return description.replace(/ /g, "-");
+  };
+
   return (
-    <Container>
+    <Container to={`/dict/words/${toMovePath(description)}`}>
       <Image src={image} />
       <Title>{description}</Title>
     </Container>
