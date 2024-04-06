@@ -23,12 +23,12 @@ const Container = styled(Link)`
   flex-direction: column;
   align-items: center;
   width: 23.8%;
-  height: 198px;
+  height: 200px;
   border-radius: 8px;
   border: 1px solid #d9d9d9;
   background: #fff;
   box-shadow: 0px 2px 8px 0px rgba(0, 0, 0, 0.08);
-  margin: 20px 0 20px 0;
+  margin-bottom: 20px;
   margin-right: 1%;
   color: #000;
   text-decoration: none;
