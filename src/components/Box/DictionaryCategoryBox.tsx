@@ -1,8 +1,9 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 
 const Image = styled.img`
-  width: 70%;
+  width: 75%;
   height: 80%;
 `;
 
@@ -17,18 +18,20 @@ const Title = styled.div`
   border-top: 1px solid #d9d9d9;
 `;
 
-const Container = styled.div`
+const Container = styled(Link)`
   display: flex;
   flex-direction: column;
   align-items: center;
   width: 23.8%;
-  height: 198px;
+  height: 200px;
   border-radius: 8px;
   border: 1px solid #d9d9d9;
   background: #fff;
   box-shadow: 0px 2px 8px 0px rgba(0, 0, 0, 0.08);
-  margin-top: 40px;
+  margin-bottom: 20px;
   margin-right: 1%;
+  color: #000;
+  text-decoration: none;
 
   &:hover {
     cursor: pointer;
@@ -38,6 +41,22 @@ const Container = styled.div`
     border-radius: 0px 0px 8px 8px;
     color: #fff;
   }
+
+  @media (max-width: 1193px) {
+    width: 180px;
+    height: 155px;
+    font-size: 13px;
+  }
+  @media (max-width: 785px) {
+    width: 170px;
+    height: 150px;
+    font-size: 13px;
+  }
+  @media (max-width: 768px) {
+    width: 48.5%;
+    height: 198px;
+    font-size: 13px;
+  }
 `;
 
 interface DictionaryCategoryBoxProps {
@@ -46,8 +65,13 @@ interface DictionaryCategoryBoxProps {
 }
 
 const DictionaryCategoryBox: React.FC<DictionaryCategoryBoxProps> = ({ image, description }) => {
+  // 하위 페이지 이동을 위한 설정
+  const toMovePath = (description: string) => {
+    return description.replace(/ /g, "-");
+  };
+
   return (
-    <Container>
+    <Container to={`/dict/words/${toMovePath(description)}`}>
       <Image src={image} />
       <Title>{description}</Title>
     </Container>

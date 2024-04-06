@@ -8,6 +8,7 @@ export const SearchBoxContainer = styled.div`
   height: 97px;
   background-color: #eff2ff;
   border-radius: 4px;
+  margin-bottom: 56px;
   @media (max-width: 768px) {
     margin-top: 24px;
   }
