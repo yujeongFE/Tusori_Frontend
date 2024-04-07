@@ -12,7 +12,7 @@ export interface InterestedStocksInfo {
   Name: string; // 종목명
   Close: string; // 종가
   Changes: number; // 전일비
-  ChangesRatio: number; // 등락률
+  ChagesRatio: number; // 등락률
   Open: number; // 시가
   High: number; // 고가
   Low: number; // 저가
@@ -52,7 +52,6 @@ export async function MyPageData(): Promise<{
 } | null> {
   try {
     const id = localStorage.getItem("id");
-
     const response = await axios.get(`${process.env.REACT_APP_BASE_URL}/fastapi/mypage/${id}`);
 
     const responseData = response.data as {

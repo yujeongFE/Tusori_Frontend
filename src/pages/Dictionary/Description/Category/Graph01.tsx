@@ -1,6 +1,6 @@
 import ToggleBox from "components/Dictionary/ToggleBox";
 import React, { useState } from "react";
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 
 const Container = styled.div`
   display: flex;
@@ -42,7 +42,7 @@ const ButtonWrapper = styled.div`
   }
 `;
 
-const Button = styled.button`
+const Button = styled.button<{ selected: boolean }>`
   color: #fff;
   font-size: 20px;
   padding: 10px 28px;
@@ -50,6 +50,11 @@ const Button = styled.button`
   border: none;
   border-radius: 40px;
   background: #d9d9d9;
+  ${({ selected }) =>
+    selected &&
+    css`
+      background: #708ffe;
+    `}
 
   &:hover {
     cursor: pointer;
@@ -114,8 +119,10 @@ const P = styled.p`
 
 const Graph01: React.FC = () => {
   const [description, setDescription] = useState<{ word: string; text: string } | null>(null);
+  const [selectedBtn, setSelectedBtn] = useState<string | null>(null);
   const handleClick = (word: string, text: string) => {
     setDescription({ word, text });
+    setSelectedBtn(word);
   };
 
   return (
@@ -129,6 +136,7 @@ const Graph01: React.FC = () => {
       <Line />
       <ButtonWrapper>
         <Button
+          selected={selectedBtn === "일봉/주봉/월봉"}
           onClick={() =>
             handleClick(
               "일봉/주봉/월봉",
@@ -139,6 +147,7 @@ const Graph01: React.FC = () => {
           일봉/주봉/월봉
         </Button>
         <Button
+          selected={selectedBtn === "시가/고가/저가"}
           onClick={() =>
             handleClick(
               "시가/고가/저가",
@@ -149,6 +158,7 @@ const Graph01: React.FC = () => {
           시가/고가/저가
         </Button>
         <Button
+          selected={selectedBtn === "종가"}
           onClick={() =>
             handleClick(
               "종가",
