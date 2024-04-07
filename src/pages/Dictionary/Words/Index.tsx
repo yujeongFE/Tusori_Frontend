@@ -2,10 +2,10 @@ import React, { useEffect } from "react";
 import { Outlet, useLocation, useParams } from "react-router-dom";
 import SideMenu from "components/Dictionary/DictionaryMenu/SideMenu";
 import DictMenu from "components/Dictionary/DictionaryMenu/DictMenu";
+import SearchBox from "components/Box/SearchBox";
 import CategoryBox from "components/Box/DictionaryCategoryBox";
 import { useWords } from "components/SideBar/DictionarySideBar/WordsContext";
 import { SideMenuContainer, Container, Content, ContentPadding, Title } from "../Style";
-import { SearchBoxContainer, SearchBox, Input, SearchButton } from "./Style";
 
 const Index: React.FC = () => {
   const { setWords } = useWords();
@@ -36,12 +36,7 @@ const Index: React.FC = () => {
               </>
             )}
           </Title>
-          <SearchBoxContainer>
-            <SearchBox>
-              <Input type="text" placeholder="키워드를 입력해주세요" />
-              <SearchButton type="submit"></SearchButton>
-            </SearchBox>
-          </SearchBoxContainer>
+          <SearchBox />
           {isParentPath && (
             <div style={{ display: "flex", flexWrap: "wrap", justifyContent: "center" }}>
               <CategoryBox image={`${process.env.PUBLIC_URL}/assets/Dictionary/words/stock.png`} description="지수" />
