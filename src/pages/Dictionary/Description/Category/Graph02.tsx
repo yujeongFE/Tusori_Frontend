@@ -1,6 +1,6 @@
 import ToggleBox from "components/Dictionary/ToggleBox";
 import React, { useState } from "react";
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 
 const Container = styled.div`
   display: flex;
@@ -36,7 +36,7 @@ const ButtonWrapper = styled.div`
   }
 `;
 
-const Button = styled.button`
+const Button = styled.button<{ selected: boolean }>`
   color: #fff;
   font-size: 20px;
   padding: 10px 28px;
@@ -44,6 +44,11 @@ const Button = styled.button`
   border: none;
   border-radius: 40px;
   background: #d9d9d9;
+  ${({ selected }) =>
+    selected &&
+    css`
+      background: #708ffe;
+    `}
 
   &:hover {
     cursor: pointer;
@@ -78,8 +83,10 @@ const Text = styled.div`
 
 const Graph01: React.FC = () => {
   const [description, setDescription] = useState<{ word: string; text: string } | null>(null);
+  const [selectedBtn, setSelectedBtn] = useState<string | null>(null);
   const handleClick = (word: string, text: string) => {
     setDescription({ word, text });
+    setSelectedBtn(word);
   };
 
   return (
@@ -88,6 +95,7 @@ const Graph01: React.FC = () => {
       <Line />
       <ButtonWrapper>
         <Button
+          selected={selectedBtn === "단기 이동평균선"}
           onClick={() =>
             handleClick(
               "단기 이동평균선",
@@ -98,6 +106,7 @@ const Graph01: React.FC = () => {
           단기 이동평균선
         </Button>
         <Button
+          selected={selectedBtn === "장기 이동평균선"}
           onClick={() =>
             handleClick(
               "장기 이동평균선",

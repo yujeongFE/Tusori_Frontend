@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import ToggleBox from "components/Dictionary/ToggleBox";
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 
 const Container = styled.div`
   display: flex;
@@ -36,7 +36,7 @@ const ButtonWrapper = styled.div`
   }
 `;
 
-const Button = styled.button`
+const Button = styled.button<{ selected: boolean }>`
   color: #fff;
   font-size: 20px;
   padding: 10px 28px;
@@ -44,6 +44,11 @@ const Button = styled.button`
   border: none;
   border-radius: 40px;
   background: #d9d9d9;
+  ${({ selected }) =>
+    selected &&
+    css`
+      background: #708ffe;
+    `}
 
   &:hover {
     cursor: pointer;
@@ -78,8 +83,10 @@ const Text = styled.div`
 
 const Chart: React.FC = () => {
   const [description, setDescription] = useState<{ word: string; text: string } | null>(null);
+  const [selectedBtn, setSelectedBtn] = useState<string | null>(null);
   const handleClick = (word: string, text: string) => {
     setDescription({ word, text });
+    setSelectedBtn(word);
   };
 
   return (
@@ -91,8 +98,14 @@ const Chart: React.FC = () => {
       </Title>
       <Line />
       <ButtonWrapper>
-        <Button onClick={() => handleClick("현재가", "현재 해당 주식이 거래되는 가격으로, 이 값은 주식의 현재 가치를 나타냅니다.")}>현재가</Button>
         <Button
+          selected={selectedBtn === "현재가"}
+          onClick={() => handleClick("현재가", "현재 해당 주식이 거래되는 가격으로, 이 값은 주식의 현재 가치를 나타냅니다.")}
+        >
+          현재가
+        </Button>
+        <Button
+          selected={selectedBtn === "전일비"}
           onClick={() =>
             handleClick(
               "전일비",
@@ -103,6 +116,7 @@ const Chart: React.FC = () => {
           전일비
         </Button>
         <Button
+          selected={selectedBtn === "등락률"}
           onClick={() =>
             handleClick(
               "등락률",
@@ -113,6 +127,7 @@ const Chart: React.FC = () => {
           등락률
         </Button>
         <Button
+          selected={selectedBtn === "거래량"}
           onClick={() =>
             handleClick(
               "거래량",
@@ -123,6 +138,7 @@ const Chart: React.FC = () => {
           거래량
         </Button>
         <Button
+          selected={selectedBtn === "순매수호가잔량"}
           onClick={() =>
             handleClick(
               "순매수호가잔량",

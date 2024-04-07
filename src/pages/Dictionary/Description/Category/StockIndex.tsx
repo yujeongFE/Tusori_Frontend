@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 import ToggleBox from "components/Dictionary/ToggleBox";
 
 const Container = styled.div`
@@ -36,7 +36,7 @@ const ButtonWrapper = styled.div`
   }
 `;
 
-const Button = styled.button`
+const Button = styled.button<{ selected: boolean }>`
   color: #fff;
   font-size: 20px;
   padding: 10px 28px;
@@ -44,6 +44,11 @@ const Button = styled.button`
   border: none;
   border-radius: 40px;
   background: #d9d9d9;
+  ${({ selected }) =>
+    selected &&
+    css`
+      background: #708ffe;
+    `}
 
   &:hover {
     cursor: pointer;
@@ -78,8 +83,10 @@ const Text = styled.div`
 
 const StockIndex: React.FC = () => {
   const [description, setDescription] = useState<{ word: string; text: string } | null>(null);
+  const [selectedBtn, setSelectedBtn] = useState<string | null>(null);
   const handleClick = (word: string, text: string) => {
     setDescription({ word, text });
+    setSelectedBtn(word);
   };
 
   return (
@@ -92,6 +99,7 @@ const StockIndex: React.FC = () => {
       <Line />
       <ButtonWrapper>
         <Button
+          selected={selectedBtn === "코스피 (KOSPI)"}
           onClick={() =>
             handleClick(
               "코스피 (KOSPI)",
@@ -102,6 +110,7 @@ const StockIndex: React.FC = () => {
           코스피
         </Button>
         <Button
+          selected={selectedBtn === "코스닥 (KOSDAQ)"}
           onClick={() =>
             handleClick(
               "코스닥 (KOSDAQ)",
@@ -111,10 +120,14 @@ const StockIndex: React.FC = () => {
         >
           코스닥
         </Button>
-        <Button onClick={() => handleClick("코스피 200", "코스피 200은 코스피 시장에서 시가총액이 큰 200개의 기업들을 선정하여 구성된 지수입니다.")}>
+        <Button
+          selected={selectedBtn === "코스피 200"}
+          onClick={() => handleClick("코스피 200", "코스피 200은 코스피 시장에서 시가총액이 큰 200개의 기업들을 선정하여 구성된 지수입니다.")}
+        >
           코스피 200
         </Button>
         <Button
+          selected={selectedBtn === "코스닥 150"}
           onClick={() =>
             handleClick(
               "코스닥 150",
@@ -125,6 +138,7 @@ const StockIndex: React.FC = () => {
           코스닥 150
         </Button>
         <Button
+          selected={selectedBtn === "KRX 100"}
           onClick={() =>
             handleClick(
               "KRX 300",
