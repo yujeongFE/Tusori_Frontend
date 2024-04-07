@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import styled from "styled-components";
+import ToggleBox from "components/Dictionary/ToggleBox";
 
 const Container = styled.div`
   display: flex;
@@ -139,8 +140,8 @@ const StockIndex: React.FC = () => {
         <Word>{description ? description.word : ""}</Word>
         <Text>{description ? description.text : ""}</Text>
       </DescriptBox>
-
       <Line />
+      <ToggleBox content="보통 코스피가 주요 대형 기업들의 시장을 나타내고, 코스닥은 신생 기업과 중소기업의 시장을 반영합니다. 따라서 일반적으로 경기가 좋을 때 코스피가 상승하며, 기술 기업이나 성장 기업에 대한 투자가 확대되면 코스닥도 함께 상승하는 경향이 있습니다. 또한 KRX300은 코스피와 코스닥을 함께 고려하여 시가총액이 큰 기업들을 중심으로 구성되어 한국 주식 시장 전반의 흐름을 파악하는 데 유용합니다." />
     </Container>
   );
 };
