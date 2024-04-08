@@ -21,7 +21,6 @@ const StyledTable = styled.table`
   //table-layout: fixed;
 `;
 
-
 const alignStyle = css<{ isSecond?: boolean }>`
   text-align: ${({ isSecond }) => (isSecond ? "left" : "right")};
 `;
@@ -69,7 +68,7 @@ const MypageTable: React.FC<TableProps> = ({ data }: TableProps) => {
                 <StickyRow key={rowIndex}>
                   {rowData.map((cellData, cellIndex) => (
                     <StyledTd key={cellIndex} isFirst={cellIndex === 0} isSecond={cellIndex === 1} cellData={cellData}>
-                      {cellIndex === 0 ? <img src={`${process.env.PUBLIC_URL}/assets/Mypage/star.svg`} alt="Cell Image" /> : cellData}
+                      {cellIndex === 0 ? <img src={"/assets/Industry/filledStar.svg"} /> : cellData}
                     </StyledTd>
                   ))}
                 </StickyRow>
@@ -77,7 +76,7 @@ const MypageTable: React.FC<TableProps> = ({ data }: TableProps) => {
                 <tr key={rowIndex}>
                   {rowData.map((cellData, cellIndex) => (
                     <StyledTd key={cellIndex} isFirst={cellIndex === 0} isSecond={cellIndex === 1} cellData={cellData}>
-                      {cellIndex === 0 ? <img src={`${process.env.PUBLIC_URL}/assets/Mypage/star.svg`} alt="Cell Image" /> : cellData}
+                      {cellIndex === 0 ? <img src={"/assets/Industry/filledStar.svg"} /> : cellData}
                     </StyledTd>
                   ))}
                 </tr>
