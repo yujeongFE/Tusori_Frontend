@@ -90,7 +90,7 @@ const Title = styled.div`
   display: flex;
   color: #fff;
   font-size: 18px;
-  font-family: Pretendard;
+  font-family: Pretendard-Bold;
   margin-left: 10px;
   align-items: center;
 `;

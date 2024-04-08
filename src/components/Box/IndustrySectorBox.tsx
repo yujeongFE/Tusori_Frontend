@@ -21,7 +21,7 @@ const StockButtonContainer = styled.button<{ active: boolean }>`
   cursor: pointer;
 
   color: #fff;
-  font-family: Pretendard;
+  font-family: Pretendard-Bold;
   font-size: 18px;
   font-style: normal;
   font-weight: 700;

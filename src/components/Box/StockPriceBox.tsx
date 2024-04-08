@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 
 import rise from "../../assets/rising_arrow.svg";
@@ -94,12 +94,20 @@ const Graph = styled.img`
 `;
 
 const StockPriceButton: React.FC = () => {
+  const stockName = decodeURIComponent(window.location.href.split("/")[4]);
+  const [isFavorite, setIsFavorite] = useState<boolean>(false);
+
+  // 즐겨찾기 기능(별 부분)
+  const toggleFavorite = () => {
+    setIsFavorite(!isFavorite);
+  };
+
   return (
     <BoxContainer>
       <Header>
         <PriceInfo>
           <KOSPI>000000 코스피</KOSPI>
-          <Title>종목명</Title>
+          <Title>{stockName}</Title>
           <CurrentPrice>00,000</CurrentPrice>
           <ChangeInfo>
             <PriceChange>
@@ -110,7 +118,7 @@ const StockPriceButton: React.FC = () => {
           </ChangeInfo>
         </PriceInfo>
         <div style={{ display: "flex", flexDirection: "column", alignItems: "flex-end", marginRight: "1.25vw" }}>
-          <img src={star} style={{ width: "24px", height: "24px" }} alt={"즐겨찾기"} />
+          <img src={isFavorite ? "/assets/Industry/filledStar.svg" : "/assets/Industry/emptyStar.svg"} style={{ cursor: "pointer" }} onClick={toggleFavorite} />
           <div style={{ display: "flex", flexDirection: "column" }}>
             <DetailPriceInfo>
               <PriceDetail label="시가" value="75,900" />

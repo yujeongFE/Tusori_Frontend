@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import { useNavigate } from "react-router-dom";
 
 const SearchBarContainer = styled.div`
   display: flex;
@@ -23,7 +22,6 @@ const SearchBarContainer = styled.div`
   }
   @media (max-width: 816px) {
     width: 50%;
-
   }
   @media (max-width: 768px) {
     display: none;
@@ -70,10 +68,9 @@ const SearchButton = styled.button`
 
 const SearchBar: React.FC = () => {
   const [searchTerm, setSearchTerm] = useState<string>("");
-  const navigate = useNavigate();
 
   const handleSearch = (): void => {
-    navigate(`/industry/${searchTerm}`);
+    window.location.href = `/industry/${searchTerm}`;
   };
 
   const handleKeyPress = (e: React.KeyboardEvent<HTMLInputElement>): void => {

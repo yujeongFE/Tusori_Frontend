@@ -48,7 +48,7 @@ const BannerText = styled.div`
 
   @media (max-width: 768px) {
     color: var(--Main-Font, #2a2a2a);
-    font-family: Pretendard;
+    font-family: "ONE-Mobile-Bold";
     font-size: 14px;
     font-style: normal;
     font-weight: 600;

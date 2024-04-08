@@ -146,7 +146,7 @@ const TableCell = styled.td<{ color?: string }>`
 
   @media (max-width: 768px) {
     color: #2a2a2a;
-    font-family: Pretendard;
+    font-family: Pretendard-Regular;
     font-size: 12px;
   }
 `;
@@ -201,7 +201,7 @@ const LoginButton = styled.div`
   line-height: normal;
 
   @media (max-width: 768px) {
-    font-family: Pretendard;
+    font-family: Pretendard-Medium;
     font-size: 12px;
   }
 `;
