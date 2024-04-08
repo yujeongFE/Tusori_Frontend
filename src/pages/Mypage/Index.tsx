@@ -14,7 +14,7 @@ const Index: React.FC = () => {
   const [MyStocksData, setMyStocksData] = useState([["종목명", "매입가", "현재가", "평단가", "보유수량", "보유일", "평가손익금", "평가손익률"]]);
   const [BuyingLogsData, setBuyingLogsData] = useState([["종목명", "매수일자", "체결일자", "체결단가", "주문수량", "수익금", "수익률"]]);
   const [SellingLogsData, setSellingLogsData] = useState([["종목명", "매도일자", "체결일자", "체결단가", "주문수량", "수익금", "수익률"]]);
-  const { setWords, isOpen } = useWords();
+  const { setWords } = useWords();
   const { interest_stocks, stock_records, save_stocks } = useMyPageData();
   const navigate = useNavigate();
 
@@ -43,9 +43,9 @@ const Index: React.FC = () => {
       { word: "등락률", description: "전일비를 퍼센트(%)로 나타낸 수치" },
       { word: "시가", description: "시작가의 줄임말, 주식시장이 열린 후 처음 거래된 가격" },
       { word: "고가", description: "하루 동안의 주가 중에서 가장 높은 주가" },
+      { word: "저가", description: "하루 동안의 주가 중에서 가장 낮은 주가" },
       { word: "거래량", description: "조회 시점 기준 거래되고 있는 매수/매도 수량" },
       { word: "시가 총액", description: "기업의 주식 가치를 보여주는 지표. 현재 주식시장의 규모가 얼마나 되는지 판단할 수 있음" },
-      { word: "주문 단가", description: "최대한 지불할 의사가 있는 가격" },
       { word: "체결 단가", description: "최대한 지불할 의사가 있는 가격" },
       { word: "주문 수량", description: "주문을 한 수량" },
       { word: "수익금", description: "이익으로 얻은 돈" },
