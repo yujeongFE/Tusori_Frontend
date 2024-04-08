@@ -83,7 +83,7 @@ const StyledIndicator = styled.div<{ selected: boolean }>`
     background: ${({ selected }) => (selected ? "#eff2ff" : "#fff")};
     color: ${({ selected }) => (selected ? "#708ffe" : "#2a2a2a")};
     text-align: center;
-    font-family: Pretendard;
+    font-family: Pretendard-Medium;
     font-size: 16px;
   }
 `;
