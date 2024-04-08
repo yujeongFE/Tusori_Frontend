@@ -42,7 +42,6 @@ const Title = styled.h2`
   margin-top: 3vh;
   margin-left: 2vw;
   color: #000;
-  font-family: Pretendard;
   font-size: 18px;
   font-style: normal;
   font-weight: 400;
@@ -51,7 +50,6 @@ const Title = styled.h2`
 
 const TableContainer = styled.div`
   color: #000;
-  font-family: Pretendard;
   font-size: 18px;
   z-index: 0;
   margin-top: 2.5vh;
