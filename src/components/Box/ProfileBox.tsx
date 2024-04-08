@@ -1,7 +1,73 @@
 import React, { useEffect } from "react";
 import styled from "styled-components";
+import NumberBtn from "components/Dictionary/NumberBtn";
 import { MyPageData } from "api/mypage/mypageData";
 import { useMyPageData } from "api/mypage/mypageDataContext";
+import { useWords } from "components/SideBar/DictionarySideBar/WordsContext";
+
+const ProfileBox: React.FC = () => {
+  const [nickname, setNickName] = React.useState<string>("");
+  const [email, setEmail] = React.useState<string>("");
+  const [assets, setAssets] = React.useState<number>(0);
+  const { user_info } = useMyPageData();
+  const { isOpen } = useWords();
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const result = await MyPageData();
+      if (result) {
+        setNickName(result.user_info.nickname);
+        setEmail(result.user_info.email);
+        setAssets(result.user_info.assets);
+      }
+    };
+    fetchData();
+  }, []);
+
+  return (
+    <UserInfoContainer>
+      <UserInfoBox>
+        <ProfileContainer>
+          <ProfileImg src={`${process.env.PUBLIC_URL}/assets/Tiger.webp`} alt="profile" />
+          <RowContainer>
+            <UserName>{user_info?.nickname}</UserName>
+            <EditBtn>
+              <img src={`${process.env.PUBLIC_URL}/assets/Mypage/editBtn.svg`} alt="edit" />
+            </EditBtn>
+          </RowContainer>
+          <UserEmail>{user_info?.email}</UserEmail>
+        </ProfileContainer>
+
+        <MyAssetContainer>
+          <RowContainer style={{ justifyContent: " space-between" }}>
+            <AssetText style={{ paddingTop: "29px", fontFamily: "Pretendard-Medium" }}>내 자산 정보</AssetText>
+            <ResetBtn>초기화</ResetBtn>
+          </RowContainer>
+          <Line />
+
+          <RowContainer style={{ justifyContent: " space-between" }}>
+            <AssetText>{isOpen ? <NumberBtn number={1} /> : null}총 자산</AssetText>
+            <AmountText>{user_info?.assets}</AmountText>
+          </RowContainer>
+          <RowContainer style={{ justifyContent: " space-between" }}>
+            <AssetText>{isOpen ? <NumberBtn number={2} /> : null}가용 자산</AssetText>
+            <AmountText>0</AmountText>
+          </RowContainer>
+          <RowContainer style={{ justifyContent: " space-between" }}>
+            <AssetText>{isOpen ? <NumberBtn number={3} /> : null}보유 주식 총액</AssetText>
+            <AmountText>0</AmountText>
+          </RowContainer>
+          <RowContainer style={{ justifyContent: " space-between" }}>
+            <AssetText>{isOpen ? <NumberBtn number={4} /> : null}보유 종목 수</AssetText>
+            <AmountText>0</AmountText>
+          </RowContainer>
+        </MyAssetContainer>
+      </UserInfoBox>
+    </UserInfoContainer>
+  );
+};
+
+export default ProfileBox;
 
 //배경(파란부분)
 const UserInfoContainer = styled.div`
@@ -184,66 +250,3 @@ const RowContainer = styled.div`
     justify-content: center;
   }
 `;
-
-const ProfileBox: React.FC = () => {
-  const [nickname, setNickName] = React.useState<string>("");
-  const [email, setEmail] = React.useState<string>("");
-  const [assets, setAssets] = React.useState<number>(0);
-  const { user_info } = useMyPageData();
-
-  useEffect(() => {
-    const fetchData = async () => {
-      const result = await MyPageData();
-      if (result) {
-        setNickName(result.user_info.nickname);
-        setEmail(result.user_info.email);
-        setAssets(result.user_info.assets);
-      }
-    };
-    fetchData();
-  }, []);
-
-  return (
-      <UserInfoContainer>
-        <UserInfoBox>
-          <ProfileContainer>
-            <ProfileImg src={`${process.env.PUBLIC_URL}/assets/Tiger.webp`} alt="profile" />
-            <RowContainer>
-              <UserName>{user_info?.nickname}</UserName>
-              <EditBtn>
-                <img src={`${process.env.PUBLIC_URL}/assets/Mypage/editBtn.svg`} alt="edit" />
-              </EditBtn>
-            </RowContainer>
-            <UserEmail>{user_info?.email}</UserEmail>
-          </ProfileContainer>
-
-          <MyAssetContainer>
-            <RowContainer style={{ justifyContent: " space-between" }}>
-              <AssetText style={{ paddingTop: "29px", fontFamily: "Pretendard-Medium" }}>내 자산 정보</AssetText>
-              <ResetBtn>초기화</ResetBtn>
-            </RowContainer>
-            <Line />
-
-            <RowContainer style={{ justifyContent: " space-between" }}>
-              <AssetText>총 자산</AssetText>
-              <AmountText>{user_info?.assets}</AmountText>
-            </RowContainer>
-            <RowContainer style={{ justifyContent: " space-between" }}>
-              <AssetText>가용 자산</AssetText>
-              <AmountText>0</AmountText>
-            </RowContainer>
-            <RowContainer style={{ justifyContent: " space-between" }}>
-              <AssetText>보유 주식 총액</AssetText>
-              <AmountText>0</AmountText>
-            </RowContainer>
-            <RowContainer style={{ justifyContent: " space-between" }}>
-              <AssetText>보유 종목 수</AssetText>
-              <AmountText>0</AmountText>
-            </RowContainer>
-          </MyAssetContainer>
-        </UserInfoBox>
-      </UserInfoContainer>
-  );
-};
-
-export default ProfileBox;

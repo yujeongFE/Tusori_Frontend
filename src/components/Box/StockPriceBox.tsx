@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-
+import { useWords } from "components/SideBar/DictionarySideBar/WordsContext";
+import NumberBtn from "components/Dictionary/NumberBtn";
 import rise from "../../assets/rising_arrow.svg";
-import star from "../../assets/yellow_star.png";
 import graph from "../../assets/CandleGraph.png";
 
 const BoxContainer = styled.div`
@@ -96,6 +96,7 @@ const Graph = styled.img`
 const StockPriceButton: React.FC = () => {
   const stockName = decodeURIComponent(window.location.href.split("/")[4]);
   const [isFavorite, setIsFavorite] = useState<boolean>(false);
+  const { isOpen } = useWords();
 
   // 즐겨찾기 기능(별 부분)
   const toggleFavorite = () => {
@@ -106,23 +107,29 @@ const StockPriceButton: React.FC = () => {
     <BoxContainer>
       <Header>
         <PriceInfo>
-          <KOSPI>000000 코스피</KOSPI>
+          <KOSPI>
+            {isOpen ? <NumberBtn number={1} /> : null}000000 {isOpen ? <NumberBtn number={2} /> : null}코스피
+          </KOSPI>
           <Title>{stockName}</Title>
-          <CurrentPrice>00,000</CurrentPrice>
+          <CurrentPrice>{isOpen ? <NumberBtn number={3} /> : null}00,000</CurrentPrice>
           <ChangeInfo>
             <PriceChange>
+              {isOpen ? <NumberBtn number={4} /> : null}
               <img src={rise} style={{ width: "11px", height: "11px" }} alt={"상승 화살표"} />
               000
             </PriceChange>
-            <PriceChange style={{ marginLeft: "0.62vw" }}>+0.00%</PriceChange>
+            <PriceChange style={{ marginLeft: "0.62vw" }}>{isOpen ? <NumberBtn number={5} /> : null}+0.00%</PriceChange>
           </ChangeInfo>
         </PriceInfo>
         <div style={{ display: "flex", flexDirection: "column", alignItems: "flex-end", marginRight: "1.25vw" }}>
           <img src={isFavorite ? "/assets/Industry/filledStar.svg" : "/assets/Industry/emptyStar.svg"} style={{ cursor: "pointer" }} onClick={toggleFavorite} />
           <div style={{ display: "flex", flexDirection: "column" }}>
             <DetailPriceInfo>
+              {isOpen ? <NumberBtn number={8} /> : null}
               <PriceDetail label="시가" value="75,900" />
+              {isOpen ? <NumberBtn number={9} /> : null}
               <PriceDetail label="고가" value="75,900" />
+              {isOpen ? <NumberBtn number={10} /> : null}
               <PriceDetail label="저가" value="75,900" />
             </DetailPriceInfo>
           </div>

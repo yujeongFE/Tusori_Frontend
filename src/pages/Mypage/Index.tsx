@@ -14,7 +14,7 @@ const Index: React.FC = () => {
   const [MyStocksData, setMyStocksData] = useState([["종목명", "매입가", "현재가", "평단가", "보유수량", "보유일", "평가손익금", "평가손익률"]]);
   const [BuyingLogsData, setBuyingLogsData] = useState([["종목명", "매수일자", "체결일자", "체결단가", "주문수량", "수익금", "수익률"]]);
   const [SellingLogsData, setSellingLogsData] = useState([["종목명", "매도일자", "체결일자", "체결단가", "주문수량", "수익금", "수익률"]]);
-  const { setWords } = useWords();
+  const { setWords, isOpen } = useWords();
   const { interest_stocks, stock_records, save_stocks } = useMyPageData();
   const navigate = useNavigate();
 

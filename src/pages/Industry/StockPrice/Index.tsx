@@ -23,7 +23,6 @@ const Index = () => {
       { word: "현재가", description: "해당 종목이 가장 최근에 체결된 거래 가격" },
       { word: "전일비", description: "전일 대비 현재 시세의 변동 폭" },
       { word: "등락률", description: "전일비를 퍼센트(%)로 나타낸 수치" },
-      { word: "일봉", description: "하루 동안 주가가 어떻게 변화했는지 확인할 수 있는 표" },
       { word: "주봉", description: "일주일(월~금) 동안 주가가 어떻게 변화했는지 확인할 수 있는 표 " },
       { word: "월봉", description: "한 달 동안 주가가 어떻게 변화했는지 확인할 수 있는 표" },
       { word: "시가", description: "시작가의 줄임말. 주식시장이 열린 후 처음 거래된 가격" },
