@@ -23,7 +23,7 @@ const Container = styled(Link)`
   flex-direction: column;
   align-items: center;
   width: 23.8%;
-  height: 200px;
+  height: auto;
   border-radius: 8px;
   border: 1px solid #d9d9d9;
   background: #fff;
@@ -53,9 +53,12 @@ const Container = styled(Link)`
     font-size: 13px;
   }
   @media (max-width: 768px) {
-    width: 48.5%;
-    height: 198px;
+    width: 45%;
+    height: auto;
     font-size: 13px;
+  }
+  @media (max-width: 347px) {
+    font-size: 10px;
   }
 `;
 
