@@ -2,17 +2,20 @@ import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import SearchBar from "./SearchBar";
 import Switch from "react-switch";
-import DictionarySideBar from "components/SideBar/DictionarySideBar/DictionarySideBar";
 import HeaderMenu from "./HeaderMenu";
-import { useWords } from "components/SideBar/DictionarySideBar/WordsContext";
+import AlarmBox from "components/Box/AlarmBox";
+import DictionarySideBar from "components/SideBar/DictionarySideBar/DictionarySideBar";
 import { Link } from "react-router-dom";
 import { useMyPageData } from "api/mypage/mypageDataContext";
+import { useWords } from "components/SideBar/DictionarySideBar/WordsContext";
 
 const Header = () => {
   const [isInvestMode, setIsInvesteMode] = useState<boolean>(false);
   //const [isOpen, setIsOpen] = useState(false);
-  const {isOpen, setIsOpen} = useWords();
+  const { isOpen, setIsOpen } = useWords();
   const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
+  // 버튼 클릭시 효과
+  const [isClicked, setIsClicked] = useState<boolean>(false);
   const { user_info } = useMyPageData();
 
   useEffect(() => {
@@ -20,16 +23,19 @@ const Header = () => {
     setIsLoggedIn(!!accessToken);
   }, []);
 
+  // 투자모드, 설명모드 변경
   const handleModeChange = (checked: boolean) => {
     setIsInvesteMode(checked);
     setIsOpen(checked);
   };
 
+  // 주식사전 사이드바
   const handleCloseSideBar = () => {
     setIsInvesteMode(false);
     setIsOpen(false);
   };
 
+  // 로그아웃
   const handleLogout = () => {
     const confirmLogout = window.confirm("로그아웃하시겠습니까?");
 
@@ -60,7 +66,12 @@ const Header = () => {
         <LogoName src={`${process.env.PUBLIC_URL}/assets/Header/only_nameLogo.png`} alt="logo_name" />
       </Link>
       <RightSection>
-        {isLoggedIn ? <Bell src={`${process.env.PUBLIC_URL}/assets/Header/bell.svg`} /> : null}
+        {isLoggedIn ? (
+          <AlarmButton onClick={() => setIsClicked((prevState) => !prevState)}>
+            <Bell src={`${process.env.PUBLIC_URL}/assets/Header/bell.svg`} />
+            {isClicked ? <AlarmBox /> : null}
+          </AlarmButton>
+        ) : null}
         {isLoggedIn ? <UserName>{user_info?.nickname}</UserName> : null}
         {isLoggedIn ? <Logout onClick={handleLogout}>로그아웃</Logout> : <LoginLink to="/login">로그인</LoginLink>}
         <SearchBar />
@@ -214,6 +225,12 @@ const LoginLink = styled(Link)`
     width: 24px;
     padding-top: 0;
   }
+`;
+
+const AlarmButton = styled.button`
+  border: none;
+  background-color: #fff;
+  cursor: pointer;
 `;
 
 const Bell = styled.img`
