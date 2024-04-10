@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import styled from "styled-components";
 import { useWords } from "./WordsContext";
 
@@ -20,7 +20,7 @@ const SideBarWrap = styled.div<{ isOpen: boolean; isTop: boolean }>`
   }
   @media (max-width: 768px) {
     right: 0;
-    top: ${({ isOpen, isTop }) => (isOpen ? (isTop ? "70px" : "550px") : "100%")};
+    top: ${({ isOpen, isTop }) => (isOpen ? (isTop ? "87%" : "60%") : "100%")};
     border-radius: 16px;
     width: 100%;
     height: 100%;
@@ -118,10 +118,10 @@ const CloseBtn = styled.button`
 
 const ToggleBtn = styled.button`
   width: 60px;
-  height: 4px;
+  height: 5px;
   flex-shrink: 0;
   border-radius: 2.5px;
-  margin-bottom: 15px;
+  margin-bottom: 13px;
   border: none;
   background: #fff;
   cursor: pointer;
@@ -151,6 +151,8 @@ const Scrollbar = styled.div`
   }
 `;
 
+
+
 interface DictionarySideBarProps {
   isOpen: boolean;
   setIsOpen: (isOpen: boolean) => void;
@@ -164,13 +166,13 @@ const DictionarySideBar: React.FC<DictionarySideBarProps> = ({ isOpen, setIsOpen
 
   return (
     <SideBarWrap ref={outside} isOpen={isOpen} isTop={isTop}>
-      <Top>
+      <Top
+        onClick={() => {
+          setIsTop((prevState) => !prevState);
+        }}
+      >
         <Div>
-          <ToggleBtn
-            onClick={() => {
-              setIsTop((prevState) => !prevState);
-            }}
-          ></ToggleBtn>
+          <ToggleBtn />
           <Title>
             <Img src={`${process.env.PUBLIC_URL}/assets/Dictionary/eyes.png`} alt="dictionary" />이 단어, 무슨 뜻이지?
           </Title>
