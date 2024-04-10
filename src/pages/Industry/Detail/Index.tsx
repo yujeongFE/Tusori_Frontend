@@ -24,7 +24,6 @@ const Index = () => {
       { word: "전일비", description: "전일 대비 현재 시세의 변동 폭" },
       { word: "등락률", description: "전일비를 퍼센트(%)로 나타낸 수치" },
       { word: "거래량", description: "조회 시점 기준 거래되고 있는 매수/매도 잔량" },
-      { word: "순매수호가잔량", description: "매수를 위해 주문을 걸어둔, 체결되지 않은 주식 수량" },
     ]);
   }, [setWords]);
 
