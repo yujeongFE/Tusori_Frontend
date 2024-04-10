@@ -28,17 +28,7 @@ const SearchBarContainer = styled.div`
   }
 `;
 
-const ToggleButton = styled.button`
-  display: none;
 
-  @media (max-width: 768px) {
-    display: block;
-    background: rgba(255, 255, 255, 0.8);
-    border: none;
-    padding: 16px 0 14px 5px;
-    cursor: pointer;
-  }
-`;
 
 const Input = styled.input`
   margin: 0 18px;
@@ -81,9 +71,7 @@ const SearchBar: React.FC = () => {
 
   return (
     <>
-      <ToggleButton>
-        <img src={`${process.env.PUBLIC_URL}/assets/Header/header_search.svg`} alt="search" />
-      </ToggleButton>
+
       <SearchBarContainer>
         <Input type="text" placeholder="종목 검색하기" value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)} onKeyPress={handleKeyPress} />
         <SearchButton type="button" onClick={handleSearch}></SearchButton>
