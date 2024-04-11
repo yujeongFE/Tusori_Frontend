@@ -15,6 +15,12 @@ const BoxContainer = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+
+  @media (max-width: 768px) {
+    width: 95%;
+    border-radius: 12px;
+    overflow-y: auto;
+  }
 `;
 
 const Header = styled.div`
@@ -34,6 +40,9 @@ const KOSPI = styled.span`
   font-size: 12px;
   font-weight: 500;
   margin-bottom: 0.1vw;
+  @media (max-width: 768px) {
+    font-size: 10px;
+  }
 `;
 
 const Title = styled.span`
@@ -42,6 +51,9 @@ const Title = styled.span`
   font-size: 18px;
   font-weight: 400;
   margin-bottom: 0.8vh;
+  @media (max-width: 768px) {
+    font-size: 14px;
+  }
 `;
 
 const CurrentPrice = styled.span`
@@ -50,11 +62,17 @@ const CurrentPrice = styled.span`
   font-size: 24px;
   font-weight: 700;
   margin-bottom: 0.2vh;
+  @media (max-width: 768px) {
+    font-size: 16px;
+  }
 `;
 
 const ChangeInfo = styled.span`
   display: flex;
   flex-direction: row;
+  @media (max-width: 768px) {
+    font-align: center;
+  }
 `;
 
 const PriceChange = styled.span`
@@ -63,6 +81,9 @@ const PriceChange = styled.span`
   font-family: Pretendard-Regular;
   font-size: 14px;
   font-weight: 400;
+  @media (max-width: 768px) {
+    font-size: 10px;
+  }
 `;
 
 const DetailPriceInfo = styled.div`
@@ -73,6 +94,10 @@ const DetailPriceInfo = styled.div`
   font-size: 14px;
   font-weight: 600;
   margin-top: 1.6vh;
+
+  @media (max-width: 768px) {
+    font-size: 10px;
+  }
 `;
 
 const Line = styled.div`
@@ -86,11 +111,23 @@ const LongLine = styled.div`
   height: 1px;
   background: #f2f2f2;
   margin-bottom: 0.8vh;
+  @media (max-width: 768px) {
+    width: auto;
+  }
 `;
 
 const Graph = styled.img`
   width: 100%;
   height: auto;
+`;
+
+const Star = styled.img`
+  width: 24px;
+  height: 24px;
+  @media (max-width: 768px) {
+    width: 20px;
+    height: 20px;
+  }
 `;
 
 const StockPriceButton: React.FC = () => {
@@ -103,14 +140,14 @@ const StockPriceButton: React.FC = () => {
           <CurrentPrice>00,000</CurrentPrice>
           <ChangeInfo>
             <PriceChange>
-              <img src={rise} style={{ width: "11px", height: "11px" }} alt={"상승 화살표"} />
-              000
+              <img src={rise} style={{ width: "10px", height: "10px" }} alt={"상승 화살표"} />
+              <span>000</span>
             </PriceChange>
             <PriceChange style={{ marginLeft: "0.62vw" }}>+0.00%</PriceChange>
           </ChangeInfo>
         </PriceInfo>
         <div style={{ display: "flex", flexDirection: "column", alignItems: "flex-end", marginRight: "1.25vw" }}>
-          <img src={star} style={{ width: "24px", height: "24px" }} alt={"즐겨찾기"} />
+          <Star src={star} alt={"즐겨찾기"} />
           <div style={{ display: "flex", flexDirection: "column" }}>
             <DetailPriceInfo>
               <PriceDetail label="시가" value="75,900" />

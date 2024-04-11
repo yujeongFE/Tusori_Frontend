@@ -47,6 +47,9 @@ const Title = styled.h2`
   font-style: normal;
   font-weight: 400;
   line-height: normal;
+  @media (max-width: 768px) {
+    font-size: 14px;
+  }
 `;
 
 const TableContainer = styled.div`
@@ -57,6 +60,12 @@ const TableContainer = styled.div`
   margin-top: 2.5vh;
   margin-left: 2.6vw;
   flex-grow: 1;
+  @media (max-width: 768px) {
+    font-size: 13px;
+    margin-left: 0vw;
+    display: flex;
+    justify-content: center;
+  }
 `;
 
 const StyledTable = styled.table`
@@ -72,6 +81,10 @@ const StyledTh = styled.th<{ isTitleCell: boolean }>`
   border-bottom: 2px solid #ebebeb;
   box-shadow: 0px 2px 0px 0px rgba(0, 0, 0, 0.05);
   background: #fafafa;
+  @media (max-width: 768px) {
+    font-size: 12px;
+    width: auto;
+  }
 `;
 
 const StyledTd = styled.td<{ value: string }>`
@@ -83,6 +96,19 @@ const StyledTd = styled.td<{ value: string }>`
   background: #fff;
   box-shadow: 0px 2px 0px 0px rgba(0, 0, 0, 0.05);
   text-align: center;
+
+  color: #1e1e1e;
+  text-align: center;
+  font-family: Pretendard;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+
+  @media (max-width: 768px) {
+    font-size: 12px;
+    width: auto;
+  }
 `;
 
 const RowFlexBox = styled.div`
@@ -100,13 +126,29 @@ const Arrow = styled.img`
   cursor: pointer;
   width: 3.5vw;
   min-width: 63px;
+  @media (max-width: 768px) {
+    font-size: 2vw;
+    min-width: 40px;
+  }
 `;
 
 const More = styled.span`
   font-size: 16px;
   margin-top: 5px;
+  @media (max-width: 768px) {
+    font-size: 12px;
+  }
 `;
-const IndustryComparisonTable: React.FC<{ height: string }> = ({ height }) => {
+
+const Triangle = styled.img`
+  width: 12px;
+  height: 12px;
+  @media (max-width: 768px) {
+    width: 12px;
+    height: 8px;
+  }
+`;
+const IndustryComparisonTable: React.FC<{ height: string; isMobile: boolean }> = ({ height, isMobile }) => {
   const navigate = useNavigate();
 
   const handlClick = () => {
@@ -122,7 +164,7 @@ const IndustryComparisonTable: React.FC<{ height: string }> = ({ height }) => {
             <StyledTable>
               <thead>
                 <tr>
-                  {titles.map((title, index) => (
+                  {titles.slice(0, isMobile ? 3 : titles.length).map((title, index) => (
                     <StyledTh key={index} isTitleCell={index === 0}>
                       {title}
                     </StyledTh>
@@ -132,7 +174,7 @@ const IndustryComparisonTable: React.FC<{ height: string }> = ({ height }) => {
               <tbody>
                 {data.map((row, rowIndex) => (
                   <tr key={rowIndex}>
-                    {row.map((cell, cellIndex) => (
+                    {row.slice(0, isMobile ? 3 : row.length).map((cell, cellIndex) => (
                       <StyledTd
                         key={cellIndex}
                         value={cell}
@@ -151,7 +193,7 @@ const IndustryComparisonTable: React.FC<{ height: string }> = ({ height }) => {
                                 : "",
                         }}
                       >
-                        {rowIndex === 1 && cellIndex !== 0 ? cellIndex > 0 ? <img src={rise} /> : <img src={downward} /> : ""}
+                        {rowIndex === 1 && cellIndex !== 0 ? cellIndex > 0 ? <Triangle src={rise} /> : <Triangle src={downward} /> : ""}
                         {cell}
                       </StyledTd>
                     ))}
@@ -160,10 +202,12 @@ const IndustryComparisonTable: React.FC<{ height: string }> = ({ height }) => {
               </tbody>
             </StyledTable>
           </TableContainer>
-          <div onClick={handlClick} style={{ display: "flex", flexDirection: "column", alignItems: "center", marginRight: "5vw" }}>
-            <Arrow src={arrow} alt={"더보기"} />
-            <More>더보기</More>
-          </div>
+          {!isMobile && (
+            <div onClick={handlClick} style={{ display: "flex", flexDirection: "column", alignItems: "center", marginRight: "5vw" }}>
+              <Arrow src={arrow} alt={"더보기"} />
+              <More>더보기</More>
+            </div>
+          )}
         </RowFlexBox>
       </BoxContainer>
     </Container>

@@ -9,6 +9,12 @@ const Container = styled.div`
   grid-template-rows: repeat(3, auto);
   gap: 1.6vh;
   margin-top: 6.2vh;
+  @media (max-width: 768px) {
+    width: 100%;
+    height: auto;
+    gap: 10px;
+    margin-top: 10px;
+  }
 `;
 
 const Box = styled.div`
@@ -21,6 +27,10 @@ const Box = styled.div`
   flex-direction: column;
   justify-content: center;
   padding: 0 1.14vw;
+  @media (max-width: 768px) {
+    width: auto;
+    height: 70px;
+  }
 `;
 
 const Title = styled.span`
@@ -32,6 +42,9 @@ const Title = styled.span`
   line-height: normal;
   margin-bottom: 2vh;
   align-items: left;
+  @media (max-width: 768px) {
+    font-size: 14px;
+  }
 `;
 
 const Subtitle = styled.span`
@@ -43,6 +56,9 @@ const Subtitle = styled.span`
   line-height: normal;
   display: flex;
   justify-content: center;
+  @media (max-width: 768px) {
+    font-size: 14px;
+  }
 `;
 
 const FinancialIndicators: React.FC = () => {

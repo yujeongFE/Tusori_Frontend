@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import StockPriceButton from "components/Box/StockPriceBox";
-import CompanyInfo from "components/layouts/CompanyInfo";
+import CompanyInfoBox from "components/Box/CompanyInfoBox";
 import FinancialIndicators from "components/FinancialIndicators";
 import StockOrderBox from "components/Box/StockOrderBox";
 import IndustryComparisonTable from "components/Table/IndusryComparisonTable";
@@ -18,6 +18,19 @@ const Index = () => {
   const { setWords } = useWords();
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const [guidModalOpen, setGuidModalOpen] = useState<boolean>(false);
+  const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth <= 768);
+    };
+
+    window.addEventListener("resize", handleResize);
+
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
 
   useEffect(() => {
     setWords([
@@ -63,22 +76,24 @@ const Index = () => {
             left: 0,
             right: 0,
             bottom: 0,
-            background: (isModalOpen || guidModalOpen) ? "rgba(120, 120, 120, 0.40)" : "transparent",
+            background: isModalOpen || guidModalOpen ? "rgba(120, 120, 120, 0.40)" : "transparent",
             zIndex: 31,
           }}
         />
       )}
       <FlexBox style={{ zIndex: 2 }}>
-        <RowFlexBox>
+        <RowFlexBox style={{ gap: "2.44vw", flexDirection: isMobile ? "column" : "row" }}>
           <StockPriceButton />
-          <CompanyInfo />
+          <CompanyInfoBox isMobile={isMobile} />
         </RowFlexBox>
-        <RowFlexBox style={{ gap: "2.44vw" }}>
+        <RowFlexBox style={{ gap: "2.44vw", flexDirection: isMobile ? "column" : "row" }}>
           <FinancialIndicators />
-          <StockOrderBox isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen} guidModalOpen={guidModalOpen} setGuidModalOpen={setGuidModalOpen} />
+          {!isMobile && (
+            <StockOrderBox isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen} guidModalOpen={guidModalOpen} setGuidModalOpen={setGuidModalOpen} />
+          )}
         </RowFlexBox>
         <Table style={{ zIndex: 3 }}>
-          <IndustryComparisonTable height={"85vh"} />
+          <IndustryComparisonTable height={"auto"} isMobile={isMobile} />
         </Table>
       </FlexBox>
     </div>

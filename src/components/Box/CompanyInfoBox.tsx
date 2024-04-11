@@ -7,12 +7,17 @@ const StockInfoContainer = styled.div`
   border-radius: 12px;
   background: #fff;
   box-shadow: 0px 2px 8px 0px rgba(0, 0, 0, 0.08);
-  width: 100%;
+  width: 100%
   height: 44.9vh;
   padding: 0 1.66vw;
   display: flex;
   flex-direction: column;
   margin-top: 1.77vh;
+
+  @media (max-width: 768px) {
+    height: auto;
+    margin-top: 0px;
+  }
 `;
 
 const Title = styled.h2`
@@ -22,6 +27,10 @@ const Title = styled.h2`
   font-style: normal;
   font-weight: 400;
   line-height: normal;
+  @media (max-width: 768px) {
+    margin-top: 1.7vh;
+    font-size: 14px;
+  }
 `;
 
 const LogoContainer = styled.div`
@@ -53,15 +62,26 @@ const Description = styled.span`
   line-height: normal;
   letter-spacing: 0.48px;
   margin-top: 5vh;
+  @media (max-width: 768px) {
+    margin-top: 0px;
+    font-size: 12px;
+    margin-bottom: 1.7vh;
+  }
 `;
 
-const CompanyInfoBox: React.FC = () => {
+interface CompanyInfoBoxProps {
+  isMobile: boolean;
+}
+
+const CompanyInfoBox: React.FC<CompanyInfoBoxProps> = ({ isMobile }) => {
   return (
     <StockInfoContainer>
       <Title>기업소개</Title>
-      <LogoContainer>
-        <Logo src={logo}></Logo>
-      </LogoContainer>
+      {!isMobile && (
+        <LogoContainer>
+          <Logo src={logo}></Logo>
+        </LogoContainer>
+      )}
       <Description>
         <Scrollbar>
           <p>
