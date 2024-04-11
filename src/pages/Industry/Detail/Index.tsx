@@ -3,20 +3,70 @@ import { useLocation } from "react-router-dom";
 import { Message, VerticalContainer, TableContainer, FlexBox } from "./Style";
 import { useWords } from "components/SideBar/DictionarySideBar/WordsContext";
 import StockInfoTable from "components/Table/StockInfoTable";
-import StockData from "../../../json/IndustryStockData.json";
 import IndustrySidebar from "components/SideBar/IndustrySideBar";
+import { StockInfo } from "api/industry/StockInfo";
+
+interface StockItem {
+  ChagesRatio: number;
+  Changes: number;
+  Close: string;
+  Code: string;
+  Name: string;
+  Volume: number;
+}
 
 const Index = () => {
   const { state } = useLocation();
   const { setWords } = useWords();
   const titles = ["종목명", "현재가", "전일비", "등락률(%)", "거래량"];
-  const dataKeys = ["name", "currentPrice", "priceChange", "percentChange", "value"];
 
   const [selectedItem, setSelectedItem] = useState<string | null>(null);
+  const [stockData, setStockData] = useState<StockItem[] | null>(null);
 
-  const handleItemSelected = (item: string | null) => {
+  const handleItemSelected = async (item: string | null) => {
     setSelectedItem(item);
+    if (item) {
+      try {
+        const data = await StockInfo(item);
+        if (data) {
+          const transformedData: StockItem[] = data.map((info) => ({
+            ChagesRatio: info.ChagesRatio,
+            Changes: info.Changes,
+            Close: info.Close,
+            Code: info.Code,
+            Name: info.Name,
+            Volume: info.Volume,
+          }));
+          setStockData(transformedData);
+        }
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    }
   };
+
+  const fetchData = async () => {
+    try {
+      const data = await StockInfo(state.value);
+      if (data) {
+        const transformedData: StockItem[] = data.map((info) => ({
+          ChagesRatio: info.ChagesRatio, 
+          Changes: info.Changes,
+          Close: info.Close,
+          Code: info.Code,
+          Name: info.Name,
+          Volume: info.Volume,
+        }));
+        setStockData(transformedData);
+      }
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    }
+  };
+
+  useEffect(() => {
+    fetchData();
+  }, []);
 
   useEffect(() => {
     setWords([
@@ -29,11 +79,11 @@ const Index = () => {
 
   return (
     <VerticalContainer>
-      <Message> {selectedItem ? selectedItem : state.value} 업종에 속한 종목입니다. 관심있는 종목을 눌러 상세정보를 확인해보세요.</Message>
+      <Message>{selectedItem ? selectedItem : state.value} 업종에 속한 종목입니다. 관심있는 종목을 눌러 상세정보를 확인해보세요.</Message>
       <FlexBox>
         <IndustrySidebar onItemSelected={handleItemSelected} initialItem={selectedItem ? selectedItem : state.value} data={state.data} />
         <TableContainer>
-          <StockInfoTable titles={titles} dataKeys={dataKeys} data={StockData} />
+          <StockInfoTable titles={titles} data={stockData || []} />
         </TableContainer>
       </FlexBox>
     </VerticalContainer>
