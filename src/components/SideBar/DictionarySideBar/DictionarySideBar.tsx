@@ -1,8 +1,9 @@
 import React, { useRef, useState, useEffect } from "react";
 import styled from "styled-components";
 import { useWords } from "./WordsContext";
+import StockOrderBox from "components/Box/StockOrderBox";
 
-const SideBarWrap = styled.div<{ isOpen: boolean; isTop: boolean; page: boolean; isMobile: boolean }>`
+const SideBarWrap = styled.div<{ isOpen: boolean; isTop: boolean; isTransitionToggle: boolean; isDictionary: boolean }>`
   z-index: 20;
   border-radius: 16px 0px 0px 16px;
   border-left: 1px solid #bccafb;
@@ -20,7 +21,7 @@ const SideBarWrap = styled.div<{ isOpen: boolean; isTop: boolean; page: boolean;
   }
   @media (max-width: 768px) {
     right: 0;
-    top: ${({ isOpen, isTop }) => (isOpen ? (isTop ? "87%" : "60%") : "100%")};
+    top: ${({ isOpen, isTop, isTransitionToggle, isDictionary }) => (isOpen ? (isTop ? "87%" : isTransitionToggle && !isDictionary ? "30%" : "60%") : "100%")};
     border-radius: 16px;
     width: 100%;
     height: 100%;
@@ -70,7 +71,7 @@ const Num = styled.div`
   }
 `;
 
-const Top = styled.div`
+const Top = styled.div<{ isTransitionToggle: boolean; isDictionary: boolean }>`
   width: 100%;
   height: 52px;
   border-radius: 16px 0px 0px 0px;
@@ -82,7 +83,7 @@ const Top = styled.div`
     border-radius: 16px 16px 0px 0px;
     display: flex;
     justify-content: center;
-    height: 81px;
+    height: ${({ isTransitionToggle, isDictionary }) => (isTransitionToggle && !isDictionary ? "45px" : "81px")};
   }
 `;
 
@@ -151,10 +152,10 @@ const Scrollbar = styled.div`
   }
 `;
 
-const SelectButton = styled.img<{ isTop: boolean }>`
+const SelectButton = styled.img<{ isTop: boolean; isTransition: boolean; isDictionary: boolean }>`
   width: 52px;
   height: 52px;
-  top: ${({ isTop }) => (isTop ? "78%" : "50%")};
+  top: ${({ isTop, isTransition, isDictionary }) => (!isTop ? (!isDictionary ? "20%" : "53%") : "80%")};
   left: 85%;
   position: fixed;
   z-index: 30;
@@ -189,16 +190,20 @@ const DictionarySideBar: React.FC<DictionarySideBarProps> = ({ isOpen, setIsOpen
 
   // 종목별 페이지인지 감지하는 코드
   const isStockPage = location.pathname.includes("/industry/") && !location.pathname.includes("/industry/details");
+  const isTransitionToggle = isStockPage && isMobile && isOpen;
 
   const handleClickButton = () => {
     setIsDictionary((prevState) => !prevState);
+    setIsTop(false);
   };
 
   return (
     <>
-      {isMobile && isStockPage && isOpen && (
+      {isTransitionToggle && (
         <SelectButton
           isTop={isTop}
+          isTransition={isTransitionToggle}
+          isDictionary={isDictionary}
           onClick={handleClickButton}
           src={
             isDictionary
@@ -207,16 +212,18 @@ const DictionarySideBar: React.FC<DictionarySideBarProps> = ({ isOpen, setIsOpen
           }
         ></SelectButton>
       )}
-      <SideBarWrap ref={outside} isOpen={isOpen} isTop={isTop} isMobile={isMobile} page={isStockPage}>
+      <SideBarWrap ref={outside} isOpen={isOpen} isTop={isTop} isTransitionToggle={isTransitionToggle} isDictionary={isDictionary}>
         <Top
+          isTransitionToggle={isTransitionToggle}
+          isDictionary={isDictionary}
           onClick={() => {
             setIsTop((prevState) => !prevState);
           }}
         >
           <Div>
-            <ToggleBtn />
+            {!isTransitionToggle && <ToggleBtn />}
             <Title>
-              {isDictionary ? (
+              {isTransitionToggle && !isDictionary ? (
                 <span>거래하기</span>
               ) : (
                 <>
@@ -236,8 +243,8 @@ const DictionarySideBar: React.FC<DictionarySideBarProps> = ({ isOpen, setIsOpen
           </CloseBtn>
         </Top>
         <Scrollbar>
-          {isDictionary ? (
-            <span>거래하기</span>
+          {isTransitionToggle && !isDictionary ? (
+            <StockOrderBox isMobile={isMobile} />
           ) : (
             <>
               {words.map((item, index) => (
