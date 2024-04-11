@@ -60,7 +60,7 @@ const Title = styled.div`
     align-items: center;
     text-align: center;
     color: #fff;
-    font-family: Pretendard;
+    font-family: Pretendard-Bold;
     font-size: 14px;
     font-style: bold;
     font-weight: 800;

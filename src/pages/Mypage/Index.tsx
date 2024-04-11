@@ -6,50 +6,20 @@ import { useWords } from "components/SideBar/DictionarySideBar/WordsContext";
 import { Container, Text, LogsBtnContainer, LogsBtn, Bar } from "./Style";
 import MobliePageName from "components/layouts/MobliePageName";
 import { useNavigate } from "react-router-dom";
-import { MyPageData } from "../../api/mypage/mypageData";
-
-const MyStocksData = [
-  ["종목명", "매입가", "현재가", "평단가", "보유수량", "보유일", "평가손익금", "평가손익률"],
-  ["KODEX 200선물인버스2X", "2,555", "2,555", "2,555", "2000주", "10일", "+846,760", "+2.85%"],
-  ["삼성전자", "74,700", "74,700", "74,700", "2주", "7일", "+4,364,129", "+16.18%"],
-  ["대한해운", "2,555", "2,555", "2,555", "30주", "30일", "-846,760", "-2.85%"],
-  ["LG헬로비전", "2,555", "2,555", "2,555", "1,500주", "2일", "-846,760", "-2.85%"],
-  ["KTcs", "2,555", "2,555", "2,555", "2주", "10일", "-4,846,760", "-2.85%"],
-  ["KODEX 200선물인버스2X", "2,555", "2,555", "2,555", "2000주", "10일", "+846,760", "+2.85%"],
-  ["삼성전자", "74,700", "74,700", "74,700", "2주", "7일", "+4,364,129", "+16.18%"],
-  ["대한해운", "2,555", "2,555", "2,555", "30주", "30일", "-846,760", "-2.85%"],
-  ["LG헬로비전", "2,555", "2,555", "2,555", "1,500주", "2일", "-846,760", "-2.85%"],
-  ["KTcs", "2,555", "2,555", "2,555", "2주", "10일", "-4,846,760", "-2.85%"],
-];
-const BuyingLogsData = [
-  ["종목명", "매수일자", "체결일자", "주문단가", "체결단가", "주문수량", "수익금", "수익률"],
-  ["KODEX 200선물인버스2X", "2024-01-12", "거래 대기 중", "125,000", "5,000", "2,500주", "+4,364,129", "+16.18%"],
-  ["삼성전자", "2024-01-12", "2024-01-12", "1,325,000", "5,000", "25주", "+4,364,129", "+16.18%"],
-  ["대한해운", "2024-01-12", "2024-01-12", "125,000", "5,000", "25주", "+4,129", "+16.18%"],
-  ["LG헬로비전", "2024-01-12", "2024-01-12", "5,000", "5,000", "25주", "+364,129", "+16.18%"],
-  ["KTcs", "2024-01-12", "2024-01-12", "5,000", "5,000", "25주", "+4,364,129", "+16.18%"],
-];
-const SellingLogsData = [
-  ["종목명", "매도일자", "체결일자", "주문단가", "체결단가", "주문수량", "수익금", "수익률"],
-  ["KODEX 200선물인버스2X", "2024-01-10", "거래 대기 중", "125,000", "5,000", "2,500주", "+4,364,129", "+16.18%"],
-  ["삼성전자", "2024-01-10", "2024-01-11", "1,325,000", "5,000", "25주", "+4,364,129", "+16.18%"],
-  ["대한해운", "2024-01-10", "2024-01-11", "125,000", "5,000", "25주", "+4,129", "+16.18%"],
-  ["LG헬로비전", "2024-01-10", "2024-01-11", "5,000", "5,000", "25주", "+364,129", "+16.18%"],
-  ["KTcs", "2024-01-10", "2024-01-11", "5,000", "5,000", "25주", "+4,364,129", "+16.18%"],
-];
+import { useMyPageData } from "api/mypage/mypageDataContext";
 
 const Index: React.FC = () => {
   const [activeTable, setActiveTable] = useState<"BuyingLogs" | "SellingLogs">("BuyingLogs");
   const [InterestedTableData, setInterestedData] = useState([["", "종목명", "현재가", "전일비", "등락률", "시가", "고가", "저가", "거래량", "시가총액"]]);
   const [MyStocksData, setMyStocksData] = useState([["종목명", "매입가", "현재가", "평단가", "보유수량", "보유일", "평가손익금", "평가손익률"]]);
-  const [BuyingLogsData, setBuyingLogsData] = useState([["종목명", "매수일자", "체결일자", "주문단가", "체결단가", "주문수량", "수익금", "수익률"]]);
-  const [SellingLogsData, setSellingLogsData] = useState([["종목명", "매도일자", "체결일자", "주문단가", "체결단가", "주문수량", "수익금", "수익률"]]);
+  const [BuyingLogsData, setBuyingLogsData] = useState([["종목명", "매수일자", "체결일자", "체결단가", "주문수량", "수익금", "수익률"]]);
+  const [SellingLogsData, setSellingLogsData] = useState([["종목명", "매도일자", "체결일자", "체결단가", "주문수량", "수익금", "수익률"]]);
   const { setWords } = useWords();
+  const { interest_stocks, stock_records, save_stocks } = useMyPageData();
   const navigate = useNavigate();
 
   useEffect(() => {
     const accessToken = localStorage.getItem("accessToken");
-
     if (!accessToken) {
       alert("로그인이 필요한 서비스입니다.");
       navigate("/login");
@@ -73,9 +43,9 @@ const Index: React.FC = () => {
       { word: "등락률", description: "전일비를 퍼센트(%)로 나타낸 수치" },
       { word: "시가", description: "시작가의 줄임말, 주식시장이 열린 후 처음 거래된 가격" },
       { word: "고가", description: "하루 동안의 주가 중에서 가장 높은 주가" },
+      { word: "저가", description: "하루 동안의 주가 중에서 가장 낮은 주가" },
       { word: "거래량", description: "조회 시점 기준 거래되고 있는 매수/매도 수량" },
       { word: "시가 총액", description: "기업의 주식 가치를 보여주는 지표. 현재 주식시장의 규모가 얼마나 되는지 판단할 수 있음" },
-      { word: "주문 단가", description: "최대한 지불할 의사가 있는 가격" },
       { word: "체결 단가", description: "최대한 지불할 의사가 있는 가격" },
       { word: "주문 수량", description: "주문을 한 수량" },
       { word: "수익금", description: "이익으로 얻은 돈" },
@@ -83,30 +53,64 @@ const Index: React.FC = () => {
     ]);
   }, [setWords]);
 
-  //관심주식
   useEffect(() => {
     const fetchData = async () => {
-      const result = await MyPageData();
-      if (result) {
-        const newData = result.interest_stocks.map((stock) => [
+      if (save_stocks && interest_stocks && stock_records) {
+        const myData = save_stocks.map((stock) => [
+          stock.name,
+          stock.purchase.toLocaleString(),
+          stock.close.toLocaleString(),
+          stock.average_price.toLocaleString(),
+          stock.my_quantity.toLocaleString() + "주",
+          stock.retention_date.toLocaleString() + "일",
+          stock.valuation > 0 ? `+${stock.valuation}` : `-${stock.valuation}`,
+          stock.valuation_rate > 0 ? `+${stock.valuation_rate.toFixed(2)}%` : `-${stock.valuation_rate.toFixed(2)}%`,
+        ]);
+        setMyStocksData((prevData) => [...prevData.slice(0, 1), ...myData]);
+
+        const interestedData = interest_stocks.map((stock) => [
           "",
           stock.Name,
           stock.Close,
-          stock.Changes > 0 ? `▲ ${stock.Changes}` : `▼ ${-stock.Changes}`,
-          stock.ChangesRatio > 0 ? `+${stock.ChangesRatio}%` : `-${stock.ChangesRatio}%`,
-          stock.Open.toString(),
-          stock.High.toString(),
-          stock.Low.toString(),
-          stock.Volume.toString(),
-          stock.Marcap.toString(),
+          stock.Changes > 0 ? `▲ ${stock.Changes.toLocaleString()}` : `▼ ${Math.abs(stock.Changes).toLocaleString()}`,
+          stock.ChagesRatio > 0 ? `+${stock.ChagesRatio}%` : `-${Math.abs(stock.ChagesRatio)}%`,
+          stock.Open.toLocaleString(),
+          stock.High.toLocaleString(),
+          stock.Low.toLocaleString(),
+          stock.Volume.toLocaleString(),
+          stock.Marcap.toLocaleString(),
         ]);
+        setInterestedData((prevData) => [...prevData.slice(0, 1), ...interestedData]);
 
-        setInterestedData((prevData) => [...prevData.slice(0, 1), ...newData]);
+        const buyingLogs = stock_records
+          .filter((stock) => stock.sell_or_buy === true)
+          .map((stock) => [
+            stock.name,
+            stock.sell_or_buy_date,
+            stock.record_date,
+            stock.contract_price.toLocaleString(),
+            stock.quantity.toLocaleString() + "주",
+            stock.proceeds > 0 ? `+${stock.proceeds}` : `-${stock.proceeds}`,
+            stock.proceeds_rate > 0 ? `+${stock.proceeds_rate.toFixed(2)}%` : `-${stock.proceeds_rate.toFixed(2)}%`,
+          ]);
+        setBuyingLogsData((prevData) => [...prevData.slice(0, 1), ...buyingLogs]);
+
+        const sellingLogs = stock_records
+          .filter((stock) => stock.sell_or_buy === false)
+          .map((stock) => [
+            stock.name,
+            stock.sell_or_buy_date,
+            stock.record_date,
+            stock.contract_price.toLocaleString(),
+            stock.quantity.toLocaleString() + "주",
+            stock.proceeds > 0 ? `+${stock.proceeds}` : `-${stock.proceeds}`,
+            stock.proceeds_rate > 0 ? `+${stock.proceeds_rate.toFixed(2)}%` : `-${stock.proceeds_rate.toFixed(2)}%`,
+          ]);
+        setSellingLogsData((prevData) => [...prevData.slice(0, 1), ...sellingLogs]);
       }
     };
-
     fetchData();
-  }, []);
+  }, [save_stocks, interest_stocks, stock_records]);
 
   return (
     <Container>
@@ -126,6 +130,7 @@ const Index: React.FC = () => {
         </LogsBtn>
       </LogsBtnContainer>
       {activeTable === "BuyingLogs" ? <MypageTable data={BuyingLogsData} /> : <MypageTable data={SellingLogsData} />}
+      <div style={{ marginTop: "170px" }} />
     </Container>
   );
 };

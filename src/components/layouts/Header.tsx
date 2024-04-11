@@ -2,36 +2,46 @@ import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import SearchBar from "./SearchBar";
 import Switch from "react-switch";
-import DictionarySideBar from "components/SideBar/DictionarySideBar/DictionarySideBar";
 import HeaderMenu from "./HeaderMenu";
+import AlarmBox from "components/Box/AlarmBox";
+import MobileSearchBar from "./MobileSearchBar";
+import DictionarySideBar from "components/SideBar/DictionarySideBar/DictionarySideBar";
 import { Link } from "react-router-dom";
+import { useMyPageData } from "api/mypage/mypageDataContext";
+import { useWords } from "components/SideBar/DictionarySideBar/WordsContext";
 
 const Header = () => {
   const [isInvestMode, setIsInvesteMode] = useState<boolean>(false);
-  const [isOpen, setIsOpen] = useState(false);
+  const { isOpen, setIsOpen } = useWords();
   const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
+  // 버튼 클릭시 효과
+  const [isClicked, setIsClicked] = useState<boolean>(false);
+  const [isSearchClicked, setIsSearchClicked] = useState<boolean>(false);
+  const { user_info } = useMyPageData();
 
   useEffect(() => {
     const accessToken = localStorage.getItem("accessToken");
     setIsLoggedIn(!!accessToken);
   }, []);
 
+  // 투자모드, 설명모드 변경
   const handleModeChange = (checked: boolean) => {
     setIsInvesteMode(checked);
     setIsOpen(checked);
   };
 
+  // 주식사전 사이드바
   const handleCloseSideBar = () => {
     setIsInvesteMode(false);
     setIsOpen(false);
   };
 
+  // 로그아웃
   const handleLogout = () => {
     const confirmLogout = window.confirm("로그아웃하시겠습니까?");
 
     if (confirmLogout) {
       localStorage.removeItem("accessToken");
-      localStorage.removeItem("name");
       localStorage.removeItem("id");
       setIsLoggedIn(false);
       window.location.href = "/";
@@ -39,34 +49,41 @@ const Header = () => {
   };
 
   return (
-    <HeaderContainer>
-      <LeftSection>
-        <SidebySideContainer>
-          <Link to="/">
-            <Logo src={`${process.env.PUBLIC_URL}/assets/Header/logo.svg`} alt="logo" />
-          </Link>
-          <SwitchContainer>
-            <Switch checked={isInvestMode} onChange={handleModeChange} {...switchStyle} />
-            <Mode isInvestMode={isInvestMode}>{isInvestMode ? "설명모드" : "투자모드"}</Mode>
-            <DictionarySideBar isOpen={isOpen} setIsOpen={setIsOpen} onClose={handleCloseSideBar} />
-          </SwitchContainer>
-        </SidebySideContainer>
-        <HeaderMenu />
-      </LeftSection>
-      <Link to="/">
-        <LogoName src={`${process.env.PUBLIC_URL}/assets/Header/only_nameLogo.png`} alt="logo_name" />
-      </Link>
-      <RightSection>
-        {isLoggedIn ? <Bell src={`${process.env.PUBLIC_URL}/assets/Header/bell.svg`} /> : null}
-        {isLoggedIn ? (
-          <UserName>
-            {(localStorage.getItem("name") || "").length > 4 ? (localStorage.getItem("name") || "").substring(0, 4) + "..." : localStorage.getItem("name")}
-          </UserName>
-        ) : null}
-        {isLoggedIn ? <Logout onClick={handleLogout}>로그아웃</Logout> : <LoginLink to="/login">로그인</LoginLink>}
-        <SearchBar />
-      </RightSection>
-    </HeaderContainer>
+    <>
+      <HeaderContainer>
+        <LeftSection>
+          <SidebySideContainer>
+            <Link to="/">
+              <Logo src={`${process.env.PUBLIC_URL}/assets/Header/logo.svg`} alt="logo" />
+            </Link>
+            <SwitchContainer>
+              <Switch checked={isInvestMode} onChange={handleModeChange} {...switchStyle} />
+              <Mode isInvestMode={isInvestMode}>{isInvestMode ? "설명모드" : "투자모드"}</Mode>
+              <DictionarySideBar isOpen={isOpen} setIsOpen={setIsOpen} onClose={handleCloseSideBar} />
+            </SwitchContainer>
+          </SidebySideContainer>
+          <HeaderMenu />
+        </LeftSection>
+        <Link to="/">
+          <LogoName src={`${process.env.PUBLIC_URL}/assets/Header/only_nameLogo.png`} alt="logo_name" />
+        </Link>
+        <RightSection>
+          {isLoggedIn ? (
+            <AlarmButton onClick={() => setIsClicked((prevState) => !prevState)}>
+              <Bell src={`${process.env.PUBLIC_URL}/assets/Header/bell.svg`} />
+              {isClicked ? <AlarmBox /> : null}
+            </AlarmButton>
+          ) : null}
+          {isLoggedIn ? <UserName>{user_info?.nickname}</UserName> : null}
+          {isLoggedIn ? <Logout onClick={handleLogout}>로그아웃</Logout> : <LoginLink to="/login">로그인</LoginLink>}
+          <SearchBar />
+          <ToggleButton onClick={() => setIsSearchClicked((prevState) => !prevState)}>
+            <img src={`${process.env.PUBLIC_URL}/assets/Header/header_search.svg`} alt="search" />
+          </ToggleButton>
+        </RightSection>
+      </HeaderContainer>
+      {isSearchClicked ? <MobileSearchBar /> : null}
+    </>
   );
 };
 
@@ -217,6 +234,12 @@ const LoginLink = styled(Link)`
   }
 `;
 
+const AlarmButton = styled.button`
+  border: none;
+  background-color: #fff;
+  cursor: pointer;
+`;
+
 const Bell = styled.img`
   margin-top: 73px;
   padding-right: 5px;
@@ -287,4 +310,16 @@ const RightSection = styled.div`
 
   @media (max-width: 768px) {
     flex:1;
+`;
+
+const ToggleButton = styled.button`
+  display: none;
+
+  @media (max-width: 768px) {
+    display: block;
+    background: rgba(255, 255, 255, 0.8);
+    border: none;
+    padding: 16px 0 14px 5px;
+    cursor: pointer;
+  }
 `;

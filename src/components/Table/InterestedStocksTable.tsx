@@ -1,6 +1,8 @@
 import React from "react";
 import styled, { css } from "styled-components";
 import ScrollBar from "../ScrollBar";
+import NumberBtn from "components/Dictionary/NumberBtn";
+import { useWords } from "components/SideBar/DictionarySideBar/WordsContext";
 
 interface TableProps {
   data: (string | number | JSX.Element)[][];
@@ -20,7 +22,6 @@ const StyledTable = styled.table`
   border-collapse: collapse;
   //table-layout: fixed;
 `;
-
 
 const alignStyle = css<{ isSecond?: boolean }>`
   text-align: ${({ isSecond }) => (isSecond ? "left" : "right")};
@@ -59,6 +60,8 @@ const StickyRow = styled.tr`
 `;
 
 const MypageTable: React.FC<TableProps> = ({ data }: TableProps) => {
+  const { isOpen } = useWords();
+
   return (
     <TableContainer>
       <ScrollBar>
@@ -69,7 +72,14 @@ const MypageTable: React.FC<TableProps> = ({ data }: TableProps) => {
                 <StickyRow key={rowIndex}>
                   {rowData.map((cellData, cellIndex) => (
                     <StyledTd key={cellIndex} isFirst={cellIndex === 0} isSecond={cellIndex === 1} cellData={cellData}>
-                      {cellIndex === 0 ? <img src={`${process.env.PUBLIC_URL}/assets/Mypage/star.svg`} alt="Cell Image" /> : cellData}
+                      {cellIndex == 3 && isOpen && <NumberBtn number={12} />}
+                      {cellIndex == 4 && isOpen && <NumberBtn number={13} />}
+                      {cellIndex == 5 && isOpen && <NumberBtn number={14} />}
+                      {cellIndex == 6 && isOpen && <NumberBtn number={15} />}
+                      {cellIndex == 7 && isOpen && <NumberBtn number={16} />}
+                      {cellIndex == 8 && isOpen && <NumberBtn number={17} />}
+                      {cellIndex == 9 && isOpen && <NumberBtn number={18} />}
+                      {cellIndex === 0 ? <img src={"/assets/Industry/filledStar.svg"} /> : cellData}
                     </StyledTd>
                   ))}
                 </StickyRow>
@@ -77,7 +87,7 @@ const MypageTable: React.FC<TableProps> = ({ data }: TableProps) => {
                 <tr key={rowIndex}>
                   {rowData.map((cellData, cellIndex) => (
                     <StyledTd key={cellIndex} isFirst={cellIndex === 0} isSecond={cellIndex === 1} cellData={cellData}>
-                      {cellIndex === 0 ? <img src={`${process.env.PUBLIC_URL}/assets/Mypage/star.svg`} alt="Cell Image" /> : cellData}
+                      {cellIndex === 0 ? <img src={"/assets/Industry/filledStar.svg"} /> : cellData}
                     </StyledTd>
                   ))}
                 </tr>

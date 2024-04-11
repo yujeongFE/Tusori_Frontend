@@ -1,6 +1,8 @@
 import React from "react";
-import styled, { css } from "styled-components";
 import ScrollBar from "../ScrollBar";
+import styled, { css } from "styled-components";
+import NumberBtn from "components/Dictionary/NumberBtn";
+import { useWords } from "components/SideBar/DictionarySideBar/WordsContext";
 
 interface TableProps {
   data: (string | number)[][];
@@ -57,6 +59,8 @@ const StickyRow = styled.tr`
 `;
 
 const MypageTable: React.FC<TableProps> = ({ data }: TableProps) => {
+  const { isOpen } = useWords();
+
   return (
     <TableContainer>
       <ScrollBar>
@@ -68,6 +72,17 @@ const MypageTable: React.FC<TableProps> = ({ data }: TableProps) => {
                   {" "}
                   {rowData.map((cellData, cellIndex) => (
                     <StyledTd key={cellIndex} isFirst={cellIndex === 0} cellData={cellData}>
+                      {cellData == "매입가" && isOpen && <NumberBtn number={5} />}
+                      {cellData == "현재가" && isOpen && <NumberBtn number={6} />}
+                      {cellData == "평단가" && isOpen && <NumberBtn number={7} />}
+                      {cellData == "보유수량" && isOpen && <NumberBtn number={8} />}
+                      {cellData == "보유일" && isOpen && <NumberBtn number={9} />}
+                      {cellData == "평가손익금" && isOpen && <NumberBtn number={10} />}
+                      {cellData == "평가손익률" && isOpen && <NumberBtn number={11} />}
+                      {cellData == "체결단가" && isOpen && <NumberBtn number={19} />}
+                      {cellData == "주문수량" && isOpen && <NumberBtn number={20} />}
+                      {cellData == "수익금" && isOpen && <NumberBtn number={21} />}
+                      {cellData == "수익률" && isOpen && <NumberBtn number={22} />}
                       {cellData}
                     </StyledTd>
                   ))}

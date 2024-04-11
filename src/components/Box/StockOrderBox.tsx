@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import styled, { css } from "styled-components";
+import NumberBtn from "components/Dictionary/NumberBtn";
+import { useWords } from "components/SideBar/DictionarySideBar/WordsContext";
 
 interface StockOrderBoxProps {
   isModalOpen: boolean;
@@ -202,6 +204,7 @@ const CloseModalButton = styled.div`
 const StockOrderBox: React.FC<StockOrderBoxProps> = ({ isModalOpen, setIsModalOpen, guidModalOpen, setGuidModalOpen }) => {
   const [price, setPrice] = useState("");
   const [quantity, setQuantity] = useState("");
+  const { isOpen } = useWords();
   const handleBuyButtonClick = () => {
     setIsModalOpen(true);
   };
@@ -222,10 +225,10 @@ const StockOrderBox: React.FC<StockOrderBoxProps> = ({ isModalOpen, setIsModalOp
     <Container>
       <Button>
         <BuyButton>
-          <ButtonText>매수</ButtonText>
+          <ButtonText>{isOpen ? <NumberBtn number={19} /> : null}매수</ButtonText>
         </BuyButton>
         <SellButton>
-          <ButtonText>매도</ButtonText>
+          <ButtonText>{isOpen ? <NumberBtn number={20} /> : null}매도</ButtonText>
         </SellButton>
       </Button>
       <InputContainer>
@@ -245,19 +248,19 @@ const StockOrderBox: React.FC<StockOrderBoxProps> = ({ isModalOpen, setIsModalOp
       </InputContainer>
       <Line />
       <AssetsInfo>
-        <AssetText>가용자산</AssetText>
+        <AssetText>{isOpen ? <NumberBtn number={21} /> : null}가용자산</AssetText>
         <AssetText>10,000,000</AssetText>
         <AssetText>원</AssetText>
       </AssetsInfo>
       <Line style={{ width: "25vw" }} />
       <AssetsInfo>
-        <AssetText>평균매수가</AssetText>
+        <AssetText>{isOpen ? <NumberBtn number={22} /> : null}평균매수가</AssetText>
         <AssetText>10,000,000</AssetText>
         <AssetText>원</AssetText>
       </AssetsInfo>
       <Line style={{ width: "25vw" }} />
       <AssetsInfo>
-        <AssetText>보유량</AssetText>
+        <AssetText>{isOpen ? <NumberBtn number={23} /> : null}보유량</AssetText>
         <AssetText>10,000,000</AssetText>
         <AssetText>원</AssetText>
       </AssetsInfo>

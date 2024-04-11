@@ -12,7 +12,7 @@ interface StockInfo {
 
 const Index = () => {
   const { setWords } = useWords();
-  const [sectorInfo, setSectorInfo] = useState<StockInfo | null>(null); 
+  const [sectorInfo, setSectorInfo] = useState<StockInfo | null>(null);
 
   async function fetchData() {
     try {
@@ -22,13 +22,13 @@ const Index = () => {
       console.error("Error fetching stock info:", error);
     }
   }
-  
+
   useEffect(() => {
     fetchData();
   }, []);
 
   useEffect(() => {
-    setWords([{ word: "전일비", description: "전일 대비 현재 시세의 변동 폭" }]);
+    setWords([{ word: "", description: "" }]);
   }, [setWords]);
 
   return (

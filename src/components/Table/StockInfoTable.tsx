@@ -2,6 +2,8 @@ import React from "react";
 import styled from "styled-components";
 import rise from "../../assets/rising_arrow.svg";
 import downward from "../../assets/downward_arrow.svg";
+import NumberBtn from "components/Dictionary/NumberBtn";
+import { useWords } from "components/SideBar/DictionarySideBar/WordsContext";
 
 const TableContainer = styled.div`
   width: 55.5vw;
@@ -52,13 +54,21 @@ interface StockInfoTableProps {
 }
 
 const StockInfoTable: React.FC<StockInfoTableProps> = ({ titles, dataKeys, data }) => {
+  const { isOpen } = useWords();
+
   return (
     <TableContainer>
       <Table>
         <thead>
           <tr>
             {titles.map((key, index) => (
-              <TableHeaderCell key={index}>{key}</TableHeaderCell>
+              <TableHeaderCell key={index}>
+                {index === 1 && isOpen && <NumberBtn number={1}/>}
+                {index === 2 && isOpen && <NumberBtn number={2}/>}
+                {index === 3 && isOpen && <NumberBtn number={3}/>}
+                {index === 4 && isOpen && <NumberBtn number={4}/>}
+                {key}
+              </TableHeaderCell>
             ))}
           </tr>
         </thead>

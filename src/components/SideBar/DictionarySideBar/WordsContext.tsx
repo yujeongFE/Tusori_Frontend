@@ -3,6 +3,8 @@ import React, { createContext, useContext, useState, ReactNode } from "react";
 interface WordsContextType {
   words: { word: string; description: string }[];
   setWords: React.Dispatch<React.SetStateAction<{ word: string; description: string }[]>>;
+  isOpen: boolean;
+  setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 const WordsContext = createContext<WordsContextType | undefined>(undefined);
@@ -21,6 +23,7 @@ interface WordsProviderProps {
 
 export const WordsProvider = ({ children }: WordsProviderProps) => {
   const [words, setWords] = useState<{ word: string; description: string }[]>([]);
+  const [isOpen, setIsOpen] = useState<boolean>(false);
 
-  return <WordsContext.Provider value={{ words, setWords }}>{children}</WordsContext.Provider>;
+  return <WordsContext.Provider value={{ words, setWords, isOpen, setIsOpen }}>{children}</WordsContext.Provider>;
 };

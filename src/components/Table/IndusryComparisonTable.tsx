@@ -4,6 +4,8 @@ import { useNavigate } from "react-router-dom";
 import arrow from "../../assets/seemore_arrow.svg";
 import rise from "../../assets/rising_arrow.svg";
 import downward from "../../assets/downward_arrow.svg";
+import NumberBtn from "components/Dictionary/NumberBtn";
+import { useWords } from "components/SideBar/DictionarySideBar/WordsContext";
 
 const titles = ["종목명", "삼성전자", "SK하이닉스", "한미반도체", "SK스퀘어"];
 const data = [
@@ -42,7 +44,6 @@ const Title = styled.h2`
   margin-top: 3vh;
   margin-left: 2vw;
   color: #000;
-  font-family: Pretendard;
   font-size: 18px;
   font-style: normal;
   font-weight: 400;
@@ -54,7 +55,6 @@ const Title = styled.h2`
 
 const TableContainer = styled.div`
   color: #000;
-  font-family: Pretendard;
   font-size: 18px;
   z-index: 0;
   margin-top: 2.5vh;
@@ -150,6 +150,7 @@ const Triangle = styled.img`
 `;
 const IndustryComparisonTable: React.FC<{ height: string; isMobile: boolean }> = ({ height, isMobile }) => {
   const navigate = useNavigate();
+  const { isOpen } = useWords();
 
   const handlClick = () => {
     navigate("/mypage");
@@ -193,6 +194,8 @@ const IndustryComparisonTable: React.FC<{ height: string; isMobile: boolean }> =
                                 : "",
                         }}
                       >
+                        {rowIndex === 1 && cellIndex == 0 && isOpen && <NumberBtn number={25} />}
+                        {rowIndex === 2 && cellIndex == 0 && isOpen && <NumberBtn number={26} />}
                         {rowIndex === 1 && cellIndex !== 0 ? cellIndex > 0 ? <Triangle src={rise} /> : <Triangle src={downward} /> : ""}
                         {cell}
                       </StyledTd>
