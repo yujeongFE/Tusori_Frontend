@@ -4,6 +4,8 @@ import styled, { css } from "styled-components";
 interface StockOrderBoxProps {
   isModalOpen: boolean;
   setIsModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  guidModalOpen: boolean;
+  setGuidModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 const commonButtonStyles = css`
@@ -139,13 +141,17 @@ const ConfirmModal = styled.div`
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: 544px;
+  width: 28vw;
   height: 433px;
   background: #fff;
   border-radius: 12px;
   box-shadow: 0px 2px 8px 0px rgba(0, 0, 0, 0.2);
   z-index: 32;
   padding: 35px 55px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 
   color: #191919;
   text-align: center;
@@ -172,7 +178,7 @@ const ModalContext = styled.div`
 `;
 
 const CloseModalButton = styled.div`
-  width: 223px;
+  width: 11.6vw;
   height: 75px;
   flex-shrink: 0;
   border-radius: 20px;
@@ -193,10 +199,9 @@ const CloseModalButton = styled.div`
   align-items: center;
 `;
 
-const StockOrderBox: React.FC<StockOrderBoxProps> = ({ isModalOpen, setIsModalOpen }) => {
+const StockOrderBox: React.FC<StockOrderBoxProps> = ({ isModalOpen, setIsModalOpen, guidModalOpen, setGuidModalOpen }) => {
   const [price, setPrice] = useState("");
   const [quantity, setQuantity] = useState("");
-
   const handleBuyButtonClick = () => {
     setIsModalOpen(true);
   };
@@ -205,6 +210,14 @@ const StockOrderBox: React.FC<StockOrderBoxProps> = ({ isModalOpen, setIsModalOp
     setIsModalOpen(false);
   };
 
+  const handleConfirmButtonClick = () => {
+    setIsModalOpen(false);
+    setGuidModalOpen(true);
+  };
+
+  const handleCloseGuidModal = () => {
+    setGuidModalOpen(false);
+  };
   return (
     <Container>
       <Button>
@@ -268,7 +281,22 @@ const StockOrderBox: React.FC<StockOrderBoxProps> = ({ isModalOpen, setIsModalOp
           <div style={{ margin: "30px", fontWeight: "400" }}>거래를 진행하시겠어요?</div>
           <div style={{ display: "flex", flexDirection: "row", gap: "10px", alignItems: "center", justifyContent: "center" }}>
             <CloseModalButton onClick={handleCloseModal}>취소</CloseModalButton>
-            <CloseModalButton style={{ background: "#708FFE", border: "2px solid #456eff" }}>확인</CloseModalButton>
+            <CloseModalButton onClick={handleConfirmButtonClick} style={{ background: "#708FFE", border: "2px solid #456eff" }}>
+              확인
+            </CloseModalButton>
+          </div>
+        </ConfirmModal>
+      )}
+      {guidModalOpen && (
+        <ConfirmModal style={{ height: "30vh", justifyContent: "center", alignItems: "center" }}>
+          <div style={{ color: "#2E5CFF" }}>거래 요청 완료</div>
+          <span style={{ textAlign: "center", margin: "50px", fontWeight: "500" }}>
+            거래가 요청되었습니다. <br /> 거래 체결 시 알림이 전송됩니다.
+          </span>
+          <div>
+            <CloseModalButton onClick={handleCloseGuidModal} style={{ background: "#708FFE", border: "2px solid #456eff", width: "23vw" }}>
+              확인
+            </CloseModalButton>
           </div>
         </ConfirmModal>
       )}

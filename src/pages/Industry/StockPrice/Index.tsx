@@ -17,6 +17,7 @@ const RowFlexBox = styled.div`
 const Index = () => {
   const { setWords } = useWords();
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+  const [guidModalOpen, setGuidModalOpen] = useState<boolean>(false);
 
   useEffect(() => {
     setWords([
@@ -54,7 +55,7 @@ const Index = () => {
   }, [setWords]);
   return (
     <div style={{ position: "relative" }}>
-      {isModalOpen && (
+      {(isModalOpen || guidModalOpen) && (
         <div
           style={{
             position: "fixed",
@@ -62,7 +63,7 @@ const Index = () => {
             left: 0,
             right: 0,
             bottom: 0,
-            background: isModalOpen ? "rgba(120, 120, 120, 0.40)" : "transparent",
+            background: (isModalOpen || guidModalOpen) ? "rgba(120, 120, 120, 0.40)" : "transparent",
             zIndex: 31,
           }}
         />
@@ -74,7 +75,7 @@ const Index = () => {
         </RowFlexBox>
         <RowFlexBox style={{ gap: "2.44vw" }}>
           <FinancialIndicators />
-          <StockOrderBox isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen} />
+          <StockOrderBox isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen} guidModalOpen={guidModalOpen} setGuidModalOpen={setGuidModalOpen} />
         </RowFlexBox>
         <Table style={{ zIndex: 3 }}>
           <IndustryComparisonTable height={"85vh"} />
