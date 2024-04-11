@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import StockPriceButton from "components/Box/StockPriceBox";
 import CompanyInfo from "components/layouts/CompanyInfo";
@@ -16,6 +16,8 @@ const RowFlexBox = styled.div`
 
 const Index = () => {
   const { setWords } = useWords();
+  const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+
   useEffect(() => {
     setWords([
       { word: "종목코드", description: "종목의 고유코드" },
@@ -51,20 +53,34 @@ const Index = () => {
     ]);
   }, [setWords]);
   return (
-    <FlexBox>
-      <RowFlexBox>
-        <StockPriceButton />
-        <CompanyInfo />
-      </RowFlexBox>
-      <RowFlexBox style={{ gap: "2.44vw" }}>
-        <FinancialIndicators />
-        <StockOrderBox />
-      </RowFlexBox>
-      <Table>
-        <IndustryComparisonTable height={"85vh"} />
-      </Table>
-    </FlexBox>
+    <div style={{ position: "relative" }}>
+      {isModalOpen && (
+        <div
+          style={{
+            position: "fixed",
+            top: 0,
+            left: 0,
+            right: 0,
+            bottom: 0,
+            background: isModalOpen ? "rgba(120, 120, 120, 0.40)" : "transparent",
+            zIndex: 31,
+          }}
+        />
+      )}
+      <FlexBox style={{ zIndex: 2 }}>
+        <RowFlexBox>
+          <StockPriceButton />
+          <CompanyInfo />
+        </RowFlexBox>
+        <RowFlexBox style={{ gap: "2.44vw" }}>
+          <FinancialIndicators />
+          <StockOrderBox isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen} />
+        </RowFlexBox>
+        <Table style={{ zIndex: 3 }}>
+          <IndustryComparisonTable height={"85vh"} />
+        </Table>
+      </FlexBox>
+    </div>
   );
 };
-
 export default Index;

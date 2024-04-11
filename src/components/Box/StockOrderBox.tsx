@@ -1,6 +1,11 @@
 import React, { useState } from "react";
 import styled, { css } from "styled-components";
 
+interface StockOrderBoxProps {
+  isModalOpen: boolean;
+  setIsModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
+}
+
 const commonButtonStyles = css`
   width: 12vw;
   height: 5.8vh;
@@ -18,7 +23,7 @@ const Container = styled.div`
   width: 100%;
   height: 57.6vh;
   border-radius: 12px;
-  background: #fff;
+  background: "#fff";
   box-shadow: 0px 2px 8px 0px rgba(0, 0, 0, 0.08);
   margin-top: 6.2vh;
   padding-top: 3.24vh;
@@ -129,9 +134,76 @@ const ConfirmButton = styled.div`
   margin: 3.4vh 0;
 `;
 
-const StockOrderBox = () => {
+const ConfirmModal = styled.div`
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 544px;
+  height: 433px;
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0px 2px 8px 0px rgba(0, 0, 0, 0.2);
+  z-index: 32;
+  padding: 35px 55px;
+
+  color: #191919;
+  text-align: center;
+  font-family: Pretendard;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+`;
+
+const ModalContext = styled.div`
+  display: flex;
+  justify-content: space-between;
+  width: 90%;
+
+  color: #414141;
+  font-family: Pretendard;
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+
+  margin: 30px;
+`;
+
+const CloseModalButton = styled.div`
+  width: 223px;
+  height: 75px;
+  flex-shrink: 0;
+  border-radius: 20px;
+  border: 2px solid #fff;
+  background: #a2a2a2;
+  box-shadow: 0px 2px 8px 0px rgba(0, 0, 0, 0.05);
+
+  color: #fff;
+  text-align: center;
+  font-family: Pretendard;
+  font-size: 24px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+
+const StockOrderBox: React.FC<StockOrderBoxProps> = ({ isModalOpen, setIsModalOpen }) => {
   const [price, setPrice] = useState("");
   const [quantity, setQuantity] = useState("");
+
+  const handleBuyButtonClick = () => {
+    setIsModalOpen(true);
+  };
+
+  const handleCloseModal = () => {
+    setIsModalOpen(false);
+  };
 
   return (
     <Container>
@@ -176,7 +248,30 @@ const StockOrderBox = () => {
         <AssetText>10,000,000</AssetText>
         <AssetText>원</AssetText>
       </AssetsInfo>
-      <ConfirmButton>매수하기</ConfirmButton>
+      <ConfirmButton onClick={handleBuyButtonClick}>매수하기</ConfirmButton>
+      {isModalOpen && (
+        <ConfirmModal>
+          <div style={{ margin: "30px" }}>삼성전자</div>
+          <Line />
+          <ModalContext>
+            <span>매수가</span>
+            <span style={{ color: "red" }}>10,000</span>
+            <span style={{ color: "black" }}>원</span>
+          </ModalContext>
+          <Line />
+          <ModalContext>
+            <span>매수량</span>
+            <span style={{ color: "red" }}>500</span>
+            <span style={{ color: "black" }}>원</span>
+          </ModalContext>
+          <Line />
+          <div style={{ margin: "30px", fontWeight: "400" }}>거래를 진행하시겠어요?</div>
+          <div style={{ display: "flex", flexDirection: "row", gap: "10px", alignItems: "center", justifyContent: "center" }}>
+            <CloseModalButton onClick={handleCloseModal}>취소</CloseModalButton>
+            <CloseModalButton style={{ background: "#708FFE", border: "2px solid #456eff" }}>확인</CloseModalButton>
+          </div>
+        </ConfirmModal>
+      )}
     </Container>
   );
 };
