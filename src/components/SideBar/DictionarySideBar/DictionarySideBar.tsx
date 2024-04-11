@@ -2,7 +2,7 @@ import React, { useRef, useState, useEffect } from "react";
 import styled from "styled-components";
 import { useWords } from "./WordsContext";
 
-const SideBarWrap = styled.div<{ isOpen: boolean; isTop: boolean }>`
+const SideBarWrap = styled.div<{ isOpen: boolean; isTop: boolean; page: boolean; isMobile: boolean }>`
   z-index: 20;
   border-radius: 16px 0px 0px 16px;
   border-left: 1px solid #bccafb;
@@ -151,7 +151,15 @@ const Scrollbar = styled.div`
   }
 `;
 
-
+const SelectButton = styled.img<{ isTop: boolean }>`
+  width: 52px;
+  height: 52px;
+  top: ${({ isTop }) => (isTop ? "78%" : "50%")};
+  left: 85%;
+  position: fixed;
+  z-index: 30;
+  transition: top 0.5s ease;
+`;
 
 interface DictionarySideBarProps {
   isOpen: boolean;
@@ -163,41 +171,89 @@ const DictionarySideBar: React.FC<DictionarySideBarProps> = ({ isOpen, setIsOpen
   const { words } = useWords();
   const outside = useRef<HTMLDivElement>(null);
   const [isTop, setIsTop] = useState(true);
+  const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
+  const [isDictionary, setIsDictionary] = useState(true);
+
+  // 모바일 버전인지 감지하는 코드
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth <= 768);
+    };
+
+    window.addEventListener("resize", handleResize);
+
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
+
+  // 종목별 페이지인지 감지하는 코드
+  const isStockPage = location.pathname.includes("/industry/") && !location.pathname.includes("/industry/details");
+
+  const handleClickButton = () => {
+    setIsDictionary((prevState) => !prevState);
+  };
 
   return (
-    <SideBarWrap ref={outside} isOpen={isOpen} isTop={isTop}>
-      <Top
-        onClick={() => {
-          setIsTop((prevState) => !prevState);
-        }}
-      >
-        <Div>
-          <ToggleBtn />
-          <Title>
-            <Img src={`${process.env.PUBLIC_URL}/assets/Dictionary/eyes.png`} alt="dictionary" />이 단어, 무슨 뜻이지?
-          </Title>
-        </Div>
-        <CloseBtn
+    <>
+      {isMobile && isStockPage && isOpen && (
+        <SelectButton
+          isTop={isTop}
+          onClick={handleClickButton}
+          src={
+            isDictionary
+              ? `${process.env.PUBLIC_URL}/assets/Dictionary/transaction_button.png`
+              : `${process.env.PUBLIC_URL}/assets/Dictionary/dictionary_button.png`
+          }
+        ></SelectButton>
+      )}
+      <SideBarWrap ref={outside} isOpen={isOpen} isTop={isTop} isMobile={isMobile} page={isStockPage}>
+        <Top
           onClick={() => {
-            onClose();
-            setIsOpen(false);
+            setIsTop((prevState) => !prevState);
           }}
         >
-          <img src={`${process.env.PUBLIC_URL}/assets/Dictionary/closeBtn.svg`} alt="close" />
-        </CloseBtn>
-      </Top>
-      <Scrollbar>
-        {words.map((item, index) => (
-          <Words key={index}>
-            <Num>{index + 1}</Num>
-            <WordAndDescription>
-              <strong>{item.word} :</strong>
-              <Description>{item.description}</Description>
-            </WordAndDescription>
-          </Words>
-        ))}
-      </Scrollbar>
-    </SideBarWrap>
+          <Div>
+            <ToggleBtn />
+            <Title>
+              {isDictionary ? (
+                <span>거래하기</span>
+              ) : (
+                <>
+                  <Img src={`${process.env.PUBLIC_URL}/assets/Dictionary/eyes.png`} alt="dictionary" />
+                  <span>이 단어, 무슨 뜻이지?</span>
+                </>
+              )}
+            </Title>
+          </Div>
+          <CloseBtn
+            onClick={() => {
+              onClose();
+              setIsOpen(false);
+            }}
+          >
+            <img src={`${process.env.PUBLIC_URL}/assets/Dictionary/closeBtn.svg`} alt="close" />
+          </CloseBtn>
+        </Top>
+        <Scrollbar>
+          {isDictionary ? (
+            <span>거래하기</span>
+          ) : (
+            <>
+              {words.map((item, index) => (
+                <Words key={index}>
+                  <Num>{index + 1}</Num>
+                  <WordAndDescription>
+                    <strong>{item.word} :</strong>
+                    <Description>{item.description}</Description>
+                  </WordAndDescription>
+                </Words>
+              ))}
+            </>
+          )}
+        </Scrollbar>
+      </SideBarWrap>
+    </>
   );
 };
 
