@@ -53,13 +53,14 @@ export const KakaoBtn = styled.button`
     width: 350px;
   }
   @media (max-width: 500px) {
-    width: 67%;
+    width: 250px;
     font-size: 13px;
-    height: 40px;
+    height: 43px;
     background-position: 10px 50%;
     background-size: 19px;
   }
   @media (max-width: 300px) {
+    width: 200px;
     font-size: 12px;
   }
 `;
