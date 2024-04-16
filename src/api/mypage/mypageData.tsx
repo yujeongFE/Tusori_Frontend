@@ -51,8 +51,12 @@ export async function MyPageData(): Promise<{
   save_stocks: saveStocksInfo[];
 } | null> {
   try {
-    const id = localStorage.getItem("id");
-    const response = await axios.get(`${process.env.REACT_APP_BASE_URL}/fastapi/mypage/${id}`);
+    const accessToken = localStorage.getItem("accessToken");
+    const response = await axios.get(`${process.env.REACT_APP_BASE_URL}/fastapi/mypage`, {
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+      },
+    });
 
     const responseData = response.data as {
       user_info: UserInfomation;
