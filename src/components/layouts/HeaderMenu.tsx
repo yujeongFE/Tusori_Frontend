@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import styled, { css } from "styled-components";
-import { NavLink, useLocation } from "react-router-dom";
+import { NavLink, useLocation, useNavigate } from "react-router-dom";
+import { useMyPageData } from "api/mypage/mypageDataContext";
 
 const activeLinkStyle = css`
   color: #708ffe;
@@ -136,10 +137,11 @@ const SidebarCloseButton = styled.button`
   }
 `;
 
-const LoginContainer = styled.div`
+const LoginButton = styled.button`
   display: flex;
   align-items: center;
   margin: 88px 0 0 7.5%;
+  border: none;
   border-radius: 8px;
   background: #eff3ff;
   padding: 16px 0 16px 0;
@@ -163,8 +165,11 @@ const Category = styled.div`
 
 const HeaderMenu: React.FC = () => {
   const location = useLocation();
-  const [isSidebarOpen, setSidebarOpen] = useState<boolean>(false);
+  const navigate = useNavigate();
   const sidebarRef = useRef<HTMLDivElement>(null);
+  const [isSidebarOpen, setSidebarOpen] = useState<boolean>(false);
+  const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false); // 사용자 정보
+  const { user_info } = useMyPageData();
 
   const toggleSidebar = (): void => {
     setSidebarOpen(!isSidebarOpen);
@@ -184,11 +189,15 @@ const HeaderMenu: React.FC = () => {
     if (isSidebarOpen) {
       document.addEventListener("mousedown", handleOutsideClick);
     }
-
     return () => {
       document.removeEventListener("mousedown", handleOutsideClick);
     };
   }, [isSidebarOpen]);
+
+  useEffect(() => {
+    const accessToken = localStorage.getItem("accessToken");
+    setIsLoggedIn(!!accessToken);
+  }, []);
 
   return (
     <>
@@ -197,10 +206,10 @@ const HeaderMenu: React.FC = () => {
         {isSidebarOpen && <SidebarCloseButton onClick={toggleSidebar} />}
         {isSidebarOpen && (
           // 사이드바에만 보이는 부분
-          <LoginContainer>
+          <LoginButton onClick={() => !isLoggedIn && navigate("/login")}>
             <img src={`${process.env.PUBLIC_URL}/assets/Header/before_login.svg`} alt="login" style={{ width: "24px", margin: "0 16px 0 12px" }} />
-            로그인을 해주세요
-          </LoginContainer>
+            {isLoggedIn ? user_info?.nickname : "로그인을 해주세요"}
+          </LoginButton>
         )}
         {isSidebarOpen && <Category>카테고리</Category>}
 

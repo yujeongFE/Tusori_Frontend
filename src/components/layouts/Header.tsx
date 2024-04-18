@@ -5,10 +5,10 @@ import Switch from "react-switch";
 import HeaderMenu from "./HeaderMenu";
 import AlarmBox from "components/Box/AlarmBox";
 import MobileSearchBar from "./MobileSearchBar";
-import DictionarySideBar from "components/SideBar/DictionarySideBar/DictionarySideBar";
 import { Link } from "react-router-dom";
 import { useMyPageData } from "api/mypage/mypageDataContext";
 import { useWords } from "components/SideBar/DictionarySideBar/WordsContext";
+import DictionarySideBar from "components/SideBar/DictionarySideBar/DictionarySideBar";
 
 const Header = () => {
   const [isInvestMode, setIsInvesteMode] = useState<boolean>(false);
@@ -276,7 +276,14 @@ const Logout = styled.button`
     font-size: 10px;
   }
   @media (max-width: 768px) {
-    display: none;
+    background-image: url("${process.env.PUBLIC_URL}/assets/Header/login_person.svg");
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: center;
+    margin-top: 0px;
+    text-indent: -9999px;
+    width: 24px;
+    padding-top: 0;
   }
 `;
 
