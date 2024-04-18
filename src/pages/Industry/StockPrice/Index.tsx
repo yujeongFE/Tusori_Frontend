@@ -7,6 +7,7 @@ import StockOrderBox from "components/Box/StockOrderBox";
 import IndustryComparisonTable from "components/Table/IndusryComparisonTable";
 import { useWords } from "components/SideBar/DictionarySideBar/WordsContext";
 import { FlexBox, Table } from "./Style";
+import MobliePageName from "components/layouts/MobliePageName";
 
 const RowFlexBox = styled.div`
   display: flex;
@@ -80,6 +81,7 @@ const Index = () => {
           }}
         />
       )}
+      <MobliePageName pageTitle="종목 상세" />
       <FlexBox style={{ zIndex: 2 }}>
         <RowFlexBox style={{ gap: "2.44vw", flexDirection: isMobile ? "column" : "row" }}>
           <StockPriceButton />
