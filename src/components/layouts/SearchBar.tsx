@@ -71,7 +71,6 @@ const SearchBar: React.FC = () => {
 
   return (
     <>
-
       <SearchBarContainer>
         <Input type="text" placeholder="종목 검색하기" value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)} onKeyPress={handleKeyPress} />
         <SearchButton type="button" onClick={handleSearch}></SearchButton>
