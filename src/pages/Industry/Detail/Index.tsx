@@ -79,16 +79,18 @@ const Index = () => {
   }, [setWords]);
 
   return (
-    <VerticalContainer>
+    <>
       <MobliePageName pageTitle="업종별 시세" />
-      <Message>{selectedItem ? selectedItem : state.value} 업종에 속한 종목입니다. 관심있는 종목을 눌러 상세정보를 확인해보세요.</Message>
-      <FlexBox>
-        <IndustrySidebar onItemSelected={handleItemSelected} initialItem={selectedItem ? selectedItem : state.value} data={state.data} />
-        <TableContainer>
-          <StockInfoTable titles={titles} data={stockData || []} />
-        </TableContainer>
-      </FlexBox>
-    </VerticalContainer>
+      <VerticalContainer>
+        <Message>{selectedItem ? selectedItem : state.value} 업종에 속한 종목입니다. 관심있는 종목을 눌러 상세정보를 확인해보세요.</Message>
+        <FlexBox>
+          <IndustrySidebar onItemSelected={handleItemSelected} initialItem={selectedItem ? selectedItem : state.value} data={state.data} />
+          <TableContainer>
+            <StockInfoTable titles={titles} data={stockData || []} />
+          </TableContainer>
+        </FlexBox>
+      </VerticalContainer>
+    </>
   );
 };
 

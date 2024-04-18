@@ -33,10 +33,12 @@ const Index = () => {
   }, [setWords]);
 
   return (
-    <FlexBox>
+    <>
       <MobliePageName pageTitle="업종별 시세" />
-      <IndustrySectorBox sectorInfo={sectorInfo} />
-    </FlexBox>
+      <FlexBox>
+        <IndustrySectorBox sectorInfo={sectorInfo} />
+      </FlexBox>
+    </>
   );
 };
 
