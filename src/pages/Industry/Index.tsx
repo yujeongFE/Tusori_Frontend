@@ -3,6 +3,7 @@ import { FlexBox } from "./Style";
 import IndustrySectorBox from "components/Box/IndustrySectorBox";
 import { useWords } from "components/SideBar/DictionarySideBar/WordsContext";
 import { SectorInfo } from "api/industry/SectorInfo";
+import MobliePageName from "components/layouts/MobliePageName";
 
 interface StockInfo {
   KOSPI: string[];
@@ -33,6 +34,7 @@ const Index = () => {
 
   return (
     <FlexBox>
+      <MobliePageName pageTitle="업종별 시세" />
       <IndustrySectorBox sectorInfo={sectorInfo} />
     </FlexBox>
   );

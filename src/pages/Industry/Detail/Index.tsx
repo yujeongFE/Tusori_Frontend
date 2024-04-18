@@ -5,6 +5,7 @@ import { useWords } from "components/SideBar/DictionarySideBar/WordsContext";
 import StockInfoTable from "components/Table/StockInfoTable";
 import IndustrySidebar from "components/SideBar/IndustrySideBar";
 import { StockInfo } from "api/industry/StockInfo";
+import MobliePageName from "components/layouts/MobliePageName";
 
 interface StockItem {
   ChagesRatio: number;
@@ -50,7 +51,7 @@ const Index = () => {
       const data = await StockInfo(state.value);
       if (data) {
         const transformedData: StockItem[] = data.map((info) => ({
-          ChagesRatio: info.ChagesRatio, 
+          ChagesRatio: info.ChagesRatio,
           Changes: info.Changes,
           Close: info.Close,
           Code: info.Code,
@@ -79,6 +80,7 @@ const Index = () => {
 
   return (
     <VerticalContainer>
+      <MobliePageName pageTitle="업종별 시세" />
       <Message>{selectedItem ? selectedItem : state.value} 업종에 속한 종목입니다. 관심있는 종목을 눌러 상세정보를 확인해보세요.</Message>
       <FlexBox>
         <IndustrySidebar onItemSelected={handleItemSelected} initialItem={selectedItem ? selectedItem : state.value} data={state.data} />
