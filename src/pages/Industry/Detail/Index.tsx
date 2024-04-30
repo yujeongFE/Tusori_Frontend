@@ -86,7 +86,7 @@ const Index = () => {
         <FlexBox>
           <IndustrySidebar onItemSelected={handleItemSelected} initialItem={selectedItem ? selectedItem : state.value} data={state.data} />
           <TableContainer>
-            <StockInfoTable titles={titles} data={stockData || []} />
+            <StockInfoTable titles={titles} data={stockData || []} sector={selectedItem ? selectedItem : state.value} />
           </TableContainer>
         </FlexBox>
       </VerticalContainer>
