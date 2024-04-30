@@ -3,6 +3,25 @@ import styled from "styled-components";
 import NumberBtn from "components/Dictionary/NumberBtn";
 import { useWords } from "components/SideBar/DictionarySideBar/WordsContext";
 
+interface CompanyInfo {
+  Code: string;
+  Market: string;
+  Name: string;
+  Close: string;
+  Changes: number;
+  ChagesRatio: number;
+  Open: number;
+  High: number;
+  Low: number;
+  Volume: number;
+  Marcap: number;
+  Stocks: number;
+  PER: number;
+  PBR: number;
+  EPS: number;
+  DIV: number;
+}
+
 const Container = styled.div`
   width: 38vw;
   height: 60vh;
@@ -63,42 +82,41 @@ const Subtitle = styled.span`
   }
 `;
 
-const FinancialIndicators: React.FC = () => {
+const FinancialIndicators: React.FC<{ data: CompanyInfo }> = ({ data }) => {
   const { isOpen } = useWords();
 
   return (
     <Container>
       <Box>
-        <Title>{isOpen ? <NumberBtn number={11} /> : null}시가총액</Title>
-        <Subtitle>448조 ,307억</Subtitle>
+        <Title>
+          {isOpen ? <NumberBtn number={11} /> : null}
+          시가총액
+        </Title>
+        <Subtitle>{data.Marcap.toLocaleString()}</Subtitle>
       </Box>
       <Box>
         <Title>{isOpen ? <NumberBtn number={12} /> : null}PBR(배)</Title>
-        <Subtitle>1.44배</Subtitle>
+        <Subtitle>{data.PBR}</Subtitle>
       </Box>
       <Box>
-        <Title>{isOpen ? <NumberBtn number={13} /> : null}ROE(%)</Title>
-        <Subtitle>3.24%</Subtitle>
+        <Title>{isOpen ? <NumberBtn number={13} /> : null}EPS(원)</Title>
+        <Subtitle>{data.EPS.toLocaleString()}</Subtitle>
       </Box>
       <Box>
         <Title>{isOpen ? <NumberBtn number={14} /> : null}PER(배)</Title>
-        <Subtitle>15.79배</Subtitle>
+        <Subtitle>{data.PER}</Subtitle>
       </Box>
       <Box>
-        <Title>{isOpen ? <NumberBtn number={15} /> : null}외인보중 비율(%)</Title>
-        <Subtitle>76,000</Subtitle>
-      </Box>
-      <Box>
-        <Title>{isOpen ? <NumberBtn number={16} /> : null}동일업종PER</Title>
-        <Subtitle>30.06배</Subtitle>
+        <Title>{isOpen ? <NumberBtn number={15} /> : null}상장 주식 수</Title>
+        <Subtitle>{data.Stocks.toLocaleString()}</Subtitle>
       </Box>
       <Box>
         <Title>{isOpen ? <NumberBtn number={17} /> : null}거래량</Title>
-        <Subtitle>75,900</Subtitle>
+        <Subtitle>{data.Volume.toLocaleString()}</Subtitle>
       </Box>
       <Box>
-        <Title>{isOpen ? <NumberBtn number={18} /> : null}종가</Title>
-        <Subtitle>76,000</Subtitle>
+        <Title>{isOpen ? <NumberBtn number={18} /> : null}배당수익률</Title>
+        <Subtitle>{data.DIV}</Subtitle>
       </Box>
     </Container>
   );

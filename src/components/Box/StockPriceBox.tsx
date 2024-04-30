@@ -5,6 +5,25 @@ import NumberBtn from "components/Dictionary/NumberBtn";
 import rise from "../../assets/rising_arrow.svg";
 import graph from "../../assets/CandleGraph.png";
 
+interface CompanyInfo {
+  Code: string;
+  Market: string;
+  Name: string;
+  Close: string;
+  Changes: number;
+  ChagesRatio: number;
+  Open: number;
+  High: number;
+  Low: number;
+  Volume: number;
+  Marcap: number;
+  Stocks: number;
+  PER: number;
+  PBR: number;
+  EPS: number;
+  DIV: number;
+}
+
 const BoxContainer = styled.div`
   width: 45vw;
   background-color: #fff;
@@ -130,7 +149,7 @@ const Star = styled.img`
   }
 `;
 
-const StockPriceBox: React.FC = () => {
+const StockPriceBox: React.FC<{ data: CompanyInfo }> = ({ data }) => {
   const stockName = decodeURIComponent(window.location.href.split("/")[4]);
   const [isFavorite, setIsFavorite] = useState<boolean>(false);
   const { isOpen } = useWords();
@@ -145,17 +164,24 @@ const StockPriceBox: React.FC = () => {
       <Header>
         <PriceInfo>
           <KOSPI>
-            {isOpen ? <NumberBtn number={1} /> : null}000000 {isOpen ? <NumberBtn number={2} /> : null}코스피
+            {isOpen ? <NumberBtn number={1} /> : null}
+            {data.Code} {isOpen ? <NumberBtn number={2} /> : null}코스피
           </KOSPI>
-          <Title>{stockName}</Title>
-          <CurrentPrice>{isOpen ? <NumberBtn number={3} /> : null}00,000</CurrentPrice>
+          <Title>{data.Name}</Title>
+          <CurrentPrice>
+            {isOpen ? <NumberBtn number={3} /> : null}
+            {Number(data.Close).toLocaleString()}
+          </CurrentPrice>
           <ChangeInfo>
             <PriceChange>
               {isOpen ? <NumberBtn number={4} /> : null}
               <img src={rise} style={{ width: "10px", height: "10px" }} alt={"상승 화살표"} />
-              <span>000</span>
+              <span>{data.Changes.toLocaleString()}</span>
             </PriceChange>
-            <PriceChange style={{ marginLeft: "0.62vw" }}>{isOpen ? <NumberBtn number={5} /> : null}+0.00%</PriceChange>
+            <PriceChange style={{ marginLeft: "0.62vw" }}>
+              {isOpen ? <NumberBtn number={5} /> : null}
+              {data.ChagesRatio}
+            </PriceChange>
           </ChangeInfo>
         </PriceInfo>
         <div style={{ display: "flex", flexDirection: "column", alignItems: "flex-end", marginRight: "1.25vw" }}>
@@ -163,11 +189,11 @@ const StockPriceBox: React.FC = () => {
           <div style={{ display: "flex", flexDirection: "column" }}>
             <DetailPriceInfo>
               {isOpen ? <NumberBtn number={8} /> : null}
-              <PriceDetail label="시가" value="75,900" />
+              <PriceDetail label="시가" value={data.Open.toLocaleString()} />
               {isOpen ? <NumberBtn number={9} /> : null}
-              <PriceDetail label="고가" value="75,900" />
+              <PriceDetail label="고가" value={data.High.toLocaleString()} />
               {isOpen ? <NumberBtn number={10} /> : null}
-              <PriceDetail label="저가" value="75,900" />
+              <PriceDetail label="저가" value={data.Low.toLocaleString()} />
             </DetailPriceInfo>
           </div>
         </div>
