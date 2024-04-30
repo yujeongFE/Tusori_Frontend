@@ -4,6 +4,7 @@ import rise from "../../assets/rising_arrow.svg";
 import downward from "../../assets/downward_arrow.svg";
 import NumberBtn from "components/Dictionary/NumberBtn";
 import { useWords } from "components/SideBar/DictionarySideBar/WordsContext";
+import { useNavigate } from "react-router-dom";
 
 const TableContainer = styled.div`
   width: 55.5vw;
@@ -60,10 +61,16 @@ interface StockInfo {
 interface StockInfoTableProps {
   titles: string[];
   data: StockInfo[];
+  sector: string[];
 }
 
-const StockInfoTable: React.FC<StockInfoTableProps> = ({ titles, data }) => {
+const StockInfoTable: React.FC<StockInfoTableProps> = ({ titles, data, sector }) => {
   const { isOpen } = useWords();
+  const navigate = useNavigate();
+
+  const handleRowClick = (name: string) => {
+    navigate(`/industry/${name}`, { state: { sector, name } });
+  };
 
   return (
     <TableContainer>
@@ -83,26 +90,19 @@ const StockInfoTable: React.FC<StockInfoTableProps> = ({ titles, data }) => {
         </thead>
         <tbody>
           {data.map((rowData, rowIndex) => {
-            console.log(rowData.ChagesRatio);
             return (
-              <tr key={rowIndex}>
+              <tr key={rowIndex} onClick={() => handleRowClick(rowData.Name)}>
                 <TableCell>{rowData.Name}</TableCell>
-                <TableCell>{rowData.Close}</TableCell>
+                <TableCell>{Number(rowData.Close).toLocaleString()}</TableCell>
                 <TableCell isChangeCell={true} value={rowData.Changes}>
                   <TableCellContainer>
                     {rowData.Changes > 0 && <ArrowIcon src={rise} alt="rising_arrow" />}
                     {rowData.Changes < 0 && <ArrowIcon src={downward} alt="down_arrow" />}
-                    {rowData.Changes}
+                    {rowData.Changes.toLocaleString()}
                   </TableCellContainer>
                 </TableCell>
-                <TableCell isChangeCell={true} value={rowData.ChagesRatio}>
-                  <TableCellContainer>
-                    {rowData.ChagesRatio > 0 && <ArrowIcon src={rise} alt="rising_arrow" />}
-                    {rowData.ChagesRatio < 0 && <ArrowIcon src={downward} alt="down_arrow" />}
-                    {rowData.ChagesRatio}
-                  </TableCellContainer>
-                </TableCell>
-                <TableCell>{rowData.Volume}</TableCell>
+                <TableCell>{rowData.ChagesRatio}%</TableCell>
+                <TableCell>{rowData.Volume.toLocaleString()}</TableCell>
               </tr>
             );
           })}
