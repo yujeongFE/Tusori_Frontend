@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
-import StockPriceButton from "components/Box/StockPriceBox";
+import StockPriceBox from "components/Box/StockPriceBox";
 import CompanyInfoBox from "components/Box/CompanyInfoBox";
 import FinancialIndicators from "components/FinancialIndicators";
 import StockOrderBox from "components/Box/StockOrderBox";
@@ -8,6 +8,8 @@ import IndustryComparisonTable from "components/Table/IndusryComparisonTable";
 import { useWords } from "components/SideBar/DictionarySideBar/WordsContext";
 import { FlexBox, Table } from "./Style";
 import MobliePageName from "components/layouts/MobliePageName";
+import { useLocation } from "react-router-dom";
+import { IndividualStockInfo } from "api/industry/IndividualStockInfo";
 
 const RowFlexBox = styled.div`
   display: flex;
@@ -20,6 +22,19 @@ const Index = () => {
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const [guidModalOpen, setGuidModalOpen] = useState<boolean>(false);
   const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
+  const [stockData, setStockData] = useState<any>(null);
+  const location = useLocation();
+
+  const fetchData = async ({ sector, name }: { sector: string; name: string }) => {
+    try {
+      const data = await IndividualStockInfo(sector, name);
+      if (data) {
+        setStockData(data);
+      }
+    } catch (error) {
+      console.error("개별 종목 상세 데이터 파싱 오류:", error);
+    }
+  };
 
   useEffect(() => {
     const handleResize = () => {
@@ -32,6 +47,14 @@ const Index = () => {
       window.removeEventListener("resize", handleResize);
     };
   }, []);
+
+  useEffect(() => {
+    if (location.state) {
+      const sector = location.state.sector;
+      const name = location.state.name;
+      fetchData({ sector, name });
+    }
+  }, [location.state]);
 
   useEffect(() => {
     setWords([
@@ -84,7 +107,7 @@ const Index = () => {
       <MobliePageName pageTitle="종목 상세" />
       <FlexBox style={{ zIndex: 2 }}>
         <RowFlexBox style={{ gap: "2.44vw", flexDirection: isMobile ? "column" : "row" }}>
-          <StockPriceButton />
+          <StockPriceBox />
           <CompanyInfoBox isMobile={isMobile} />
         </RowFlexBox>
         <RowFlexBox style={{ gap: "2.44vw", flexDirection: isMobile ? "column" : "row" }}>
