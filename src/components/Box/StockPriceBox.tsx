@@ -130,7 +130,7 @@ const Star = styled.img`
   }
 `;
 
-const StockPriceButton: React.FC = () => {
+const StockPriceBox: React.FC = () => {
   const stockName = decodeURIComponent(window.location.href.split("/")[4]);
   const [isFavorite, setIsFavorite] = useState<boolean>(false);
   const { isOpen } = useWords();
@@ -188,4 +188,4 @@ const PriceDetail: React.FC<{ label: string; value: string }> = ({ label, value 
   </>
 );
 
-export default StockPriceButton;
+export default StockPriceBox;
