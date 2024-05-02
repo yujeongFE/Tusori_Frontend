@@ -2,8 +2,8 @@ import React from "react";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 import arrow from "../../assets/seemore_arrow.svg";
-import rise from "../../assets/rising_arrow.svg";
-import downward from "../../assets/downward_arrow.svg";
+import { useWords } from "components/SideBar/DictionarySideBar/WordsContext";
+import NumberBtn from "components/Dictionary/NumberBtn";
 
 interface TopStockInfo {
   Code: string;
@@ -143,6 +143,7 @@ const More = styled.span`
 
 const IndustryComparisonTable: React.FC<{ height: string; isMobile: boolean; data: TopStockInfos }> = ({ height, isMobile, data }) => {
   const navigate = useNavigate();
+  const { isOpen } = useWords();
 
   const handleClick = () => {
     navigate("/mypage");
@@ -165,13 +166,13 @@ const IndustryComparisonTable: React.FC<{ height: string; isMobile: boolean; dat
               </thead>
               <tbody>
                 <tr>
-                  <StyledTd>현재가</StyledTd>
+                  <StyledTd>{!isMobile && isOpen && <NumberBtn number={23} />}현재가</StyledTd>
                   {data?.top_5_stocks_info
                     .slice(0, isMobile ? 3 : data?.top_5_stocks_info.length)
                     .map((stock, index) => <StyledTd key={index}>{Number(stock.Close).toLocaleString()}</StyledTd>)}
                 </tr>
                 <tr>
-                  <StyledTd>등락률</StyledTd>
+                  <StyledTd>{!isMobile && isOpen && <NumberBtn number={24} />}등락률</StyledTd>
                   {data?.top_5_stocks_info.slice(0, isMobile ? 3 : data?.top_5_stocks_info.length).map((stock, index) => (
                     <StyledTd style={{ color: stock.ChagesRatio >= 0 ? "red" : "blue" }} key={index}>
                       {stock.ChagesRatio >= 0 ? `+${stock.ChagesRatio.toLocaleString()}%` : `${stock.ChagesRatio.toLocaleString()}%`}
