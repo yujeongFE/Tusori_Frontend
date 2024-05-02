@@ -92,31 +92,31 @@ const FinancialIndicators: React.FC<{ data: CompanyInfo }> = ({ data }) => {
           {isOpen ? <NumberBtn number={11} /> : null}
           시가총액
         </Title>
-        <Subtitle>{data.Marcap.toLocaleString()}</Subtitle>
+        <Subtitle>{data?.Marcap.toLocaleString()}</Subtitle>
       </Box>
       <Box>
         <Title>{isOpen ? <NumberBtn number={12} /> : null}PBR(배)</Title>
-        <Subtitle>{data.PBR}</Subtitle>
+        <Subtitle>{data?.PBR}</Subtitle>
       </Box>
       <Box>
         <Title>{isOpen ? <NumberBtn number={13} /> : null}EPS(원)</Title>
-        <Subtitle>{data.EPS.toLocaleString()}</Subtitle>
+        <Subtitle>{data?.EPS.toLocaleString()}</Subtitle>
       </Box>
       <Box>
         <Title>{isOpen ? <NumberBtn number={14} /> : null}PER(배)</Title>
-        <Subtitle>{data.PER}</Subtitle>
+        <Subtitle>{data?.PER}</Subtitle>
       </Box>
       <Box>
         <Title>{isOpen ? <NumberBtn number={15} /> : null}상장 주식 수</Title>
-        <Subtitle>{data.Stocks.toLocaleString()}</Subtitle>
+        <Subtitle>{data?.Stocks.toLocaleString()}</Subtitle>
       </Box>
       <Box>
         <Title>{isOpen ? <NumberBtn number={17} /> : null}거래량</Title>
-        <Subtitle>{data.Volume.toLocaleString()}</Subtitle>
+        <Subtitle>{data?.Volume.toLocaleString()}</Subtitle>
       </Box>
       <Box>
         <Title>{isOpen ? <NumberBtn number={18} /> : null}배당수익률</Title>
-        <Subtitle>{data.DIV}</Subtitle>
+        <Subtitle>{data?.DIV}</Subtitle>
       </Box>
     </Container>
   );

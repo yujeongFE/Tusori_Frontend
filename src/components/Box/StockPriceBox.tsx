@@ -165,22 +165,22 @@ const StockPriceBox: React.FC<{ data: CompanyInfo }> = ({ data }) => {
         <PriceInfo>
           <KOSPI>
             {isOpen ? <NumberBtn number={1} /> : null}
-            {data.Code} {isOpen ? <NumberBtn number={2} /> : null}코스피
+            {data?.Code} {isOpen ? <NumberBtn number={2} /> : null}코스피
           </KOSPI>
-          <Title>{data.Name}</Title>
+          <Title>{data?.Name}</Title>
           <CurrentPrice>
             {isOpen ? <NumberBtn number={3} /> : null}
-            {Number(data.Close).toLocaleString()}
+            {Number(data?.Close).toLocaleString()}
           </CurrentPrice>
           <ChangeInfo>
             <PriceChange>
               {isOpen ? <NumberBtn number={4} /> : null}
               <img src={rise} style={{ width: "10px", height: "10px" }} alt={"상승 화살표"} />
-              <span>{data.Changes.toLocaleString()}</span>
+              <span>{data?.Changes.toLocaleString()}</span>
             </PriceChange>
             <PriceChange style={{ marginLeft: "0.62vw" }}>
               {isOpen ? <NumberBtn number={5} /> : null}
-              {data.ChagesRatio}
+              {data?.ChagesRatio}
             </PriceChange>
           </ChangeInfo>
         </PriceInfo>
@@ -189,11 +189,11 @@ const StockPriceBox: React.FC<{ data: CompanyInfo }> = ({ data }) => {
           <div style={{ display: "flex", flexDirection: "column" }}>
             <DetailPriceInfo>
               {isOpen ? <NumberBtn number={8} /> : null}
-              <PriceDetail label="시가" value={data.Open.toLocaleString()} />
+              <PriceDetail label="시가" value={data?.Open.toLocaleString()} />
               {isOpen ? <NumberBtn number={9} /> : null}
-              <PriceDetail label="고가" value={data.High.toLocaleString()} />
+              <PriceDetail label="고가" value={data?.High.toLocaleString()} />
               {isOpen ? <NumberBtn number={10} /> : null}
-              <PriceDetail label="저가" value={data.Low.toLocaleString()} />
+              <PriceDetail label="저가" value={data?.Low.toLocaleString()} />
             </DetailPriceInfo>
           </div>
         </div>
