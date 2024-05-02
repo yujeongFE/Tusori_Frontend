@@ -4,22 +4,23 @@ import { useNavigate } from "react-router-dom";
 import arrow from "../../assets/seemore_arrow.svg";
 import rise from "../../assets/rising_arrow.svg";
 import downward from "../../assets/downward_arrow.svg";
-import NumberBtn from "components/Dictionary/NumberBtn";
-import { useWords } from "components/SideBar/DictionarySideBar/WordsContext";
 
-const titles = ["종목명", "삼성전자", "SK하이닉스", "한미반도체", "SK스퀘어"];
-const data = [
-  ["현재가", "1,500,000", "1,500,000", "1,500,000", "1,500,000"],
-  ["전일비", "400", "400", "400", "400"],
-  ["등락률", "-0.54%", "0.54%", "0.54%", "0.54%"],
-  ["시가총액", "75,100", "75,100", "75,100", "75,100"],
-  ["거래량", "75,100", "75,100", "75,100", "75,100"],
-  ["외인보증 비율", "75,100", "75,100", "75,100", "75,100"],
-  ["종가", "75,100", "75,100", "75,100", "75,100"],
-  ["ROE", "75,100", "75,100", "75,100", "75,100"],
-  ["PBR", "75,100", "75,100", "75,100", "75,100"],
-  ["PER", "75,100", "75,100", "75,100", "75,100"],
-];
+interface TopStockInfo {
+  Code: string;
+  Name: string;
+  Close: string;
+  ChagesRatio: number;
+  Volume: number;
+  Marcap: number;
+  PER: number;
+  PBR: number;
+  EPS: number;
+  DIV: number;
+}
+
+interface TopStockInfos {
+  top_5_stocks_info: TopStockInfo[];
+}
 
 const Container = styled.div`
   display: flex;
@@ -73,9 +74,9 @@ const StyledTable = styled.table`
   border-collapse: collapse;
 `;
 
-const StyledTh = styled.th<{ isTitleCell: boolean }>`
+const StyledTh = styled.th<{ isTitleCell?: boolean }>`
   padding: 8px;
-  width: 25%;
+  width: 16.6%;
   height: 4vh;
   border-top: 2px solid #ebebeb;
   border-bottom: 2px solid #ebebeb;
@@ -87,9 +88,9 @@ const StyledTh = styled.th<{ isTitleCell: boolean }>`
   }
 `;
 
-const StyledTd = styled.td<{ value: string }>`
+const StyledTd = styled.td<{ value?: string }>`
   padding: 8px;
-  width: 25%;
+  width: 16.6%;
   height: 5.37vh;
   border-top: 2px solid #ebebeb;
   border-bottom: 2px solid #ebebeb;
@@ -140,19 +141,10 @@ const More = styled.span`
   }
 `;
 
-const Triangle = styled.img`
-  width: 12px;
-  height: 12px;
-  @media (max-width: 768px) {
-    width: 12px;
-    height: 8px;
-  }
-`;
-const IndustryComparisonTable: React.FC<{ height: string; isMobile: boolean }> = ({ height, isMobile }) => {
+const IndustryComparisonTable: React.FC<{ height: string; isMobile: boolean; data: TopStockInfos }> = ({ height, isMobile, data }) => {
   const navigate = useNavigate();
-  const { isOpen } = useWords();
 
-  const handlClick = () => {
+  const handleClick = () => {
     navigate("/mypage");
   };
 
@@ -165,48 +157,69 @@ const IndustryComparisonTable: React.FC<{ height: string; isMobile: boolean }> =
             <StyledTable>
               <thead>
                 <tr>
-                  {titles.slice(0, isMobile ? 3 : titles.length).map((title, index) => (
-                    <StyledTh key={index} isTitleCell={index === 0}>
-                      {title}
-                    </StyledTh>
-                  ))}
+                  <StyledTh isTitleCell>종목명</StyledTh>
+                  {data?.top_5_stocks_info
+                    .slice(0, isMobile ? 3 : data?.top_5_stocks_info.length)
+                    .map((stock, index) => <StyledTh key={index}>{stock.Name}</StyledTh>)}
                 </tr>
               </thead>
               <tbody>
-                {data.map((row, rowIndex) => (
-                  <tr key={rowIndex}>
-                    {row.slice(0, isMobile ? 3 : row.length).map((cell, cellIndex) => (
-                      <StyledTd
-                        key={cellIndex}
-                        value={cell}
-                        style={{
-                          color:
-                            rowIndex === 2
-                              ? rowIndex === 2 && cellIndex > 0
-                                ? parseFloat(cell) > 0
-                                  ? "#F00"
-                                  : "#0075FF"
-                                : ""
-                              : rowIndex === 1 && cellIndex > 0
-                                ? parseInt(cell) > 0
-                                  ? "#F00"
-                                  : "#0075FF"
-                                : "",
-                        }}
-                      >
-                        {rowIndex === 1 && cellIndex == 0 && isOpen && <NumberBtn number={25} />}
-                        {rowIndex === 2 && cellIndex == 0 && isOpen && <NumberBtn number={26} />}
-                        {rowIndex === 1 && cellIndex !== 0 ? cellIndex > 0 ? <Triangle src={rise} /> : <Triangle src={downward} /> : ""}
-                        {cell}
-                      </StyledTd>
-                    ))}
-                  </tr>
-                ))}
+                <tr>
+                  <StyledTd>현재가</StyledTd>
+                  {data?.top_5_stocks_info
+                    .slice(0, isMobile ? 3 : data?.top_5_stocks_info.length)
+                    .map((stock, index) => <StyledTd key={index}>{Number(stock.Close).toLocaleString()}</StyledTd>)}
+                </tr>
+                <tr>
+                  <StyledTd>등락률</StyledTd>
+
+                  {data?.top_5_stocks_info.slice(0, isMobile ? 3 : data?.top_5_stocks_info.length).map((stock, index) => (
+                    <StyledTd style={{ color: "red" }} key={index}>
+                      {stock.Volume >= 0 ? `+${stock.Volume.toLocaleString()}` : `${stock.Volume.toLocaleString()}`}
+                    </StyledTd>
+                  ))}
+                </tr>
+                <tr>
+                  <StyledTd>시가총액</StyledTd>
+                  {data?.top_5_stocks_info
+                    .slice(0, isMobile ? 3 : data?.top_5_stocks_info.length)
+                    .map((stock, index) => <StyledTd key={index}>{stock?.Marcap.toLocaleString()}</StyledTd>)}
+                </tr>
+                <tr>
+                  <StyledTd>거래량</StyledTd>
+                  {data?.top_5_stocks_info
+                    .slice(0, isMobile ? 3 : data?.top_5_stocks_info.length)
+                    .map((stock, index) => <StyledTd key={index}>{stock?.Volume.toLocaleString()}</StyledTd>)}
+                </tr>
+                <tr>
+                  <StyledTd>배당 수익률</StyledTd>
+                  {data?.top_5_stocks_info
+                    .slice(0, isMobile ? 3 : data?.top_5_stocks_info.length)
+                    .map((stock, index) => <StyledTd key={index}>{stock?.DIV.toLocaleString()}%</StyledTd>)}
+                </tr>
+                <tr>
+                  <StyledTd>EPS</StyledTd>
+                  {data?.top_5_stocks_info
+                    .slice(0, isMobile ? 3 : data?.top_5_stocks_info.length)
+                    .map((stock, index) => <StyledTd key={index}>{stock?.EPS.toLocaleString()}</StyledTd>)}
+                </tr>
+                <tr>
+                  <StyledTd>PBR</StyledTd>
+                  {data?.top_5_stocks_info
+                    .slice(0, isMobile ? 3 : data?.top_5_stocks_info.length)
+                    .map((stock, index) => <StyledTd key={index}>{stock?.PBR.toLocaleString()}</StyledTd>)}
+                </tr>
+                <tr>
+                  <StyledTd>PER</StyledTd>
+                  {data?.top_5_stocks_info
+                    .slice(0, isMobile ? 3 : data?.top_5_stocks_info.length)
+                    .map((stock, index) => <StyledTd key={index}>{stock?.PER.toLocaleString()}</StyledTd>)}
+                </tr>
               </tbody>
             </StyledTable>
           </TableContainer>
           {!isMobile && (
-            <div onClick={handlClick} style={{ display: "flex", flexDirection: "column", alignItems: "center", marginRight: "5vw" }}>
+            <div onClick={handleClick} style={{ display: "flex", flexDirection: "column", alignItems: "center", marginRight: "5vw" }}>
               <Arrow src={arrow} alt={"더보기"} />
               <More>더보기</More>
             </div>

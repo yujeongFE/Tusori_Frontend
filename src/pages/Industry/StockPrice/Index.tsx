@@ -90,7 +90,7 @@ const Index = () => {
           )}
         </RowFlexBox>
         <Table style={{ zIndex: 3 }}>
-          <IndustryComparisonTable height={"auto"} isMobile={isMobile} />
+          <IndustryComparisonTable height={"auto"} isMobile={isMobile} data={stockData} />
         </Table>
       </FlexBox>
     </div>
