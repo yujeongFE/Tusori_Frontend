@@ -111,11 +111,11 @@ const FinancialIndicators: React.FC<{ data: CompanyInfo }> = ({ data }) => {
         <Subtitle>{data?.Stocks.toLocaleString()}</Subtitle>
       </Box>
       <Box>
-        <Title>{isOpen ? <NumberBtn number={17} /> : null}거래량</Title>
+        <Title>{isOpen ? <NumberBtn number={16} /> : null}거래량</Title>
         <Subtitle>{data?.Volume.toLocaleString()}</Subtitle>
       </Box>
       <Box>
-        <Title>{isOpen ? <NumberBtn number={18} /> : null}배당수익률</Title>
+        <Title>{isOpen ? <NumberBtn number={17} /> : null}배당수익률</Title>
         <Subtitle>{data?.DIV}</Subtitle>
       </Box>
     </Container>

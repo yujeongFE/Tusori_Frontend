@@ -106,6 +106,16 @@ const Img = styled.img`
   }
 `;
 
+const List = styled.ul`
+  margin-left: 10px;
+  padding: 0px;
+  gap: 10px;
+`;
+
+const ListItem = styled.li`
+  font-size: 12px;
+`;
+
 const CloseBtn = styled.button`
   cursor: pointer;
   border: none;
@@ -253,6 +263,12 @@ const DictionarySideBar: React.FC<DictionarySideBarProps> = ({ isOpen, setIsOpen
                   <WordAndDescription>
                     <strong>{item.word} :</strong>
                     <Description>{item.description}</Description>
+                    {item.subDescription1 && (
+                      <List>
+                        <ListItem>{item.subDescription1}</ListItem>
+                        {item.subDescription2 && <ListItem>{item.subDescription2}</ListItem>}
+                      </List>
+                    )}
                   </WordAndDescription>
                 </Words>
               ))}
