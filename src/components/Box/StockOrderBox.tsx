@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import styled, { css } from "styled-components";
 import NumberBtn from "components/Dictionary/NumberBtn";
 import { useWords } from "components/SideBar/DictionarySideBar/WordsContext";
-
 interface StockOrderBoxProps {
   isModalOpen?: boolean;
   setIsModalOpen?: React.Dispatch<React.SetStateAction<boolean>>;
@@ -57,24 +56,25 @@ const Button = styled.div`
   text-align: center;
 `;
 
-const BuyButton = styled.div`
+const BuyButton = styled.div<{ active: boolean }>`
   ${commonButtonStyles}
   border-radius: 12px 0px 0px 12px;
   background: #fff;
-  border-color: #708ffe;
-  color: #456eff;
+  border-color: ${(props) => (props.active ? "#708ffe" : "#BABABA")};
+  color: ${(props) => (props.active ? "#456eff" : "#BABABA")};
   font-weight: 700;
+  cursor: pointer;
 `;
 
-const SellButton = styled.div`
+const SellButton = styled.div<{ active: boolean }>`
   ${commonButtonStyles}
   border-radius: 0px 12px 12px 0px;
   background: rgba(255, 255, 255, 0.74);
-  border-color: #bababa;
-  color: #3d3d3d;
-  font-weight: 400;
+  border-color: ${(props) => (props.active ? "#708ffe" : "#BABABA")};
+  color: ${(props) => (props.active ? "#456eff" : "#BABABA")};
+  font-weight: 700;
+  cursor: pointer;
 `;
-
 const ButtonText = styled.div`
   display: flex;
   align-items: center;
@@ -148,12 +148,12 @@ const AssetText = styled.span`
   }
 `;
 
-const ConfirmButton = styled.div`
+const ConfirmButton = styled.div<{ disabled: boolean }>`
   width: 24vw;
   height: 7vh;
   border-radius: 20px;
   border: 2px solid #fff;
-  background: #708ffe;
+  background: ${(props) => (!props.disabled ? "#708ffe" : "#bababa")};
   box-shadow: 0px 2px 8px 0px rgba(0, 0, 0, 0.05);
   color: #fff;
   text-align: center;
@@ -254,11 +254,22 @@ const StockOrderBox: React.FC<StockOrderBoxProps> = ({ isModalOpen, setIsModalOp
   const [quantity, setQuantity] = useState("");
   const [mobileGuid, setMobileGuid] = useState(false);
   const { isOpen } = useWords();
+  const [activeButton, setActiveButton] = useState<"buy" | "sell">("buy");
+
+  const ActiveBuyButton = () => {
+    setActiveButton("buy");
+  };
+
+  const ActiveSellButton = () => {
+    setActiveButton("sell");
+  };
   const handleBuyButtonClick = () => {
-    setIsModalOpen?.(true);
     {
-      isMobile && setMobileGuid(true);
+      price && quantity && setIsModalOpen?.(true);
     }
+
+    const parsedPrice = parseFloat(price);
+    const parsedQuantity = parseFloat(quantity);
   };
 
   const handleCloseModal = () => {
@@ -279,11 +290,11 @@ const StockOrderBox: React.FC<StockOrderBoxProps> = ({ isModalOpen, setIsModalOp
       {!mobileGuid && (
         <>
           <Button>
-            <BuyButton>
-              <ButtonText>{!isMobile && isOpen && <NumberBtn number={19} />}매수</ButtonText>
+            <BuyButton onClick={ActiveBuyButton} active={activeButton === "buy"}>
+              <ButtonText>{!isMobile && isOpen && <NumberBtn number={18} />}매수</ButtonText>
             </BuyButton>
-            <SellButton>
-              <ButtonText>{!isMobile && isOpen && <NumberBtn number={20} />}매도</ButtonText>
+            <SellButton onClick={ActiveSellButton} active={activeButton === "sell"}>
+              <ButtonText>{!isMobile && isOpen && <NumberBtn number={19} />}매도</ButtonText>
             </SellButton>
           </Button>
           <InputContainer>
@@ -303,34 +314,37 @@ const StockOrderBox: React.FC<StockOrderBoxProps> = ({ isModalOpen, setIsModalOp
           </InputContainer>
           <Line />
           <AssetsInfo>
-            <AssetText>{!isMobile && isOpen && <NumberBtn number={21} />}가용자산</AssetText>
+            <AssetText>{!isMobile && isOpen && <NumberBtn number={20} />}가용자산</AssetText>
             <AssetText>10,000,000 원</AssetText>
           </AssetsInfo>
           <Line style={{ width: isMobile ? "90%" : "25vw" }} />
           <AssetsInfo>
-            <AssetText>{!isMobile && isOpen && <NumberBtn number={22} />}평균매수가</AssetText>
+            <AssetText>{!isMobile && isOpen && <NumberBtn number={21} />}평균매수가</AssetText>
             <AssetText>10,000,000 원</AssetText>
           </AssetsInfo>
           <Line style={{ width: isMobile ? "90%" : "25vw" }} />
           <AssetsInfo>
-            <AssetText>{!isMobile && isOpen && <NumberBtn number={23} />}보유량</AssetText>
+            <AssetText>{!isMobile && isOpen && <NumberBtn number={22} />}보유량</AssetText>
             <AssetText>10,000,000 원</AssetText>
           </AssetsInfo>
-          <ConfirmButton onClick={handleBuyButtonClick}>매수하기</ConfirmButton>
+          <ConfirmButton disabled={!price || !quantity} onClick={handleBuyButtonClick}>
+            {" "}
+            <span>{activeButton === "buy" ? "매수하기" : "매도하기"}</span>
+          </ConfirmButton>
           {isModalOpen && (
             <ConfirmModal>
               <div style={{ margin: "30px" }}>삼성전자</div>
               <Line />
               <ModalContext>
-                <span>매수가</span>
-                <span style={{ color: "red" }}>10,000</span>
+                <span>{activeButton === "buy" ? "매수가" : "매도가"}</span>
+                <span style={{ color: "red" }}>{price}</span>
                 <span style={{ color: "black" }}>원</span>
               </ModalContext>
               <Line />
               <ModalContext>
-                <span>매수량</span>
-                <span style={{ color: "red" }}>500</span>
-                <span style={{ color: "black" }}>원</span>
+                <span>{activeButton === "buy" ? "매수량" : "매도량"}</span>
+                <span style={{ color: "red" }}>{quantity}</span>
+                <span style={{ color: "black" }}>주</span>
               </ModalContext>
               <Line />
               <div style={{ margin: "30px", fontWeight: "400" }}>거래를 진행하시겠어요?</div>
@@ -367,18 +381,18 @@ const StockOrderBox: React.FC<StockOrderBoxProps> = ({ isModalOpen, setIsModalOp
       )}
       {isMobile && mobileGuid && (
         <>
-          <div style={{ margin: "30px" }}>삼성전자</div>
+          <div style={{ margin: "30px" }}>{}</div>
           <Line />
           <ModalContext>
-            <span>매수가</span>
-            <span style={{ color: "red" }}>10,000</span>
+            <span>{activeButton === "buy" ? "매수가" : "매도가"}</span>
+            <span style={{ color: "red" }}>{price}</span>
             <span style={{ color: "black" }}>원</span>
           </ModalContext>
           <Line />
           <ModalContext>
-            <span>매수량</span>
-            <span style={{ color: "red" }}>500</span>
-            <span style={{ color: "black" }}>원</span>
+            <span>{activeButton === "buy" ? "매수량" : "매도량"}</span>
+            <span style={{ color: "red" }}>{quantity}</span>
+            <span style={{ color: "black" }}>주</span>
           </ModalContext>
           <Line />
           <div style={{ margin: "30px", fontWeight: "400", fontSize: "14px" }}>거래를 진행하시겠어요?</div>
