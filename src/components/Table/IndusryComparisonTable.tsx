@@ -172,10 +172,9 @@ const IndustryComparisonTable: React.FC<{ height: string; isMobile: boolean; dat
                 </tr>
                 <tr>
                   <StyledTd>등락률</StyledTd>
-
                   {data?.top_5_stocks_info.slice(0, isMobile ? 3 : data?.top_5_stocks_info.length).map((stock, index) => (
-                    <StyledTd style={{ color: "red" }} key={index}>
-                      {stock.Volume >= 0 ? `+${stock.Volume.toLocaleString()}` : `${stock.Volume.toLocaleString()}`}
+                    <StyledTd style={{ color: stock.ChagesRatio >= 0 ? "red" : "blue" }} key={index}>
+                      {stock.ChagesRatio >= 0 ? `+${stock.ChagesRatio.toLocaleString()}%` : `${stock.ChagesRatio.toLocaleString()}%`}
                     </StyledTd>
                   ))}
                 </tr>
