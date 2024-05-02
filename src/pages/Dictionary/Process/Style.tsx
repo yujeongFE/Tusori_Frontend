@@ -82,16 +82,30 @@ export const Button = styled.button<{ selected: boolean }>`
   @media (max-width: 532px) {
     width: 33vw;
     height: 38px;
-    font-size: 12px;
+    font-size: 14px;
   }
-  @media (max-width: 400px) {
-    font-size: 10px;
+  @media (max-width: 463px) {
+    font-size: 13px;
     padding-left: 1vw;
   }
-  @media (max-width: 320px) {
-    width: 31vw;
+  @media (max-width: 421px) {
+    width: 35vw;
     height: 35px;
-    font-size: 9px;
+    margin-right: 10px;
+    font-size: 12px;
+  }
+  @media (max-width: 371px) {
+    margin-right: 9px;
+    font-size: 11px;
+  }
+  @media (max-width: 342px) {
+    margin-right: 8px;
+    font-size: 11px;
+  }
+  @media (max-width: 338px) {
+    width: 36vw;
+    margin-right: 5px;
+    font-size: 10px;
   }
 `;
 
@@ -104,7 +118,7 @@ export const Span = styled.span`
     font-size: 12px;
   }
   @media (max-width: 400px) {
-    font-size: 10px;
+    font-size: 10.5px;
   }
 `;
 

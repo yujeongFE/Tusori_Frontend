@@ -93,6 +93,6 @@ const ContentText = styled.div`
   font-size: 20px;
   margin: 0 0 100px 0;
   @media (max-width: 768px) {
-    font-size: 12px;
+    font-size: 14px;
   }
 `;

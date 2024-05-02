@@ -146,6 +146,7 @@ const LoginButton = styled.button`
   background: #eff3ff;
   padding: 16px 0 16px 0;
   width: 85%;
+  color: #2a2a2a;
 
   @media (min-width: 768.1px) {
     display: none;

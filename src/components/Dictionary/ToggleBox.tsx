@@ -6,6 +6,12 @@ const Container = styled.div`
   flex-direction: column;
   align-items: center;
   font-size: 20px;
+  @media (max-width: 550px) {
+    font-size: 18px;
+  }
+  @media (max-width: 400px) {
+    font-size: 16px;
+  }
 `;
 
 const Button = styled.button`
