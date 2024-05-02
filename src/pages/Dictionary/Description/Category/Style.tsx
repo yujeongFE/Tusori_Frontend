@@ -8,9 +8,16 @@ export const Container = styled.div`
   text-align: center;
 `;
 
+//맨 위에 있는 설명
 export const Title = styled.div`
   font-size: 20px;
   font-family: Pretendard-Medium;
+  @media (max-width: 550px) {
+    font-size: 18px;
+  }
+  @media (max-width: 400px) {
+    font-size: 16px;
+  }
 `;
 
 export const Line = styled.div`
@@ -56,6 +63,10 @@ export const Button = styled.button<{ selected: boolean }>`
   @media (max-width: 1378px) {
     font-size: 18px;
   }
+  @media (max-width: 500px) {
+    font-size: 16px;
+    padding: 10px 20px;
+  }
 `;
 
 export const DescriptBox = styled.div`
@@ -64,17 +75,31 @@ export const DescriptBox = styled.div`
   margin-top: 57px;
 `;
 
+// DescriptBox의 단어
 export const Word = styled.div`
   color: #2a2a2a;
   font-size: 28px;
   font-family: Pretendard-Medium;
   margin: 50px 0 21px 0;
+  @media (max-width: 550px) {
+    font-size: 25px;
+  }
+  @media (max-width: 400px) {
+    font-size: 22px;
+  }
 `;
 
+// DescriptBox의 설명
 export const Text = styled.div`
-font-size: 20px;
-text-align: center;
-padding: 0 10% 0 10%;
-margin-bottom: 47px;
-white-space: pre-wrap;
+  font-size: 20px;
+  text-align: center;
+  padding: 0 10% 0 10%;
+  margin-bottom: 47px;
+  white-space: pre-wrap;
+  @media (max-width: 550px) {
+    font-size: 18px;
+  }
+  @media (max-width: 400px) {
+    font-size: 16px;
+  }
 `;
