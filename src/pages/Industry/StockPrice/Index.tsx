@@ -48,10 +48,17 @@ const Index = () => {
   }, []);
 
   useEffect(() => {
-    if (location.state) {
-      const sector = location.state.sector;
-      const name = location.state.name;
+    const sector = location.state?.sector;
+    const name = location.state?.name;
+
+    if (sector && name) {
       fetchData({ sector, name });
+    }
+    // searchBar를 통해 페이지로 접속한 경우
+    else {
+      const sector2 = " ";
+      const name2 = decodeURIComponent(location.pathname.split("/").pop() || "");
+      fetchData({ sector: sector2, name: name2 });
     }
   }, [location.state]);
 
