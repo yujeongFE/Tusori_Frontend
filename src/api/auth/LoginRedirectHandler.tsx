@@ -26,6 +26,7 @@ const LoginRedirectHandler: React.FC = () => {
           console.log("Login success:", response.data.data);
           //console.log("data:", response.data.data.nickname);
           localStorage.setItem("accessToken", response.data.data.accessToken);
+          localStorage.setItem("id", response.data.data.id);
           window.location.href = "/";
         })
         .catch((error) => {

@@ -6,35 +6,15 @@ import { useMyPageData } from "api/mypage/mypageDataContext";
 import { useWords } from "components/SideBar/DictionarySideBar/WordsContext";
 
 const ProfileBox: React.FC = () => {
-  const [nickname, setNickName] = React.useState<string>("");
-  const [email, setEmail] = React.useState<string>("");
-  const [assets, setAssets] = React.useState<number>(0);
   const { user_info } = useMyPageData();
   const { isOpen } = useWords();
-
-  useEffect(() => {
-    const fetchData = async () => {
-      const result = await MyPageData();
-      if (result) {
-        setNickName(result.user_info.nickname);
-        setEmail(result.user_info.email);
-        setAssets(result.user_info.assets);
-      }
-    };
-    fetchData();
-  }, []);
 
   return (
     <UserInfoContainer>
       <UserInfoBox>
         <ProfileContainer>
-          <ProfileImg src={`${process.env.PUBLIC_URL}/assets/Tiger.webp`} alt="profile" />
-          <RowContainer>
-            <UserName>{user_info?.nickname}</UserName>
-            <EditBtn>
-              <img src={`${process.env.PUBLIC_URL}/assets/Mypage/editBtn.svg`} alt="edit" />
-            </EditBtn>
-          </RowContainer>
+          <ProfileImg src={`${process.env.PUBLIC_URL}/assets/auth/bear.svg`} alt="profile" />
+          <UserName>{user_info?.nickname}</UserName>
           <UserEmail>{user_info?.email}</UserEmail>
         </ProfileContainer>
 
@@ -47,7 +27,7 @@ const ProfileBox: React.FC = () => {
 
           <RowContainer style={{ justifyContent: " space-between" }}>
             <AssetText>{isOpen ? <NumberBtn number={1} /> : null}총 자산</AssetText>
-            <AmountText>{user_info?.assets}</AmountText>
+            <AmountText>{user_info?.assets?.toLocaleString()}</AmountText>
           </RowContainer>
           <RowContainer style={{ justifyContent: " space-between" }}>
             <AssetText>{isOpen ? <NumberBtn number={2} /> : null}가용 자산</AssetText>
@@ -120,14 +100,14 @@ const ProfileContainer = styled.div`
 `;
 
 const ProfileImg = styled.img`
-  width: 136px;
-  height: 136px;
   border-radius: 50%;
   margin: 31px 0 18px 0;
   @media (max-width: 768px) {
-    width: 114px;
-    height: 114px;
-    margin: -45px 0 18px 0;
+    margin: -60px 0 18px 0;
+  }
+  @media (max-width: 500px) {
+    width: 120px;
+    height: auto;
   }
 `;
 
@@ -143,6 +123,7 @@ const UserName = styled.div`
   }
 `;
 
+/*
 const EditBtn = styled.button`
   height: 24px;
   width: 24px;
@@ -159,7 +140,7 @@ const EditBtn = styled.button`
     padding: 0px 0 0 1vw;
   }
 `;
-
+*/
 const UserEmail = styled.div`
   color: #3a3a3a;
   font-size: 20px;
