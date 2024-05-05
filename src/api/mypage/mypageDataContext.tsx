@@ -1,22 +1,21 @@
-import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
-import { MyPageData, UserInfomation, InterestedStocksInfo, recordsStocksInfo, saveStocksInfo } from './mypageData';
+import React, { createContext, useContext, useState, useEffect, ReactNode } from "react";
+import { MyPageData, UserInfomation, InterestedStocksInfo, recordsStocksInfo, saveStocksInfo } from "./mypageData";
 
 interface MyPageDataState {
   user_info: UserInfomation | null;
-  interest_stocks: InterestedStocksInfo[];
-  stock_records: recordsStocksInfo[];
-  save_stocks: saveStocksInfo[];
+  interest_stocks: InterestedStocksInfo[] | null;
+  stock_records: recordsStocksInfo[] | null;
+  save_stocks: saveStocksInfo[] | null;
 }
 
 const initialState: MyPageDataState = {
   user_info: null,
-  interest_stocks: [],
-  stock_records: [],
-  save_stocks: [],
+  interest_stocks: null,
+  stock_records: null,
+  save_stocks: null,
 };
 
 const MyPageDataContext = createContext<MyPageDataState>(initialState);
-
 
 interface MyPageDataProviderProps {
   children: ReactNode;

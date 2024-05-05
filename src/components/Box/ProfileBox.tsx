@@ -1,7 +1,6 @@
 import React, { useEffect } from "react";
 import styled from "styled-components";
 import NumberBtn from "components/Dictionary/NumberBtn";
-import { MyPageData } from "api/mypage/mypageData";
 import { useMyPageData } from "api/mypage/mypageDataContext";
 import { useWords } from "components/SideBar/DictionarySideBar/WordsContext";
 
