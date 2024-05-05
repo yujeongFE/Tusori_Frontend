@@ -53,64 +53,80 @@ const Index: React.FC = () => {
     ]);
   }, [setWords]);
 
+  // my보유주식
   useEffect(() => {
-    const fetchData = async () => {
-      if (save_stocks && interest_stocks && stock_records) {
-        const myData = save_stocks.map((stock) => [
-          stock.name,
-          stock.purchase.toLocaleString(),
-          stock.close.toLocaleString(),
-          stock.average_price.toLocaleString(),
-          stock.my_quantity.toLocaleString() + "주",
-          stock.retention_date.toLocaleString() + "일",
-          stock.valuation > 0 ? `+${stock.valuation}` : `-${stock.valuation}`,
-          stock.valuation_rate > 0 ? `+${stock.valuation_rate.toFixed(2)}%` : `-${stock.valuation_rate.toFixed(2)}%`,
-        ]);
-        setMyStocksData((prevData) => [...prevData.slice(0, 1), ...myData]);
+    if (save_stocks == null) return;
+    const myData = save_stocks
+      .map((stock) => [
+        stock.name,
+        stock.purchase.toLocaleString(),
+        stock.close.toLocaleString(),
+        stock.average_price.toLocaleString(),
+        stock.my_quantity.toLocaleString() + "주",
+        stock.retention_date.toLocaleString() + "일",
+        stock.valuation > 0 ? `+${stock.valuation}` : `-${stock.valuation}`,
+        stock.valuation_rate > 0 ? `+${stock.valuation_rate.toFixed(2)}%` : `-${stock.valuation_rate.toFixed(2)}%`,
+      ])
+      .map((row) => row.map((item) => String(item)));
+    setMyStocksData((prevData) => [...prevData.slice(0, 1), ...myData]);
+  }, [save_stocks]);
 
-        const interestedData = interest_stocks.map((stock) => [
-          "",
-          stock.Name,
-          stock.Close,
-          stock.Changes > 0 ? `▲ ${stock.Changes.toLocaleString()}` : `▼ ${Math.abs(stock.Changes).toLocaleString()}`,
-          stock.ChagesRatio > 0 ? `+${stock.ChagesRatio}%` : `-${Math.abs(stock.ChagesRatio)}%`,
-          stock.Open.toLocaleString(),
-          stock.High.toLocaleString(),
-          stock.Low.toLocaleString(),
-          stock.Volume.toLocaleString(),
-          stock.Marcap.toLocaleString(),
-        ]);
-        setInterestedData((prevData) => [...prevData.slice(0, 1), ...interestedData]);
+  // 관심 주식
+  useEffect(() => {
+    if (interest_stocks == null) return;
+    const interestedData = interest_stocks
+      .map((stock) => [
+        "",
+        stock.Name,
+        stock.Close,
+        stock.Changes > 0 ? `▲ ${stock.Changes.toLocaleString()}` : `▼ ${Math.abs(stock.Changes).toLocaleString()}`,
+        stock.ChagesRatio > 0 ? `+${stock.ChagesRatio}%` : `-${Math.abs(stock.ChagesRatio)}%`,
+        stock.Open.toLocaleString(),
+        stock.High.toLocaleString(),
+        stock.Low.toLocaleString(),
+        stock.Volume.toLocaleString(),
+        stock.Marcap.toLocaleString(),
+      ])
+      .map((row) => row.map((item) => String(item)));
 
-        const buyingLogs = stock_records
-          .filter((stock) => stock.sell_or_buy === true)
-          .map((stock) => [
-            stock.name,
-            stock.sell_or_buy_date,
-            stock.record_date,
-            stock.contract_price.toLocaleString(),
-            stock.quantity.toLocaleString() + "주",
-            stock.proceeds > 0 ? `+${stock.proceeds}` : `-${stock.proceeds}`,
-            stock.proceeds_rate > 0 ? `+${stock.proceeds_rate.toFixed(2)}%` : `-${stock.proceeds_rate.toFixed(2)}%`,
-          ]);
-        setBuyingLogsData((prevData) => [...prevData.slice(0, 1), ...buyingLogs]);
+    setInterestedData((prevData) => [...prevData.slice(0, 1), ...interestedData]);
+  }, [interest_stocks]);
 
-        const sellingLogs = stock_records
-          .filter((stock) => stock.sell_or_buy === false)
-          .map((stock) => [
-            stock.name,
-            stock.sell_or_buy_date,
-            stock.record_date,
-            stock.contract_price.toLocaleString(),
-            stock.quantity.toLocaleString() + "주",
-            stock.proceeds > 0 ? `+${stock.proceeds}` : `-${stock.proceeds}`,
-            stock.proceeds_rate > 0 ? `+${stock.proceeds_rate.toFixed(2)}%` : `-${stock.proceeds_rate.toFixed(2)}%`,
-          ]);
-        setSellingLogsData((prevData) => [...prevData.slice(0, 1), ...sellingLogs]);
-      }
-    };
-    fetchData();
-  }, [save_stocks, interest_stocks, stock_records]);
+  //매수 일지
+  useEffect(() => {
+    if (stock_records == null) return;
+    const buyingLogs = stock_records
+      .filter((stock) => stock.sell_or_buy === true)
+      .map((stock) => [
+        stock.name,
+        stock.sell_or_buy_date,
+        stock.record_date,
+        stock.contract_price.toLocaleString(),
+        stock.quantity.toLocaleString() + "주",
+        stock.proceeds > 0 ? `+${stock.proceeds}` : `-${stock.proceeds}`,
+        stock.proceeds_rate > 0 ? `+${stock.proceeds_rate.toFixed(2)}%` : `-${stock.proceeds_rate.toFixed(2)}%`,
+      ])
+      .map((row) => row.map((item) => String(item)));
+    setBuyingLogsData((prevData) => [...prevData.slice(0, 1), ...buyingLogs]);
+  }, [stock_records]);
+
+  //매도 일지
+  useEffect(() => {
+    if (stock_records == null) return;
+    const sellingLogs = stock_records
+      .filter((stock) => stock.sell_or_buy === false)
+      .map((stock) => [
+        stock.name,
+        stock.sell_or_buy_date,
+        stock.record_date,
+        stock.contract_price.toLocaleString(),
+        stock.quantity.toLocaleString() + "주",
+        stock.proceeds > 0 ? `+${stock.proceeds}` : `-${stock.proceeds}`,
+        stock.proceeds_rate > 0 ? `+${stock.proceeds_rate.toFixed(2)}%` : `-${stock.proceeds_rate.toFixed(2)}%`,
+      ])
+      .map((row) => row.map((item) => String(item)));
+    setSellingLogsData((prevData) => [...prevData.slice(0, 1), ...sellingLogs]);
+  }, [stock_records]);
 
   return (
     <Container>
