@@ -11,6 +11,9 @@ import MobliePageName from "components/layouts/MobliePageName";
 import { useLocation } from "react-router-dom";
 import { IndividualStockInfo } from "api/industry/IndividualStockInfo";
 
+import { useRecoilState } from "recoil";
+import { stockCodeState } from "recoil/atoms";
+
 const RowFlexBox = styled.div`
   display: flex;
   flex-direction: row;
@@ -24,12 +27,14 @@ const Index = () => {
   const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
   const [stockData, setStockData] = useState<any>(null);
   const location = useLocation();
+  const [stockCode, setStockCode] = useRecoilState(stockCodeState);
 
   const fetchData = async ({ sector, name }: { sector: string; name: string }) => {
     try {
       const data = await IndividualStockInfo(sector, name);
       if (data) {
         setStockData(data);
+        setStockCode(data?.company_info?.Code);
       }
     } catch (error) {
       console.error("개별 종목 상세 데이터 파싱 오류:", error);
@@ -127,7 +132,13 @@ const Index = () => {
         <RowFlexBox style={{ gap: "2.44vw", flexDirection: isMobile ? "column" : "row" }}>
           <FinancialIndicators data={stockData?.company_info} />
           {!isMobile && (
-            <StockOrderBox isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen} guidModalOpen={guidModalOpen} setGuidModalOpen={setGuidModalOpen} />
+            <StockOrderBox
+              code={stockCode}
+              isModalOpen={isModalOpen}
+              setIsModalOpen={setIsModalOpen}
+              guidModalOpen={guidModalOpen}
+              setGuidModalOpen={setGuidModalOpen}
+            />
           )}
         </RowFlexBox>
         <Table style={{ zIndex: 3 }}>

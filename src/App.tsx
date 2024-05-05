@@ -12,28 +12,31 @@ import StockPrice from "./pages/Industry/StockPrice/Index";
 import LoginRedirectHandler from "api/auth/LoginRedirectHandler";
 import { WordsProvider } from "components/SideBar/DictionarySideBar/WordsContext";
 import { MyPageDataProvider } from "api/mypage/mypageDataContext";
+import { RecoilRoot } from "recoil";
 
 const App: React.FC = () => {
   return (
-    <MyPageDataProvider>
-      <WordsProvider>
-        <Layout>
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/login" element={<Login />} />
-            <Route path="/oauth2/kakao" element={<LoginRedirectHandler />} />
-            <Route path="/dict/process" element={<Process />} />
-            <Route path="/dict/words" element={<Words />}>
-              <Route path=":category" element={<Description />} />
-            </Route>
-            <Route path="/mypage" element={<Mypage />} />
-            <Route path="/industry" element={<Industry />} />
-            <Route path="/industry/details" element={<Details />} />
-            <Route path="/industry/:name" element={<StockPrice />} />
-          </Routes>
-        </Layout>
-      </WordsProvider>
-    </MyPageDataProvider>
+    <RecoilRoot>
+      <MyPageDataProvider>
+        <WordsProvider>
+          <Layout>
+            <Routes>
+              <Route path="/" element={<Home />} />
+              <Route path="/login" element={<Login />} />
+              <Route path="/oauth2/kakao" element={<LoginRedirectHandler />} />
+              <Route path="/dict/process" element={<Process />} />
+              <Route path="/dict/words" element={<Words />}>
+                <Route path=":category" element={<Description />} />
+              </Route>
+              <Route path="/mypage" element={<Mypage />} />
+              <Route path="/industry" element={<Industry />} />
+              <Route path="/industry/details" element={<Details />} />
+              <Route path="/industry/:name" element={<StockPrice />} />
+            </Routes>
+          </Layout>
+        </WordsProvider>
+      </MyPageDataProvider>
+    </RecoilRoot>
   );
 };
 
