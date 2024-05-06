@@ -30,12 +30,7 @@ export async function fetchHomePageData(): Promise<{
 } | null> {
   try {
     console.log("데이터를 불러오는 중...");
-    const accessToken = localStorage.getItem("accessToken");
-    const response = await axios.get(`${process.env.REACT_APP_BASE_URL}/fastapi/home`, {
-      headers: {
-        Authorization: `Bearer ${accessToken}`,
-      },
-    });
+    const response = await axios.get(`${process.env.REACT_APP_BASE_URL}/fastapi/home`);
 
     // 데이터 형식 단언
     const responseData = response.data as {
