@@ -1,7 +1,7 @@
-import React, { useState } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import styled from "styled-components";
-import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import sectors from "json/sector.json";
 
 const SearchBarContainer = styled.div`
   display: flex;
@@ -68,6 +68,7 @@ const SuggestionsList = styled.ul`
   z-index: 10;
   top: 120px;
 `;
+
 const SuggestionItem = styled.li`
   padding: 7px 18px;
   font-size: 13px;
@@ -80,46 +81,54 @@ const SuggestionItem = styled.li`
 const SearchBar: React.FC = () => {
   const [inputValue, setInputValue] = useState("");
   const [suggestions, setSuggestions] = useState<string[]>([]);
-  const [timerId, setTimerId] = useState<NodeJS.Timeout | null>(null); // Store timer ID
-
+  const [sector, setSector] = useState<string>("");
   const navigate = useNavigate();
+  const suggestionsRef = useRef<HTMLUListElement>(null);
 
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const value = e.target.value;
-    setInputValue(value);
+  // 외부클릭 감지
+  useEffect(() => {
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
 
-    if (timerId) {
-      clearTimeout(timerId);
+  // 리스트 외부 클릭을 처리
+  const handleClickOutside = (e: MouseEvent) => {
+    if (suggestionsRef.current && !suggestionsRef.current.contains(e.target as Node)) {
+      setSuggestions([]);
     }
-
-    const newTimerId = setTimeout(() => {
-      search();
-    }, 500);
-
-    setTimerId(newTimerId);
   };
 
-  const sector = "1차 비철금속 제조업";
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value.toLowerCase().replace(/\s+/g, "");
+    setInputValue(value);
+    search(value);
+  };
 
-  const search = async () => {
-    try {
-      const response = await axios.get(`${process.env.REACT_APP_BASE_URL}/fastapi/sic/${encodeURIComponent(sector)}`);
-      const searchData: { Name: string }[] = response.data;
-
-      // 입력한 검색어와 Name에 있는 값들 중 동일한 값이 있는지 확인
-      const matchingNames = searchData.filter((item) => item.Name.includes(inputValue)).map((item) => item.Name);
-
-      console.log("Matching Names:", matchingNames);
-      setSuggestions(matchingNames);
-    } catch (error) {
-      console.error("Error searching:", error);
+  const search = (value: string) => {
+    const matchingNames: string[] = [];
+    const matchingSectors: string[] = [];
+    for (const [sector, names] of Object.entries(sectors)) {
+      if (Array.isArray(names)) {
+        names.forEach((name) => {
+          if (name.toLowerCase().replace(/\s+/g, "").startsWith(value)) {
+            matchingNames.push(name);
+            matchingSectors.push(sector);
+          }
+        });
+      }
+    }
+    setSuggestions(matchingNames);
+    if (matchingSectors.length > 0) {
+      setSector(matchingSectors[0]);
     }
   };
 
   const handleSuggestionClick = (suggestion: string) => {
     setInputValue(suggestion);
-
     navigate(`/industry/${suggestion}`, { state: { sector: sector, name: suggestion } });
+    setSuggestions([]);
   };
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
@@ -130,13 +139,15 @@ const SearchBar: React.FC = () => {
 
   const handleSearch = () => {
     navigate(`/industry/${inputValue}`, { state: { sector: sector, name: inputValue } });
+    setSuggestions([]);
   };
 
   return (
     <SearchBarContainer>
       <Input type="text" placeholder="종목 검색하기" value={inputValue} onChange={handleInputChange} onKeyDown={handleKeyDown} />
       {suggestions.length > 0 && (
-        <SuggestionsList>
+        <SuggestionsList ref={suggestionsRef}>
+          {" "}
           {suggestions.map((suggestion, index) => (
             <SuggestionItem key={index} onClick={() => handleSuggestionClick(suggestion)}>
               {suggestion}
