@@ -10,7 +10,7 @@ export interface StockInfo {
   Name: string;
   Close: string;
   Changes: number;
-  ChangesRatio: number;
+  ChagesRatio: number;
   Volume: number;
 }
 
@@ -30,7 +30,12 @@ export async function fetchHomePageData(): Promise<{
 } | null> {
   try {
     console.log("데이터를 불러오는 중...");
-    const response = await axios.get(`${process.env.REACT_APP_BASE_URL}/fastapi/home`);
+    const accessToken = localStorage.getItem("accessToken");
+    const response = await axios.get(`${process.env.REACT_APP_BASE_URL}/fastapi/home`, {
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+      },
+    });
 
     // 데이터 형식 단언
     const responseData = response.data as {
