@@ -12,9 +12,9 @@ interface StockInfoBoxProps {
   category?: string[];
   login?: boolean;
   stockData?: {
-    top_5_kospi: { Name: string; Close: string; Changes: number; ChangesRatio: number; Volume: number }[];
-    top_5_kosdaq: { Name: string; Close: string; Changes: number; ChangesRatio: number; Volume: number }[];
-    top_5_konex: { Name: string; Close: string; Changes: number; ChangesRatio: number; Volume: number }[];
+    top_5_kospi: { Name: string; Close: string; Changes: number; ChagesRatio: number; Volume: number }[];
+    top_5_kosdaq: { Name: string; Close: string; Changes: number; ChagesRatio: number; Volume: number }[];
+    top_5_konex: { Name: string; Close: string; Changes: number; ChagesRatio: number; Volume: number }[];
   };
 }
 
@@ -280,7 +280,7 @@ const StockInfoBox: React.FC<StockInfoBoxProps> = ({ title, category = [], login
         Name: string;
         Close: string;
         Changes: number;
-        ChangesRatio: number;
+        ChagesRatio: number;
         Volume: number;
       }[]
     | null
@@ -361,7 +361,7 @@ const StockInfoBox: React.FC<StockInfoBoxProps> = ({ title, category = [], login
                   {renderTableCell(data.Name, "name", { flex: "1.5" })}
                   {renderTableCell(data.Close.toLocaleString(), "currentPrice")}
                   {renderTableCell(data.Changes, "priceChange")}
-                  {renderTableCell(data.ChangesRatio, "percentageChange")}
+                  {renderTableCell(data.ChagesRatio, "percentageChange")}
                   {renderTableCell(data.Volume.toLocaleString(), "volume")}
                 </TableRow>
               ))}

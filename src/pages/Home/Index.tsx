@@ -16,9 +16,9 @@ const Index = () => {
     kospi: { Close: number; Comp: number; Change: number };
     kosdaq: { Close: number; Comp: number; Change: number };
     usdkrw_data: { close_price: number; percentage_change: number; price_change: number };
-    top_5_kospi: { Name: string; Close: string; Changes: number; ChangesRatio: number; Volume: number }[];
-    top_5_kosdaq: { Name: string; Close: string; Changes: number; ChangesRatio: number; Volume: number }[];
-    top_5_konex: { Name: string; Close: string; Changes: number; ChangesRatio: number; Volume: number }[];
+    top_5_kospi: { Name: string; Close: string; Changes: number; ChagesRatio: number; Volume: number }[];
+    top_5_kosdaq: { Name: string; Close: string; Changes: number; ChagesRatio: number; Volume: number }[];
+    top_5_konex: { Name: string; Close: string; Changes: number; ChagesRatio: number; Volume: number }[];
   } | null>(null);
 
   const fetchData = async () => {
