@@ -2,7 +2,11 @@ import React, { useState } from "react";
 import styled, { css } from "styled-components";
 import NumberBtn from "components/Dictionary/NumberBtn";
 import { useWords } from "components/SideBar/DictionarySideBar/WordsContext";
+import { sendStockOrderRequest } from "api/industry/StockOrder";
+import { StockOrderSuccessResponse } from "api/industry/StockOrder";
+import { useMyPageData } from "api/mypage/mypageDataContext";
 interface StockOrderBoxProps {
+  code: string;
   isModalOpen?: boolean;
   setIsModalOpen?: React.Dispatch<React.SetStateAction<boolean>>;
   guidModalOpen?: boolean;
@@ -249,12 +253,14 @@ const CloseModalButton = styled.div`
   }
 `;
 
-const StockOrderBox: React.FC<StockOrderBoxProps> = ({ isModalOpen, setIsModalOpen, guidModalOpen, setGuidModalOpen, isMobile }) => {
+const StockOrderBox: React.FC<StockOrderBoxProps> = ({ code, isModalOpen, setIsModalOpen, guidModalOpen, setGuidModalOpen, isMobile }) => {
   const [price, setPrice] = useState("");
   const [quantity, setQuantity] = useState("");
   const [mobileGuid, setMobileGuid] = useState(false);
   const { isOpen } = useWords();
+  const { user_info } = useMyPageData();
   const [activeButton, setActiveButton] = useState<"buy" | "sell">("buy");
+  const [purchaseData, setPurchaseData] = useState<StockOrderSuccessResponse | undefined>(undefined);
 
   const ActiveBuyButton = () => {
     setActiveButton("buy");
@@ -263,13 +269,31 @@ const StockOrderBox: React.FC<StockOrderBoxProps> = ({ isModalOpen, setIsModalOp
   const ActiveSellButton = () => {
     setActiveButton("sell");
   };
-  const handleBuyButtonClick = () => {
-    {
-      price && quantity && setIsModalOpen?.(true);
+
+  const parsedPrice = parseFloat(price);
+  const parsedQuantity = parseFloat(quantity);
+
+  const handleBuyButtonClick = async () => {
+    if (!price || !quantity) {
+      return;
     }
 
-    const parsedPrice = parseFloat(price);
-    const parsedQuantity = parseFloat(quantity);
+    try {
+      // 추후 알림 요청 보내기 추가
+
+      // 알림 데이터가 정상적으로 받아와진 경우 주식 구매 요청 보내기
+
+      const responseData: StockOrderSuccessResponse | null = await sendStockOrderRequest(code, parsedPrice, parsedQuantity);
+
+      if (responseData) {
+        setPurchaseData(responseData);
+        setIsModalOpen?.(true); // 성공 시 모달 열기
+      } else {
+        console.error("Invalid response received");
+      }
+    } catch (error) {
+      console.error("Error:", error); // 요청 실패 시 에러 처리
+    }
   };
 
   const handleCloseModal = () => {
@@ -315,17 +339,17 @@ const StockOrderBox: React.FC<StockOrderBoxProps> = ({ isModalOpen, setIsModalOp
           <Line />
           <AssetsInfo>
             <AssetText>{!isMobile && isOpen && <NumberBtn number={20} />}가용자산</AssetText>
-            <AssetText>10,000,000 원</AssetText>
+            <AssetText>{purchaseData ? `${user_info?.assets} → ${purchaseData.data.available_assets} 원` : user_info?.assets} 원</AssetText>
           </AssetsInfo>
           <Line style={{ width: isMobile ? "90%" : "25vw" }} />
           <AssetsInfo>
             <AssetText>{!isMobile && isOpen && <NumberBtn number={21} />}평균매수가</AssetText>
-            <AssetText>10,000,000 원</AssetText>
+            <AssetText>{purchaseData ? `${purchaseData?.data.average_purchase} 원` : ""}</AssetText>
           </AssetsInfo>
           <Line style={{ width: isMobile ? "90%" : "25vw" }} />
           <AssetsInfo>
             <AssetText>{!isMobile && isOpen && <NumberBtn number={22} />}보유량</AssetText>
-            <AssetText>10,000,000 원</AssetText>
+            <AssetText>{purchaseData ? `${purchaseData?.data.reserves} 주` : ""}</AssetText>
           </AssetsInfo>
           <ConfirmButton disabled={!price || !quantity} onClick={handleBuyButtonClick}>
             {" "}
