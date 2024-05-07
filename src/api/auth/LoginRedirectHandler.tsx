@@ -24,9 +24,15 @@ const LoginRedirectHandler: React.FC = () => {
         .post(`${process.env.REACT_APP_BASE_URL}/springboot/user/kakao?code=${code}`)
         .then((response) => {
           console.log("Login success:", response.data.data);
-          //console.log("data:", response.data.data.nickname);
           localStorage.setItem("accessToken", response.data.data.accessToken);
-          localStorage.setItem("id", response.data.data.id);
+
+          // 5시간 후 accessToken 만료
+          setTimeout(
+            () => {
+              localStorage.removeItem("accessToken");
+            },
+            5 * 60 * 60 * 1000,
+          );
           window.location.href = "/";
         })
         .catch((error) => {
