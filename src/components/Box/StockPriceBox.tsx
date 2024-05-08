@@ -4,6 +4,7 @@ import { useWords } from "components/SideBar/DictionarySideBar/WordsContext";
 import NumberBtn from "components/Dictionary/NumberBtn";
 import rise from "../../assets/rising_arrow.svg";
 import graph from "../../assets/CandleGraph.png";
+import { BookmarkRequest } from "api/bookmark/bookMark";
 
 interface CompanyInfo {
   Code: string;
@@ -149,14 +150,28 @@ const Star = styled.img`
   }
 `;
 
-const StockPriceBox: React.FC<{ data: CompanyInfo }> = ({ data }) => {
+const StockPriceBox: React.FC<{ sector: string; data: CompanyInfo }> = ({ sector, data }) => {
   const stockName = decodeURIComponent(window.location.href.split("/")[4]);
   const [isFavorite, setIsFavorite] = useState<boolean>(false);
   const { isOpen } = useWords();
 
   // 즐겨찾기 기능(별 부분)
-  const toggleFavorite = () => {
+  const toggleFavorite = async (sector: string, code: string) => {
     setIsFavorite(!isFavorite);
+
+    if (isFavorite) {
+      try {
+        const response = await BookmarkRequest(sector, code);
+
+        if (response) {
+          console.log("북마크 업데이트 완료!");
+        } else {
+          console.error("북마크 업데이트 실패");
+        }
+      } catch (error) {
+        console.error("북마크 업데이트 요청 중 오류 발생:", error);
+      }
+    }
   };
 
   return (
@@ -185,7 +200,11 @@ const StockPriceBox: React.FC<{ data: CompanyInfo }> = ({ data }) => {
           </ChangeInfo>
         </PriceInfo>
         <div style={{ display: "flex", flexDirection: "column", alignItems: "flex-end", marginRight: "1.25vw" }}>
-          <img src={isFavorite ? "/assets/Industry/filledStar.svg" : "/assets/Industry/emptyStar.svg"} style={{ cursor: "pointer" }} onClick={toggleFavorite} />
+          <img
+            src={isFavorite ? "/assets/Industry/filledStar.svg" : "/assets/Industry/emptyStar.svg"}
+            style={{ cursor: "pointer" }}
+            onClick={() => toggleFavorite(sector, data?.Code)}
+          />
           <div style={{ display: "flex", flexDirection: "column" }}>
             <DetailPriceInfo>
               {isOpen ? <NumberBtn number={8} /> : null}
