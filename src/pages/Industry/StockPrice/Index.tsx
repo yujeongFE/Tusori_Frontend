@@ -28,6 +28,7 @@ const Index = () => {
   const [stockData, setStockData] = useState<any>(null);
   const location = useLocation();
   const [stockCode, setStockCode] = useRecoilState(stockCodeState);
+  const [sector, setSector] = useState("");
 
   const fetchData = async ({ sector, name }: { sector: string; name: string }) => {
     try {
@@ -57,6 +58,7 @@ const Index = () => {
       const sector = location.state.sector;
       const name = location.state.name;
       fetchData({ sector, name });
+      setSector(sector);
     }
   }, [location.state]);
 
@@ -126,7 +128,7 @@ const Index = () => {
       <MobliePageName pageTitle="종목 상세" />
       <FlexBox style={{ zIndex: 2 }}>
         <RowFlexBox style={{ gap: "2.44vw", flexDirection: isMobile ? "column" : "row" }}>
-          <StockPriceBox data={stockData?.company_info} />
+          <StockPriceBox sector={sector && sector} data={stockData?.company_info} />
           <CompanyInfoBox isMobile={isMobile} />
         </RowFlexBox>
         <RowFlexBox style={{ gap: "2.44vw", flexDirection: isMobile ? "column" : "row" }}>
