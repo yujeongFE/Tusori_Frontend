@@ -10,16 +10,18 @@ export interface StockOrderSuccessResponse {
   };
 }
 
-export const sendStockOrderRequest = async (code: string, price: number, amount: number): Promise<StockOrderSuccessResponse | null> => {
+export const sendStockOrderRequest = async (code: string, price: number, amount: number, isSell: boolean): Promise<StockOrderSuccessResponse | null> => {
   const requestData = {
     price: price,
     amount: amount,
   };
   const token = localStorage.getItem("accessToken");
 
+  const endpoint = isSell ? "sell" : "buy";
+
   try {
     const response: AxiosResponse<StockOrderSuccessResponse> = await axios.post(
-      `${process.env.REACT_APP_BASE_URL}/springboot/sic/buy?code=${code}`,
+      `${process.env.REACT_APP_BASE_URL}/springboot/sic/${endpoint}?code=${code}`,
       requestData,
       {
         headers: {
