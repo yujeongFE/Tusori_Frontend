@@ -1,10 +1,11 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styled, { css } from "styled-components";
 import NumberBtn from "components/Dictionary/NumberBtn";
 import { useWords } from "components/SideBar/DictionarySideBar/WordsContext";
 import { sendStockOrderRequest } from "api/industry/StockOrder";
 import { StockOrderSuccessResponse } from "api/industry/StockOrder";
 import { UserInfomation } from "api/mypage/mypageData";
+import { getDay } from "date-fns";
 interface StockOrderBoxProps {
   code: string;
   isModalOpen?: boolean;
@@ -182,13 +183,13 @@ const ConfirmModal = styled.div`
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: 28vw;
+  width: auto;
   height: 433px;
   background: #fff;
   border-radius: 12px;
   box-shadow: 0px 2px 8px 0px rgba(0, 0, 0, 0.2);
   z-index: 32;
-  padding: 35px 55px;
+  padding: 50px 55px;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -261,6 +262,8 @@ const StockOrderBox: React.FC<StockOrderBoxProps> = ({ code, isModalOpen, setIsM
   const { isOpen } = useWords();
   const [activeButton, setActiveButton] = useState<"buy" | "sell">("buy");
   const [purchaseData, setPurchaseData] = useState<StockOrderSuccessResponse | undefined>(undefined);
+  const [SuccessMessage, setSuccessMessage] = useState("");
+  const [popupMessage, setPopupMessage] = useState("");
 
   const ActiveBuyButton = () => {
     setActiveButton("buy");
@@ -309,6 +312,33 @@ const StockOrderBox: React.FC<StockOrderBoxProps> = ({ code, isModalOpen, setIsM
   const handleCloseGuidModal = () => {
     setGuidModalOpen?.(false);
   };
+
+  function isWeekday(date: Date): boolean {
+    const dayOfWeek = getDay(date);
+    return dayOfWeek >= 1 && dayOfWeek <= 5;
+  }
+
+  useEffect(() => {
+    const checkTradingHours = () => {
+      const currentDate = new Date();
+      const currentHour = currentDate.getHours();
+      const currentMinutes = currentDate.getMinutes();
+
+      // 현 시각이 평일이고, 오전 9시 이상, 오후 3시 반 이하인지 확인
+      if (isWeekday(currentDate) && currentHour >= 9 && currentHour <= 15 && !(currentHour === 15 && currentMinutes > 30)) {
+        setSuccessMessage("거래가 요청되었습니다.");
+        setPopupMessage("거래 체결 시 알림이 전송됩니다.");
+      } else {
+        setSuccessMessage("평일 9:00~15:30에만 거래가 가능합니다. ");
+        setPopupMessage("다음 거래 가능 시간에 자동으로 거래가 체결됩니다.");
+      }
+    };
+
+    if (guidModalOpen) {
+      checkTradingHours();
+    }
+  }, [guidModalOpen]);
+
   return (
     <Container mobile={mobileGuid}>
       {!mobileGuid && (
@@ -392,7 +422,9 @@ const StockOrderBox: React.FC<StockOrderBoxProps> = ({ code, isModalOpen, setIsM
             <ConfirmModal style={{ height: "30vh", justifyContent: "center", alignItems: "center" }}>
               <div style={{ color: "#2E5CFF" }}>거래 요청 완료</div>
               <span style={{ textAlign: "center", margin: "50px", fontWeight: "500" }}>
-                거래가 요청되었습니다. <br /> 거래 체결 시 알림이 전송됩니다.
+                <span style={{ fontWeight: "600" }}>{SuccessMessage} </span>
+                <br />
+                {popupMessage}
               </span>
               <div>
                 <CloseModalButton onClick={handleCloseGuidModal} style={{ background: "#708FFE", width: "23vw" }}>
