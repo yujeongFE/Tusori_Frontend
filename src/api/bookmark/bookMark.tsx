@@ -6,11 +6,13 @@ export interface BookmarkResponse {
   user_id: number;
 }
 
-export const BookmarkRequest = async (sector: string, code: string): Promise<BookmarkResponse | null> => {
+export const BookmarkRequest = async (sector: string, code: string, method: "POST" | "DELETE"): Promise<BookmarkResponse | null> => {
   const token = localStorage.getItem("accessToken");
 
   try {
-    const response: AxiosResponse<BookmarkResponse> = await axios.post(`${process.env.REACT_APP_BASE_URL}/fastapi/sic/${sector}/${code}`, null, {
+    const response: AxiosResponse<BookmarkResponse> = await axios({
+      method, 
+      url: `${process.env.REACT_APP_BASE_URL}/fastapi/sic/${sector}/${code}`,
       headers: {
         Authorization: `Bearer ${token}`,
       },
