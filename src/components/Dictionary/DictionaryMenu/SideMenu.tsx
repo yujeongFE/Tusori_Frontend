@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { NavLink } from "react-router-dom";
 
 const Title = styled.div`
-  width: 195px;
+  width: 175px;
   font-size: 28px;
   font-family: Pretendard-Bold;
   padding: 61px 0 30px 0;
@@ -14,7 +14,7 @@ const Title = styled.div`
 const StyledNav = styled.nav`
   display: flex;
   flex-direction: column;
-  width: 195px;
+  width: 175px;
 `;
 
 const StyledNavLink = styled(NavLink)`

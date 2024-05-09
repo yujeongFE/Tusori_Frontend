@@ -36,16 +36,14 @@ const StyledNavLink = styled(NavLink)`
 
 const DictMenu: React.FC = () => {
   return (
-    <>
-      <StyledNav>
-        <StyledNavLink to="/dict/process" className={({ isActive }: { isActive: boolean }) => (isActive ? "active" : "")}>
-          주식 투자 과정
-        </StyledNavLink>
-        <StyledNavLink to="/dict/words" className={({ isActive }: { isActive: boolean }) => (isActive ? "active" : "")}>
-          주식 용어 설명
-        </StyledNavLink>
-      </StyledNav>
-    </>
+    <StyledNav>
+      <StyledNavLink to="/dict/process" className={({ isActive }: { isActive: boolean }) => (isActive ? "active" : "")}>
+        주식 투자 과정
+      </StyledNavLink>
+      <StyledNavLink to="/dict/words" className={({ isActive }: { isActive: boolean }) => (isActive ? "active" : "")}>
+        주식 용어 설명
+      </StyledNavLink>
+    </StyledNav>
   );
 };
 

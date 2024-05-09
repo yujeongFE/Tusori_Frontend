@@ -39,6 +39,7 @@ const StyledNavLink = styled(NavLink)<StyledNavLinkProps>`
   &:hover,
   &.active {
     ${activeLinkStyle}
+    cursor: pointer;
   }
 
   @media (max-width: 1074px) {

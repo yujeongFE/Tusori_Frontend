@@ -19,7 +19,7 @@ export const ButtonContainer = styled.div`
   display: flex;
   flex-direction: row;
   align-items: center;
-  margin: 0 16px 24px 0;
+  margin: 0 10px 24px 0;
 
   @media (max-width: 964px) {
     margin: 0 5px 16px 0;
@@ -36,20 +36,20 @@ export const Br = styled.br`
 `;
 
 export const Button = styled.button<{ selected: boolean }>`
-  width: 190px;
+  width: 185px;
   height: 100px;
   font-family: Pretendard-Medium;
   border: none;
   border-radius: 8px;
   background-color: #fff;
   color: #2a2a2a;
-  font-size: 20px;
+  font-size: 19px;
   box-shadow: 0px 2px 8px 0px rgba(0, 0, 0, 0.08);
   cursor: pointer;
   transition: background-color 0.3s;
   line-height: 150%;
   flex-shrink: 0;
-  margin-right: 16px;
+  margin-right: 10px;
   &:hover {
     background-color: #eff2ff;
   }
