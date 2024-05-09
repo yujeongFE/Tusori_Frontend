@@ -194,7 +194,8 @@ const StockPriceBox: React.FC<{ sector: string; data: CompanyInfo; interestStock
         <PriceInfo>
           <KOSPI>
             {isOpen ? <NumberBtn number={1} /> : null}
-            {data?.Code} {isOpen ? <NumberBtn number={2} /> : null}코스피
+            {data?.Code} {isOpen ? <NumberBtn number={2} /> : null}
+            {data?.Market}
           </KOSPI>
           <Title>{data?.Name}</Title>
           <CurrentPrice>
