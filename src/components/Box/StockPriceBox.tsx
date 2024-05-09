@@ -205,12 +205,11 @@ const StockPriceBox: React.FC<{ sector: string; data: CompanyInfo; interestStock
           <ChangeInfo>
             <PriceChange>
               {isOpen ? <NumberBtn number={4} /> : null}
-              <img src={rise} style={{ width: "10px", height: "10px" }} alt={"상승 화살표"} />
-              <span>{data?.Changes.toLocaleString()}</span>
+              {data?.Changes > 0 ? <span>▲ {data?.Changes.toLocaleString()}</span> : <span style={{ color: "#0075FF" }}>▼ {Math.abs(data?.Changes)}</span>}
             </PriceChange>
             <PriceChange style={{ marginLeft: "0.62vw" }}>
               {isOpen ? <NumberBtn number={5} /> : null}
-              {data?.ChagesRatio}
+              {data?.ChagesRatio > 0 ? <span>{data?.ChagesRatio}%</span> : <span style={{ color: "#0075FF" }}>{data?.ChagesRatio}%</span>}
             </PriceChange>
           </ChangeInfo>
         </PriceInfo>
