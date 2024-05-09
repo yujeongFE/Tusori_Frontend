@@ -8,6 +8,8 @@ import { fetchHomePageData } from "api/home/MarketInfo";
 
 const Index = () => {
   const { setWords } = useWords();
+  const [activeTitle, setActiveTitle] = useState("");
+
   useEffect(() => {
     setWords([{ word: "", description: "" }]);
   }, [setWords]);
@@ -43,7 +45,15 @@ const Index = () => {
     <>
       <FlexBox>
         <RowFlexBox>
-          <MarketInfoBoxContainer marketData={{ kospi: marketData?.kospi, kosdaq: marketData?.kosdaq, usdkrw_data: marketData?.usdkrw_data }} />
+          <MarketInfoBoxContainer
+            marketData={{
+              kospi: marketData?.kospi,
+              kosdaq: marketData?.kosdaq,
+              usdkrw_data: marketData?.usdkrw_data,
+            }}
+            activeTitle={activeTitle}
+            setActiveTitle={setActiveTitle}
+          />
           <Banner />
         </RowFlexBox>
         <TableContainer>
