@@ -136,7 +136,7 @@ const Index = () => {
       <MobliePageName pageTitle="종목 상세" />
       <FlexBox style={{ zIndex: 2 }}>
         <RowFlexBox style={{ gap: "2.44vw", flexDirection: isMobile ? "column" : "row" }}>
-          <StockPriceBox sector={sector && sector} data={stockData?.company_info} interestStocks={interest_stocks} />
+          <StockPriceBox sector={sector && sector} data={stockData?.company_info} interestStocks={interest_stocks ?? []} />
           <CompanyInfoBox isMobile={isMobile} />
         </RowFlexBox>
         <RowFlexBox style={{ gap: "2.44vw", flexDirection: isMobile ? "column" : "row" }}>
