@@ -30,3 +30,25 @@ export const RowFlexBox = styled.div`
     flex-direction: column;
   }
 `;
+
+export const ChartContainer = styled.div`
+  display: flex;
+  width: 100%;
+  height: 41.1vh;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  border-radius: 8px;
+  border: 1px solid #e3e3e3;
+  background: #fff;
+  margin-top: 3.5vh;
+`;
+
+export const CategoriesContainer = styled.div`
+  display: flex;
+  flex-wrap: nowrap;
+  overflow-x: auto;
+  gap: 1.3vw;
+  justify-content: center;
+`;
