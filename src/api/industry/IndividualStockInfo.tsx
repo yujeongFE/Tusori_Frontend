@@ -3,6 +3,7 @@ import axios, { AxiosResponse } from "axios";
 interface StockInfo {
   sector: string;
   company_info: CompanyInfo;
+  company_content: CompanyContent;
   top_5_stocks_info: TopStockInfo[];
 }
 
@@ -23,6 +24,14 @@ interface CompanyInfo {
   PBR: number;
   EPS: number;
   DIV: number;
+}
+export interface CompanyContent {
+  Industry: string;
+  ListingDate: string;
+  SettleMonth: string;
+  Representative: string;
+  HomePage: string;
+  Region: string;
 }
 
 interface TopStockInfo {

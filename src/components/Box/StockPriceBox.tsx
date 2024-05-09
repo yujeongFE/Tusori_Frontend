@@ -6,6 +6,7 @@ import rise from "../../assets/rising_arrow.svg";
 import graph from "../../assets/CandleGraph.png";
 import { BookmarkRequest } from "api/bookmark/bookMark";
 import { InterestedStocksInfo } from "api/mypage/mypageData";
+import CategoryButton from "components/Category/CategoryButton";
 
 interface CompanyInfo {
   Code: string;
@@ -137,24 +138,19 @@ const LongLine = styled.div`
   }
 `;
 
-const Graph = styled.img`
-  width: 100%;
-  height: auto;
-`;
-
-const Star = styled.img`
-  width: 24px;
-  height: 24px;
-  @media (max-width: 768px) {
-    width: 20px;
-    height: 20px;
-  }
+const CategoriesContainer = styled.div`
+  display: flex;
+  flex-wrap: nowrap;
+  overflow-x: auto;
+  gap: 1.3vw;
+  justify-content: center;
 `;
 
 const StockPriceBox: React.FC<{ sector: string; data: CompanyInfo; interestStocks: InterestedStocksInfo[] }> = ({ sector, data, interestStocks }) => {
   const stockName = decodeURIComponent(window.location.href.split("/")[4]);
   const [isFavorite, setIsFavorite] = useState<boolean>(false);
   const { isOpen } = useWords();
+  const [selectedCategory, setSelectedCategory] = useState("주봉");
 
   // 마이페이지 즐겨찾기 내역 중 종목 코드가 같으면 관심 종목 체크
   useEffect(() => {
@@ -186,6 +182,12 @@ const StockPriceBox: React.FC<{ sector: string; data: CompanyInfo; interestStock
     } catch (error) {
       console.error("북마크 업데이트 요청 중 오류 발생:", error);
     }
+  };
+
+  const categories = ["주봉", "월봉", "1일", "3개월", "1년", "3년", "10년"];
+
+  const handleCategoryChange = (category: string) => {
+    setSelectedCategory(category);
   };
 
   return (
@@ -232,7 +234,11 @@ const StockPriceBox: React.FC<{ sector: string; data: CompanyInfo; interestStock
         </div>
       </Header>
       <LongLine />
-      <Graph src={graph} alt={"일봉 그래프"} />
+      <CategoriesContainer>
+        {categories.map((category) => (
+          <CategoryButton key={category} category={category} isSelected={selectedCategory === category} onClick={handleCategoryChange} />
+        ))}
+      </CategoriesContainer>
     </BoxContainer>
   );
 };
