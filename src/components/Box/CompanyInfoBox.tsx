@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import Scrollbar from "../ScrollBar";
+import { CompanyContent } from "api/industry/IndividualStockInfo";
 
 const StockInfoContainer = styled.div`
   border-radius: 12px;
@@ -58,21 +59,27 @@ const Hyperlink = styled.a`
   }
 `;
 
-const CompanyInfoBox: React.FC = () => {
+interface CompanyInfoBoxProps {
+  company_content: CompanyContent;
+}
+
+const CompanyInfoBox: React.FC<CompanyInfoBoxProps> = ({ company_content }) => {
   return (
     <StockInfoContainer>
       <Title>기업소개</Title>
       <Description>
         <Scrollbar>
-          <p>분야: 제철 철강</p>
-          <p>상장일: 2024.05.09</p>
-          <p>결산월: 12월</p>
-          <p>대표자명: 한종희, 경계현,</p>
+          <p>분야: {company_content?.Industry}</p>
+          <p>상장일: {company_content?.ListingDate}</p>
+          <p>결산월: {company_content?.SettleMonth}</p>
+          <p>대표자명: {company_content?.Representative}</p>
           <p>
             홈페이지:{" "}
-            <Hyperlink href={"https://www.samsung.com/sec/"} target="_blank" rel="noopener noreferrer">
-              {"https://www.samsung.com/sec/"}
-            </Hyperlink>
+            {company_content?.HomePage && (
+              <Hyperlink href={company_content.HomePage} target="_blank" rel="noopener noreferrer">
+                {company_content.HomePage}
+              </Hyperlink>
+            )}
           </p>
         </Scrollbar>
       </Description>
