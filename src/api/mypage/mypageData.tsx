@@ -9,6 +9,7 @@ export interface UserInfomation {
 
 // 관심주식
 export interface InterestedStocksInfo {
+  Code: string; // 종목코드
   Name: string; // 종목명
   Close: string; // 종가
   Changes: number; // 전일비
