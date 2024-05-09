@@ -229,7 +229,7 @@ const HeaderMenu: React.FC = () => {
           </StyledNavLink>
         )}
         <StyledNavLink to="/industry">업종별시세</StyledNavLink>
-        <StyledNavLink to="/mypage" style={{ margin: "25.95px 0 0 0" }}>
+        <StyledNavLink to="/mypage" style={{ margin: "25.95px 0 0 0" }} onClick={() => (window.location.href = "/mypage")}>
           마이페이지
         </StyledNavLink>
       </SidebySideContainer>
