@@ -1,7 +1,5 @@
 import React from "react";
 import styled from "styled-components";
-import rise from "../../assets/rising_arrow.svg";
-import downward from "../../assets/downward_arrow.svg";
 import NumberBtn from "components/Dictionary/NumberBtn";
 import { useWords } from "components/SideBar/DictionarySideBar/WordsContext";
 import { useNavigate } from "react-router-dom";
@@ -96,8 +94,8 @@ const StockInfoTable: React.FC<StockInfoTableProps> = ({ titles, data, sector })
                 <TableCell>{Number(rowData.Close).toLocaleString()}</TableCell>
                 <TableCell isChangeCell={true} value={rowData.Changes}>
                   <TableCellContainer>
-                    {rowData.Changes > 0 && <ArrowIcon src={rise} alt="rising_arrow" />}
-                    {rowData.Changes < 0 && <ArrowIcon src={downward} alt="down_arrow" />}
+                    {rowData.Changes > 0 && <ArrowIcon src={`${process.env.PUBLIC_URL}/assets/Home/rising_arrow.svg`} alt="rising_arrow" />}
+                    {rowData.Changes < 0 && <ArrowIcon src={`${process.env.PUBLIC_URL}/assets/Home/downward_arrow.svg`} alt="down_arrow" />}
                     {Math.abs(rowData.Changes).toLocaleString()}
                   </TableCellContainer>
                 </TableCell>

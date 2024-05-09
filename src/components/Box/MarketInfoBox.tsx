@@ -1,7 +1,5 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
-import rising from "../../assets/rising_arrow.svg";
-import downward from "../../assets/downward_arrow.svg";
 import Slider from "react-slick";
 
 const Container = styled.div`
@@ -133,7 +131,7 @@ const ArrowImg = styled.img`
 
 const Arrow: React.FC<{ value: string; percent: string }> = ({ value, percent }) => {
   const isPositive = parseFloat(value) >= 0;
-  const arrowImage = isPositive ? rising : downward;
+  const arrowImage = isPositive ? `${process.env.PUBLIC_URL}/assets/Home/rising_arrow.svg` : `${process.env.PUBLIC_URL}/assets/Home/downward_arrow.svg`;
   const changeColor = isPositive ? "#f00" : "#0075FF";
 
   return (
@@ -208,7 +206,7 @@ const MarketInfoBoxContainer: React.FC<{ marketData: MarketData }> = ({ marketDa
       const marketInfos = [
         { title: "코스피", index: "로딩 중..." },
         { title: "코스닥", index: "로딩 중..." },
-        { title: "코넥스", index: "로딩 중..." },
+        { title: "환율", index: "로딩 중..." },
       ];
 
       return (

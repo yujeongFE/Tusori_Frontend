@@ -1,7 +1,6 @@
 import React from "react";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
-import arrow from "../../assets/seemore_arrow.svg";
 import { useWords } from "components/SideBar/DictionarySideBar/WordsContext";
 import NumberBtn from "components/Dictionary/NumberBtn";
 
@@ -220,7 +219,7 @@ const IndustryComparisonTable: React.FC<{ height: string; isMobile: boolean; dat
           </TableContainer>
           {!isMobile && (
             <div onClick={handleClick} style={{ display: "flex", flexDirection: "column", alignItems: "center", marginRight: "5vw" }}>
-              <Arrow src={arrow} alt={"더보기"} />
+              <Arrow src={`${process.env.PUBLIC_URL}/assets/Home/seemore_arrow.svg`} alt={"더보기"} />
               <More>더보기</More>
             </div>
           )}
