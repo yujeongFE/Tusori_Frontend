@@ -1,7 +1,5 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
-import rising from "../../assets/rising_arrow.svg";
-import downward from "../../assets/downward_arrow.svg";
 import Slider from "react-slick";
 
 const Container = styled.div`
@@ -46,6 +44,18 @@ const MarketInfoBox = styled.div`
   }
 `;
 
+const TitleContainer = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 9.5px;
+  margin-left: 1vw;
+  @media (max-width: 768px) {
+    justify-content: center;
+    margin-top: 7px;
+  }
+`;
+
 const Title = styled.div`
   color: #fff;
   font-family: Pretendard-Medium;
@@ -53,19 +63,22 @@ const Title = styled.div`
   font-style: normal;
   font-weight: 600;
   line-height: normal;
-  margin-top: 9.5px;
-  margin-left: 1vw;
 
   @media (max-width: 768px) {
-    align-items: center;
-    text-align: center;
     color: #fff;
     font-family: Pretendard-Bold;
     font-size: 14px;
-    font-style: bold;
     font-weight: 800;
-    line-height: normal;
-    margin-top: 7px;
+  }
+`;
+
+const ArrowImg = styled.img`
+  width: 13px;
+  margin-right: 10px;
+  @media (max-width: 768px) {
+    margin-right: 0px;
+    margin-left: 10px;
+    width: 9px;
   }
 `;
 
@@ -123,17 +136,9 @@ const ChangePercent = styled.span`
   }
 `;
 
-const ArrowImg = styled.img`
-  @media (max-width: 768px) {
-    width: 14px;
-    height: 14px;
-    margin-right: 1vw;
-  }
-`;
-
 const Arrow: React.FC<{ value: string; percent: string }> = ({ value, percent }) => {
   const isPositive = parseFloat(value) >= 0;
-  const arrowImage = isPositive ? rising : downward;
+  const arrowImage = isPositive ? `${process.env.PUBLIC_URL}/assets/Home/rising_arrow.svg` : `${process.env.PUBLIC_URL}/assets/Home/downward_arrow.svg`;
   const changeColor = isPositive ? "#f00" : "#0075FF";
 
   return (
@@ -150,12 +155,25 @@ interface MarketInfoProps {
   change: string;
   percent: string;
   style?: React.CSSProperties;
+  activeTitle: string;
+  setActiveTitle: (title: string) => void;
 }
+const MarketInfo: React.FC<MarketInfoProps> = ({ title, index, change, percent, style, activeTitle, setActiveTitle }) => {
+  const isActive = title === activeTitle;
 
-const MarketInfo: React.FC<MarketInfoProps> = ({ title, index, change, percent, style }) => {
+  const toggleDetail = () => {
+    setActiveTitle(isActive ? "" : title);
+  };
+
+  const arrowImage = isActive ? `${process.env.PUBLIC_URL}/assets/Home/fold_arrow.png` : `${process.env.PUBLIC_URL}/assets/Home/detail_arrow.png`;
+  const arrowAltText = isActive ? "fold_arrow" : "detail_arrow";
+
   return (
     <MarketInfoBox style={style}>
-      <Title>{title}</Title>
+      <TitleContainer onClick={toggleDetail}>
+        <Title>{title}</Title>
+        <ArrowImg src={arrowImage} alt={arrowAltText} />
+      </TitleContainer>
       <div style={{ margin: "auto" }}>
         <CurrentIndex>{index}</CurrentIndex>
         <ChangeIndex>
@@ -171,8 +189,11 @@ interface MarketData {
   kosdaq?: { Close: number; Comp: number; Change: number };
   usdkrw_data?: { close_price: number; percentage_change: number; price_change: number };
 }
-
-const MarketInfoBoxContainer: React.FC<{ marketData: MarketData }> = ({ marketData }) => {
+const MarketInfoBoxContainer: React.FC<{ marketData: MarketData; activeTitle: string; setActiveTitle: (title: string) => void }> = ({
+  marketData,
+  activeTitle,
+  setActiveTitle,
+}) => {
   const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
   const [isLoading, setIsLoading] = useState(true); // 데이터 로딩 상태 추가
   const settings = {
@@ -208,7 +229,7 @@ const MarketInfoBoxContainer: React.FC<{ marketData: MarketData }> = ({ marketDa
       const marketInfos = [
         { title: "코스피", index: "로딩 중..." },
         { title: "코스닥", index: "로딩 중..." },
-        { title: "코넥스", index: "로딩 중..." },
+        { title: "환율", index: "로딩 중..." },
       ];
 
       return (
@@ -216,13 +237,31 @@ const MarketInfoBoxContainer: React.FC<{ marketData: MarketData }> = ({ marketDa
           {isMobile ? (
             <Slider {...settings}>
               {marketInfos.map((info, index) => (
-                <MarketInfo key={index} title={info.title} index={info.index} change="" percent="" style={{ marginRight: "1.3vw" }} />
+                <MarketInfo
+                  key={index}
+                  title={info.title}
+                  index={info.index}
+                  change=""
+                  percent=""
+                  style={{ marginRight: "1.3vw" }}
+                  activeTitle={activeTitle}
+                  setActiveTitle={setActiveTitle}
+                />
               ))}
             </Slider>
           ) : (
             <div style={{ display: "flex" }}>
               {marketInfos.map((info, index) => (
-                <MarketInfo key={index} title={info.title} index={info.index} change="" percent="" style={{ marginRight: "1.3vw" }} />
+                <MarketInfo
+                  key={index}
+                  title={info.title}
+                  index={info.index}
+                  change=""
+                  percent=""
+                  style={{ marginRight: "1.3vw" }}
+                  activeTitle={activeTitle}
+                  setActiveTitle={setActiveTitle}
+                />
               ))}
             </div>
           )}
@@ -254,7 +293,16 @@ const MarketInfoBoxContainer: React.FC<{ marketData: MarketData }> = ({ marketDa
       const percentValue = title === "환율" ? exchangeRate?.percentage_change.toFixed(2) : (indexData?.Change ?? 0 * 100).toFixed(2);
 
       return closeValue && changeValue && percentValue ? (
-        <MarketInfo key={index} title={title} index={closeValue} change={changeValue} percent={percentValue} style={{ marginRight: "1.3vw" }} />
+        <MarketInfo
+          key={index}
+          title={title}
+          index={closeValue}
+          change={changeValue}
+          percent={percentValue}
+          style={{ marginRight: "1.3vw" }}
+          activeTitle={activeTitle}
+          setActiveTitle={setActiveTitle}
+        />
       ) : null;
     });
   };

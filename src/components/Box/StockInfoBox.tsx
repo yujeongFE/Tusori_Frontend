@@ -2,11 +2,6 @@ import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 
-// Image
-import downward from "../../assets/downward_arrow.svg";
-import rise from "../../assets/rising_arrow.svg";
-import nonSelect from "../../assets/gray_star.png";
-
 interface StockInfoBoxProps {
   title?: string;
   category?: string[];
@@ -244,19 +239,19 @@ const renderTableCell = (
       return value === "true" ? (
         <Star src={`${process.env.PUBLIC_URL}/assets/Mypage/star.svg`} alt="select_star" />
       ) : (
-        <Star src={nonSelect} alt="nonSelect_star" />
+        <Star src={`${process.env.PUBLIC_URL}/assets/Home/gray_star.png`} alt="nonSelect_star" />
       );
     case "priceChange":
       return (
         <TableCell>
           {value !== undefined && parseFloat(value.toString()) < 0 ? (
             <div style={{ display: "flex", alignItems: "center" }}>
-              <Arrow src={downward} alt="downward_arrow" />
+              <Arrow src={`${process.env.PUBLIC_URL}/assets/Home/downward_arrow.svg`} alt="downward_arrow" />
               <span style={{ marginRight: "0.2vw", color: cellColor }}>{value}</span>
             </div>
           ) : (
             <div style={{ display: "flex", alignItems: "center" }}>
-              <Arrow src={rise} alt="rising_arrow" style={{ margin: "0px" }} />
+              <Arrow src={`${process.env.PUBLIC_URL}/assets/Home/rising_arrow.svg`} alt="rising_arrow" style={{ margin: "0px" }} />
               <span style={{ marginRight: "0.2vw", color: cellColor }}>{value}</span>
             </div>
           )}
@@ -344,7 +339,9 @@ const StockInfoBox: React.FC<StockInfoBoxProps> = ({ title, category = [], login
           <Table>
             <TableHeader>
               <TableRow>
-                <TableCell style={{ flex: "0.5" }}>{isMyStockTable ? <Star src={nonSelect} alt="star" /> : "순위"}</TableCell>
+                <TableCell style={{ flex: "0.5" }}>
+                  {isMyStockTable ? <Star src={`${process.env.PUBLIC_URL}/assets/Home/gray_star.png`} alt="star" /> : "순위"}
+                </TableCell>
                 <TableCell style={{ flex: "1.5" }}>종목명</TableCell>
                 <TableCell>현재가</TableCell>
                 <TableCell>전일비</TableCell>
