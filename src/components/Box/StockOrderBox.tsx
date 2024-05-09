@@ -286,7 +286,9 @@ const StockOrderBox: React.FC<StockOrderBoxProps> = ({ code, isModalOpen, setIsM
 
       // 알림 데이터가 정상적으로 받아와진 경우 주식 구매 요청 보내기
 
-      const responseData: StockOrderSuccessResponse | null = await sendStockOrderRequest(code, parsedPrice, parsedQuantity);
+      const isSell = activeButton === "sell"; // 매도 버튼인지 여부 확인
+
+      const responseData: StockOrderSuccessResponse | null = await sendStockOrderRequest(code, parsedPrice, parsedQuantity, isSell);
 
       if (responseData) {
         setPurchaseData(responseData);
