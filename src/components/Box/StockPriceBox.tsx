@@ -1,9 +1,11 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { useWords } from "components/SideBar/DictionarySideBar/WordsContext";
 import NumberBtn from "components/Dictionary/NumberBtn";
 import rise from "../../assets/rising_arrow.svg";
 import graph from "../../assets/CandleGraph.png";
+import { BookmarkRequest } from "api/bookmark/bookMark";
+import { InterestedStocksInfo } from "api/mypage/mypageData";
 
 interface CompanyInfo {
   Code: string;
@@ -149,14 +151,41 @@ const Star = styled.img`
   }
 `;
 
-const StockPriceBox: React.FC<{ data: CompanyInfo }> = ({ data }) => {
+const StockPriceBox: React.FC<{ sector: string; data: CompanyInfo; interestStocks: InterestedStocksInfo[] }> = ({ sector, data, interestStocks }) => {
   const stockName = decodeURIComponent(window.location.href.split("/")[4]);
   const [isFavorite, setIsFavorite] = useState<boolean>(false);
   const { isOpen } = useWords();
 
+  // 마이페이지 즐겨찾기 내역 중 종목 코드가 같으면 관심 종목 체크
+  useEffect(() => {
+    if (interestStocks && Array.isArray(interestStocks)) {
+      const isStockFavorite = interestStocks.some((stock) => stock?.Code === data?.Code);
+      setIsFavorite(isStockFavorite);
+      console.log(isStockFavorite);
+    }
+  }, [interestStocks, data?.Code]);
+
   // 즐겨찾기 기능(별 부분)
-  const toggleFavorite = () => {
+  const toggleFavorite = async (sector: string, code: string) => {
     setIsFavorite(!isFavorite);
+
+    try {
+      const method = isFavorite ? "DELETE" : "POST"; // DELETE 또는 POST 메서드 선택
+
+      const response = await BookmarkRequest(sector, code, method);
+
+      if (response) {
+        if (isFavorite) {
+          console.log("북마크 삭제 완료!");
+        } else {
+          console.log("북마크 추가 완료!");
+        }
+      } else {
+        console.error("북마크 업데이트 실패");
+      }
+    } catch (error) {
+      console.error("북마크 업데이트 요청 중 오류 발생:", error);
+    }
   };
 
   return (
@@ -185,7 +214,11 @@ const StockPriceBox: React.FC<{ data: CompanyInfo }> = ({ data }) => {
           </ChangeInfo>
         </PriceInfo>
         <div style={{ display: "flex", flexDirection: "column", alignItems: "flex-end", marginRight: "1.25vw" }}>
-          <img src={isFavorite ? "/assets/Industry/filledStar.svg" : "/assets/Industry/emptyStar.svg"} style={{ cursor: "pointer" }} onClick={toggleFavorite} />
+          <img
+            src={isFavorite ? "/assets/Industry/filledStar.svg" : "/assets/Industry/emptyStar.svg"}
+            style={{ cursor: "pointer" }}
+            onClick={() => toggleFavorite(sector, data?.Code)}
+          />
           <div style={{ display: "flex", flexDirection: "column" }}>
             <DetailPriceInfo>
               {isOpen ? <NumberBtn number={8} /> : null}

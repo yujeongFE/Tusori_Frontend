@@ -4,7 +4,7 @@ import NumberBtn from "components/Dictionary/NumberBtn";
 import { useWords } from "components/SideBar/DictionarySideBar/WordsContext";
 import { sendStockOrderRequest } from "api/industry/StockOrder";
 import { StockOrderSuccessResponse } from "api/industry/StockOrder";
-import { useMyPageData } from "api/mypage/mypageDataContext";
+import { UserInfomation } from "api/mypage/mypageData";
 interface StockOrderBoxProps {
   code: string;
   isModalOpen?: boolean;
@@ -12,6 +12,7 @@ interface StockOrderBoxProps {
   guidModalOpen?: boolean;
   setGuidModalOpen?: React.Dispatch<React.SetStateAction<boolean>>;
   isMobile?: boolean;
+  userInfo: UserInfomation;
 }
 
 const commonButtonStyles = css`
@@ -253,12 +254,11 @@ const CloseModalButton = styled.div`
   }
 `;
 
-const StockOrderBox: React.FC<StockOrderBoxProps> = ({ code, isModalOpen, setIsModalOpen, guidModalOpen, setGuidModalOpen, isMobile }) => {
+const StockOrderBox: React.FC<StockOrderBoxProps> = ({ code, isModalOpen, setIsModalOpen, guidModalOpen, setGuidModalOpen, isMobile, userInfo }) => {
   const [price, setPrice] = useState("");
   const [quantity, setQuantity] = useState("");
   const [mobileGuid, setMobileGuid] = useState(false);
   const { isOpen } = useWords();
-  const { user_info } = useMyPageData();
   const [activeButton, setActiveButton] = useState<"buy" | "sell">("buy");
   const [purchaseData, setPurchaseData] = useState<StockOrderSuccessResponse | undefined>(undefined);
 
@@ -339,7 +339,7 @@ const StockOrderBox: React.FC<StockOrderBoxProps> = ({ code, isModalOpen, setIsM
           <Line />
           <AssetsInfo>
             <AssetText>{!isMobile && isOpen && <NumberBtn number={20} />}가용자산</AssetText>
-            <AssetText>{purchaseData ? `${user_info?.assets} → ${purchaseData.data.available_assets} 원` : user_info?.assets} 원</AssetText>
+            <AssetText>{purchaseData ? `${userInfo?.assets} → ${purchaseData.data.available_assets} 원` : userInfo?.assets} 원</AssetText>
           </AssetsInfo>
           <Line style={{ width: isMobile ? "90%" : "25vw" }} />
           <AssetsInfo>

@@ -10,9 +10,10 @@ import { FlexBox, Table } from "./Style";
 import MobliePageName from "components/layouts/MobliePageName";
 import { useLocation } from "react-router-dom";
 import { IndividualStockInfo } from "api/industry/IndividualStockInfo";
+import { useMyPageData } from "api/mypage/mypageDataContext";
 
 import { useRecoilState } from "recoil";
-import { stockCodeState } from "recoil/atoms";
+import { stockCodeState, userInfoState } from "recoil/atoms";
 
 const RowFlexBox = styled.div`
   display: flex;
@@ -28,6 +29,13 @@ const Index = () => {
   const [stockData, setStockData] = useState<any>(null);
   const location = useLocation();
   const [stockCode, setStockCode] = useRecoilState(stockCodeState);
+  const [userInfo, setUserInfo] = useRecoilState(userInfoState);
+  const [sector, setSector] = useState("");
+  const { user_info, interest_stocks } = useMyPageData();
+
+  if (user_info) {
+    setUserInfo(user_info);
+  }
 
   const fetchData = async ({ sector, name }: { sector: string; name: string }) => {
     try {
@@ -58,6 +66,7 @@ const Index = () => {
 
     if (sector && name) {
       fetchData({ sector, name });
+      setSector(sector);
     }
   }, [location.state]);
 
@@ -127,7 +136,7 @@ const Index = () => {
       <MobliePageName pageTitle="종목 상세" />
       <FlexBox style={{ zIndex: 2 }}>
         <RowFlexBox style={{ gap: "2.44vw", flexDirection: isMobile ? "column" : "row" }}>
-          <StockPriceBox data={stockData?.company_info} />
+          <StockPriceBox sector={sector && sector} data={stockData?.company_info} interestStocks={interest_stocks} />
           <CompanyInfoBox isMobile={isMobile} />
         </RowFlexBox>
         <RowFlexBox style={{ gap: "2.44vw", flexDirection: isMobile ? "column" : "row" }}>
@@ -139,6 +148,7 @@ const Index = () => {
               setIsModalOpen={setIsModalOpen}
               guidModalOpen={guidModalOpen}
               setGuidModalOpen={setGuidModalOpen}
+              userInfo={userInfo && userInfo}
             />
           )}
         </RowFlexBox>
