@@ -98,7 +98,7 @@ const StockInfoTable: React.FC<StockInfoTableProps> = ({ titles, data, sector })
                   <TableCellContainer>
                     {rowData.Changes > 0 && <ArrowIcon src={rise} alt="rising_arrow" />}
                     {rowData.Changes < 0 && <ArrowIcon src={downward} alt="down_arrow" />}
-                    {rowData.Changes.toLocaleString()}
+                    {Math.abs(rowData.Changes).toLocaleString()}
                   </TableCellContainer>
                 </TableCell>
                 <TableCell>{rowData.ChagesRatio}%</TableCell>
