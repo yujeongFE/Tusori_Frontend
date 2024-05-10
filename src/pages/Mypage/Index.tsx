@@ -103,7 +103,7 @@ const Index: React.FC = () => {
         stock.record_date,
         stock.contract_price.toLocaleString(),
         stock.quantity.toLocaleString() + "주",
-        stock.proceeds > 0 ? `+${stock.proceeds}` : `-${stock.proceeds}`,
+        stock.proceeds > 0 ? `+${stock.proceeds}` : `${stock.proceeds}`,
         stock.proceeds_rate > 0 ? `+${stock.proceeds_rate.toFixed(2)}%` : `-${stock.proceeds_rate.toFixed(2)}%`,
       ])
       .map((row) => row.map((item) => String(item)));
@@ -121,7 +121,7 @@ const Index: React.FC = () => {
         stock.record_date,
         stock.contract_price.toLocaleString(),
         stock.quantity.toLocaleString() + "주",
-        stock.proceeds > 0 ? `+${stock.proceeds}` : `-${stock.proceeds}`,
+        stock.proceeds > 0 ? `+${stock.proceeds}` : `${stock.proceeds}`,
         stock.proceeds_rate > 0 ? `+${stock.proceeds_rate.toFixed(2)}%` : `-${stock.proceeds_rate.toFixed(2)}%`,
       ])
       .map((row) => row.map((item) => String(item)));

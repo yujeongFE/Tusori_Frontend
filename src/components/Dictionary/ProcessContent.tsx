@@ -45,7 +45,7 @@ const contentData = {
     { step: "2. 재무 비교 분석", content: "선정한 기업들의 재무제표를 비교하여 강점과 약점을 파악합니다. " },
     { step: "3. 주가 비교 분석", content: "주가 및 주가 수익률, 주가 대 주가수익비율 등을 비교를 통해 상대적인 가치를 평가합니다." },
   ],
-  five: [{ step: "", content: "" }],
+  five: [{ step: " ", content: " " }],
   six: [
     { step: "1. 시장 동향 분석", content: "주가 지수, 섹터별 성과, 시장 심리 등의 분석을 톡해 주식 시장의 전반적인 동향을 파악합니다. " },
     {
@@ -53,7 +53,7 @@ const contentData = {
       content: "기업과 산업에 영향을 줄 수 있는 뉴스나 이벤트를 확인합니다. 이익 발표, 인수합병, 정책 변화 등의 이슈를 고려하면 좋습니다. ",
     },
   ],
-  seven: [{ step: "", content: "" }],
+  seven: [{ step: " ", content: " " }],
 };
 
 const ProcessContent: React.FC<ContentProps> = ({ stepKey }) => {

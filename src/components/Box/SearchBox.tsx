@@ -78,6 +78,7 @@ const SuggestionItem = styled.li`
 const SearchBox: React.FC = () => {
   const [inputValue, setInputValue] = useState("");
   const [suggestions, setSuggestions] = useState<string[]>([]);
+  const [suggestionIndex, setSuggestionIndex] = useState(0);
   const navigate = useNavigate();
 
   const pagesToKeywords: { [key: string]: string[] } = {
@@ -99,6 +100,20 @@ const SearchBox: React.FC = () => {
       "차트 패턴",
     ],
     "/dict/words/주식-차트-그래프-02": ["단기 이동평균선", "장기 이동평균선"],
+  };
+
+  // 검색어 리스트 방향키로 조정
+  const handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
+    if (event.keyCode === 40) {
+      event.preventDefault();
+      setSuggestionIndex((prevIndex) => Math.min(prevIndex + 1, suggestions.length - 1));
+    } else if (event.keyCode === 38) {
+      event.preventDefault();
+      setSuggestionIndex((prevIndex) => Math.max(prevIndex - 1, 0));
+    } else if (event.keyCode === 13) {
+      event.preventDefault();
+      handleSuggestionClick(suggestions[suggestionIndex]);
+    }
   };
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -124,13 +139,17 @@ const SearchBox: React.FC = () => {
   return (
     <SearchBoxContainer>
       <Searchbox>
-        <Input type="text" placeholder="키워드를 입력해주세요" value={inputValue} onChange={handleInputChange} />
+        <Input type="text" placeholder="키워드를 입력해주세요" value={inputValue} onChange={handleInputChange} onKeyDown={handleKeyDown} />
         <SearchButton onClick={() => handleSuggestionClick(inputValue)} />
       </Searchbox>
       {suggestions.length > 0 && (
         <SuggestionsList>
           {suggestions.map((suggestion, index) => (
-            <SuggestionItem key={index} onClick={() => handleSuggestionClick(suggestion)}>
+            <SuggestionItem
+              key={index}
+              onClick={() => handleSuggestionClick(suggestion)}
+              style={{ backgroundColor: index === suggestionIndex ? "#eee" : "transparent" }}
+            >
               {suggestion}
             </SuggestionItem>
           ))}
