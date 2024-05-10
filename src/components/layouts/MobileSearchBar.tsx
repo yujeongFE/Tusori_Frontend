@@ -80,6 +80,7 @@ const MobileSearchBar: React.FC = () => {
   const [sector, setSector] = useState<string>("");
   const navigate = useNavigate();
   const suggestionsRef = useRef<HTMLUListElement>(null);
+  const [suggestionIndex, setSuggestionIndex] = useState(0);
 
   useEffect(() => {
     document.addEventListener("mousedown", handleClickOutside);
@@ -125,9 +126,17 @@ const MobileSearchBar: React.FC = () => {
     setSuggestions([]);
   };
 
-  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === "Enter") {
-      handleSearch();
+  // 검색어 리스트 방향키로 조정
+  const handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
+    if (event.keyCode === 40) {
+      event.preventDefault();
+      setSuggestionIndex((prevIndex) => Math.min(prevIndex + 1, suggestions.length - 1));
+    } else if (event.keyCode === 38) {
+      event.preventDefault();
+      setSuggestionIndex((prevIndex) => Math.max(prevIndex - 1, 0));
+    } else if (event.keyCode === 13) {
+      event.preventDefault();
+      handleSuggestionClick(suggestions[suggestionIndex]);
     }
   };
 
@@ -143,7 +152,11 @@ const MobileSearchBar: React.FC = () => {
         <SuggestionsList ref={suggestionsRef}>
           {" "}
           {suggestions.map((suggestion, index) => (
-            <SuggestionItem key={index} onClick={() => handleSuggestionClick(suggestion)}>
+            <SuggestionItem
+              key={index}
+              onClick={() => handleSuggestionClick(suggestion)}
+              style={{ backgroundColor: index === suggestionIndex ? "#eee" : "transparent" }}
+            >
               {suggestion}
             </SuggestionItem>
           ))}
