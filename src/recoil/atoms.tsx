@@ -15,3 +15,8 @@ export const userInfoState = atom<UserInfomation>({
     assets: 0,
   },
 });
+
+export const stockNameState = atom<string>({
+  key: "stockNameState",
+  default: "",
+});
