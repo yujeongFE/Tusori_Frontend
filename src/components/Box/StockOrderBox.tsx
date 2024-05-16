@@ -40,7 +40,7 @@ const Container = styled.div<{ mobile: boolean }>`
   border-radius: 12px;
   background: "#fff";
   box-shadow: 0px 2px 8px 0px rgba(0, 0, 0, 0.08);
-  margin-top: 6.2vh;
+  margin-top: 4vh;
   padding-top: 3.24vh;
   display: flex;
   flex-direction: column;

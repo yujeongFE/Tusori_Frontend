@@ -29,12 +29,12 @@ const Container = styled.div`
   grid-template-columns: repeat(2, auto);
   grid-template-rows: repeat(3, auto);
   gap: 1.6vh;
-  margin-top: 6.2vh;
+  margin-top: 4vh;
   @media (max-width: 768px) {
     width: 100%;
     height: auto;
-    gap: 10px;
-    margin-top: 10px;
+    gap: 2.44vw;
+    margin-top: 2.44vw;
   }
 `;
 
