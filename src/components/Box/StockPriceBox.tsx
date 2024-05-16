@@ -2,11 +2,8 @@ import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { useWords } from "components/SideBar/DictionarySideBar/WordsContext";
 import NumberBtn from "components/Dictionary/NumberBtn";
-import rise from "../../assets/rising_arrow.svg";
-import graph from "../../assets/CandleGraph.png";
 import { BookmarkRequest } from "api/bookmark/bookMark";
 import { InterestedStocksInfo } from "api/mypage/mypageData";
-import CategoryButton from "components/Category/CategoryButton";
 
 interface CompanyInfo {
   Code: string;
@@ -29,6 +26,7 @@ interface CompanyInfo {
 
 const BoxContainer = styled.div`
   width: 45vw;
+  height: 200px;
   background-color: #fff;
   border-radius: 12px;
   box-shadow: 0px 2px 8px 0px rgba(0, 0, 0, 0.08);
@@ -36,10 +34,11 @@ const BoxContainer = styled.div`
   padding: 1.77vh 1.9vw;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  justify-content: center; /* 수직 가운데 정렬을 위해 justify-content를 center로 설정 */
 
   @media (max-width: 768px) {
     width: 95%;
+    height: 130px;
     border-radius: 12px;
     overflow-y: auto;
   }
@@ -83,7 +82,7 @@ const CurrentPrice = styled.span`
   font-family: Pretendard-Bold;
   font-size: 24px;
   font-weight: 700;
-  margin-bottom: 0.2vh;
+  margin-bottom: 0.5vh;
   @media (max-width: 768px) {
     font-size: 16px;
   }
@@ -128,29 +127,9 @@ const Line = styled.div`
   background: #e6e6e6;
 `;
 
-const LongLine = styled.div`
-  width: 44vw;
-  height: 1px;
-  background: #f2f2f2;
-  margin-bottom: 0.8vh;
-  @media (max-width: 768px) {
-    width: auto;
-  }
-`;
-
-const CategoriesContainer = styled.div`
-  display: flex;
-  flex-wrap: nowrap;
-  overflow-x: auto;
-  gap: 1.3vw;
-  justify-content: center;
-`;
-
 const StockPriceBox: React.FC<{ sector: string; data: CompanyInfo; interestStocks: InterestedStocksInfo[] }> = ({ sector, data, interestStocks }) => {
-  const stockName = decodeURIComponent(window.location.href.split("/")[4]);
   const [isFavorite, setIsFavorite] = useState<boolean>(false);
   const { isOpen } = useWords();
-  const [selectedCategory, setSelectedCategory] = useState("주봉");
 
   // 마이페이지 즐겨찾기 내역 중 종목 코드가 같으면 관심 종목 체크
   useEffect(() => {
@@ -182,12 +161,6 @@ const StockPriceBox: React.FC<{ sector: string; data: CompanyInfo; interestStock
     } catch (error) {
       console.error("북마크 업데이트 요청 중 오류 발생:", error);
     }
-  };
-
-  const categories = ["주봉", "월봉", "1일", "3개월", "1년", "3년", "10년"];
-
-  const handleCategoryChange = (category: string) => {
-    setSelectedCategory(category);
   };
 
   return (
@@ -233,12 +206,6 @@ const StockPriceBox: React.FC<{ sector: string; data: CompanyInfo; interestStock
           </div>
         </div>
       </Header>
-      <LongLine />
-      <CategoriesContainer>
-        {categories.map((category) => (
-          <CategoryButton key={category} category={category} isSelected={selectedCategory === category} onClick={handleCategoryChange} />
-        ))}
-      </CategoriesContainer>
     </BoxContainer>
   );
 };

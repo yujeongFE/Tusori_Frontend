@@ -8,16 +8,18 @@ const StockInfoContainer = styled.div`
   background: #fff;
   box-shadow: 0px 2px 8px 0px rgba(0, 0, 0, 0.08);
   width: 17.4vw;
-  height: 44.9vh;
-  padding: 0 2vw;
+  height: 200px;
+  padding: 1.77vh 2vw;
   display: flex;
   flex-direction: column;
   margin-top: 1.77vh;
+  overflow: hidden;
 
   @media (max-width: 768px) {
     width: 95%;
     height: auto;
     margin-top: 0px;
+    padding: 1vh 2vw;
   }
 `;
 
@@ -28,13 +30,16 @@ const Title = styled.h2`
   font-style: normal;
   font-weight: 400;
   line-height: normal;
+  margin-bottom: 0px;
+
   @media (max-width: 768px) {
+    margin-bottom: 5px;
     margin-top: 1.7vh;
     font-size: 14px;
   }
 `;
 
-const Description = styled.span`
+const Description = styled.div`
   color: #000;
   font-family: Pretendard-Light;
   font-size: 16px;
@@ -42,7 +47,8 @@ const Description = styled.span`
   font-weight: 300;
   line-height: normal;
   letter-spacing: 0.48px;
-  margin-top: 5vh;
+  overflow-y: auto;
+  margin-top: 5px;
   @media (max-width: 768px) {
     margin-top: 0px;
     font-size: 12px;
@@ -69,7 +75,6 @@ const CompanyInfoBox: React.FC<CompanyInfoBoxProps> = ({ company_content }) => {
       <Title>기업소개</Title>
       <Description>
         <Scrollbar>
-          <p>분야: {company_content?.Industry}</p>
           <p>상장일: {company_content?.ListingDate}</p>
           <p>결산월: {company_content?.SettleMonth}</p>
           <p>대표자명: {company_content?.Representative}</p>

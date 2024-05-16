@@ -17,6 +17,6 @@ export const RowFlexBox = styled.div`
 export const Table = styled.div`
   margin-top: 4vh;
   @media (max-width: 768px) {
-    margin-top: 10px;
+    margin-top: 2.44vw;
   }
 `;
