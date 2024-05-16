@@ -4,7 +4,7 @@ import { useWords } from "./WordsContext";
 import StockOrderBox from "components/Box/StockOrderBox";
 
 import { useRecoilValue } from "recoil";
-import { userInfoState, stockCodeState } from "recoil/atoms";
+import { userInfoState, stockCodeState, stockNameState } from "recoil/atoms";
 
 const SideBarWrap = styled.div<{ isOpen: boolean; isTop: boolean; isTransitionToggle: boolean; isDictionary: boolean }>`
   z-index: 20;
@@ -189,6 +189,7 @@ const DictionarySideBar: React.FC<DictionarySideBarProps> = ({ isOpen, setIsOpen
   const [isDictionary, setIsDictionary] = useState(true);
   const userInfo = useRecoilValue(userInfoState);
   const stockCode = useRecoilValue(stockCodeState);
+  const stockName = useRecoilValue(stockNameState);
 
   // 모바일 버전인지 감지하는 코드
   useEffect(() => {
@@ -259,7 +260,7 @@ const DictionarySideBar: React.FC<DictionarySideBarProps> = ({ isOpen, setIsOpen
         </Top>
         <Scrollbar>
           {isTransitionToggle && !isDictionary ? (
-            <StockOrderBox code={stockCode} userInfo={userInfo} isMobile={isMobile} />
+            <StockOrderBox code={stockCode} name={stockName} userInfo={userInfo} isMobile={isMobile} />
           ) : (
             <>
               {words.map((item, index) => (

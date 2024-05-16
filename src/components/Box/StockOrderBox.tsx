@@ -8,6 +8,7 @@ import { UserInfomation } from "api/mypage/mypageData";
 import { getDay } from "date-fns";
 interface StockOrderBoxProps {
   code: string;
+  name: string;
   isModalOpen?: boolean;
   setIsModalOpen?: React.Dispatch<React.SetStateAction<boolean>>;
   guidModalOpen?: boolean;
@@ -255,7 +256,7 @@ const CloseModalButton = styled.div`
   }
 `;
 
-const StockOrderBox: React.FC<StockOrderBoxProps> = ({ code, isModalOpen, setIsModalOpen, guidModalOpen, setGuidModalOpen, isMobile, userInfo }) => {
+const StockOrderBox: React.FC<StockOrderBoxProps> = ({ code, name, isModalOpen, setIsModalOpen, guidModalOpen, setGuidModalOpen, isMobile, userInfo }) => {
   const [price, setPrice] = useState("");
   const [quantity, setQuantity] = useState("");
   const [mobileGuid, setMobileGuid] = useState(false);
@@ -282,6 +283,13 @@ const StockOrderBox: React.FC<StockOrderBoxProps> = ({ code, isModalOpen, setIsM
   const parsedPrice = parseFloat(price);
   const parsedQuantity = parseFloat(quantity);
 
+  useEffect(() => {
+    // isMobile 상태가 변경되면 모달이 열려있는 경우 닫기
+    if (isMobile && isModalOpen) {
+      setIsModalOpen?.(false);
+    }
+  }, [isMobile]);
+
   const handleBuyButtonClick = async () => {
     if (!price || !quantity) {
       return;
@@ -289,7 +297,7 @@ const StockOrderBox: React.FC<StockOrderBoxProps> = ({ code, isModalOpen, setIsM
 
     try {
       // 추후 알림 요청 보내기 추가
-
+      setIsModalOpen?.(true); // 성공 시 모달 열기
       // 알림 데이터가 정상적으로 받아와진 경우 주식 구매 요청 보내기
 
       const isSell = activeButton === "sell"; // 매도 버튼인지 여부 확인
@@ -298,7 +306,6 @@ const StockOrderBox: React.FC<StockOrderBoxProps> = ({ code, isModalOpen, setIsM
 
       if (responseData) {
         setPurchaseData(responseData);
-        setIsModalOpen?.(true); // 성공 시 모달 열기
       } else {
         console.error("Invalid response received");
       }
@@ -395,7 +402,7 @@ const StockOrderBox: React.FC<StockOrderBoxProps> = ({ code, isModalOpen, setIsM
           </ConfirmButton>
           {isModalOpen && (
             <ConfirmModal>
-              <div style={{ margin: "30px" }}>삼성전자</div>
+              <div style={{ margin: "30px" }}>{name}</div>
               <Line />
               <ModalContext>
                 <span>{activeButton === "buy" ? "매수가" : "매도가"}</span>

@@ -13,7 +13,7 @@ import { IndividualStockInfo } from "api/industry/IndividualStockInfo";
 import { useMyPageData } from "api/mypage/mypageDataContext";
 
 import { useRecoilState } from "recoil";
-import { stockCodeState, userInfoState } from "recoil/atoms";
+import { stockCodeState, userInfoState, stockNameState } from "recoil/atoms";
 
 const RowFlexBox = styled.div`
   display: flex;
@@ -31,6 +31,7 @@ const Index = () => {
   const [stockCode, setStockCode] = useRecoilState(stockCodeState);
   const [userInfo, setUserInfo] = useRecoilState(userInfoState);
   const [sector, setSector] = useState("");
+  const [stockName, setStockName] = useRecoilState(stockNameState);
   const { user_info, interest_stocks } = useMyPageData();
 
   if (user_info) {
@@ -67,6 +68,7 @@ const Index = () => {
     if (sector && name) {
       fetchData({ sector, name });
       setSector(sector);
+      setStockName(name);
     }
   }, [location.state]);
 
@@ -144,6 +146,7 @@ const Index = () => {
           {!isMobile && (
             <StockOrderBox
               code={stockCode}
+              name={stockName}
               isModalOpen={isModalOpen}
               setIsModalOpen={setIsModalOpen}
               guidModalOpen={guidModalOpen}
