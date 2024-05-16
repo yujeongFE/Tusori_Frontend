@@ -266,10 +266,16 @@ const StockOrderBox: React.FC<StockOrderBoxProps> = ({ code, isModalOpen, setIsM
   const [popupMessage, setPopupMessage] = useState("");
 
   const ActiveBuyButton = () => {
+    setQuantity("");
+    setPrice("");
+    setPurchaseData(undefined);
     setActiveButton("buy");
   };
 
   const ActiveSellButton = () => {
+    setQuantity("");
+    setPrice("");
+    setPurchaseData(undefined);
     setActiveButton("sell");
   };
 
