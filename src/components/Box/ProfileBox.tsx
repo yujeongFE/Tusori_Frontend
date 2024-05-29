@@ -3,16 +3,21 @@ import styled from "styled-components";
 import NumberBtn from "components/Dictionary/NumberBtn";
 import { useMyPageData } from "api/mypage/mypageDataContext";
 import { useWords } from "components/SideBar/DictionarySideBar/WordsContext";
+import { Reset } from "api/mypage/Reset";
+import { MyPageData } from "api/mypage/mypageData";
 
 const ProfileBox: React.FC = () => {
   const { user_info } = useMyPageData();
   const { isOpen } = useWords();
 
   //초기화 버튼 클릭시
-  const handleReset = () => {
+  const handleReset = async () => {
     if (window.confirm("투설이 주식 거래 기록이 초기화됩니다. 정말 초기화하시겠습니까?")) {
-      alert("초기화되었습니다.");
-      window.location.href = "/mypage";
+      const reset = await Reset();
+      if (reset?.status === 200) {
+        alert("초기화되었습니다.");
+        window.location.href = "/mypage";
+      }
     }
   };
 
