@@ -3,14 +3,14 @@ import MarketInfoBoxContainer from "../../components/Box/MarketInfoBox";
 import Banner from "../../components/layouts/Banner";
 import StockInfoBox from "../../components/Box/StockInfoBox";
 import { useWords } from "../../components/SideBar/DictionarySideBar/WordsContext";
-import { TableContainer, FlexBox, RowFlexBox, ChartContainer, CategoriesContainer } from "./Style";
+import { TableContainer, FlexBox, RowFlexBox } from "./Style";
 import { fetchHomePageData } from "api/home/MarketInfo";
-import CategoryButton from "components/Category/CategoryButton";
+import { fetchUserData } from "api/home/UserStockInfo";
+import { UserData } from "api/home/UserStockInfo";
 
 const Index = () => {
   const { setWords } = useWords();
-  const [activeTitle, setActiveTitle] = useState("");
-  const [selectedCategory, setSelectedCategory] = useState("주봉");
+  const [activeTitle, setActiveTitle] = useState("주봉");
 
   useEffect(() => {
     setWords([{ word: "", description: "" }]);
@@ -25,6 +25,8 @@ const Index = () => {
     top_5_konex: { Name: string; Close: string; Changes: number; ChagesRatio: number; Volume: number }[];
   } | null>(null);
 
+  const [userData, setUserData] = useState<UserData | null>(null);
+
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -33,11 +35,23 @@ const Index = () => {
           setMarketData(data);
         }
       } catch (error) {
-        console.error("Error fetching data:", error);
+        console.error("Error fetching market data:", error);
+      }
+    };
+
+    const fetchUserStocks = async () => {
+      try {
+        const data = await fetchUserData();
+        if (data) {
+          setUserData(data);
+        }
+      } catch (error) {
+        console.error("Error fetching user data:", error);
       }
     };
 
     fetchData();
+    fetchUserStocks();
   }, []);
 
   const accessToken = localStorage.getItem("accessToken");
@@ -57,17 +71,6 @@ const Index = () => {
         />
         <Banner />
       </RowFlexBox>
-      {activeTitle && (
-        <ChartContainer>
-          <CategoriesContainer>
-            <CategoryButton category="주봉" isSelected={selectedCategory === "주봉"} onClick={() => setSelectedCategory("주봉")} />
-            <CategoryButton category="월봉" isSelected={selectedCategory === "월봉"} onClick={() => setSelectedCategory("월봉")} />
-            <CategoryButton category="3개월" isSelected={selectedCategory === "3개월"} onClick={() => setSelectedCategory("3개월")} />
-            <CategoryButton category="1년" isSelected={selectedCategory === "1년"} onClick={() => setSelectedCategory("1년")} />
-            <CategoryButton category="5년" isSelected={selectedCategory === "5년"} onClick={() => setSelectedCategory("5년")} />
-          </CategoriesContainer>
-        </ChartContainer>
-      )}
       <TableContainer>
         <StockInfoBox
           title={"실시간 거래량 TOP5"}
@@ -78,7 +81,7 @@ const Index = () => {
             top_5_konex: marketData?.top_5_konex || [],
           }}
         />
-        <StockInfoBox title={"MY 보유 주식"} login={login} />
+        <StockInfoBox title={"MY 보유 주식"} login={login} userStockData={userData} />
       </TableContainer>
     </FlexBox>
   );
