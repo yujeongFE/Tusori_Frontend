@@ -11,9 +11,8 @@ import MobliePageName from "components/layouts/MobliePageName";
 import { useLocation } from "react-router-dom";
 import { IndividualStockInfo } from "api/industry/IndividualStockInfo";
 import { useMyPageData } from "api/mypage/mypageDataContext";
-
 import { useRecoilState } from "recoil";
-import { stockCodeState, userInfoState, stockNameState } from "recoil/atoms";
+import { stockCodeState, userInfoState, saveStockState } from "recoil/atoms";
 
 const RowFlexBox = styled.div`
   display: flex;
@@ -25,18 +24,38 @@ const Index = () => {
   const { setWords } = useWords();
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const [guidModalOpen, setGuidModalOpen] = useState<boolean>(false);
-  const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
+  const [isMobile, setIsMobile] = useState<boolean>(window.innerWidth <= 768);
   const [stockData, setStockData] = useState<any>(null);
   const location = useLocation();
   const [stockCode, setStockCode] = useRecoilState(stockCodeState);
   const [userInfo, setUserInfo] = useRecoilState(userInfoState);
-  const [sector, setSector] = useState("");
-  const [stockName, setStockName] = useRecoilState(stockNameState);
-  const { user_info, interest_stocks } = useMyPageData();
+  const [saveStockInfo, setSaveStockInfo] = useRecoilState(saveStockState);
+  const [sector, setSector] = useState<string>("");
+  const [name, setName] = useState<string>("");
 
-  if (user_info) {
-    setUserInfo(user_info);
-  }
+  const { user_info, interest_stocks, save_stocks } = useMyPageData();
+
+  useEffect(() => {
+    if (user_info) {
+      setUserInfo(user_info);
+    }
+  }, [user_info, setUserInfo]);
+
+  useEffect(() => {
+    if (Array.isArray(save_stocks) && save_stocks.length > 0) {
+      const firstStock = save_stocks[0];
+      setSaveStockInfo((prevSaveStocks) => [
+        {
+          name: name && name,
+          save_name: firstStock.name || "",
+          my_quantity: firstStock.my_quantity || 0,
+        },
+        ...prevSaveStocks.slice(1), 
+      ]);
+    } else {
+      setSaveStockInfo([]); 
+    }
+  }, [save_stocks, setSaveStockInfo]);
 
   const fetchData = async ({ sector, name }: { sector: string; name: string }) => {
     try {
@@ -68,9 +87,9 @@ const Index = () => {
     if (sector && name) {
       fetchData({ sector, name });
       setSector(sector);
-      setStockName(name);
+      setName(name);
     }
-  }, [location.state]);
+  }, [location.state, fetchData]);
 
   useEffect(() => {
     setWords([
@@ -138,7 +157,7 @@ const Index = () => {
       <MobliePageName pageTitle="종목 상세" />
       <FlexBox style={{ zIndex: 2 }}>
         <RowFlexBox style={{ gap: "2.44vw", flexDirection: isMobile ? "column" : "row" }}>
-          <StockPriceBox sector={sector && sector} data={stockData?.company_info} interestStocks={interest_stocks ?? []} />
+          <StockPriceBox sector={sector} data={stockData?.company_info} interestStocks={interest_stocks ?? []} />
           <CompanyInfoBox company_content={stockData?.company_content} />
         </RowFlexBox>
         <RowFlexBox style={{ gap: "2.44vw", flexDirection: isMobile ? "column" : "row" }}>
@@ -146,12 +165,13 @@ const Index = () => {
           {!isMobile && (
             <StockOrderBox
               code={stockCode}
-              name={stockName}
+              name={name}
               isModalOpen={isModalOpen}
               setIsModalOpen={setIsModalOpen}
               guidModalOpen={guidModalOpen}
               setGuidModalOpen={setGuidModalOpen}
-              userInfo={userInfo && userInfo}
+              userInfo={userInfo}
+              saveStocks={saveStockInfo}
             />
           )}
         </RowFlexBox>

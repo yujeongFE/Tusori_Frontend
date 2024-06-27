@@ -16,7 +16,13 @@ export const userInfoState = atom<UserInfomation>({
   },
 });
 
-export const stockNameState = atom<string>({
-  key: "stockNameState",
-  default: "",
+export interface StockInfo {
+  name: string;
+  save_name: string;
+  my_quantity: number;
+}
+
+export const saveStockState = atom<StockInfo[]>({
+  key: "saveStockState",
+  default: [],
 });

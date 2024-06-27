@@ -4,6 +4,7 @@ import Slider from "react-slick";
 
 const Container = styled.div`
   @media (max-width: 768px) {
+    width: 100%
     height: 10.36vh;
     min-height: 111px;
     margin-top: 2.6vh;
@@ -35,6 +36,7 @@ const MarketInfoBox = styled.div`
   overflow: hidden;
 
   @media (max-width: 768px) {
+    width: 32%;
     height: 10.36vh;
     min-height: 111px;
     display: flex;

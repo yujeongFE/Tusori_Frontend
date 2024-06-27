@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
+import { fetchUserData } from "api/home/UserStockInfo";
 
 interface StockInfoBoxProps {
   title?: string;
@@ -11,6 +12,7 @@ interface StockInfoBoxProps {
     top_5_kosdaq: { Name: string; Close: string; Changes: number; ChagesRatio: number; Volume: number }[];
     top_5_konex: { Name: string; Close: string; Changes: number; ChagesRatio: number; Volume: number }[];
   };
+  userStockData?: UserData | null;
 }
 
 // 데이터 형식 선언
@@ -22,6 +24,28 @@ interface StockData {
   priceChange: string;
   percentageChange: string;
   volume: string;
+}
+
+export interface User {
+  user_id: number;
+  email: number;
+  assets: number;
+  nickname: string;
+}
+
+export interface StockInfo {
+  Name: string;
+  Close: string;
+  Changes: number;
+  ChagesRatio: number;
+  Volume: number;
+}
+
+export interface UserData {
+  user_data: {
+    user: User;
+    save_stocks: StockInfo[][];
+  };
 }
 
 // CSS 변수 정의
@@ -267,7 +291,7 @@ const renderTableCell = (
 };
 
 // category 값이 전달되지 않을 경우 테이블 위 버튼 생성 X
-const StockInfoBox: React.FC<StockInfoBoxProps> = ({ title, category = [], login, stockData = {} }) => {
+const StockInfoBox: React.FC<StockInfoBoxProps> = ({ title, category = [], login, stockData = {}, userStockData = {} }) => {
   const navigate = useNavigate();
   const [selectedButton, setSelectedButton] = useState(0);
   const [selectData, setSelectData] = useState<
@@ -280,6 +304,7 @@ const StockInfoBox: React.FC<StockInfoBoxProps> = ({ title, category = [], login
       }[]
     | null
   >(null);
+  const [userData, setUserData] = useState<UserData | null>(null);
 
   const isMyStockTable = title === "MY 보유 주식";
   const handleTitleClick = () => {
@@ -289,6 +314,16 @@ const StockInfoBox: React.FC<StockInfoBoxProps> = ({ title, category = [], login
   useEffect(() => {
     setSelectData(stockData.top_5_kospi || null);
   }, [stockData]);
+
+  useEffect(() => {
+    if (isMyStockTable && login) {
+      const loadUserData = async () => {
+        const data = await fetchUserData();
+        setUserData(data);
+      };
+      loadUserData();
+    }
+  }, [isMyStockTable, login]);
 
   const handleButtonClick = (index: number) => {
     setSelectedButton(index);
@@ -334,6 +369,36 @@ const StockInfoBox: React.FC<StockInfoBoxProps> = ({ title, category = [], login
           <LoginMessage> 아직 보유한 주식이 없어요! </LoginMessage>
           <LoginButton onClick={() => handleLoginButton()}>로그인 하러가기</LoginButton>
         </LoginCotainer>
+      ) : login && isMyStockTable && userData ? (
+        <ScrollableTable>
+          <Table>
+            <TableHeader>
+              <TableRow>
+                <TableCell style={{ flex: "0.5" }}>
+                  {isMyStockTable ? <Star src={`${process.env.PUBLIC_URL}/assets/Home/gray_star.png`} alt="star" /> : "순위"}
+                </TableCell>
+                <TableCell style={{ flex: "1.5" }}>종목명</TableCell>
+                <TableCell>현재가</TableCell>
+                <TableCell>전일비</TableCell>
+                <TableCell>등락률</TableCell>
+                <TableCell>거래량</TableCell>
+              </TableRow>
+            </TableHeader>
+            <HorizontalLine />
+            <TableBody>
+              {userData.user_data.save_stocks[0]?.map((data, index) => (
+                <TableRow key={index} style={{ marginBottom: "1.85vh" }}>
+                  {renderTableCell((index + 1).toString(), "rank", { flex: "0.5" })}
+                  {renderTableCell(data.Name, "name", { flex: "1.5" })}
+                  {renderTableCell(data.Close.toLocaleString(), "currentPrice")}
+                  {renderTableCell(data.Changes, "priceChange")}
+                  {renderTableCell(data.ChagesRatio, "percentageChange")}
+                  {renderTableCell(data.Volume.toLocaleString(), "volume")}
+                </TableRow>
+              ))}
+            </TableBody>
+          </Table>
+        </ScrollableTable>
       ) : (
         <ScrollableTable>
           <Table>

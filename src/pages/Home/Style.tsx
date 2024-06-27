@@ -27,7 +27,8 @@ export const RowFlexBox = styled.div`
   width: 100%;
   @media (max-width: 768px) {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
+    width: 100%;
   }
 `;
 
