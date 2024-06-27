@@ -11,10 +11,22 @@ import { UserData } from "api/home/UserStockInfo";
 const Index = () => {
   const { setWords } = useWords();
   const [activeTitle, setActiveTitle] = useState("주봉");
+  const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
 
   useEffect(() => {
     setWords([{ word: "", description: "" }]);
   }, [setWords]);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth <= 768);
+    };
+    window.addEventListener("resize", handleResize);
+
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
 
   const [marketData, setMarketData] = useState<{
     kospi: { Close: number; Comp: number; Change: number };
@@ -69,8 +81,9 @@ const Index = () => {
           activeTitle={activeTitle}
           setActiveTitle={setActiveTitle}
         />
-        <Banner />
+        {!isMobile && <Banner />}
       </RowFlexBox>
+      {isMobile && <Banner />}
       <TableContainer>
         <StockInfoBox
           title={"실시간 거래량 TOP5"}
