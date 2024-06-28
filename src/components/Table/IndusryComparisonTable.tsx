@@ -73,7 +73,9 @@ const StyledTable = styled.table`
   border-collapse: collapse;
 `;
 
-const StyledTh = styled.th<{ isTitleCell?: boolean }>`
+const StyledTh = styled.th.attrs<{ 'data-istitlecell'?: boolean }>(({ 'data-istitlecell': isTitleCell }) => ({
+  'data-istitlecell': isTitleCell,
+}))`
   padding: 8px;
   width: 16.6%;
   height: 4vh;
@@ -157,7 +159,7 @@ const IndustryComparisonTable: React.FC<{ height: string; isMobile: boolean; dat
             <StyledTable>
               <thead>
                 <tr>
-                  <StyledTh isTitleCell>종목명</StyledTh>
+                  <StyledTh data-istitlecell>종목명</StyledTh>
                   {data?.top_5_stocks_info
                     .slice(0, isMobile ? 3 : data?.top_5_stocks_info.length)
                     .map((stock, index) => <StyledTh key={index}>{stock.Name}</StyledTh>)}
@@ -219,7 +221,7 @@ const IndustryComparisonTable: React.FC<{ height: string; isMobile: boolean; dat
           </TableContainer>
           {!isMobile && (
             <div onClick={handleClick} style={{ display: "flex", flexDirection: "column", alignItems: "center", marginRight: "5vw" }}>
-              <Arrow src={`${process.env.PUBLIC_URL}/assets/Home/seemore_arrow.svg`} alt={"더보기"} />
+              <Arrow src={`${process.env.PUBLIC_URL}/assets/Home/seemore_arrow.svg`} />
               <More>더보기</More>
             </div>
           )}
