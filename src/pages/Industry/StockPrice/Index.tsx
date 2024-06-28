@@ -158,7 +158,7 @@ const Index = () => {
       <FlexBox style={{ zIndex: 2 }}>
         <RowFlexBox style={{ gap: "2.44vw", flexDirection: isMobile ? "column" : "row" }}>
           <StockPriceBox sector={sector} data={stockData?.company_info} interestStocks={interest_stocks ?? []} />
-          <CompanyInfoBox company_content={stockData?.company_content} />
+          <CompanyInfoBox company_content={stockData?.company_content[0]} />
         </RowFlexBox>
         <RowFlexBox style={{ gap: "2.44vw", flexDirection: isMobile ? "column" : "row" }}>
           <FinancialIndicators data={stockData?.company_info} />

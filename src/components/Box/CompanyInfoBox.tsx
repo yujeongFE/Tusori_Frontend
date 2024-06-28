@@ -69,13 +69,23 @@ interface CompanyInfoBoxProps {
   company_content: CompanyContent;
 }
 
+const formatDate = (dateString: string) => {
+  const date = new Date(dateString);
+  const year = date.getFullYear();
+  const month = String(date.getMonth() + 1).padStart(2, "0"); 
+  const day = String(date.getDate()).padStart(2, "0");
+  return `${year}-${month}-${day}`;
+};
+
 const CompanyInfoBox: React.FC<CompanyInfoBoxProps> = ({ company_content }) => {
+  const listingDate = company_content?.ListingDate ? formatDate(company_content.ListingDate) : "";
   return (
     <StockInfoContainer>
       <Title>기업소개</Title>
       <Description>
         <Scrollbar>
-          <p>상장일: {company_content?.ListingDate}</p>
+          <p>상장일: {listingDate}</p>
+          <p>업종: {company_content?.Industry}</p>
           <p>결산월: {company_content?.SettleMonth}</p>
           <p>대표자명: {company_content?.Representative}</p>
           <p>
