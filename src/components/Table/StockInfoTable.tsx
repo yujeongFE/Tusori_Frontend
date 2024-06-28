@@ -27,7 +27,7 @@ const TableHeaderCell = styled.th`
 
 interface TableCellProps {
   value?: number | string;
-  isChangeCell?: boolean | null;
+  isChangeCell?: boolean;
 }
 
 const TableCellContainer = styled.div`
@@ -38,7 +38,8 @@ const TableCellContainer = styled.div`
 const TableCell = styled.td<TableCellProps>`
   padding: 10px;
   border: 1px solid #ddd;
-  color: ${({ isChangeCell, value }) => (isChangeCell && typeof value === "number" ? (value > 0 ? "red" : "blue") : "inherit")};
+  color: ${({ isChangeCell, value }) =>
+    isChangeCell && typeof value === "number" ? (value > 0 ? "red" : "blue") : "inherit"};
 `;
 
 const ArrowIcon = styled.img`
@@ -87,23 +88,25 @@ const StockInfoTable: React.FC<StockInfoTableProps> = ({ titles, data, sector })
           </tr>
         </thead>
         <tbody>
-          {data.map((rowData, rowIndex) => {
-            return (
-              <tr key={rowIndex} onClick={() => handleRowClick(rowData.Name)}>
-                <TableCell>{rowData.Name}</TableCell>
-                <TableCell>{Number(rowData.Close).toLocaleString()}</TableCell>
-                <TableCell isChangeCell={true} value={rowData.Changes}>
-                  <TableCellContainer>
-                    {rowData.Changes > 0 && <ArrowIcon src={`${process.env.PUBLIC_URL}/assets/Home/rising_arrow.svg`} alt="rising_arrow" />}
-                    {rowData.Changes < 0 && <ArrowIcon src={`${process.env.PUBLIC_URL}/assets/Home/downward_arrow.svg`} alt="down_arrow" />}
-                    {Math.abs(rowData.Changes).toLocaleString()}
-                  </TableCellContainer>
-                </TableCell>
-                <TableCell>{rowData.ChagesRatio}%</TableCell>
-                <TableCell>{rowData.Volume.toLocaleString()}</TableCell>
-              </tr>
-            );
-          })}
+          {data.map((rowData, rowIndex) => (
+            <tr key={rowIndex} onClick={() => handleRowClick(rowData.Name)}>
+              <TableCell>{rowData.Name}</TableCell>
+              <TableCell>{Number(rowData.Close).toLocaleString()}</TableCell>
+              <TableCell data-ischange={rowData.Changes > 0 ? "true" : "false"}>
+                <TableCellContainer>
+                  {rowData.Changes > 0 && (
+                    <ArrowIcon src={`${process.env.PUBLIC_URL}/assets/Home/rising_arrow.svg`} alt="rising_arrow" />
+                  )}
+                  {rowData.Changes < 0 && (
+                    <ArrowIcon src={`${process.env.PUBLIC_URL}/assets/Home/downward_arrow.svg`} alt="down_arrow" />
+                  )}
+                  {Math.abs(rowData.Changes).toLocaleString()}
+                </TableCellContainer>
+              </TableCell>
+              <TableCell>{rowData.ChagesRatio}%</TableCell>
+              <TableCell>{rowData.Volume.toLocaleString()}</TableCell>
+            </tr>
+          ))}
         </tbody>
       </Table>
     </TableContainer>
