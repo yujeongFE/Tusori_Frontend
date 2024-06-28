@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import styled from "styled-components";
 import StockPriceBox from "components/Box/StockPriceBox";
 import CompanyInfoBox from "components/Box/CompanyInfoBox";
@@ -57,7 +57,7 @@ const Index = () => {
     }
   }, [save_stocks, setSaveStockInfo]);
 
-  const fetchData = async ({ sector, name }: { sector: string; name: string }) => {
+  const fetchData = useCallback(async ({ sector, name }: { sector: string; name: string }) => {
     try {
       const data = await IndividualStockInfo(sector, name);
       if (data) {
@@ -67,7 +67,7 @@ const Index = () => {
     } catch (error) {
       console.error("개별 종목 상세 데이터 파싱 오류:", error);
     }
-  };
+  }, [setStockCode]);
 
   useEffect(() => {
     const handleResize = () => {
