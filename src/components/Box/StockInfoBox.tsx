@@ -91,7 +91,7 @@ const Container = styled.div`
   }
 `;
 
-const BoxContainer = styled.div<{ selectbutton: number }>`
+const BoxContainer = styled.div<{ $selectbutton: number }>`
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -329,13 +329,13 @@ const StockInfoBox: React.FC<StockInfoBoxProps> = ({ title, category = [], login
     setSelectedButton(index);
     switch (category[index]) {
       case "코스피":
-        setSelectData(stockData.top_5_kospi || null);
+        setSelectData(stockData?.top_5_kospi || null);
         break;
       case "코스닥":
-        setSelectData(stockData.top_5_kosdaq || null);
+        setSelectData(stockData?.top_5_kosdaq || null);
         break;
       case "코넥스":
-        setSelectData(stockData.top_5_konex || null);
+        setSelectData(stockData?.top_5_konex || null);
         break;
       default:
         null;
@@ -349,7 +349,7 @@ const StockInfoBox: React.FC<StockInfoBoxProps> = ({ title, category = [], login
 
   return (
     <Container>
-      <BoxContainer selectbutton={selectedButton}>
+      <BoxContainer $selectbutton={selectedButton}>
         {title && (
           <div className="title" onClick={() => handleTitleClick()}>
             {title}

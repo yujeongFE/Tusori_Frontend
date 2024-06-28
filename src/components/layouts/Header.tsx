@@ -11,10 +11,9 @@ import { useWords } from "components/SideBar/DictionarySideBar/WordsContext";
 import DictionarySideBar from "components/SideBar/DictionarySideBar/DictionarySideBar";
 
 const Header = () => {
-  const [isInvestMode, setIsInvesteMode] = useState<boolean>(false);
+  const [isInvestMode, setIsInvestMode] = useState<boolean>(false);
   const { isOpen, setIsOpen } = useWords();
   const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
-  // 버튼 클릭시 효과
   const [isClicked, setIsClicked] = useState<boolean>(false);
   const [isSearchClicked, setIsSearchClicked] = useState<boolean>(false);
   const { user_info } = useMyPageData();
@@ -24,19 +23,16 @@ const Header = () => {
     setIsLoggedIn(!!accessToken);
   }, []);
 
-  // 투자모드, 설명모드 변경
   const handleModeChange = (checked: boolean) => {
-    setIsInvesteMode(checked);
+    setIsInvestMode(checked);
     setIsOpen(checked);
   };
 
-  // 주식사전 사이드바
   const handleCloseSideBar = () => {
-    setIsInvesteMode(false);
+    setIsInvestMode(false);
     setIsOpen(false);
   };
 
-  // 로그아웃
   const handleLogout = () => {
     const confirmLogout = window.confirm("로그아웃하시겠습니까?");
 
@@ -58,7 +54,8 @@ const Header = () => {
             </Link>
             <SwitchContainer>
               <Switch checked={isInvestMode} onChange={handleModeChange} {...switchStyle} />
-              <Mode isInvestMode={isInvestMode}>{isInvestMode ? "설명모드" : "투자모드"}</Mode>
+              {/* isinvestmode 속성을 문자열로 전달 */}
+              <Mode $isinvestmode={isInvestMode.toString()}>{isInvestMode ? "설명모드" : "투자모드"}</Mode>
               <DictionarySideBar isOpen={isOpen} setIsOpen={setIsOpen} onClose={handleCloseSideBar} />
             </SwitchContainer>
           </SidebySideContainer>
@@ -174,7 +171,7 @@ const SwitchContainer = styled.div`
 `;
 
 interface ModeProps {
-  isInvestMode: boolean;
+  $isinvestmode: string; // boolean에서 string으로 변경
 }
 
 const Mode = styled.div<ModeProps>`
@@ -182,8 +179,8 @@ const Mode = styled.div<ModeProps>`
   margin-left: 10px;
   padding-top: 3px;
   white-space: nowrap;
-  font-family: ${(props) => (props.isInvestMode ? "Pretendard-Bold" : "inherit")};
-  color: ${(props) => (props.isInvestMode ? "#708FFE" : "inherit")};
+  font-family: ${(props) => (props.$isinvestmode === "true" ? "Pretendard-Bold" : "inherit")};
+  color: ${(props) => (props.$isinvestmode === "true" ? "#708FFE" : "inherit")};
 
   @media (max-width: 853px) {
     margin-left: 5px;
@@ -194,9 +191,9 @@ const Mode = styled.div<ModeProps>`
 `;
 
 const switchStyle = {
-  onHandleColor: "#708FFE", //버튼 부분
+  onHandleColor: "#708FFE", // 버튼 부분
   offHandleColor: "#708FFE",
-  onColor: "#E5EAFD", //트랙 부분
+  onColor: "#E5EAFD", // 트랙 부분
   offColor: "#E5EAFD",
   handleDiameter: 20,
   uncheckedIcon: false,
@@ -316,7 +313,8 @@ const RightSection = styled.div`
   flex-grow: 1;
 
   @media (max-width: 768px) {
-    flex:1;
+    flex: 1;
+  }
 `;
 
 const ToggleButton = styled.button`
