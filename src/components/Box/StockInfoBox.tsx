@@ -74,7 +74,9 @@ const Container = styled.div`
     line-height: normal;
     margin-left: 2.2vw;
     margin-top: 3.33vh;
+    overflow-y: auto;
     cursor: pointer;
+
     &:hover {
       color: #708ffe; // 마우스 호버 상태일 때 글자 색상 변경
     }
@@ -86,8 +88,9 @@ const Container = styled.div`
 
   @media (max-width: 768px) {
     width: 100%;
-    height: 27vh;
+    height: auto;
     margin-top: 32px;
+    min-height: 300px;
   }
 `;
 
@@ -136,15 +139,14 @@ const Table = styled.table`
 
 const TableHeader = styled.thead`
   color: #000;
-`;
-
-const HorizontalLine = styled.hr`
-  border: 1px solid #e3e3e3;
-  margin: 1.48vh 0;
+  border-bottom: 1px solid #e3e3e3;
 `;
 
 const TableBody = styled.tbody`
   color: #000;
+  & > tr {
+    margin-bottom: 1.48vh;
+  }
 `;
 
 const TableRow = styled.tr`
@@ -170,14 +172,9 @@ const TableCell = styled.td<{ color?: string }>`
   }
 `;
 
-const TableCellName = styled(TableCell)`
-  text-overflow: ellipsis; // 텍스트가 넘칠 경우 ...으로 표시
-`;
-
 const ScrollableTable = styled.div`
   overflow-y: auto;
-  height: calc(37.7vh);
-  min-height: 230px;
+  height: 100%;
 `;
 
 const LoginCotainer = styled.div`
@@ -373,7 +370,7 @@ const StockInfoBox: React.FC<StockInfoBoxProps> = ({ title, category = [], login
         <ScrollableTable>
           <Table>
             <TableHeader>
-              <TableRow>
+              <TableRow style={{ marginBottom: "1.5vh" }}>
                 <TableCell style={{ flex: "0.5" }}>
                   {isMyStockTable ? <Star src={`${process.env.PUBLIC_URL}/assets/Home/gray_star.png`} alt="star" /> : "순위"}
                 </TableCell>
@@ -384,10 +381,9 @@ const StockInfoBox: React.FC<StockInfoBoxProps> = ({ title, category = [], login
                 <TableCell>거래량</TableCell>
               </TableRow>
             </TableHeader>
-            <HorizontalLine />
             <TableBody>
               {userData.user_data.save_stocks[0]?.map((data, index) => (
-                <TableRow key={index} style={{ marginBottom: "1.85vh" }}>
+                <TableRow key={index} style={{ marginTop: "1.85vh" }}>
                   {renderTableCell((index + 1).toString(), "rank", { flex: "0.5" })}
                   {renderTableCell(data.Name, "name", { flex: "1.5" })}
                   {renderTableCell(data.Close.toLocaleString(), "currentPrice")}
@@ -403,21 +399,20 @@ const StockInfoBox: React.FC<StockInfoBoxProps> = ({ title, category = [], login
         <ScrollableTable>
           <Table>
             <TableHeader>
-              <TableRow>
+              <TableRow style={{ marginBottom: "1.5vh" }}>
                 <TableCell style={{ flex: "0.5" }}>
                   {isMyStockTable ? <Star src={`${process.env.PUBLIC_URL}/assets/Home/gray_star.png`} alt="star" /> : "순위"}
                 </TableCell>
-                <TableCell style={{ flex: "1.5" }}>종목명</TableCell>
+                <TableCell style={{ flex: "1.5vh" }}>종목명</TableCell>
                 <TableCell>현재가</TableCell>
                 <TableCell>전일비</TableCell>
                 <TableCell>등락률</TableCell>
                 <TableCell>거래량</TableCell>
               </TableRow>
             </TableHeader>
-            <HorizontalLine />
             <TableBody>
               {selectData?.map((data, index) => (
-                <TableRow key={index} style={{ marginBottom: "1.85vh" }}>
+                <TableRow key={index} style={{ marginTop: "1.5vh" }}>
                   {renderTableCell((index + 1).toString(), "rank", { flex: "0.5" })}
                   {/*{data.pick && renderTableCell(data.pick, "pick", { flex: "0.7" })}*/}
                   {renderTableCell(data.Name, "name", { flex: "1.5" })}
