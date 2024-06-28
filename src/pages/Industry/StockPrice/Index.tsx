@@ -12,7 +12,7 @@ import { useLocation } from "react-router-dom";
 import { IndividualStockInfo } from "api/industry/IndividualStockInfo";
 import { useMyPageData } from "api/mypage/mypageDataContext";
 import { useRecoilState } from "recoil";
-import { stockCodeState, userInfoState, saveStockState } from "recoil/atoms";
+import { stockCodeState, userInfoState, saveStockNameState } from "recoil/atoms";
 
 const RowFlexBox = styled.div`
   display: flex;
@@ -29,7 +29,7 @@ const Index = () => {
   const location = useLocation();
   const [stockCode, setStockCode] = useRecoilState(stockCodeState);
   const [userInfo, setUserInfo] = useRecoilState(userInfoState);
-  const [saveStockInfo, setSaveStockInfo] = useRecoilState(saveStockState);
+  const [stockName, setStockName] = useRecoilState(saveStockNameState);
   const [sector, setSector] = useState<string>("");
   const [name, setName] = useState<string>("");
 
@@ -41,33 +41,20 @@ const Index = () => {
     }
   }, [user_info, setUserInfo]);
 
-  useEffect(() => {
-    if (Array.isArray(save_stocks) && save_stocks.length > 0) {
-      const firstStock = save_stocks[0];
-      setSaveStockInfo((prevSaveStocks) => [
-        {
-          name: name && name,
-          save_name: firstStock.name || "",
-          my_quantity: firstStock.my_quantity || 0,
-        },
-        ...prevSaveStocks.slice(1), 
-      ]);
-    } else {
-      setSaveStockInfo([]); 
-    }
-  }, [save_stocks, setSaveStockInfo]);
-
-  const fetchData = useCallback(async ({ sector, name }: { sector: string; name: string }) => {
-    try {
-      const data = await IndividualStockInfo(sector, name);
-      if (data) {
-        setStockData(data);
-        setStockCode(data?.company_info?.Code);
+  const fetchData = useCallback(
+    async ({ sector, name }: { sector: string; name: string }) => {
+      try {
+        const data = await IndividualStockInfo(sector, name);
+        if (data) {
+          setStockData(data);
+          setStockCode(data?.company_info?.Code);
+        }
+      } catch (error) {
+        console.error("개별 종목 상세 데이터 파싱 오류:", error);
       }
-    } catch (error) {
-      console.error("개별 종목 상세 데이터 파싱 오류:", error);
-    }
-  }, [setStockCode]);
+    },
+    [setStockCode],
+  );
 
   useEffect(() => {
     const handleResize = () => {
@@ -88,6 +75,7 @@ const Index = () => {
       fetchData({ sector, name });
       setSector(sector);
       setName(name);
+      setStockName(name);
     }
   }, [location.state, fetchData]);
 
@@ -171,7 +159,6 @@ const Index = () => {
               guidModalOpen={guidModalOpen}
               setGuidModalOpen={setGuidModalOpen}
               userInfo={userInfo}
-              saveStocks={saveStockInfo}
             />
           )}
         </RowFlexBox>

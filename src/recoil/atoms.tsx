@@ -1,7 +1,7 @@
 import { atom } from "recoil";
 import { UserInfomation } from "api/mypage/mypageData";
 
-export const stockCodeState = atom({
+export const stockCodeState = atom<string>({
   key: "stockCodeState",
   default: "",
 });
@@ -16,13 +16,7 @@ export const userInfoState = atom<UserInfomation>({
   },
 });
 
-export interface StockInfo {
-  name: string;
-  save_name: string;
-  my_quantity: number;
-}
-
-export const saveStockState = atom<StockInfo[]>({
-  key: "saveStockState",
-  default: [],
+export const saveStockNameState = atom<string>({
+  key: "saveStockNameState",
+  default: "",
 });
