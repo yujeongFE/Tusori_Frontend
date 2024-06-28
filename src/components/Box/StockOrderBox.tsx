@@ -6,6 +6,8 @@ import { sendStockOrderRequest } from "api/industry/StockOrder";
 import { StockOrderSuccessResponse } from "api/industry/StockOrder";
 import { UserInfomation } from "api/mypage/mypageData";
 import { getDay } from "date-fns";
+import { useNavigate } from "react-router-dom";
+
 interface StockOrderBoxProps {
   code: string;
   name: string;
@@ -256,7 +258,21 @@ const CloseModalButton = styled.div`
   }
 `;
 
-const StockOrderBox: React.FC<StockOrderBoxProps> = ({ code, name, isModalOpen, setIsModalOpen, guidModalOpen, setGuidModalOpen, isMobile, userInfo }) => {
+const ChangePrice = styled.span`
+  color: red;
+`;
+
+const StockOrderBox: React.FC<StockOrderBoxProps> = ({
+  code,
+  name,
+  isModalOpen,
+  setIsModalOpen,
+  guidModalOpen,
+  setGuidModalOpen,
+  isMobile,
+  userInfo,
+}) => {
+  const navigate = useNavigate();
   const [price, setPrice] = useState("");
   const [quantity, setQuantity] = useState("");
   const [mobileGuid, setMobileGuid] = useState(false);
@@ -265,6 +281,8 @@ const StockOrderBox: React.FC<StockOrderBoxProps> = ({ code, name, isModalOpen, 
   const [purchaseData, setPurchaseData] = useState<StockOrderSuccessResponse | undefined>(undefined);
   const [SuccessMessage, setSuccessMessage] = useState("");
   const [popupMessage, setPopupMessage] = useState("");
+  const [holdings, setHoldings] = useState<number | undefined>(undefined);
+  const [buyActive, setBuyActive] = useState(false);
 
   const ActiveBuyButton = () => {
     setQuantity("");
@@ -291,17 +309,31 @@ const StockOrderBox: React.FC<StockOrderBoxProps> = ({ code, name, isModalOpen, 
   }, [isMobile]);
 
   const handleBuyButtonClick = async () => {
+    setBuyActive(true);
     if (!price || !quantity) {
       return;
     }
 
     try {
-      // 추후 알림 요청 보내기 추가
-      setIsModalOpen?.(true); // 성공 시 모달 열기
+      const accessToken = localStorage.getItem("accessToken");
+      // 로그인이 안되어 있는 경우
+      if (!accessToken) {
+        alert("로그인이 필요한 서비스입니다.");
+        navigate("/login");
+      }
+
+      // 매수시 가용 자산이 부족한 경우
+      const isSell = activeButton === "sell"; // 매도 버튼인지 여부 확인
+      if (!isSell && buyActive && Number(price) * Number(quantity) > userInfo?.assets) {
+        alert("가용 자산이 부족합니다.");
+        return;
+      }
+
       // 알림 데이터가 정상적으로 받아와진 경우 주식 구매 요청 보내기
 
-      const isSell = activeButton === "sell"; // 매도 버튼인지 여부 확인
+      setIsModalOpen?.(true); // 성공 시 모달 열기
 
+      // 주식 거래 요청 보내기
       const responseData: StockOrderSuccessResponse | null = await sendStockOrderRequest(code, parsedPrice, parsedQuantity, isSell);
 
       if (responseData) {
@@ -384,7 +416,15 @@ const StockOrderBox: React.FC<StockOrderBoxProps> = ({ code, name, isModalOpen, 
           <Line />
           <AssetsInfo>
             <AssetText>{!isMobile && isOpen && <NumberBtn number={20} />}가용자산</AssetText>
-            <AssetText>{purchaseData ? `${userInfo?.assets} → ${purchaseData.data.available_assets} 원` : userInfo?.assets} 원</AssetText>
+            <AssetText>
+              {purchaseData ? (
+                <>
+                  {userInfo?.assets} → <ChangePrice>{purchaseData.data.available_assets}</ChangePrice> 원
+                </>
+              ) : (
+                `${userInfo?.assets} 원`
+              )}
+            </AssetText>
           </AssetsInfo>
           <Line style={{ width: isMobile ? "90%" : "25vw" }} />
           <AssetsInfo>
@@ -394,7 +434,16 @@ const StockOrderBox: React.FC<StockOrderBoxProps> = ({ code, name, isModalOpen, 
           <Line style={{ width: isMobile ? "90%" : "25vw" }} />
           <AssetsInfo>
             <AssetText>{!isMobile && isOpen && <NumberBtn number={22} />}보유량</AssetText>
-            <AssetText>{purchaseData ? `${purchaseData?.data.reserves} 주` : ""}</AssetText>
+            <AssetText>
+              {" "}
+              {purchaseData ? (
+                <>
+                  {quantity !== undefined ? quantity : 0} → <ChangePrice>{purchaseData ? `${purchaseData?.data.reserves}` : ""}</ChangePrice> 주
+                </>
+              ) : (
+                `${quantity !== undefined ? quantity : 0} 주`
+              )}
+            </AssetText>
           </AssetsInfo>
           <ConfirmButton disabled={!price || !quantity} onClick={handleBuyButtonClick}>
             {" "}
