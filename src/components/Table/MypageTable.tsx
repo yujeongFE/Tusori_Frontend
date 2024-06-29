@@ -24,8 +24,8 @@ const StyledTable = styled.table`
   border-collapse: collapse;
 `;
 
-const alignStyle = css<{ isFirst: boolean }>`
-  text-align: ${({ isFirst }) => (isFirst ? "left" : "right")};
+const alignStyle = css<{ $isFirst: boolean }>`
+  text-align: ${({ $isFirst }) => ($isFirst ? "left" : "right")};
 `;
 
 const colorStyle = (data: string | number) => {
@@ -39,14 +39,14 @@ const colorStyle = (data: string | number) => {
   return "";
 };
 
-const StyledTd = styled.td<{ isFirst: boolean; cellData: string | number }>`
+const StyledTd = styled.td<{ $isFirst: boolean; $cellData: string | number }>`
   padding: 15px 25px;
   white-space: nowrap;
   word-wrap: break-word;
   box-sizing: border-box;
-  width: ${({ isFirst }) => (isFirst ? "20%" : "calc(80% / (COLUMN_COUNT - 1))")};
+  width: ${({ $isFirst }) => ($isFirst ? "20%" : "calc(80% / (COLUMN_COUNT - 1))")};
   ${alignStyle}
-  ${({ cellData }) => colorStyle(cellData)}
+  ${({ $cellData }) => colorStyle($cellData)}
 `;
 
 const StickyRow = styled.tr`
@@ -71,7 +71,7 @@ const MypageTable: React.FC<TableProps> = ({ data }: TableProps) => {
                 <StickyRow key={rowIndex}>
                   {" "}
                   {rowData.map((cellData, cellIndex) => (
-                    <StyledTd key={cellIndex} isFirst={cellIndex === 0} cellData={cellData}>
+                    <StyledTd key={cellIndex} $isFirst={cellIndex === 0} $cellData={cellData}>
                       {cellData == "매입가" && isOpen && <NumberBtn number={5} />}
                       {cellData == "현재가" && isOpen && <NumberBtn number={6} />}
                       {cellData == "평단가" && isOpen && <NumberBtn number={7} />}
@@ -90,7 +90,7 @@ const MypageTable: React.FC<TableProps> = ({ data }: TableProps) => {
               ) : (
                 <tr key={rowIndex}>
                   {rowData.map((cellData, cellIndex) => (
-                    <StyledTd key={cellIndex} isFirst={cellIndex === 0} cellData={cellData}>
+                    <StyledTd key={cellIndex} $isFirst={cellIndex === 0} $cellData={cellData}>
                       {cellData}
                     </StyledTd>
                   ))}

@@ -23,8 +23,8 @@ const StyledTable = styled.table`
   //table-layout: fixed;
 `;
 
-const alignStyle = css<{ isSecond?: boolean }>`
-  text-align: ${({ isSecond }) => (isSecond ? "left" : "right")};
+const alignStyle = css<{ $isSecond?: boolean }>`
+  text-align: ${({ $isSecond }) => ($isSecond ? "left" : "right")};
 `;
 
 const colorStyle = (data: string | number) => {
@@ -38,15 +38,15 @@ const colorStyle = (data: string | number) => {
   return "";
 };
 
-const StyledTd = styled.td<{ isFirst: boolean; isSecond?: boolean; cellData: string | number | JSX.Element }>`
+const StyledTd = styled.td<{ $isFirst: boolean; $isSecond?: boolean; $cellData: string | number | JSX.Element }>`
   padding: 15px 25px;
   max-width: 100%;
   //border: 1px solid #e3e3e3;
   white-space: nowrap;
   word-wrap: break-word;
-  width: ${({ isFirst, isSecond }) => (isFirst ? "1.5%" : isSecond ? "30%" : "25%")};
+  width: ${({ $isFirst, $isSecond }) => ($isFirst ? "1.5%" : $isSecond ? "30%" : "25%")};
   ${alignStyle}
-  ${({ cellData }) => (typeof cellData === "string" || typeof cellData === "number" ? colorStyle(cellData) : "")}
+  ${({ $cellData }) => (typeof $cellData === "string" || typeof $cellData === "number" ? colorStyle($cellData) : "")}
 `;
 
 const StickyRow = styled.tr`
@@ -71,7 +71,7 @@ const MypageTable: React.FC<TableProps> = ({ data }: TableProps) => {
               rowIndex === 0 ? (
                 <StickyRow key={rowIndex}>
                   {rowData.map((cellData, cellIndex) => (
-                    <StyledTd key={cellIndex} isFirst={cellIndex === 0} isSecond={cellIndex === 1} cellData={cellData}>
+                    <StyledTd key={cellIndex} $isFirst={cellIndex === 0} $isSecond={cellIndex === 1} $cellData={cellData}>
                       {cellIndex == 3 && isOpen && <NumberBtn number={12} />}
                       {cellIndex == 4 && isOpen && <NumberBtn number={13} />}
                       {cellIndex == 5 && isOpen && <NumberBtn number={14} />}
@@ -86,7 +86,7 @@ const MypageTable: React.FC<TableProps> = ({ data }: TableProps) => {
               ) : (
                 <tr key={rowIndex}>
                   {rowData.map((cellData, cellIndex) => (
-                    <StyledTd key={cellIndex} isFirst={cellIndex === 0} isSecond={cellIndex === 1} cellData={cellData}>
+                    <StyledTd key={cellIndex} $isFirst={cellIndex === 0} $isSecond={cellIndex === 1} $cellData={cellData}>
                       {cellIndex === 0 ? <img src={"/assets/Industry/filledStar.svg"} /> : cellData}
                     </StyledTd>
                   ))}

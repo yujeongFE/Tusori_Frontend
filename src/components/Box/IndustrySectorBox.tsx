@@ -10,12 +10,12 @@ const StockButtonsWrapper = styled.div`
   }
 `;
 
-const StockButtonContainer = styled.button<{ active: boolean }>`
+const StockButtonContainer = styled.button<{ $active: boolean }>`
   width: 6vw;
   min-width: 70px;
   height: 33px;
   border-radius: 40px;
-  background: ${(props) => (props.active ? "#708FFE" : "#CCCCCC")};
+  background: ${(props) => (props.$active ? "#708FFE" : "#CCCCCC")};
   border: none;
   margin-right: 1.04vw;
   cursor: pointer;
@@ -47,13 +47,13 @@ const StockButton: React.FC<{ onClick: (type: "KOSPI" | "KOSDAQ" | "KONEX") => v
 
   return (
     <StockButtonsWrapper>
-      <StockButtonContainer active={isActive === "KOSPI"} onClick={() => handleClick("KOSPI")}>
+      <StockButtonContainer $active={isActive === "KOSPI"} onClick={() => handleClick("KOSPI")}>
         코스피
       </StockButtonContainer>
-      <StockButtonContainer active={isActive === "KOSDAQ"} onClick={() => handleClick("KOSDAQ")}>
+      <StockButtonContainer $active={isActive === "KOSDAQ"} onClick={() => handleClick("KOSDAQ")}>
         코스닥
       </StockButtonContainer>
-      <StockButtonContainer active={isActive === "KONEX"} onClick={() => handleClick("KONEX")}>
+      <StockButtonContainer $active={isActive === "KONEX"} onClick={() => handleClick("KONEX")}>
         코넥스
       </StockButtonContainer>
     </StockButtonsWrapper>

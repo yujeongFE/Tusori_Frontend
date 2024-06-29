@@ -24,7 +24,7 @@ const activeLinkStyle = css`
 `;
 
 interface StyledNavLinkProps {
-  hideOnDesktop?: boolean;
+  $hideOnDesktop?: boolean;
 }
 
 const StyledNavLink = styled(NavLink)<StyledNavLinkProps>`
@@ -56,8 +56,8 @@ const StyledNavLink = styled(NavLink)<StyledNavLinkProps>`
     color: #2a2a2a;
   }
 
-  ${({ hideOnDesktop }) =>
-    hideOnDesktop &&
+  ${({ $hideOnDesktop }) =>
+    $hideOnDesktop &&
     css`
       @media (min-width: 768.1px) {
         display: none;
@@ -65,14 +65,14 @@ const StyledNavLink = styled(NavLink)<StyledNavLinkProps>`
     `}
 `;
 
-const SidebySideContainer = styled.div<{ isOpen: boolean }>`
+const SidebySideContainer = styled.div<{ $isOpen: boolean }>`
   display: flex;
   flex-direction: column;
   width: 304px;
   position: fixed;
   height: 100%;
   background-color: #fefdfd;
-  left: ${({ isOpen }) => (isOpen ? "0" : "-304px")};
+  left: ${({ $isOpen }) => ($isOpen ? "0" : "-304px")};
   top: 0;
   overflow-x: hidden;
   transition: 0.5s;
@@ -87,11 +87,11 @@ const SidebySideContainer = styled.div<{ isOpen: boolean }>`
 
   @media (max-width: 400px) {
     width: 250px;
-    left: ${({ isOpen }) => (isOpen ? "0" : "-250px")};
+    left: ${({ $isOpen }) => ($isOpen ? "0" : "-250px")};
   }
   @media (max-width: 300px) {
     width: 200px;
-    left: ${({ isOpen }) => (isOpen ? "0" : "-250px")};
+    left: ${({ $isOpen }) => ($isOpen ? "0" : "-250px")};
   }
 `;
 
@@ -204,7 +204,7 @@ const HeaderMenu: React.FC = () => {
   return (
     <>
       {!isSidebarOpen && <SidebarToggleButton onClick={toggleSidebar} />}
-      <SidebySideContainer isOpen={isSidebarOpen} ref={sidebarRef}>
+      <SidebySideContainer $isOpen={isSidebarOpen} ref={sidebarRef}>
         {isSidebarOpen && <SidebarCloseButton onClick={toggleSidebar} />}
         {isSidebarOpen && (
           // 사이드바에만 보이는 부분
@@ -220,12 +220,12 @@ const HeaderMenu: React.FC = () => {
           주식사전
         </StyledNavLink>
         {isSidebarOpen && (
-          <StyledNavLink to="/dict/process" hideOnDesktop={true} style={{ color: "#2a2a2a", fontSize: "12px", padding: "0 0 5px 8%", marginTop: "0px" }}>
+          <StyledNavLink to="/dict/process" $hideOnDesktop={true} style={{ color: "#2a2a2a", fontSize: "12px", padding: "0 0 5px 8%", marginTop: "0px" }}>
             • 주식 투자 과정
           </StyledNavLink>
         )}
         {isSidebarOpen && (
-          <StyledNavLink to="/dict/words" hideOnDesktop={true} style={{ color: "#2a2a2a", fontSize: "12px", padding: "0 0 5px 8%", marginTop: "10px" }}>
+          <StyledNavLink to="/dict/words" $hideOnDesktop={true} style={{ color: "#2a2a2a", fontSize: "12px", padding: "0 0 5px 8%", marginTop: "10px" }}>
             • 주식 용어 설명
           </StyledNavLink>
         )}
