@@ -24,7 +24,7 @@ const activeLinkStyle = css`
 `;
 
 interface StyledNavLinkProps {
-  hideOnDesktop?: boolean;
+  $hideOnDesktop?: boolean;
 }
 
 const StyledNavLink = styled(NavLink)<StyledNavLinkProps>`
@@ -56,8 +56,8 @@ const StyledNavLink = styled(NavLink)<StyledNavLinkProps>`
     color: #2a2a2a;
   }
 
-  ${({ hideOnDesktop }) =>
-    hideOnDesktop &&
+  ${({ $hideOnDesktop }) =>
+    $hideOnDesktop &&
     css`
       @media (min-width: 768.1px) {
         display: none;
@@ -220,12 +220,12 @@ const HeaderMenu: React.FC = () => {
           주식사전
         </StyledNavLink>
         {isSidebarOpen && (
-          <StyledNavLink to="/dict/process" hideOnDesktop={true} style={{ color: "#2a2a2a", fontSize: "12px", padding: "0 0 5px 8%", marginTop: "0px" }}>
+          <StyledNavLink to="/dict/process" $hideOnDesktop={true} style={{ color: "#2a2a2a", fontSize: "12px", padding: "0 0 5px 8%", marginTop: "0px" }}>
             • 주식 투자 과정
           </StyledNavLink>
         )}
         {isSidebarOpen && (
-          <StyledNavLink to="/dict/words" hideOnDesktop={true} style={{ color: "#2a2a2a", fontSize: "12px", padding: "0 0 5px 8%", marginTop: "10px" }}>
+          <StyledNavLink to="/dict/words" $hideOnDesktop={true} style={{ color: "#2a2a2a", fontSize: "12px", padding: "0 0 5px 8%", marginTop: "10px" }}>
             • 주식 용어 설명
           </StyledNavLink>
         )}
