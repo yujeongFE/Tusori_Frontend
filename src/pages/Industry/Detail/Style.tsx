@@ -12,13 +12,19 @@ export const VerticalContainer = styled.div`
 
 export const Message = styled.div`
   color: #5076ff;
-  padding-left: 13.5vw;
+  padding-left: 15vw;
   padding-top: 5.27vh;
   font-family: Pretendard-Medium;
   font-size: 18px;
   font-style: normal;
   font-weight: 600;
   line-height: normal;
+  @media (max-width: 1550px) {
+    padding-left: 16vw;
+  }
+  @media (max-width: 1100px) {
+    padding-left: 17vw;
+  }
   @media (max-width: 768px) {
     width: auto;
     padding-left: 0vw;
@@ -39,5 +45,5 @@ export const FlexBox = styled.div`
 
 export const TableContainer = styled.div`
   width: auto;
-  margin-top: 2.4vh;
+  margin-top: 30px;
 `;

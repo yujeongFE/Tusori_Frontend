@@ -4,6 +4,7 @@ import NumberBtn from "components/Dictionary/NumberBtn";
 import { useWords } from "components/SideBar/DictionarySideBar/WordsContext";
 import { sendStockOrderRequest } from "api/industry/StockOrder";
 import { StockOrderSuccessResponse } from "api/industry/StockOrder";
+import sendNotificationRequest from "api/notification/notification";
 import { UserInfomation } from "api/mypage/mypageData";
 import { getDay } from "date-fns";
 import { useNavigate } from "react-router-dom";
@@ -262,16 +263,7 @@ const ChangePrice = styled.span`
   color: red;
 `;
 
-const StockOrderBox: React.FC<StockOrderBoxProps> = ({
-  code,
-  name,
-  isModalOpen,
-  setIsModalOpen,
-  guidModalOpen,
-  setGuidModalOpen,
-  isMobile,
-  userInfo,
-}) => {
+const StockOrderBox: React.FC<StockOrderBoxProps> = ({ code, name, isModalOpen, setIsModalOpen, guidModalOpen, setGuidModalOpen, isMobile, userInfo }) => {
   const navigate = useNavigate();
   const [price, setPrice] = useState("");
   const [quantity, setQuantity] = useState("");
@@ -329,9 +321,10 @@ const StockOrderBox: React.FC<StockOrderBoxProps> = ({
         return;
       }
 
-      // 알림 데이터가 정상적으로 받아와진 경우 주식 구매 요청 보내기
-
       setIsModalOpen?.(true); // 성공 시 모달 열기
+
+      // 알림 api 정상 작동 확인 불가하여, 알림 요청 성공, 실패 여부 상관없이 다음 과정 진행
+      sendNotificationRequest();
 
       // 주식 거래 요청 보내기
       const responseData: StockOrderSuccessResponse | null = await sendStockOrderRequest(code, parsedPrice, parsedQuantity, isSell);
