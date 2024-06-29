@@ -37,7 +37,7 @@ const commonButtonStyles = css`
   }
 `;
 
-const Container = styled.div<{ mobile: boolean }>`
+const Container = styled.div<{ $mobile: boolean }>`
   width: 100%;
   height: 57.6vh;
   border-radius: 12px;
@@ -53,7 +53,7 @@ const Container = styled.div<{ mobile: boolean }>`
     width: 100%;
     margin-top: 2vh;
     padding-top: 0px;
-    height: ${(mobile) => (mobile ? "50%" : "")};
+    height: ${($mobile) => ($mobile ? "50%" : "")};
   }
 `;
 
@@ -65,22 +65,22 @@ const Button = styled.div`
   text-align: center;
 `;
 
-const BuyButton = styled.div<{ active: boolean }>`
+const BuyButton = styled.div<{ $active: boolean }>`
   ${commonButtonStyles}
   border-radius: 12px 0px 0px 12px;
   background: #fff;
-  border-color: ${(props) => (props.active ? "#708ffe" : "#BABABA")};
-  color: ${(props) => (props.active ? "#456eff" : "#BABABA")};
+  border-color: ${(props) => (props.$active ? "#708ffe" : "#BABABA")};
+  color: ${(props) => (props.$active ? "#456eff" : "#BABABA")};
   font-weight: 700;
   cursor: pointer;
 `;
 
-const SellButton = styled.div<{ active: boolean }>`
+const SellButton = styled.div<{ $active: boolean }>`
   ${commonButtonStyles}
   border-radius: 0px 12px 12px 0px;
   background: rgba(255, 255, 255, 0.74);
-  border-color: ${(props) => (props.active ? "#708ffe" : "#BABABA")};
-  color: ${(props) => (props.active ? "#456eff" : "#BABABA")};
+  border-color: ${(props) => (props.$active ? "#708ffe" : "#BABABA")};
+  color: ${(props) => (props.$active ? "#456eff" : "#BABABA")};
   font-weight: 700;
   cursor: pointer;
 `;
@@ -387,14 +387,14 @@ const StockOrderBox: React.FC<StockOrderBoxProps> = ({
   }, [guidModalOpen]);
 
   return (
-    <Container mobile={mobileGuid}>
+    <Container $mobile={mobileGuid}>
       {!mobileGuid && (
         <>
           <Button>
-            <BuyButton onClick={ActiveBuyButton} active={activeButton === "buy"}>
+            <BuyButton onClick={ActiveBuyButton} $active={activeButton === "buy"}>
               <ButtonText>{!isMobile && isOpen && <NumberBtn number={18} />}매수</ButtonText>
             </BuyButton>
-            <SellButton onClick={ActiveSellButton} active={activeButton === "sell"}>
+            <SellButton onClick={ActiveSellButton} $active={activeButton === "sell"}>
               <ButtonText>{!isMobile && isOpen && <NumberBtn number={19} />}매도</ButtonText>
             </SellButton>
           </Button>
