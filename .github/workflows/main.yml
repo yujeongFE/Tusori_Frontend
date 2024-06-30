@@ -20,7 +20,6 @@ jobs:
         uses: actions/setup-node@v2.5.2
         with:
           node-version: lts/Hydrogen
-
       - name: Cache node modules
       	# 그걸 제공하는 Action도 있다.
         uses: actions/cache@v2.1.8
