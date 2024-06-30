@@ -23,7 +23,6 @@ const LoginRedirectHandler: React.FC = () => {
       axios
         .post(`${process.env.REACT_APP_BASE_URL}/springboot/user/kakao?code=${code}`)
         .then((response) => {
-          console.log("Login success:", response.data.data);
           localStorage.setItem("accessToken", response.data.data.accessToken);
 
           // 5시간 후 accessToken 만료
@@ -34,9 +33,6 @@ const LoginRedirectHandler: React.FC = () => {
             5 * 60 * 60 * 1000,
           );
           window.location.href = "/";
-        })
-        .catch((error) => {
-          console.error("Login failed:", error);
         });
     }
   }, []);
