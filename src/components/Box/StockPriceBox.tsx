@@ -136,31 +136,14 @@ const StockPriceBox: React.FC<{ sector: string; data: CompanyInfo; interestStock
     if (interestStocks && Array.isArray(interestStocks)) {
       const isStockFavorite = interestStocks.some((stock) => stock?.Code === data?.Code);
       setIsFavorite(isStockFavorite);
-      console.log(isStockFavorite);
     }
   }, [interestStocks, data?.Code]);
 
   // 즐겨찾기 기능(별 부분)
   const toggleFavorite = async (sector: string, code: string) => {
     setIsFavorite(!isFavorite);
-
-    try {
       const method = isFavorite ? "DELETE" : "POST"; // DELETE 또는 POST 메서드 선택
-
-      const response = await BookmarkRequest(sector, code, method);
-
-      if (response) {
-        if (isFavorite) {
-          console.log("북마크 삭제 완료!");
-        } else {
-          console.log("북마크 추가 완료!");
-        }
-      } else {
-        console.error("북마크 업데이트 실패");
-      }
-    } catch (error) {
-      console.error("북마크 업데이트 요청 중 오류 발생:", error);
-    }
+      await BookmarkRequest(sector, code, method);
   };
 
   return (
