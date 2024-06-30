@@ -273,7 +273,6 @@ const StockOrderBox: React.FC<StockOrderBoxProps> = ({ code, name, isModalOpen, 
   const [purchaseData, setPurchaseData] = useState<StockOrderSuccessResponse | undefined>(undefined);
   const [SuccessMessage, setSuccessMessage] = useState("");
   const [popupMessage, setPopupMessage] = useState("");
-  const [holdings, setHoldings] = useState<number | undefined>(undefined);
   const [buyActive, setBuyActive] = useState(false);
 
   const ActiveBuyButton = () => {

@@ -16,16 +16,6 @@ interface StockInfoBoxProps {
 }
 
 // 데이터 형식 선언
-interface StockData {
-  rank?: string;
-  pick?: string;
-  name: string;
-  currentPrice: string;
-  priceChange: string;
-  percentageChange: string;
-  volume: string;
-}
-
 export interface User {
   user_id: number;
   email: number;
@@ -288,7 +278,7 @@ const renderTableCell = (
 };
 
 // category 값이 전달되지 않을 경우 테이블 위 버튼 생성 X
-const StockInfoBox: React.FC<StockInfoBoxProps> = ({ title, category = [], login, stockData = {}, userStockData = {} }) => {
+const StockInfoBox: React.FC<StockInfoBoxProps> = ({ title, category = [], login, stockData = {} }) => {
   const navigate = useNavigate();
   const [selectedButton, setSelectedButton] = useState(0);
   const [selectData, setSelectData] = useState<

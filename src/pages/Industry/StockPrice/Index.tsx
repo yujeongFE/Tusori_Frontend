@@ -1,3 +1,4 @@
+/* eslint-disable */
 import React, { useState, useEffect, useCallback } from "react";
 import styled from "styled-components";
 
@@ -37,7 +38,7 @@ const Index = () => {
   const [sector, setSector] = useState<string>("");
   const [name, setName] = useState<string>("");
 
-  const { user_info, interest_stocks, save_stocks } = useMyPageData();
+  const { user_info, interest_stocks } = useMyPageData();
 
   useEffect(() => {
     if (user_info) {

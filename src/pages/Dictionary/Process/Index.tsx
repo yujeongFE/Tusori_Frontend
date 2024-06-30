@@ -16,17 +16,6 @@ const Index: React.FC = () => {
     setStepKey(name);
   };
 
-  const [isInvestMode, setIsInvesteMode] = useState<boolean>(false);
-  const handleModeChange = (checked: boolean) => {
-    setIsInvesteMode(checked);
-    if (checked) {
-      setIsOpen(true);
-    }
-  };
-
-  //주식용어설명 사이드바
-  const [isOpen, setIsOpen] = useState(false);
-
   useEffect(() => {
     setWords([{ word: "", description: "" }]);
   }, [setWords]);
