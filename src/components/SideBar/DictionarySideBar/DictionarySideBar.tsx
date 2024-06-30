@@ -24,7 +24,8 @@ const SideBarWrap = styled.div<{ $isOpen: boolean; $isTop: boolean; $isTransitio
   }
   @media (max-width: 768px) {
     right: 0;
-    top: ${({ $isOpen, $isTop, $isTransitionToggle, $isDictionary }) => ($isOpen ? ($isTop ? "87%" : $isTransitionToggle && !$isDictionary ? "30%" : "60%") : "100%")};
+    top: ${({ $isOpen, $isTop, $isTransitionToggle, $isDictionary }) =>
+      $isOpen ? ($isTop ? "87%" : $isTransitionToggle && !$isDictionary ? "30%" : "60%") : "100%"};
     border-radius: 16px;
     width: 100%;
     height: 100%;
@@ -168,7 +169,7 @@ const Scrollbar = styled.div`
 const SelectButton = styled.img<{ $isTop: boolean; $isTransition: boolean; $isDictionary: boolean }>`
   width: 52px;
   height: 52px;
-  top: ${({ $isTop, $isTransition, $isDictionary }) => (!$isTop ? (!$isDictionary ? "20%" : "53%") : "80%")};
+  top: ${({ $isTop, $isDictionary }) => (!$isTop ? (!$isDictionary ? "20%" : "53%") : "80%")};
   left: 85%;
   position: fixed;
   z-index: 30;

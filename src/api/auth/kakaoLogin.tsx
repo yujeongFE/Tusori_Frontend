@@ -1,5 +1,3 @@
-import axios from "axios";
-
 const clientId = process.env.REACT_APP_CLIENT_ID;
 const redirectUrl = process.env.REACT_APP_REDIRECT_URL;
 

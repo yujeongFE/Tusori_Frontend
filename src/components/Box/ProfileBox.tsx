@@ -1,10 +1,9 @@
-import React, { useEffect } from "react";
+import React from "react";
 import styled from "styled-components";
 import NumberBtn from "components/Dictionary/NumberBtn";
 import { useMyPageData } from "api/mypage/mypageDataContext";
 import { useWords } from "components/SideBar/DictionarySideBar/WordsContext";
 import { Reset } from "api/mypage/Reset";
-import { MyPageData } from "api/mypage/mypageData";
 
 const ProfileBox: React.FC = () => {
   const { user_info } = useMyPageData();

@@ -310,15 +310,6 @@ const MarketInfoBoxContainer: React.FC<{ marketData: MarketData; activeTitle: st
   };
 
   if (isMobile) {
-    const settings = {
-      dots: false,
-      infinite: false,
-      speed: 500,
-      slidesToShow: 2,
-      slidesToScroll: 1,
-      row: 1,
-    };
-
     return <>{renderMarketBoxes()}</>;
   } else {
     return (
