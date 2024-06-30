@@ -31,5 +31,11 @@ export const LoaderWrapper = styled.div`
   justify-content: center;
   flex-direction: column;
   z-index: 9999;
-  text-align: center; 
+  text-align: center;
+
+  @media (max-width: 768px) {
+    top: 80%;
+    transform: translate(-50%, -30%);
+    height: 100vh;
+  }
 `;
