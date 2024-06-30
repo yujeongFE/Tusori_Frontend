@@ -15,13 +15,11 @@ jobs:
       # 만들어놓은 Action을 사용할 때는 uses라는 키워드를 사용한다.
       - name: Checkout
         uses: actions/checkout@v3.5.2
-	
       - name: Setup Node.js environment
         uses: actions/setup-node@v2.5.2
         with:
           node-version: lts/Hydrogen
       - name: Cache node modules
-      	# 그걸 제공하는 Action도 있다.
         uses: actions/cache@v2.1.8
         # 해당 step을 대표하는 id를 설정할 수도 있다. 해당 값은 뒤의 step에서 사용한다.
         id: cache
