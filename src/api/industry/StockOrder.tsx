@@ -32,7 +32,6 @@ export const sendStockOrderRequest = async (code: string, price: number, amount:
 
     return response.data;
   } catch (error) {
-    console.error("Error occurred in sendStockOrderRequest:", error);
     return null;
   }
 };

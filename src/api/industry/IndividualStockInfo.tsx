@@ -52,10 +52,8 @@ export async function IndividualStockInfo(sector: string, name: string): Promise
     const response: AxiosResponse<StockInfo> = await axios.get(
       `${process.env.REACT_APP_BASE_URL}/fastapi/sic/${encodeURIComponent(sector)}/${encodeURIComponent(name)}`,
     );
-    console.log("종목 시세 데이터", response.data);
     return response.data;
   } catch (error) {
-    console.error("Error fetching sector info:", error);
     return null;
   }
 }

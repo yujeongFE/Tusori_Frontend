@@ -9,11 +9,8 @@ export const Reset = async () => {
       },
     });
 
-    //response 콘솔에 출력
-    console.log("Reset Data:", response);
     return response;
   } catch (error) {
-    console.error("Reset Error:", error);
     return null;
   }
 };
