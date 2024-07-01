@@ -79,8 +79,20 @@ const Container = styled.div`
       color: #708ffe; // 마우스 호버 상태일 때 글자 색상 변경
     }
 
+    @media (max-width: 1200px) {
+      font-size: 15px;
+    }
+    @media (max-width: 900px) {
+      font-size: 14px;
+    }
+    @media (max-width: 880px) {
+      font-size: 13px;
+    }
     @media (max-width: 768px) {
       font-size: 16px;
+    }
+    @media (max-width: 450px) {
+      font-size: 14px;
     }
   }
 
@@ -120,9 +132,50 @@ const Button = styled.button<{ selected: boolean }>`
   background: ${({ selected }) => (selected ? "#708FFE" : "#D9D9D9")};
   border-radius: 40px;
 
-  @media (max-width: 768px) {
+  @media (max-width: 1440px) {
+    font-size: 15px;
+    padding: 6px 13px;
+    gap: 5px;
+  }
+
+  @media (max-width: 1300px) {
+    font-size: 13px;
+    padding: 6px 10px;
+  }
+
+  @media (max-width: 1200px) {
+    font-size: 13px;
+    padding: 6px 9px;
+  }
+
+  @media (max-width: 1150px) {
+    font-size: 13px;
+    padding: 6px 7px;
+    gap: 3px;
+  }
+
+  @media (max-width: 950px) {
     font-size: 12px;
-    padding: 6px 12px;
+    padding: 5px 6px;
+  }
+
+  @media (max-width: 880px) {
+    font-size: 11px;
+    padding: 5px 4px;
+  }
+
+  @media (max-width: 768px) {
+    font-size: 13px;
+    padding: 5px 7px;
+  }
+
+  @media (max-width: 450px) {
+    font-size: 12px;
+    padding: 5px 7px;
+  }
+  @media (max-width: 440px) {
+    font-size: 10px;
+    padding: 5px 6px;
   }
 `;
 
@@ -198,8 +251,20 @@ const LoginMessage = styled.span`
   text-align: center;
   margin-bottom: 6vh;
 
+  @media (max-width: 1200px) {
+    font-size: 15px;
+  }
+  @media (max-width: 900px) {
+    font-size: 14px;
+  }
+  @media (max-width: 880px) {
+    font-size: 13px;
+  }
   @media (max-width: 768px) {
-    font-size: 12px;
+    font-size: 16px;
+  }
+  @media (max-width: 450px) {
+    font-size: 14px;
   }
 `;
 
@@ -219,9 +284,20 @@ const LoginButton = styled.div`
   font-weight: 500;
   line-height: normal;
 
+  @media (max-width: 1200px) {
+    font-size: 15px;
+  }
+  @media (max-width: 900px) {
+    font-size: 14px;
+  }
+  @media (max-width: 880px) {
+    font-size: 13px;
+  }
   @media (max-width: 768px) {
-    font-family: Pretendard-Medium;
-    font-size: 12px;
+    font-size: 16px;
+  }
+  @media (max-width: 450px) {
+    font-size: 14px;
   }
 `;
 
