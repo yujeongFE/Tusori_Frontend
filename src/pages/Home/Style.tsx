@@ -16,8 +16,8 @@ export const TableContainer = styled.div`
   gap: 1.14vw;
 
   @media (max-width: 768px) {
-    display: flex;
     flex-direction: column;
+    gap: 1rem; 
   }
 `;
 
@@ -25,10 +25,11 @@ export const RowFlexBox = styled.div`
   display: flex;
   flex-direction: row;
   width: 100%;
+  justify-content: space-between;
+
   @media (max-width: 768px) {
-    display: flex;
-    flex-direction: row;
-    width: 100%;
+    flex-direction: column; 
+    align-items: center;
   }
 `;
 
