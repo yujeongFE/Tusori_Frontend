@@ -20,7 +20,7 @@ const Index = () => {
       const data = await SectorInfo();
       setSectorInfo(data);
     } catch (error) {
-      console.error("Error fetching stock info:", error);
+      //console.error("Error fetching stock info:", error);
     }
   }
 

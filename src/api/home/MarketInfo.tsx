@@ -29,7 +29,6 @@ export async function fetchHomePageData(): Promise<{
   top_5_konex: StockInfo[];
 } | null> {
   try {
-    console.log("데이터를 불러오는 중...");
     const response = await axios.get(`${process.env.REACT_APP_BASE_URL}/fastapi/home`);
 
     // 데이터 형식 단언
@@ -42,18 +41,7 @@ export async function fetchHomePageData(): Promise<{
       top_5_konex: StockInfo[];
     };
 
-    console.log("데이터를 성공적으로 불러왔습니다.");
-
     const { kospi, kosdaq, top_5_kospi, top_5_kosdaq, top_5_konex, usdkrw_data } = responseData;
-
-    console.log("불러온 데이터:", {
-      kospi,
-      kosdaq,
-      top_5_kospi,
-      top_5_kosdaq,
-      top_5_konex,
-      usdkrw_data,
-    });
 
     // 조정된 데이터를 반환
     return {
@@ -65,7 +53,6 @@ export async function fetchHomePageData(): Promise<{
       top_5_konex,
     };
   } catch (error) {
-    console.error("데이터를 불러오는 중 오류가 발생했습니다:", error);
     return null;
   }
 }

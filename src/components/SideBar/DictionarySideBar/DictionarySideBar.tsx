@@ -4,16 +4,16 @@ import { useWords } from "./WordsContext";
 import StockOrderBox from "components/Box/StockOrderBox";
 
 import { useRecoilValue } from "recoil";
-import { userInfoState, stockCodeState, saveStockState } from "recoil/atoms";
+import { userInfoState, stockCodeState, saveStockNameState } from "recoil/atoms";
 
-const SideBarWrap = styled.div<{ isOpen: boolean; isTop: boolean; isTransitionToggle: boolean; isDictionary: boolean }>`
+const SideBarWrap = styled.div<{ $isOpen: boolean; $isTop: boolean; $isTransitionToggle: boolean; $isDictionary: boolean }>`
   z-index: 20;
   border-radius: 16px 0px 0px 16px;
   border-left: 1px solid #bccafb;
   background: #fff;
   height: 87%;
   width: 20%;
-  right: ${({ isOpen }) => (isOpen ? "0" : "-55%")};
+  right: ${({ $isOpen }) => ($isOpen ? "0" : "-55%")};
   top: 130px;
   position: fixed;
   transition: 0.5s ease;
@@ -24,7 +24,8 @@ const SideBarWrap = styled.div<{ isOpen: boolean; isTop: boolean; isTransitionTo
   }
   @media (max-width: 768px) {
     right: 0;
-    top: ${({ isOpen, isTop, isTransitionToggle, isDictionary }) => (isOpen ? (isTop ? "87%" : isTransitionToggle && !isDictionary ? "30%" : "60%") : "100%")};
+    top: ${({ $isOpen, $isTop, $isTransitionToggle, $isDictionary }) =>
+      $isOpen ? ($isTop ? "87%" : $isTransitionToggle && !$isDictionary ? "30%" : "60%") : "100%"};
     border-radius: 16px;
     width: 100%;
     height: 100%;
@@ -74,7 +75,7 @@ const Num = styled.div`
   }
 `;
 
-const Top = styled.div<{ isTransitionToggle: boolean; isDictionary: boolean }>`
+const Top = styled.div<{ $isTransitionToggle: boolean; $isDictionary: boolean }>`
   width: 100%;
   height: 52px;
   border-radius: 16px 0px 0px 0px;
@@ -86,7 +87,7 @@ const Top = styled.div<{ isTransitionToggle: boolean; isDictionary: boolean }>`
     border-radius: 16px 16px 0px 0px;
     display: flex;
     justify-content: center;
-    height: ${({ isTransitionToggle, isDictionary }) => (isTransitionToggle && !isDictionary ? "45px" : "81px")};
+    height: ${({ $isTransitionToggle, $isDictionary }) => ($isTransitionToggle && !$isDictionary ? "45px" : "81px")};
   }
 `;
 
@@ -165,10 +166,10 @@ const Scrollbar = styled.div`
   }
 `;
 
-const SelectButton = styled.img<{ isTop: boolean; isTransition: boolean; isDictionary: boolean }>`
+const SelectButton = styled.img<{ $isTop: boolean; $isTransition: boolean; $isDictionary: boolean }>`
   width: 52px;
   height: 52px;
-  top: ${({ isTop, isTransition, isDictionary }) => (!isTop ? (!isDictionary ? "20%" : "53%") : "80%")};
+  top: ${({ $isTop, $isDictionary }) => (!$isTop ? (!$isDictionary ? "20%" : "53%") : "80%")};
   left: 85%;
   position: fixed;
   z-index: 30;
@@ -177,7 +178,7 @@ const SelectButton = styled.img<{ isTop: boolean; isTransition: boolean; isDicti
 
 interface DictionarySideBarProps {
   isOpen: boolean;
-  setIsOpen: (isOpen: boolean) => void;
+  setIsOpen: ($isOpen: boolean) => void;
   onClose: () => void;
 }
 
@@ -189,7 +190,7 @@ const DictionarySideBar: React.FC<DictionarySideBarProps> = ({ isOpen, setIsOpen
   const [isDictionary, setIsDictionary] = useState(true);
   const userInfo = useRecoilValue(userInfoState);
   const stockCode = useRecoilValue(stockCodeState);
-  const saveStocks = useRecoilValue(saveStockState);
+  const stockName = useRecoilValue(saveStockNameState);
 
   // 모바일 버전인지 감지하는 코드
   useEffect(() => {
@@ -217,9 +218,9 @@ const DictionarySideBar: React.FC<DictionarySideBarProps> = ({ isOpen, setIsOpen
     <>
       {isTransitionToggle && (
         <SelectButton
-          isTop={isTop}
-          isTransition={isTransitionToggle}
-          isDictionary={isDictionary}
+          $isTop={isTop}
+          $isTransition={isTransitionToggle}
+          $isDictionary={isDictionary}
           onClick={handleClickButton}
           src={
             isDictionary
@@ -228,10 +229,10 @@ const DictionarySideBar: React.FC<DictionarySideBarProps> = ({ isOpen, setIsOpen
           }
         ></SelectButton>
       )}
-      <SideBarWrap ref={outside} isOpen={isOpen} isTop={isTop} isTransitionToggle={isTransitionToggle} isDictionary={isDictionary}>
+      <SideBarWrap ref={outside} $isOpen={isOpen} $isTop={isTop} $isTransitionToggle={isTransitionToggle} $isDictionary={isDictionary}>
         <Top
-          isTransitionToggle={isTransitionToggle}
-          isDictionary={isDictionary}
+          $isTransitionToggle={isTransitionToggle}
+          $isDictionary={isDictionary}
           onClick={() => {
             setIsTop((prevState) => !prevState);
           }}
@@ -260,7 +261,7 @@ const DictionarySideBar: React.FC<DictionarySideBarProps> = ({ isOpen, setIsOpen
         </Top>
         <Scrollbar>
           {isTransitionToggle && !isDictionary ? (
-            <StockOrderBox code={stockCode} name={"김윤상"} userInfo={userInfo} saveStocks={saveStocks} isMobile={isMobile} />
+            <StockOrderBox code={stockCode} name={stockName} userInfo={userInfo} isMobile={isMobile} />
           ) : (
             <>
               {words.map((item, index) => (

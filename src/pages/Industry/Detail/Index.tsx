@@ -41,7 +41,7 @@ const Index = () => {
           setStockData(transformedData);
         }
       } catch (error) {
-        console.error("Error fetching data:", error);
+        //console.error("Error fetching data:", error);
       }
     }
   };
@@ -61,7 +61,7 @@ const Index = () => {
         setStockData(transformedData);
       }
     } catch (error) {
-      console.error("Error fetching data:", error);
+      //console.error("Error fetching data:", error);
     }
   };
 

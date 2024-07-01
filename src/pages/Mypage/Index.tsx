@@ -137,11 +137,11 @@ const Index: React.FC = () => {
       <Text>관심 주식</Text>
       <InterestedStocksTable data={InterestedTableData} />
       <LogsBtnContainer>
-        <LogsBtn onClick={() => setActiveTable("BuyingLogs")} active={activeTable === "BuyingLogs"}>
+        <LogsBtn onClick={() => setActiveTable("BuyingLogs")} $active={activeTable === "BuyingLogs"}>
           매수 일지
         </LogsBtn>
         <Bar />
-        <LogsBtn onClick={() => setActiveTable("SellingLogs")} active={activeTable === "SellingLogs"}>
+        <LogsBtn onClick={() => setActiveTable("SellingLogs")} $active={activeTable === "SellingLogs"}>
           매도 일지
         </LogsBtn>
       </LogsBtnContainer>

@@ -1,18 +1,22 @@
-import React, { useState, useEffect } from "react";
+/* eslint-disable */
+import React, { useState, useEffect, useCallback } from "react";
 import styled from "styled-components";
+
 import StockPriceBox from "components/Box/StockPriceBox";
 import CompanyInfoBox from "components/Box/CompanyInfoBox";
 import FinancialIndicators from "components/FinancialIndicators";
 import StockOrderBox from "components/Box/StockOrderBox";
 import IndustryComparisonTable from "components/Table/IndusryComparisonTable";
-import { useWords } from "components/SideBar/DictionarySideBar/WordsContext";
-import { FlexBox, Table } from "./Style";
 import MobliePageName from "components/layouts/MobliePageName";
+
+import { useWords } from "components/SideBar/DictionarySideBar/WordsContext";
+import { FlexBox, Table, LoaderWrapper } from "./Style";
 import { useLocation } from "react-router-dom";
 import { IndividualStockInfo } from "api/industry/IndividualStockInfo";
 import { useMyPageData } from "api/mypage/mypageDataContext";
 import { useRecoilState } from "recoil";
-import { stockCodeState, userInfoState, saveStockState } from "recoil/atoms";
+import { stockCodeState, userInfoState, saveStockNameState } from "recoil/atoms";
+import { BeatLoader } from "react-spinners";
 
 const RowFlexBox = styled.div`
   display: flex;
@@ -26,14 +30,15 @@ const Index = () => {
   const [guidModalOpen, setGuidModalOpen] = useState<boolean>(false);
   const [isMobile, setIsMobile] = useState<boolean>(window.innerWidth <= 768);
   const [stockData, setStockData] = useState<any>(null);
+  const [loading, setLoading] = useState<boolean>(true); // 로딩 상태 추가
   const location = useLocation();
   const [stockCode, setStockCode] = useRecoilState(stockCodeState);
   const [userInfo, setUserInfo] = useRecoilState(userInfoState);
-  const [saveStockInfo, setSaveStockInfo] = useRecoilState(saveStockState);
+  const [stockName, setStockName] = useRecoilState(saveStockNameState);
   const [sector, setSector] = useState<string>("");
   const [name, setName] = useState<string>("");
 
-  const { user_info, interest_stocks, save_stocks } = useMyPageData();
+  const { user_info, interest_stocks } = useMyPageData();
 
   useEffect(() => {
     if (user_info) {
@@ -41,33 +46,23 @@ const Index = () => {
     }
   }, [user_info, setUserInfo]);
 
-  useEffect(() => {
-    if (Array.isArray(save_stocks) && save_stocks.length > 0) {
-      const firstStock = save_stocks[0];
-      setSaveStockInfo((prevSaveStocks) => [
-        {
-          name: name && name,
-          save_name: firstStock.name || "",
-          my_quantity: firstStock.my_quantity || 0,
-        },
-        ...prevSaveStocks.slice(1), 
-      ]);
-    } else {
-      setSaveStockInfo([]); 
-    }
-  }, [save_stocks, setSaveStockInfo]);
-
-  const fetchData = async ({ sector, name }: { sector: string; name: string }) => {
-    try {
-      const data = await IndividualStockInfo(sector, name);
-      if (data) {
-        setStockData(data);
-        setStockCode(data?.company_info?.Code);
+  const fetchData = useCallback(
+    async ({ sector, name }: { sector: string; name: string }) => {
+      try {
+        setLoading(true); // 데이터 로드 시작 시 로딩 상태로 전환
+        const data = await IndividualStockInfo(sector, name);
+        if (data) {
+          setStockData(data);
+          setStockCode(data?.company_info?.Code);
+        }
+      } catch (error) {
+        console.error("개별 종목 상세 데이터 파싱 오류:", error);
+      } finally {
+        setLoading(false); // 데이터 로드 완료 후 로딩 상태 해제
       }
-    } catch (error) {
-      console.error("개별 종목 상세 데이터 파싱 오류:", error);
-    }
-  };
+    },
+    [setStockCode],
+  );
 
   useEffect(() => {
     const handleResize = () => {
@@ -88,6 +83,7 @@ const Index = () => {
       fetchData({ sector, name });
       setSector(sector);
       setName(name);
+      setStockName(name);
     }
   }, [location.state, fetchData]);
 
@@ -154,30 +150,40 @@ const Index = () => {
           }}
         />
       )}
-      <MobliePageName pageTitle="종목 상세" />
       <FlexBox style={{ zIndex: 2 }}>
-        <RowFlexBox style={{ gap: "2.44vw", flexDirection: isMobile ? "column" : "row" }}>
-          <StockPriceBox sector={sector} data={stockData?.company_info} interestStocks={interest_stocks ?? []} />
-          <CompanyInfoBox company_content={stockData?.company_content} />
-        </RowFlexBox>
-        <RowFlexBox style={{ gap: "2.44vw", flexDirection: isMobile ? "column" : "row" }}>
-          <FinancialIndicators data={stockData?.company_info} />
-          {!isMobile && (
-            <StockOrderBox
-              code={stockCode}
-              name={name}
-              isModalOpen={isModalOpen}
-              setIsModalOpen={setIsModalOpen}
-              guidModalOpen={guidModalOpen}
-              setGuidModalOpen={setGuidModalOpen}
-              userInfo={userInfo}
-              saveStocks={saveStockInfo}
-            />
-          )}
-        </RowFlexBox>
-        <Table style={{ zIndex: 3 }}>
-          <IndustryComparisonTable height={"auto"} isMobile={isMobile} data={stockData} />
-        </Table>
+        <MobliePageName pageTitle="종목 상세" />
+        {loading ? (
+          <>
+            <LoaderWrapper>
+              <BeatLoader color={"#708FFE"} loading={loading} />
+              <span style={{ marginTop: "20px", textAlign: "center" }}>종목 정보 처리 중</span>
+            </LoaderWrapper>
+          </>
+        ) : (
+          <>
+            <RowFlexBox style={{ gap: "2.44vw", flexDirection: isMobile ? "column" : "row" }}>
+              <StockPriceBox sector={sector} data={stockData?.company_info} interestStocks={interest_stocks ?? []} />
+              <CompanyInfoBox company_content={stockData?.company_content[0]} />
+            </RowFlexBox>
+            <RowFlexBox style={{ gap: "2.44vw", flexDirection: isMobile ? "column" : "row" }}>
+              <FinancialIndicators data={stockData?.company_info} />
+              {!isMobile && (
+                <StockOrderBox
+                  code={stockCode}
+                  name={name}
+                  isModalOpen={isModalOpen}
+                  setIsModalOpen={setIsModalOpen}
+                  guidModalOpen={guidModalOpen}
+                  setGuidModalOpen={setGuidModalOpen}
+                  userInfo={userInfo}
+                />
+              )}
+            </RowFlexBox>
+            <Table style={{ zIndex: 3 }}>
+              <IndustryComparisonTable height={"auto"} isMobile={isMobile} data={stockData} />
+            </Table>
+          </>
+        )}
       </FlexBox>
     </div>
   );

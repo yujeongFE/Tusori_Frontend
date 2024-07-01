@@ -25,12 +25,12 @@ export const LogsBtnContainer = styled.div`
   margin-bottom: 20px;
 `;
 
-export const LogsBtn = styled.button<{ active: boolean }>`
+export const LogsBtn = styled.button<{ $active: boolean }>`
   cursor: pointer;
   border: none;
   background-color: transparent;
-  font-weight: ${(props) => (props.active ? "bold" : "normal")};
-  color: ${(props) => (props.active ? "#2a2a2a" : "#B0B0B0")};
+  font-weight: ${(props) => (props.$active ? "bold" : "normal")};
+  color: ${(props) => (props.$active ? "#2a2a2a" : "#B0B0B0")};
   font-size: 24px;
   outline: none;
 `;

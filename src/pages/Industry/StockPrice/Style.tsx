@@ -20,3 +20,22 @@ export const Table = styled.div`
     margin-top: 2.44vw;
   }
 `;
+
+export const LoaderWrapper = styled.div`
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  z-index: 9999;
+  text-align: center;
+
+  @media (max-width: 768px) {
+    top: 80%;
+    transform: translate(-50%, -30%);
+    height: 100vh;
+  }
+`;
