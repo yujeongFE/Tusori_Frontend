@@ -3,8 +3,8 @@ import styled from "styled-components";
 import Slider from "react-slick";
 
 const Container = styled.div`
+  width: 100%;
   @media (max-width: 768px) {
-    width: 100%
     height: 10.36vh;
     min-height: 111px;
     margin-top: 2.6vh;
@@ -98,6 +98,9 @@ const CurrentIndex = styled.div`
   @media (max-width: 1150px) {
     font-size: 25px;
   }
+  @media (max-width: 900px) {
+    font-size: 23px;
+  }
   @media (max-width: 768px) {
     margin-top: 20px;
     font-size: 18px;
@@ -119,7 +122,9 @@ const ChangeIndex = styled.div`
 
   @media (max-width: 1150px) {
     font-size: 18px;
-    margin-top: 20px;
+  }
+  @media (max-width: 900px) {
+    font-size: 16px;
   }
   @media (max-width: 768px) {
     font-size: 14px;
@@ -132,8 +137,11 @@ const ChangePercent = styled.span`
   display: flex;
   align-items: center;
   justify-content: center;
-
+  @media (max-width: 900px) {
+    font-size: 16px;
+  }
   @media (max-width: 768px) {
+    font-size: 14px;
     margin-left: 4.26vw;
   }
 `;
