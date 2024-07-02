@@ -8,7 +8,7 @@ export const sendNotificationRequest = async (token: string | null) => {
       return null;
     }
 
-    const apiUrl = `${process.env.REACT_APP_BASE_URL}/springboot/notification`;
+    const apiUrl = `${process.env.REACT_APP_BASE_URL}/springboot/notification/`;
 
     const response = await axios.get(apiUrl, {
       headers: {
