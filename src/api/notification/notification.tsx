@@ -1,9 +1,7 @@
 import axios from "axios";
 
 // 알림 요청 보내는 함수
-export const sendNotificationRequest = async () => {
-  const token = localStorage.getItem("accessToken");
-
+export const sendNotificationRequest = async (token: string | null) => {
   try {
     if (!token) {
       console.error("Access token not found in local storage.");
