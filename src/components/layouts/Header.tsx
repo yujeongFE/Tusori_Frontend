@@ -9,6 +9,8 @@ import { Link } from "react-router-dom";
 import { useMyPageData } from "api/mypage/mypageDataContext";
 import { useWords } from "components/SideBar/DictionarySideBar/WordsContext";
 import DictionarySideBar from "components/SideBar/DictionarySideBar/DictionarySideBar";
+import { useRecoilValue } from "recoil";
+import { alarmActiveState } from "recoil/atoms";
 
 const Header = () => {
   const [isInvestMode, setIsInvestMode] = useState<boolean>(false);
@@ -17,6 +19,7 @@ const Header = () => {
   const [isClicked, setIsClicked] = useState<boolean>(false);
   const [isSearchClicked, setIsSearchClicked] = useState<boolean>(false);
   const { user_info } = useMyPageData();
+  const isAlarmActive = useRecoilValue(alarmActiveState);
 
   useEffect(() => {
     const accessToken = localStorage.getItem("accessToken");
@@ -67,7 +70,7 @@ const Header = () => {
         <RightSection>
           {isLoggedIn ? (
             <AlarmButton onClick={() => setIsClicked((prevState) => !prevState)}>
-              <Bell src={`${process.env.PUBLIC_URL}/assets/Header/bell.svg`} />
+              <Bell src={`${process.env.PUBLIC_URL}/assets/Header/${isAlarmActive ? "bell_active.png" : "bell.svg"}`} $active={isAlarmActive} />
               {isClicked ? <AlarmBox /> : null}
             </AlarmButton>
           ) : null}
@@ -237,7 +240,11 @@ const AlarmButton = styled.button`
   cursor: pointer;
 `;
 
-const Bell = styled.img`
+interface BellProps {
+  $active: boolean;
+}
+
+const Bell = styled.img<BellProps>`
   margin-top: 73px;
   padding-right: 5px;
   border-right: 1.5px solid #c3c3c3;
@@ -250,8 +257,8 @@ const Bell = styled.img`
     height: 13px;
   }
   @media (max-width: 768px) {
-    width: 20px;
-    height: 20px;
+    width: ${(props) => (props.$active == true ? "19px" : "20px")};
+    height: ${(props) => (props.$active == true ? "22px" : "20px")};
     padding-right: 3px;
     margin-top: 4.5px;
     background-repeat: no-repeat;

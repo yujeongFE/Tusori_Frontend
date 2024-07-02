@@ -1,9 +1,17 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { checkNotificationHistory } from "api/notification/NotificationHistory";
+import { useRecoilState } from "recoil";
+import { alarmActiveState } from "recoil/atoms";
 
 interface NotificationItemProps {
   $read: boolean;
+}
+
+interface Notification {
+  read: boolean;
+  content: string;
+  createdAt: string;
 }
 
 const AlarmBoxContainer = styled.div`
@@ -79,18 +87,20 @@ const NotificationTimestamp = styled.div<NotificationItemProps>`
 
 const AlarmBox: React.FC = () => {
   const [notifications, setNotifications] = useState<any[]>([]);
+  const [isAlarmActive, setIsAlarmActive] = useRecoilState(alarmActiveState);
 
   useEffect(() => {
     fetchNotifications();
   }, []);
 
   const fetchNotifications = async () => {
-    {
-      const fetchedNotifications = await checkNotificationHistory();
-      if (fetchedNotifications) {
-        setNotifications(fetchedNotifications);
-      }
-    }
+    const response = await checkNotificationHistory();
+    const fetchedNotifications: Notification[] = response.data;
+    setNotifications(fetchedNotifications);
+    // 알림 중에서 읽지 않은 알림이 있으면, isAlarmActive를 true 처리한다.
+    const hasUnreadNotifications = fetchedNotifications.some((notification) => !notification.read);
+    setIsAlarmActive(hasUnreadNotifications);
+    console.log(isAlarmActive);
   };
 
   const parseDate = (dateString: string) => {

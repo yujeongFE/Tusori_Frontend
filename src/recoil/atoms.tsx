@@ -20,3 +20,8 @@ export const saveStockNameState = atom<string>({
   key: "saveStockNameState",
   default: "",
 });
+
+export const alarmActiveState = atom<boolean>({
+  key: "alarmActiveState",
+  default: false,
+});
