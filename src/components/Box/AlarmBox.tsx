@@ -22,7 +22,10 @@ const AlarmBoxContainer = styled.div`
     height: 350px;
   }
   @media (max-width: 768px) {
-    display: none;
+    width: 170px;
+    padding: 20px;
+    top: 65px;
+    transform: translateX(-60%);
   }
 `;
 
@@ -61,11 +64,17 @@ const NotificationItem = styled.div<NotificationItemProps>`
 const NotificationContent = styled.div<NotificationItemProps>`
   font-size: 14px;
   color: ${(props) => (props.$read ? "#bfbfbf" : "#202020")};
+  @media (max-width: 768px) {
+    font-size: 12px;
+  }
 `;
 
 const NotificationTimestamp = styled.div<NotificationItemProps>`
   font-size: 12px;
   color: ${(props) => (props.$read ? "#bfbfbf" : "#202020")};
+  @media (max-width: 768px) {
+    font-size: 11px;
+  }
 `;
 
 const AlarmBox: React.FC = () => {

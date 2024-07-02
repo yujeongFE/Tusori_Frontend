@@ -250,7 +250,16 @@ const Bell = styled.img`
     height: 13px;
   }
   @media (max-width: 768px) {
-    display: none;
+    width: 20px;
+    height: 20px;
+    padding-right: 3px;
+    margin-top: 4.5px;
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: center;
+    text-indent: -9999px;
+    padding-top: 0;
+    border-right: 0px;
   }
 `;
 
