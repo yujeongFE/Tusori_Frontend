@@ -1,17 +1,19 @@
 import React, { createContext, useContext, useState, useEffect, ReactNode } from "react";
-import { MyPageData, UserInfomation, InterestedStocksInfo, recordsStocksInfo, saveStocksInfo } from "./mypageData";
+import { MyPageData, UserInfomation, InterestedStocksInfo, SellRecordsInfo, BuyRecordsInfo, saveStocksInfo } from "./mypageData";
 
 interface MyPageDataState {
   user_info: UserInfomation | null;
   interest_stocks: InterestedStocksInfo[] | null;
-  stock_records: recordsStocksInfo[] | null;
+  sell_records: SellRecordsInfo[] | null;
+  buy_records: BuyRecordsInfo[] | null;
   save_stocks: saveStocksInfo[] | null;
 }
 
 const initialState: MyPageDataState = {
   user_info: null,
   interest_stocks: null,
-  stock_records: null,
+  sell_records: null,
+  buy_records: null,
   save_stocks: null,
 };
 

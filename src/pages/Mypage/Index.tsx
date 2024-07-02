@@ -15,7 +15,7 @@ const Index: React.FC = () => {
   const [BuyingLogsData, setBuyingLogsData] = useState([["종목명", "매수일자", "체결일자", "체결단가", "주문수량", "수익금", "수익률"]]);
   const [SellingLogsData, setSellingLogsData] = useState([["종목명", "매도일자", "체결일자", "체결단가", "주문수량", "수익금", "수익률"]]);
   const { setWords } = useWords();
-  const { interest_stocks, stock_records, save_stocks } = useMyPageData();
+  const { interest_stocks, sell_records, buy_records, save_stocks } = useMyPageData();
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -94,9 +94,8 @@ const Index: React.FC = () => {
 
   //매수 일지
   useEffect(() => {
-    if (stock_records == null) return;
-    const buyingLogs = stock_records
-      .filter((stock) => stock.sell_or_buy === true)
+    if (buy_records == null) return;
+    const buyingLogs = buy_records
       .map((stock) => [
         stock.name,
         stock.sell_or_buy_date,
@@ -108,13 +107,12 @@ const Index: React.FC = () => {
       ])
       .map((row) => row.map((item) => String(item)));
     setBuyingLogsData((prevData) => [...prevData.slice(0, 1), ...buyingLogs]);
-  }, [stock_records]);
+  }, [buy_records]);
 
   //매도 일지
   useEffect(() => {
-    if (stock_records == null) return;
-    const sellingLogs = stock_records
-      .filter((stock) => stock.sell_or_buy === false)
+    if (sell_records == null) return;
+    const sellingLogs = sell_records
       .map((stock) => [
         stock.name,
         stock.sell_or_buy_date,
@@ -126,7 +124,7 @@ const Index: React.FC = () => {
       ])
       .map((row) => row.map((item) => String(item)));
     setSellingLogsData((prevData) => [...prevData.slice(0, 1), ...sellingLogs]);
-  }, [stock_records]);
+  }, [sell_records]);
 
   return (
     <Container>

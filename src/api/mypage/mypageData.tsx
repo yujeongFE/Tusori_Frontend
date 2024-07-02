@@ -21,16 +21,26 @@ export interface InterestedStocksInfo {
   Marcap: number; // 시가총액
 }
 
-// 매수/매도 기록
-export interface recordsStocksInfo {
+// 매도 기록
+export interface SellRecordsInfo {
   name: string; // 종목명
-  sell_or_buy_date: string; // 매도/매수 날짜
+  sell_or_buy_date: string; // 매도 날짜
   record_date: string; // 체결일자
   contract_price: number; // 체결단가
   quantity: number; // 주문수량
   proceeds_rate: number; // 수익률
   proceeds: number; // 수익금
-  sell_or_buy: boolean; // 매도/매수 여부
+}
+
+// 매수 기록
+export interface BuyRecordsInfo {
+  name: string; // 종목명
+  sell_or_buy_date: string; // 매도 날짜
+  record_date: string; // 체결일자
+  contract_price: number; // 체결단가
+  quantity: number; // 주문수량
+  proceeds_rate: number; // 수익률
+  proceeds: number; // 수익금
 }
 
 // 보유주식
@@ -48,7 +58,8 @@ export interface saveStocksInfo {
 export async function MyPageData(): Promise<{
   user_info: UserInfomation;
   interest_stocks: InterestedStocksInfo[];
-  stock_records: recordsStocksInfo[];
+  sell_records: SellRecordsInfo[];
+  buy_records: BuyRecordsInfo[];
   save_stocks: saveStocksInfo[];
 } | null> {
   try {
@@ -62,23 +73,26 @@ export async function MyPageData(): Promise<{
     const responseData = response.data as {
       user_info: UserInfomation;
       interest_stocks: InterestedStocksInfo[];
-      stock_records: recordsStocksInfo[];
+      sell_records: SellRecordsInfo[];
+      buy_records: BuyRecordsInfo[];
       save_stocks: saveStocksInfo[];
     };
 
-    const { user_info, interest_stocks, stock_records: stock_records, save_stocks } = responseData;
+    const { user_info, interest_stocks, sell_records, buy_records, save_stocks } = responseData;
 
     console.log("Mypage Data:", {
       user_info,
       interest_stocks,
-      stock_records,
+      sell_records,
+      buy_records,
       save_stocks,
     });
 
     return {
       user_info,
       interest_stocks,
-      stock_records,
+      sell_records,
+      buy_records,
       save_stocks,
     };
   } catch (error) {
