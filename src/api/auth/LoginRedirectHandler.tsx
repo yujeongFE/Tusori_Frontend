@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import styled from "styled-components";
 import { BeatLoader } from "react-spinners";
 import axios from "axios";
+import sendNotificationRequest from "api/notification/notification";
 
 const Container = styled.div`
   display: flex;
@@ -20,20 +21,21 @@ const LoginRedirectHandler: React.FC = () => {
     const code = new URL(document.location.toString()).searchParams.get("code");
 
     if (code) {
-      axios
-        .post(`${process.env.REACT_APP_BASE_URL}/springboot/user/kakao?code=${code}`)
-        .then((response) => {
-          localStorage.setItem("accessToken", response.data.data.accessToken);
+      axios.post(`${process.env.REACT_APP_BASE_URL}/springboot/user/kakao?code=${code}`).then(async (response) => {
+        localStorage.setItem("accessToken", response.data.data.accessToken);
 
-          // 5시간 후 accessToken 만료
-          setTimeout(
-            () => {
-              localStorage.removeItem("accessToken");
-            },
-            5 * 60 * 60 * 1000,
-          );
-          window.location.href = "/";
-        });
+        // 5시간 후 accessToken 만료
+        setTimeout(
+          () => {
+            localStorage.removeItem("accessToken");
+          },
+          5 * 60 * 60 * 1000,
+        );
+        // 로그인 시 알림 연결
+        await sendNotificationRequest(response.data.data.accessToken);
+
+        window.location.href = "/";
+      });
     }
   }, []);
 
