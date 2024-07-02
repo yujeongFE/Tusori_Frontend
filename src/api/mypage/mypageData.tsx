@@ -11,6 +11,7 @@ export interface UserInfomation {
 export interface InterestedStocksInfo {
   Code: string; // 종목코드
   Name: string; // 종목명
+  Sector: string; // 업종
   Close: string; // 종가
   Changes: number; // 전일비
   ChagesRatio: number; // 등락률
