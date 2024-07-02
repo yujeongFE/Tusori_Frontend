@@ -95,8 +95,11 @@ const AlarmBox: React.FC = () => {
 
   const fetchNotifications = async () => {
     const response = await checkNotificationHistory();
-    const fetchedNotifications: Notification[] = response.data;
+
+    const fetchedNotifications: Notification[] = response ?? [];
+
     setNotifications(fetchedNotifications);
+
     // 알림 중에서 읽지 않은 알림이 있으면, isAlarmActive를 true 처리한다.
     const hasUnreadNotifications = fetchedNotifications.some((notification) => !notification.read);
     setIsAlarmActive(hasUnreadNotifications);
