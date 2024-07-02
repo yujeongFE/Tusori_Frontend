@@ -1,7 +1,8 @@
-import React from "react";
+import React, { useState } from "react";
 import styled, { css } from "styled-components";
 import ScrollBar from "../ScrollBar";
 import NumberBtn from "components/Dictionary/NumberBtn";
+import { BookmarkRequest } from "api/bookmark/bookMark";
 import { useWords } from "components/SideBar/DictionarySideBar/WordsContext";
 
 interface TableProps {
@@ -87,7 +88,7 @@ const MypageTable: React.FC<TableProps> = ({ data }: TableProps) => {
                 <tr key={rowIndex}>
                   {rowData.map((cellData, cellIndex) => (
                     <StyledTd key={cellIndex} $isFirst={cellIndex === 0} $isSecond={cellIndex === 1} $cellData={cellData}>
-                      {cellIndex === 0 ? <img src={"/assets/Industry/filledStar.svg"} /> : cellData}
+                      {cellData}
                     </StyledTd>
                   ))}
                 </tr>

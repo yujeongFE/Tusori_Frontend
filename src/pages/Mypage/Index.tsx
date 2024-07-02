@@ -7,6 +7,7 @@ import { Container, Text, LogsBtnContainer, LogsBtn, Bar } from "./Style";
 import MobliePageName from "components/layouts/MobliePageName";
 import { useNavigate } from "react-router-dom";
 import { useMyPageData } from "api/mypage/mypageDataContext";
+import { BookmarkRequest } from "api/bookmark/bookMark";
 
 const Index: React.FC = () => {
   const [activeTable, setActiveTable] = useState<"BuyingLogs" | "SellingLogs">("BuyingLogs");
@@ -25,6 +26,19 @@ const Index: React.FC = () => {
       navigate("/login");
     }
   }, [navigate]);
+
+  const [isFavorite, setIsFavorite] = useState<boolean>(true);
+
+  const toggleFavorite = async (sector: string, code: string) => {
+    setIsFavorite(!isFavorite);
+    const method = "DELETE";
+    await BookmarkRequest(sector, code, method);
+
+    // 관심 주식 제거하면 필터링시키기
+    setInterestedData((prevData) => {
+      return prevData.filter((stock) => stock[9] !== code);
+    });
+  };
 
   useEffect(() => {
     setWords([
@@ -75,8 +89,13 @@ const Index: React.FC = () => {
   useEffect(() => {
     if (interest_stocks == null) return;
     const interestedData = interest_stocks
-      .map((stock) => [
-        "",
+      .map((stock, index) => [
+        <img
+          key={index}
+          src={`${process.env.PUBLIC_URL}/assets/Industry/filledStar.svg`}
+          style={{ cursor: "pointer" }}
+          onClick={() => toggleFavorite(stock.Sector, stock.Code)}
+        />,
         stock.Name,
         stock.Close,
         stock.Changes > 0 ? `▲ ${stock.Changes.toLocaleString()}` : `▼ ${Math.abs(stock.Changes).toLocaleString()}`,
@@ -86,6 +105,7 @@ const Index: React.FC = () => {
         stock.Low.toLocaleString(),
         stock.Volume.toLocaleString(),
         stock.Marcap.toLocaleString(),
+        stock.Code,
       ])
       .map((row) => row.map((item) => String(item)));
 
@@ -133,7 +153,7 @@ const Index: React.FC = () => {
       <Text>MY 보유주식</Text>
       <MypageTable data={MyStocksData} />
       <Text>관심 주식</Text>
-      <InterestedStocksTable data={InterestedTableData} />
+      <InterestedStocksTable data={InterestedTableData.filter((_, index) => index !== 10)} />
       <LogsBtnContainer>
         <LogsBtn onClick={() => setActiveTable("BuyingLogs")} $active={activeTable === "BuyingLogs"}>
           매수 일지
