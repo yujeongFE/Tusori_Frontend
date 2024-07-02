@@ -54,6 +54,23 @@ const BannerText = styled.div`
     font-weight: 600;
     line-height: normal;
   }
+  @media (max-width: 450px) {
+    color: var(--Main-Font, #2a2a2a);
+    font-family: "ONE-Mobile-Bold";
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+  }
+
+  @media (max-width: 300px) {
+    color: var(--Main-Font, #2a2a2a);
+    font-family: "ONE-Mobile-Bold";
+    font-size: 11px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+  }
 `;
 
 const Mascot = styled.img`
