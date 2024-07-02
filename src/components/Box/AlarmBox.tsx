@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
-import checkNotificationHistory from "api/notification/NotificationHistory";
+import { checkNotificationHistory } from "api/notification/NotificationHistory";
 
 const AlarmBoxContainer = styled.div`
   width: 20%;
@@ -11,10 +11,7 @@ const AlarmBoxContainer = styled.div`
   top: 130px;
   z-index: 10;
   padding: 20px;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  align-items: center;
+
   @media (max-width: 900px) {
     width: 200px;
     height: 350px;
@@ -25,39 +22,60 @@ const AlarmBoxContainer = styled.div`
 `;
 
 const Title = styled.div`
-  display: flex;
   font-size: 14px;
   font-family: Pretendard-Bold;
-  margin-bottom: 10px;
+  margin-bottom: 20px;
 `;
 
 const AlarmContainer = styled.div`
   display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+`;
+
+const EmptyAlarm = styled.div`
   width: 100%;
-  height: 90%;
+  height: 100%;
+  display: flex;
   justify-content: center;
-  align-items: center;
+  margin-top: 140px;
 `;
 
 const NotificationItem = styled.div`
-  width: 100%;
-  height: 30px;
+  width: 95%;
+  height: 50px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 10px;
   margin-bottom: 10px;
-  padding: 10px;
-  background-color: #f0f0f0;
-  border-radius: 5px;
+  border-radius: 10px;
+  background: #fff;
+  box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.25);
+`;
+
+const NotificationContent = styled.div`
+  font-size: 14px;
+`;
+
+const NotificationTimestamp = styled.div`
+  font-size: 12px;
+  color: #777;
 `;
 
 const AlarmBox: React.FC = () => {
   const [notifications, setNotifications] = useState<any[]>([]);
+
   useEffect(() => {
     fetchNotifications();
   }, []);
 
   const fetchNotifications = async () => {
-    const fetchedNotifications = await checkNotificationHistory();
-    if (fetchedNotifications) {
-      setNotifications(fetchedNotifications);
+    {
+      const fetchedNotifications = await checkNotificationHistory();
+      if (fetchedNotifications) {
+        setNotifications(fetchedNotifications);
+      }
     }
   };
 
@@ -66,12 +84,12 @@ const AlarmBox: React.FC = () => {
       <Title>알림</Title>
       <AlarmContainer>
         {notifications.length === 0 ? (
-          <AlarmContainer>새로운 알림이 없습니다.</AlarmContainer>
+          <EmptyAlarm>새로운 알림이 없습니다.</EmptyAlarm>
         ) : (
           notifications.map((notification, index) => (
             <NotificationItem key={index}>
-              <div>{notification.content}</div>
-              <div>{notification.createdAt}</div>
+              <NotificationContent>{notification.content}</NotificationContent>
+              <NotificationTimestamp>{notification.createdAt}</NotificationTimestamp>
             </NotificationItem>
           ))
         )}
