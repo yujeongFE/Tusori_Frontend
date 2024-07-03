@@ -252,11 +252,13 @@ const CloseModalButton = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+
   @media (max-width: 768px) {
     width: 32vw;
-    height: 45px;
+    height: 3.5vh;
     font-size: 14px;
     border: 0px;
+    margin-bottom: 3.4vh;
   }
 `;
 
@@ -298,6 +300,10 @@ const StockOrderBox: React.FC<StockOrderBoxProps> = ({ code, name, isModalOpen, 
     if (isMobile && isModalOpen) {
       setIsModalOpen?.(false);
     }
+    // isMobile 상태가 아닐 때, 모바일 상태 초기화
+    if (!isMobile && mobileGuid) {
+      setMobileGuid?.(false);
+    }
   }, [isMobile]);
 
   const handleBuyButtonClick = async () => {
@@ -306,34 +312,23 @@ const StockOrderBox: React.FC<StockOrderBoxProps> = ({ code, name, isModalOpen, 
       return;
     }
 
-    try {
-      const accessToken = localStorage.getItem("accessToken");
-      // 로그인이 안되어 있는 경우
-      if (!accessToken) {
-        alert("로그인이 필요한 서비스입니다.");
-        navigate("/login");
-      }
-
-      // 매수시 가용 자산이 부족한 경우
-      const isSell = activeButton === "sell"; // 매도 버튼인지 여부 확인
-      if (!isSell && buyActive && Number(price) * Number(quantity) > userInfo?.assets) {
-        alert("가용 자산이 부족합니다.");
-        return;
-      }
-
-      setIsModalOpen?.(true); // 성공 시 모달 열기
-
-      // 주식 거래 요청 보내기
-      const responseData: StockOrderSuccessResponse | null = await sendStockOrderRequest(code, parsedPrice, parsedQuantity, isSell);
-
-      if (responseData) {
-        setPurchaseData(responseData);
-      } else {
-        console.error("Invalid response received");
-      }
-    } catch (error) {
-      console.error("Error:", error); // 요청 실패 시 에러 처리
+    const accessToken = localStorage.getItem("accessToken");
+    // 로그인이 안되어 있는 경우
+    if (!accessToken) {
+      alert("로그인이 필요한 서비스입니다.");
+      navigate("/login");
     }
+
+    // 매수시 가용 자산이 부족한 경우
+    const isSell = activeButton === "sell"; // 매도 버튼인지 여부 확인
+
+    if (!isSell && buyActive && Number(price) * Number(quantity) > userInfo?.assets) {
+      alert("가용 자산이 부족합니다.");
+      return;
+    }
+
+    setIsModalOpen?.(true); // 조건을 충족할 경우 거래하시겠어요? 모달 열기
+    isMobile && setMobileGuid?.(true); // 모바일 버전인 경우 거래하시겠어요? 컴포넌트 변환
   };
 
   const handleCloseModal = () => {
@@ -341,7 +336,17 @@ const StockOrderBox: React.FC<StockOrderBoxProps> = ({ code, name, isModalOpen, 
     setMobileGuid(false);
   };
 
-  const handleConfirmButtonClick = () => {
+  const handleConfirmButtonClick = async () => {
+    const isSell = activeButton === "sell"; // 매도 버튼인지 여부 확인
+    // 거래하시겠어요? 모달에서 확인 버튼 클릭 시 주식 거래 요청 보내기
+    const responseData: StockOrderSuccessResponse | null = await sendStockOrderRequest(code, parsedPrice, parsedQuantity, isSell);
+
+    if (responseData) {
+      setPurchaseData(responseData);
+    } else {
+      console.error("Invalid response received");
+    }
+
     setIsModalOpen?.(false);
     setGuidModalOpen?.(true);
   };
@@ -439,7 +444,8 @@ const StockOrderBox: React.FC<StockOrderBoxProps> = ({ code, name, isModalOpen, 
             {" "}
             <span>{activeButton === "buy" ? "매수하기" : "매도하기"}</span>
           </ConfirmButton>
-          {isModalOpen && (
+
+          {!isMobile && isModalOpen && (
             <ConfirmModal>
               <div style={{ margin: "30px" }}>{name}</div>
               <Line />
@@ -472,7 +478,7 @@ const StockOrderBox: React.FC<StockOrderBoxProps> = ({ code, name, isModalOpen, 
               </div>
             </ConfirmModal>
           )}
-          {guidModalOpen && (
+          {!isMobile && guidModalOpen && (
             <ConfirmModal style={{ height: "30vh", justifyContent: "center", alignItems: "center" }}>
               <div style={{ color: "#2E5CFF" }}>거래 요청 완료</div>
               <span style={{ textAlign: "center", margin: "50px", fontWeight: "500" }}>
@@ -489,6 +495,8 @@ const StockOrderBox: React.FC<StockOrderBoxProps> = ({ code, name, isModalOpen, 
           )}
         </>
       )}
+
+      {/* 모바일 버전인 경우 */}
       {isMobile && mobileGuid && (
         <>
           <div style={{ margin: "30px" }}>{}</div>
@@ -517,6 +525,24 @@ const StockOrderBox: React.FC<StockOrderBoxProps> = ({ code, name, isModalOpen, 
           >
             <CloseModalButton onClick={handleCloseModal}>취소</CloseModalButton>
             <CloseModalButton onClick={handleConfirmButtonClick} style={{ background: "#708FFE" }}>
+              확인
+            </CloseModalButton>
+          </div>
+        </>
+      )}
+
+      {isMobile && guidModalOpen && (
+        <>
+          <div style={{ marginTop: "30px" }}>
+            <div style={{ color: "#2E5CFF" }}>거래 요청 완료</div>
+          </div>
+          <span style={{ textAlign: "center", margin: "50px", fontWeight: "500" }}>
+            <span style={{ fontWeight: "500" }}>{SuccessMessage} </span>
+            <br />
+            {popupMessage}
+          </span>
+          <div>
+            <CloseModalButton onClick={handleCloseGuidModal} style={{ background: "#708FFE", width: "23vw" }}>
               확인
             </CloseModalButton>
           </div>
