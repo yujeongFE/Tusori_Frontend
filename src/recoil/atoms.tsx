@@ -25,3 +25,8 @@ export const alarmActiveState = atom<boolean>({
   key: "alarmActiveState",
   default: false,
 });
+
+export const selectedDetailsState = atom<string | null>({
+  key: "selectedDetailsState",
+  default: "",
+});

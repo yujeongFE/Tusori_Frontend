@@ -3,6 +3,8 @@ import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 import { useWords } from "components/SideBar/DictionarySideBar/WordsContext";
 import NumberBtn from "components/Dictionary/NumberBtn";
+import { selectedDetailsState } from "recoil/atoms";
+import { useRecoilValue } from "recoil";
 
 interface TopStockInfo {
   Code: string;
@@ -144,10 +146,11 @@ const More = styled.span`
 
 const IndustryComparisonTable: React.FC<{ height: string; isMobile: boolean; data: TopStockInfos }> = ({ height, isMobile, data }) => {
   const navigate = useNavigate();
+  const selectedDetails = useRecoilValue(selectedDetailsState);
   const { isOpen } = useWords();
 
   const handleClick = () => {
-    navigate("/industry/details");
+    navigate("/industry/details", { state: { value: selectedDetails } }); // 이동할때 이전에 선택한 업종명 전달
   };
 
   return (

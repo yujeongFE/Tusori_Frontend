@@ -1,6 +1,9 @@
+/* eslint-disable */
 import React, { useState } from "react";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
+import { useRecoilState } from "recoil"; 
+import { selectedDetailsState } from "recoil/atoms";
 
 const StockButtonsWrapper = styled.div`
   display: flex;
@@ -64,7 +67,7 @@ const StockButtonContainer = styled.button<{ $active: boolean }>`
     font-size: 10px;
     font-weight: 500;
   }
-  
+
   @media (max-width: 250px) {
     width: 25vw;
     min-width: 0px;
@@ -167,6 +170,7 @@ interface StockInfo {
   KOSDAQ: string[];
   KONEX: string[];
 }
+
 interface IndustrySectorBoxProps {
   sectorInfo: StockInfo | null;
 }
@@ -174,6 +178,7 @@ interface IndustrySectorBoxProps {
 const IndustrySectorBox: React.FC<IndustrySectorBoxProps> = ({ sectorInfo }) => {
   const navigate = useNavigate();
   const [isActive, setIsActive] = useState<"KOSPI" | "KOSDAQ" | "KONEX">("KOSPI");
+  const [selectedDetails, setSelectedDetails] = useRecoilState<string | null>(selectedDetailsState);
 
   const KOSPI_industryTitles = sectorInfo?.KOSPI || [];
   const KOSDAQ_industryTitles = sectorInfo?.KOSDAQ || [];
@@ -182,6 +187,7 @@ const IndustrySectorBox: React.FC<IndustrySectorBoxProps> = ({ sectorInfo }) => 
   const data = isActive === "KOSPI" ? KOSPI_industryTitles : isActive === "KOSDAQ" ? KOSDAQ_industryTitles : KONEX_industyTitles;
 
   const handleBoxClick = (title: string) => {
+    setSelectedDetails(title); 
     navigate("details", { state: { value: title, data: data } });
   };
 
