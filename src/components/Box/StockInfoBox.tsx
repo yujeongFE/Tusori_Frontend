@@ -373,7 +373,11 @@ const StockInfoBox: React.FC<StockInfoBoxProps> = ({ title, category = [], login
 
   const isMyStockTable = title === "MY 보유 주식";
   const handleTitleClick = () => {
-    navigate("/mypage");
+    if (isMyStockTable) {
+      navigate("/mypage");
+    } else {
+      navigate("/industry");
+    }
   };
 
   useEffect(() => {

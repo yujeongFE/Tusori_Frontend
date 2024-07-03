@@ -3,6 +3,8 @@ import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 import { useWords } from "components/SideBar/DictionarySideBar/WordsContext";
 import NumberBtn from "components/Dictionary/NumberBtn";
+import { selectedDetailsState } from "recoil/atoms";
+import { useRecoilValue } from "recoil";
 
 interface TopStockInfo {
   Code: string;
@@ -62,7 +64,7 @@ const TableContainer = styled.div`
   flex-grow: 1;
   @media (max-width: 768px) {
     font-size: 13px;
-    margin-left: 0vw;
+    margin-left: 0px;
     display: flex;
     justify-content: center;
   }
@@ -73,8 +75,8 @@ const StyledTable = styled.table`
   border-collapse: collapse;
 `;
 
-const StyledTh = styled.th.attrs<{ 'data-istitlecell'?: boolean }>(({ 'data-istitlecell': isTitleCell }) => ({
-  'data-istitlecell': isTitleCell,
+const StyledTh = styled.th.attrs<{ "data-istitlecell"?: boolean }>(({ "data-istitlecell": isTitleCell }) => ({
+  "data-istitlecell": isTitleCell,
 }))`
   padding: 8px;
   width: 16.6%;
@@ -144,10 +146,11 @@ const More = styled.span`
 
 const IndustryComparisonTable: React.FC<{ height: string; isMobile: boolean; data: TopStockInfos }> = ({ height, isMobile, data }) => {
   const navigate = useNavigate();
+  const selectedDetails = useRecoilValue(selectedDetailsState);
   const { isOpen } = useWords();
 
   const handleClick = () => {
-    navigate("/mypage");
+    navigate("/industry/details", { state: { value: selectedDetails } }); // 이동할때 이전에 선택한 업종명 전달
   };
 
   return (
@@ -161,7 +164,7 @@ const IndustryComparisonTable: React.FC<{ height: string; isMobile: boolean; dat
                 <tr>
                   <StyledTh data-istitlecell>종목명</StyledTh>
                   {data?.top_5_stocks_info
-                    .slice(0, isMobile ? 3 : data?.top_5_stocks_info.length)
+                    .slice(0, isMobile ? 2 : data?.top_5_stocks_info.length)
                     .map((stock, index) => <StyledTh key={index}>{stock.Name}</StyledTh>)}
                 </tr>
               </thead>
@@ -169,12 +172,12 @@ const IndustryComparisonTable: React.FC<{ height: string; isMobile: boolean; dat
                 <tr>
                   <StyledTd>{!isMobile && isOpen && <NumberBtn number={23} />}현재가</StyledTd>
                   {data?.top_5_stocks_info
-                    .slice(0, isMobile ? 3 : data?.top_5_stocks_info.length)
+                    .slice(0, isMobile ? 2 : data?.top_5_stocks_info.length)
                     .map((stock, index) => <StyledTd key={index}>{Number(stock.Close).toLocaleString()}</StyledTd>)}
                 </tr>
                 <tr>
                   <StyledTd>{!isMobile && isOpen && <NumberBtn number={24} />}등락률</StyledTd>
-                  {data?.top_5_stocks_info.slice(0, isMobile ? 3 : data?.top_5_stocks_info.length).map((stock, index) => (
+                  {data?.top_5_stocks_info.slice(0, isMobile ? 2 : data?.top_5_stocks_info.length).map((stock, index) => (
                     <StyledTd style={{ color: stock.ChagesRatio >= 0 ? "red" : "blue" }} key={index}>
                       {stock.ChagesRatio >= 0 ? `+${stock.ChagesRatio.toLocaleString()}%` : `${stock.ChagesRatio.toLocaleString()}%`}
                     </StyledTd>
@@ -183,37 +186,37 @@ const IndustryComparisonTable: React.FC<{ height: string; isMobile: boolean; dat
                 <tr>
                   <StyledTd>시가총액</StyledTd>
                   {data?.top_5_stocks_info
-                    .slice(0, isMobile ? 3 : data?.top_5_stocks_info.length)
+                    .slice(0, isMobile ? 2 : data?.top_5_stocks_info.length)
                     .map((stock, index) => <StyledTd key={index}>{stock?.Marcap.toLocaleString()}</StyledTd>)}
                 </tr>
                 <tr>
                   <StyledTd>거래량</StyledTd>
                   {data?.top_5_stocks_info
-                    .slice(0, isMobile ? 3 : data?.top_5_stocks_info.length)
+                    .slice(0, isMobile ? 2 : data?.top_5_stocks_info.length)
                     .map((stock, index) => <StyledTd key={index}>{stock?.Volume.toLocaleString()}</StyledTd>)}
                 </tr>
                 <tr>
                   <StyledTd>배당 수익률</StyledTd>
                   {data?.top_5_stocks_info
-                    .slice(0, isMobile ? 3 : data?.top_5_stocks_info.length)
+                    .slice(0, isMobile ? 2 : data?.top_5_stocks_info.length)
                     .map((stock, index) => <StyledTd key={index}>{stock?.DIV.toLocaleString()}%</StyledTd>)}
                 </tr>
                 <tr>
                   <StyledTd>EPS</StyledTd>
                   {data?.top_5_stocks_info
-                    .slice(0, isMobile ? 3 : data?.top_5_stocks_info.length)
+                    .slice(0, isMobile ? 2 : data?.top_5_stocks_info.length)
                     .map((stock, index) => <StyledTd key={index}>{stock?.EPS.toLocaleString()}</StyledTd>)}
                 </tr>
                 <tr>
                   <StyledTd>PBR</StyledTd>
                   {data?.top_5_stocks_info
-                    .slice(0, isMobile ? 3 : data?.top_5_stocks_info.length)
+                    .slice(0, isMobile ? 2 : data?.top_5_stocks_info.length)
                     .map((stock, index) => <StyledTd key={index}>{stock?.PBR.toLocaleString()}</StyledTd>)}
                 </tr>
                 <tr>
                   <StyledTd>PER</StyledTd>
                   {data?.top_5_stocks_info
-                    .slice(0, isMobile ? 3 : data?.top_5_stocks_info.length)
+                    .slice(0, isMobile ? 2 : data?.top_5_stocks_info.length)
                     .map((stock, index) => <StyledTd key={index}>{stock?.PER.toLocaleString()}</StyledTd>)}
                 </tr>
               </tbody>
