@@ -50,6 +50,7 @@ const Container = styled.div<{ $mobile: boolean }>`
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
+  overflow-y: auto;
   @media (max-width: 768px) {
     width: 100%;
     margin-top: 2vh;

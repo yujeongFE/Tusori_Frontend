@@ -8,6 +8,10 @@ const StockButtonsWrapper = styled.div`
   @media (max-width: 768px) {
     margin-top: 2vh;
   }
+
+  @media (max-width: 300px) {
+    width: 100vw;
+  }
 `;
 
 const StockButtonContainer = styled.button<{ $active: boolean }>`
@@ -28,11 +32,44 @@ const StockButtonContainer = styled.button<{ $active: boolean }>`
   line-height: normal;
 
   @media (max-width: 768px) {
-    width: 14vw;
+    width: 20vw;
     max-width: 60px;
     min-width: 0px;
     height: 26px;
     font-size: 13px;
+    font-weight: 500;
+  }
+
+  @media (max-width: 350px) {
+    width: 20vw;
+    max-width: 60px;
+    min-width: 0px;
+    height: 22px;
+    font-size: 11px;
+    font-weight: 500;
+  }
+
+  @media (max-width: 300px) {
+    width: 20vw;
+    min-width: 0px;
+    height: 22px;
+    font-size: 10px;
+    font-weight: 500;
+  }
+
+  @media (max-width: 250px) {
+    width: 20vw;
+    min-width: 0px;
+    height: 22px;
+    font-size: 10px;
+    font-weight: 500;
+  }
+  
+  @media (max-width: 250px) {
+    width: 25vw;
+    min-width: 0px;
+    height: 22px;
+    font-size: 10px;
     font-weight: 500;
   }
 `;
