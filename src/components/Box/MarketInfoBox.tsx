@@ -72,6 +72,13 @@ const Title = styled.div`
     font-size: 14px;
     font-weight: 800;
   }
+
+  @media (max-width: 350px) {
+    color: #fff;
+    font-family: Pretendard-Bold;
+    font-size: 12px;
+    font-weight: 800;
+  }
 `;
 
 const ArrowImg = styled.img`
@@ -103,7 +110,11 @@ const CurrentIndex = styled.div`
   }
   @media (max-width: 768px) {
     margin-top: 20px;
-    font-size: 18px;
+    font-size: 20px;
+  }
+  @media (max-width: 350px) {
+    margin-top: 20px;
+    font-size: 15px;
   }
 `;
 
@@ -130,6 +141,10 @@ const ChangeIndex = styled.div`
     font-size: 14px;
     margin-top: 1.2vh;
   }
+  @media (max-width: 350px) {
+    margin-top: 10px;
+    font-size: 10px;
+  }
 `;
 
 const ChangePercent = styled.span`
@@ -142,6 +157,10 @@ const ChangePercent = styled.span`
   }
   @media (max-width: 768px) {
     font-size: 14px;
+    margin-left: 4.26vw;
+  }
+  @media (max-width: 350px) {
+    font-size: 10px;
     margin-left: 4.26vw;
   }
 `;
