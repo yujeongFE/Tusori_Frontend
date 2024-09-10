@@ -35,3 +35,10 @@
 - 매수, 매도 금액을 입력하면, 가용자산 내에서 거래 체결
 
 ![image](https://github.com/user-attachments/assets/dcf9380d-9e62-4e98-b334-9b88b47bc53c)
+
+
+## 설명 모드
+- 화면 상단 좌측 토글을 클릭하면, 투자 모드에서 설명 모드로 전환됩니다.
+- 오른쪽에서 슬라이드가 나오면서, 페이지 내의 투자 용어 뜻을 조회할 수 있습니다.
+![image](https://github.com/user-attachments/assets/7895d15a-cced-4f4e-93cf-e0966d6b02a7)
+
