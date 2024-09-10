@@ -42,3 +42,10 @@
 - 오른쪽에서 슬라이드가 나오면서, 페이지 내의 투자 용어 뜻을 조회할 수 있습니다.
 ![image](https://github.com/user-attachments/assets/7895d15a-cced-4f4e-93cf-e0966d6b02a7)
 
+
+## 마이페이지 
+- 보유 주식 조회
+- 관심 주식 조회 및 수정 
+- 매수, 매도 주식 조회
+![image](https://github.com/user-attachments/assets/d07ad173-ea63-4596-97e0-4c1d124f3470)
+
